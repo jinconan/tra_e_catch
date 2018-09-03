@@ -3,12 +3,12 @@
 <html>
 <head>
 	<title>Home</title>
+	<%@ include file="/WEB-INF/views/_common/commonUI.jsp" %>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>  The time on the server is ${serverTime}. </P>
+	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
+	<div class="container">
+	this is a Tra e Catch's default page
+	</div>
 </body>
 </html>
