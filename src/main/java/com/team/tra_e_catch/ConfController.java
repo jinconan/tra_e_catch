@@ -19,4 +19,10 @@ public class ConfController {
 		return "conf/login";
 	}
 	
+	@RequestMapping(value = "/pay/Teamsal", method = RequestMethod.GET)
+	public String Teamsal(Locale locale, Model model) {
+		logger.info("검색 페이지");
+		return "pay/deciconf/Teamsal";
+	}
+	
 }
