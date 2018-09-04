@@ -22,4 +22,11 @@ public class PlanController {
 		logger.info("viewPropList(pageNumber="+pageNumber+")");
 		return "plan/prop/propList";
 	}
+	
+	@RequestMapping(value="/prop/view/insertProp")
+	public String viewInsertProp(@RequestParam Map<String,Object> pMap) {
+		logger.info("viewInsertProp()");
+		logger.info("parameter : " + pMap);
+		return "plan/prop/insertProp";
+	}
 }

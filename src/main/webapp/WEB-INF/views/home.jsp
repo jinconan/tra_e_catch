@@ -53,6 +53,7 @@ $('#p_table').bootstrapTable({
 });
 
 </script>
+<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 <div class="col-xs-offset-3">
 <div class="col-xs-3">
 	<div class="container col-xs-12">
@@ -106,9 +107,7 @@ $('#p_table').bootstrapTable({
 	</nav>
 </div>
 
-=======
 <body>
-<jsp:include page="/WEB-INF/views/_common/header.jsp" />
->>>>>>> refs/heads/master
+
 </body>
 </html>
