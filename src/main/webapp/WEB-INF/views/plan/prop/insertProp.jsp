@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>트라E캐치 홈화면</title>
+<title>기획서 등록</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp" %>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/_common/header.jsp" />
+
 </body>
 </html>
