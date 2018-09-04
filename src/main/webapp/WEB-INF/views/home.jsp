@@ -3,9 +3,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <title>인사평정작성페이지</title>
+=======
+<title>트라E캐치 홈화면</title>
+<%@ include file="/WEB-INF/views/_common/commonUI.jsp" %>
+>>>>>>> refs/heads/master
 </head>
+<<<<<<< HEAD
 <body style="margin-top: 30px">
 <script type="text/javascript">
 var $table = $('#p_table');
@@ -107,5 +113,9 @@ $('#p_table').bootstrapTable({
 	</nav>
 </div>
 
+=======
+<body>
+<jsp:include page="/WEB-INF/views/_common/header.jsp" />
+>>>>>>> refs/heads/master
 </body>
 </html>

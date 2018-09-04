@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>기획서 수정</title>
+<%@ include file="/WEB-INF/views/_common/commonUI.jsp" %>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 
 </body>
 </html>
