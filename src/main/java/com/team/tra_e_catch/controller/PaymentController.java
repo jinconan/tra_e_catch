@@ -1,4 +1,4 @@
-package com.team.tra_e_catch;
+package com.team.tra_e_catch.controller;
 
 import java.util.Locale;
 import java.util.Map;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping(value="/per")
-public class PersonnelController {
+@RequestMapping(value="/pay")
+public class PaymentController {
 	
-	private static final Logger logger = Logger.getLogger(PersonnelController.class);
+	private static final Logger logger = Logger.getLogger(PaymentController.class);
 
 }

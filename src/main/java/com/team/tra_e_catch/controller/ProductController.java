@@ -1,4 +1,4 @@
-package com.team.tra_e_catch;
+package com.team.tra_e_catch.controller;
 
 import java.util.Locale;
 import java.util.Map;

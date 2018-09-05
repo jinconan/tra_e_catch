@@ -13,14 +13,17 @@
 	<!-- 본문 -->
 	<div class="container">
 		<!-- 좌측 사이드 메뉴 -->
+		<%--
 		<nav class="col-sm-2 nav nav-pills nav-stacked nav-pills-stacked-example">
 			<li role="presentation" class="active"><a href="<%=request.getContextPath()%>/plan/prop/view/propList/1">기획서 리스트</a></li>
 			<li role="presentation"><a href="<%=request.getContextPath()%>/plan/prop/view/insertProp">기획서 작성</a></li>
 		</nav>
-
+		--%>
+		<%@ include file="/WEB-INF/views/_common/submenu.jsp" %>
+		
 		<!-- 중앙 게시판 -->
 		<!-- 테이블 + 페이지네이션 + 검색창 -->
-		<div class="col-sm-8">
+		<div class="col-sm-10">
 			<table class="table table-condensed">
 				<thead>
 					<tr>
@@ -109,5 +112,7 @@
 		</div>
 
 	</div>
+
+	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </body>
 </html>
