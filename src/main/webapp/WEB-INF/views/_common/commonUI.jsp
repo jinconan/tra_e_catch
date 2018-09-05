@@ -12,4 +12,5 @@
 <script src="<%=path.toString()%>/js/jquery-2.2.4.min.js"></script>
 <script src="<%=path.toString()%>/js/bootstrap.min.js"></script>
 <script src="<%=path.toString()%>/js/moment.js"></script>
+<script src="<%=path.toString()%>/js/bootstrap-table.min.js"></script>
 <script src="<%=path.toString()%>/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
