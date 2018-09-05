@@ -15,41 +15,22 @@
 .table-striped {
 	margin-top: 10px;
 }
-.sx-buttom{
+
+.sx-buttom {
 	margin-top: 30px;
 }
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
-	<div class="container">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="container">
+			<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
+		<div class="col-sm-10">
 			<form class="form-signin">
-				<h2 class="form-signin-heading">팀 장부정리 테이블</h2>
-				<div class="row" Style="margin-bottom: 5px">
-					<div class="col-xs-1">
-						<h5>날짜:</h5>
-					</div>
-					<div class="col-xs-2 los">
-						<input class="form-control" id="fromDate" type="text"
-							placeholder="시작날짜">
-					</div>
-					<div class="col-xs-2 los">
-						<input class="form-control" id="toDate" type="text"
-							placeholder="종료날짜">
-					</div>
-					<div class="col-xs-1">
-						<h5>금액:</h5>
-					</div>
-					<div class="col-xs-2 los">
-						<input class="form-control" type="text" placeholder="시작금액">
-					</div>
-					<div class="col-xs-2 los">
-						<input class="form-control" type="text" placeholder="종료금액">
-					</div>
-				</div>
 				<div class="row">
-					<div class="col-xs-3">
+				<h2 class="form-signin-heading">세금 관리</h2>
+				</div>
+				<div class="col-xs-3">
 						<select class="form-control">
 							<option>현영</option>
 							<option>카드</option>
@@ -57,50 +38,32 @@
 							<option>예산</option>
 						</select>
 					</div>
-					<div class="col-xs-6">
-						<input type="text" class="form-control" placeholder="Text input">
-					</div>
-					<div class="col-xs-2">
-						<input type="button" class="form-control" value="검색">
-					</div>
-				</div>
 				<div class="row">
 					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th>번호</th>
-								<th>날짜</th>
-								<th>적요</th>
+								<th>일자</th>
+								<th>분류</th>
+								<th>구분</th>
+								<th>계정과목</th>
 								<th>거래처</th>
-								<th>수입</th>
-								<th>비용</th>
-								<th>고정자산</th>
-								<th>증빙</th>
-								<th>예금</th>
+								<th>적요</th>
+								<th>금액</th>
+								<th>첨부자료</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>1</td>
 								<td>2018-08-01</td>
-								<td>팀활동비</td>
-								<td>본사</td>
+								<td>팀운영비</td>
+								<td>입금</td>
+								<td>당좌예금</td>
+								<td>직원</td>
+								<td>급여 지금</td>
 								<td>3000000</td>
-								<td>0</td>
-								<td>0</td>
-								<td>예산</td>
-								<td>3000000</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>2018-08-02</td>
-								<td>팀회식</td>
-								<td>마포닭갈비</td>
-								<td>0</td>
-								<td>167000</td>
-								<td>0</td>
-								<td>카드</td>
-								<td>2833000</td>
+								<td></td>
 							</tr>
 						</tbody>
 					</table>
@@ -140,5 +103,6 @@
 			defalutDate : new Date()
 		});
 	</script>
+	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </body>
 </html>
