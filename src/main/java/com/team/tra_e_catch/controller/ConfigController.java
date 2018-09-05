@@ -26,6 +26,13 @@ public class ConfigController {
 		logger.info("viewLogin");
 		return "conf/login";
 	}
+	
+	@RequestMapping(value = "/view/join", method = RequestMethod.GET)
+	public String viewJoin(@RequestParam Map<String, Object> pMap) {
+		logger.info("viewJoin");
+		return "conf/join";
+	}
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(@RequestParam Map<String, Object> pMap) {
 		logger.info("logout");

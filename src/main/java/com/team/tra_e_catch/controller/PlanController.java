@@ -25,7 +25,7 @@ public class PlanController {
 		//subMenuList : List<Map<String, Object>>
 		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
 		//curSubMenu : String
-		ApplicationContext context = new ClassPathXmlApplicationContext("auto-submenu.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
@@ -38,10 +38,22 @@ public class PlanController {
 	public String viewInsertProp(Model mod, @RequestParam Map<String,Object> pMap) {
 		logger.info("viewInsertProp()");
 		logger.info("parameter : " + pMap);
-		ApplicationContext context = new ClassPathXmlApplicationContext("auto-submenu.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "기획서 작성");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "plan/prop/insertProp";
 	}
+	
+	@RequestMapping(value="/proj/view/projList")
+	public String viewProjList(Model mod, @RequestParam Map<String,Object> pMap) {
+		logger.info("viewInsertProp()");
+		logger.info("parameter : " + pMap);
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
+		mod.addAttribute("curSubMenu", "프로젝트 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "plan/proj/projList";
+	}
+	
 }

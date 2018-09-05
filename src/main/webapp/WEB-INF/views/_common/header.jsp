@@ -36,7 +36,7 @@
 						상품기획<span class="glyphicon glyphicon-briefcase"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">기획서 관리</a></li>
+						<li><a href="<%=request.getContextPath()%>/plan/prop/view/propList/1">기획서 관리</a></li>
 						<li class="divider"></li>
 						<li><a href="#">프로젝트 관리</a></li>
 					</ul></li>
