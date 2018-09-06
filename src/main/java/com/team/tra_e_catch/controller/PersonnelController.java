@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 @Controller
 /*@RequestMapping(value="/per")*/
 public class PersonnelController {
@@ -47,5 +48,20 @@ public class PersonnelController {
 		mod.addAttribute("curSubMenu", "인사고과");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/rating/perrating";
+	}
+	@RequestMapping(value="/per/rating/testform.tra", method = RequestMethod.GET)
+	public String formTest(@RequestParam Map<String, Object> pMap, Model mod) {
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		logger.info("viewRating호출");
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-submenu");
+		mod.addAttribute("curSubMenu", "인사메뉴");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "per/salary/testform";
+		
 	}
 }
