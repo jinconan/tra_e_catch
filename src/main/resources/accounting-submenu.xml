@@ -14,5 +14,25 @@
 		</map>
     </util:list> 
     -->
-        
+    <util:list id="acc-submenu"
+	list-class="java.util.ArrayList">
+	<!-- <map> <entry key="sm_name" value="매출 관리" /> <entry key="sm_url" value="/acc/sal" 
+		/> </map> -->
+	<map>
+		<entry key="sm_name" value="전표처리 관리" />
+		<entry key="sm_url" value="/acc/slip" />
+	</map>
+	<map>
+		<entry key="sm_name" value="복지지원비 조회" />
+		<entry key="sm_url" value="/acc/tax" />
+	</map>
+	<map>
+		<entry key="sm_name" value="팀운영비 관리" />
+		<entry key="sm_url" value="/acc/team" />
+	</map>
+	<map>
+		<entry key="sm_name" value="세금 관리" />
+		<entry key="sm_url" value="/acc/wel" />
+	</map>
+</util:list>    
 </beans>
