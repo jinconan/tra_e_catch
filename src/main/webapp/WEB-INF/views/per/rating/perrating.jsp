@@ -1,39 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="../bootcss/css/bootstrap.min.css">
-<link rel="stylesheet" href="../bootcss/css/bootstrap-theme.min.css">
-<script src="../bootcss/js/jquery-2.2.4.min.js"></script>
-<script src="../bootcss/js/bootstrap.min.js"></script>
-<meta charset="EUC-KR">
-<title>ÀÎ»çÆòÁ¤ÀÛ¼ºÆäÀÌÁö</title>
+<meta charset="UTF-8">
+<title>ì¸ì‚¬í‰ì •ìž‘ì„±íŽ˜ì´ì§€</title>
+<%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <%-- <%@ include file="../common/commonUI.jsp" %> --%>
 
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 <br>
-	<h><b>±Ù ¹« Æò Á¤ ÀÛ ¼º</b></h>
+<div class="container">
+<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
+	<h3><b>ê·¼ ë¬´ í‰ ì • ìž‘ ì„±</b></h3>
 	<table>
 	<tr>
 	<td width="900" height="550">
-	<div class="panel panel-primary col-xs-7" style="
+	<div class="panel panel-primary col-xs-10" style="
     margin-bottom: 10px;
     margin-top: 10px;
-    padding-top: 10px;
-">
+    padding-top: 10px;">
 
 				<div class="col-xs-4 col-sm-4">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<br> °³ÀÎ ÆòÁ¤ ÀÛ¼º<br> <br>
+							<br> ê°œì¸ í‰ì • ìž‘ì„±<br> <br>
 
 						</div>
 					</div>
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<br> ÀÎ»ç ÆÀÀå ÀÇ°ß<br> <br>
+							<br> ì¸ì‚¬ íŒ€ìž¥ ì˜ê²¬<br> <br>
 
 						</div>
 					</div>
@@ -41,44 +40,44 @@
 
 				<div class="row">
 					<div class="col-xs-7">
-						<textarea class="form-control" rows="4" placeholder="°³ÀÎÆò°¡¸¦ ÀÛ¼ºÇØ ÁÖ¼¼¿ä"></textarea>
-						<br> <textarea class="form-control" rows="3" placeholder="(ÀÌºÎºÐÀº DB¿¡ ÀúÀåµÈ ÀÎ»çÆÀÀåÀÇ Æò°¡¸¦ ¼¿·ºÇØ¼­ ¶ç¿ò)" readonly=""></textarea>
+						<textarea class="form-control" rows="4" placeholder="ê°œì¸í‰ê°€ë¥¼ ìž‘ì„±í•´ ì£¼ì„¸ìš”"></textarea>
+						<br> <textarea class="form-control" rows="3" placeholder="(ì´ë¶€ë¶„ì€ DBì— ì €ìž¥ëœ ì¸ì‚¬íŒ€ìž¥ì˜ í‰ê°€ë¥¼ ì…€ë ‰í•´ì„œ ë„ì›€)" readonly=""></textarea>
 					</div>
 					</div>
 
 				<div class="col-xs-4 col-sm-4">
 				<div class="panel panel-primary">
 						<div class="panel-heading">
-				 <br> <br> ÆÀ¿ø ÆòÁ¤ ÀÛ¼º <br> <br> <br> <br>
+				 <br> <br> íŒ€ì› í‰ì • ìž‘ì„± <br> <br> <br> <br>
 					</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-7">
 						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-							ÆÀ¿ø¼±ÅÃ <span class="caret"></span>
+							íŒ€ì›ì„ íƒ <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">±èÈÆÅÂ</a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">ÀÌÁø</a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">ÃÖ¿îÃ¶</a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">½ÅÃ¶¿ì</a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">½ÅÁß¿í</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">ê¹€í›ˆíƒœ</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">ì´ì§„</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">ìµœìš´ì² </a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">ì‹ ì² ìš°</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="#">ì‹ ì¤‘ìš±</a></li>
 						</ul>
-						<textarea class="form-control" rows="5" placeholder="¼û±è»óÅÂ·Î ÀÖ´Ù°¡ ÆÀ¿ø À» ¼±ÅÃÇÏ°ÔµÇ¸é ÀÚµ¿À¸·Î Ã¢À» ¶ç¿ï »ý°¢ ´ÔµéÀº ¾î¶¶?"></textarea>
+						<textarea class="form-control" rows="5" placeholder="ìˆ¨ê¹€ìƒíƒœë¡œ ìžˆë‹¤ê°€ íŒ€ì› ì„ ì„ íƒí•˜ê²Œë˜ë©´ ìžë™ìœ¼ë¡œ ì°½ì„ ë„ìš¸ ìƒê° ë‹˜ë“¤ì€ ì–´ë–°?"></textarea>
 					</div>
 					</div>
 
 				<div class="col-xs-4 col-sm-4">
 				<div class="panel panel-primary">
 						<div class="panel-heading">
-					<br> ÆÀÀå ÆòÁ¤ ÀÛ¼º <br>  <br> <br>
+					<br> íŒ€ìž¥ í‰ì • ìž‘ì„± <br>  <br> <br>
 					</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-7">
-						<textarea class="form-control" rows="5" placeholder="ÆÀÀåÆò°¡¸¦ ÀÛ¼ºÇØ ÁÖ¼¼¿ä"></textarea>
+						<textarea class="form-control" rows="5" placeholder="íŒ€ìž¥í‰ê°€ë¥¼ ìž‘ì„±í•´ ì£¼ì„¸ìš”"></textarea>
 
 					</div>
 					</div>
@@ -86,7 +85,7 @@
 	</div>
 	</td></tr>
 </table>
-
+	<div class="col-xs-offset-5">
 	<button type="button" class="btn btn-primary">
 		<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK
 	</button>
@@ -98,6 +97,8 @@
 	<button type="button" class="btn btn-danger">
 		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Remove
 	</button>
-
+	</div>
+<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
+</div>
 </body>
 </html>

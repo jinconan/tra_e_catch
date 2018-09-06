@@ -58,6 +58,7 @@ $('#p_table').bootstrapTable({
 
 <div class="container">
 	<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
+		<h3><b>급 여 관 리</b></h3>
 	<div class="col-sm-10">
 		<div class="col-sm-3">
 			<div class="row">
