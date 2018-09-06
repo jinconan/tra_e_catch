@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping(value="/plan")
 public class PlanController {
 	
 	private static final Logger logger = Logger.getLogger(PlanController.class);
 
-	@RequestMapping(value="/prop/view/propList/{pageNumber}")
+	@RequestMapping(value="/plan/prop/view/list/{pageNumber}")
 	public String viewPropList(Model mod, @PathVariable int  pageNumber) {
 		logger.info("viewPropList(pageNumber="+pageNumber+")");
 		//컨트롤러로 부터 넘겨받는 속성
@@ -34,7 +33,7 @@ public class PlanController {
 		return "plan/prop/propList";
 	}
 	
-	@RequestMapping(value="/prop/view/insertProp")
+	@RequestMapping(value="/plan/prop/view/insert")
 	public String viewInsertProp(Model mod, @RequestParam Map<String,Object> pMap) {
 		logger.info("viewInsertProp()");
 		logger.info("parameter : " + pMap);
@@ -45,15 +44,68 @@ public class PlanController {
 		return "plan/prop/insertProp";
 	}
 	
-	@RequestMapping(value="/proj/view/projList")
+	@RequestMapping(value="/plan/proj/view/list/{pageNumber}")
 	public String viewProjList(Model mod, @RequestParam Map<String,Object> pMap) {
-		logger.info("viewInsertProp()");
+		logger.info("viewProjList()");
 		logger.info("parameter : " + pMap);
 		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
-		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
-		mod.addAttribute("curSubMenu", "프로젝트 리스트");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
+		mod.addAttribute("curSubMenu", "전체 프로젝트 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "plan/proj/projList";
 	}
 	
+	@RequestMapping(value="/plan/proj/view/list/ing/{pageNumber}")
+	public String viewProjIngList(Model mod, @RequestParam Map<String,Object> pMap) {
+		logger.info("viewProjIngList()");
+		logger.info("parameter : " + pMap);
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
+		mod.addAttribute("curSubMenu", "진행중");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "plan/proj/projList";
+	}
+	
+	@RequestMapping(value="/plan/proj/view/list/end/{pageNumber}")
+	public String viewProjEndList(Model mod, @RequestParam Map<String,Object> pMap) {
+		logger.info("viewProjEndList()");
+		logger.info("parameter : " + pMap);
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
+		mod.addAttribute("curSubMenu", "종료");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "plan/proj/projList";
+	}
+	
+	@RequestMapping(value="/plan/proj/view/list/stop/{pageNumber}")
+	public String viewProjStopList(Model mod, @RequestParam Map<String,Object> pMap) {
+		logger.info("viewProjStopList()");
+		logger.info("parameter : " + pMap);
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
+		mod.addAttribute("curSubMenu", "중단");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "plan/proj/projList";
+	}
+	@RequestMapping(value="/plan/proj/view/detail/{projNo}")
+	public String viewProjDetail(Model mod, @RequestParam Map<String,Object> pMap) {
+		logger.info("viewProjDetail()");
+		logger.info("parameter : " + pMap);
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
+		mod.addAttribute("curSubMenu", "프로젝트 정보");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "plan/proj/projDetail";
+	}
+	
+	@RequestMapping(value="/plan/proj/view/memList/{projNo}")
+	public String viewProjMemList(Model mod, @RequestParam Map<String,Object> pMap) {
+		logger.info("viewProjMemList()");
+		logger.info("parameter : " + pMap);
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
+		mod.addAttribute("curSubMenu", "팀원 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "plan/proj/projMemList";
+	}
 }
