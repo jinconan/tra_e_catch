@@ -3,8 +3,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>직원등록</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<script>
+$(document).ready(function() {
+	$(".form_datetime").datetimepicker({
+		format: 'yyyy-mm-dd'
+		,minView:2
+	});
+})
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
@@ -14,7 +22,7 @@
 		
 		<div class="col-sm-10">
 				<form class="form-horizontal" role="form">
-					<h2>가입</h2>
+					<h2>직원등록</h2>
 					<div class="form-group">
 						<label for="id" class="col-sm-3 control-label">이름</label>
 						<div class="col-sm-9">
@@ -28,21 +36,10 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="pw" class="col-sm-3 control-label">패스워드</label>
-						<div class="col-sm-9">
-							<input type="password" id="pw" placeholder="Password" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="confirm_pw" class="col-sm-3 control-label">패스워드 확인</label>
-						<div class="col-sm-9">
-							<input type="password" id="confirm_pw" placeholder="Password" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
 						<label for="birthDate" class="col-sm-3 control-label">생일</label>
 						<div class="col-sm-9">
-							<input type="date" id="birthDate" class="form-control">
+							<!-- <input type="date" id="birthDate" class="form-control"> -->
+							<input type="text" readonly class="form-control form_datetime">
 						</div>
 					</div>
 					<div class="form-group">
@@ -56,11 +53,11 @@
 						<div class="col-sm-6">
 							<div class="row">
 								<div class="col-sm-4">
-									<label class="radio-inline"> <input type="radio" id="femaleRadio" value="Female">여
+									<label class="radio-inline"> <input type="radio" id="maleRadio" value="Male">남
 									</label>
 								</div>
 								<div class="col-sm-4">
-									<label class="radio-inline"> <input type="radio" id="maleRadio" value="Male">남
+									<label class="radio-inline"> <input type="radio" id="femaleRadio" value="Female">여
 									</label>
 								</div>
 							</div>

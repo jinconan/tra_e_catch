@@ -36,9 +36,9 @@
 						상품기획<span class="glyphicon glyphicon-briefcase"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="<%=request.getContextPath()%>/plan/prop/view/propList/1">기획서 관리</a></li>
+						<li><a href="<%=request.getContextPath()%>/plan/prop/view/list/1">기획서 관리</a></li>
 						<li class="divider"></li>
-						<li><a href="#">프로젝트 관리</a></li>
+						<li><a href="<%=request.getContextPath()%>/plan/proj/view/list/1 ">프로젝트 관리</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 						전자결재<span class="glyphicon glyphicon-credit-card"></span>
@@ -66,9 +66,9 @@
 						설정<span class="glyphicon glyphicon-cog"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">로그인</a></li>
+						<li><a href="<%=request.getContextPath()%>/conf/view/login">로그인</a></li>
 						<li><a href="#">로그아웃</a></li>
-						<li><a href="#">정보수정</a></li>
+						<li><a href="<%=request.getContextPath()%>/conf/view/modify">정보수정</a></li>
 					</ul></li>
 			</ul>
 		</div>

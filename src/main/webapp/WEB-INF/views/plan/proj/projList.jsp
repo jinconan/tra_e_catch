@@ -6,6 +6,14 @@
 <meta charset="UTF-8">
 <title>프로젝트 리스트</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<script>
+$(document).ready(function() {
+	$(".tr_proj").click(function(event){
+		var proj_no = $(this).find("td")[0].innerText;
+		location.href="<%=request.getContextPath()%>/plan/proj/view/detail/"+proj_no;
+	})
+})
+</script>
 </head>
 <body>
 	<!-- 헤더 -->
@@ -30,7 +38,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr class="tr_proj">
 						<td>1</td>
 						<td>진행중</td>
 						<td>엽문</td>
