@@ -27,10 +27,25 @@ public class PersonnelController {
 		//curSubMenu : String
 		logger.info("salary호출");
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("auto-submenu.xml");
-		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
+		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-submenu");
+		mod.addAttribute("curSubMenu", "급여관리");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/salary/salary";
+	}
+	
+	@RequestMapping(value="/per/rating/perrating.tra", method = RequestMethod.GET)
+	public String viewRating(@RequestParam Map<String, Object> pMap, Model mod) {
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		logger.info("viewRating호출");
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-submenu");
+		mod.addAttribute("curSubMenu", "인사고과");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "per/rating/perrating";
 	}
 }

@@ -1,28 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="../bootcss/css/bootstrap.min.css">
-<link rel="stylesheet" href="../bootcss/css/bootstrap-theme.min.css">
-<script src="../bootcss/js/jquery-2.2.4.min.js"></script>
-<script src="../bootcss/js/bootstrap.min.js"></script>
 <meta charset="EUC-KR">
 <title>인사평정작성페이지</title>
+<%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <%-- <%@ include file="../common/commonUI.jsp" %> --%>
 
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 <br>
-	<h><b>근 무 평 정 작 성</b></h>
+<div class="container">
+<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
+	<h3><b>근 무 평 정 작 성</b></h3>
 	<table>
 	<tr>
 	<td width="900" height="550">
-	<div class="panel panel-primary col-xs-7" style="
+	<div class="panel panel-primary col-xs-10" style="
     margin-bottom: 10px;
     margin-top: 10px;
-    padding-top: 10px;
-">
+    padding-top: 10px;">
 
 				<div class="col-xs-4 col-sm-4">
 					<div class="panel panel-primary">
@@ -86,7 +85,7 @@
 	</div>
 	</td></tr>
 </table>
-
+	<div class="col-xs-offset-5">
 	<button type="button" class="btn btn-primary">
 		<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK
 	</button>
@@ -98,6 +97,8 @@
 	<button type="button" class="btn btn-danger">
 		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Remove
 	</button>
-
+	</div>
+<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
+</div>
 </body>
 </html>
