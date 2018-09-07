@@ -3,15 +3,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<link rel="stylesheet" href="/dev_jsp201809020/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/dev_jsp201809020/bootstrap/css/bootstrap-theme.min.css">
-<script src="/dev_jsp201809020/bootstrap/js/jquery-2.2.4.min.js"></script>
-<script src="/dev_jsp201809020/bootstrap/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+<%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 </head>
 <body>
+
+
+<!------------- 헤더 ------------>
+<jsp:include page="/WEB-INF/views/_common/header.jsp">
+	
+<!------------- 본문 ------------>	
 	<hr>
-  <div class="container-fluid">
+  <div class="container">
+<!------------ 사이드 메뉴 ------------>  
+		<nav class="col-sm-2 nav nav-pills nav-stacked nav-pills-stacked-example">
+			<li role="presentation"><a href="<%=request.getContextPath()%>/prod/inven/view/prodInven/1">기획서 리스트</a></li>
+			<li role="presentation" class="active"><a href="<%=request.getContextPath()%>/plan/prop/view/insertProp">기획서 작성</a></li>
+		</nav>
+  <jsp:include page="/WEB-INF/views/_common/submenu.jsp">
+	
+<!------------ 중앙 게시판 ------------>	
 	<div class="row">
 	  <div class="col-sm-10">
 		<div class="panel panel-primary">
@@ -21,6 +32,7 @@
 				  &nbsp;&nbsp;재고 관리 대장
 			</h3>
 		   </div>
+			조회 : <input id="myInput" type="text" placeholder="Search.."><button class="btn btn-default btn-xs" type="submit">조회</button>
 			
 			 
 			 <table class="table">
@@ -49,13 +61,14 @@
 				  	</tbody>		
 				  </table>
 				  <button class="btn btn-default btn-xs" type="submit">추가</button>
-				  <button class="btn btn-default btn-xs" type="submit">수정</button>
+				  <button class="btn btn-default btn-xs" type="submit">전체 조회</button>
 				  <button class="btn btn-default btn-xs" type="submit">수정</button>
 				  <button class="btn btn-default btn-xs" type="submit">삭제</button>
 			</div>	  
 		</div>
 	</div>
 </div>	
+<jsp:include page="/WEB-INF/views/_common/footer.jsp">
 	
 			   
 </body>
