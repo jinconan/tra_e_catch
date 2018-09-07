@@ -1,98 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
-<!-- 근태  -->
+	<!-- 근태 -->
 	<util:list id="per-attsub" list-class="java.util.ArrayList">
-        <map>
+		<map>
 			<entry key="sm_name" value="출퇴근관리" />
 			<entry key="sm_url" value="/per/attd/attlist.tra?1" />
 		</map>
-        <map>
+		<map>
 			<entry key="sm_name" value="연차관리" />
 			<entry key="sm_url" value="/per/attd/leave.tra?1" />
 		</map>
-<<<<<<< HEAD
-		
-    </util:list>
-    
-     <!-- 증명서발급 -->
-    	<util:list id="per-submenu" list-class="java.util.ArrayList">
-        <map>
-			<entry key="sm_name" value="근태" />
-			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
-		</map>
-        <map>
-			<entry key="sm_name" value="증명서발급" />
-			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
-		</map>
-		        <map>
-			<entry key="sm_name" value="급여관리" />
-			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
-		</map>
-		        <map>
-			<entry key="sm_name" value="인사고과" />
-			<entry key="sm_url" value="/per/rating/perrating.tra?1" />
-		</map>
-		        <map>
-			<entry key="sm_name" value="인사메뉴" />
-			<entry key="sm_url" value="/per/rating/testform.tra?1" />
-		</map>
-    </util:list>
-    <!-- 급여관리 -->
-    	<util:list id="per-submenu" list-class="java.util.ArrayList">
-        <map>
-			<entry key="sm_name" value="근태" />
-			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
-		</map>
-        <map>
-			<entry key="sm_name" value="증명서발급" />
-			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
-		</map>
-		        <map>
-			<entry key="sm_name" value="급여관리" />
-			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
-		</map>
-		        <map>
-			<entry key="sm_name" value="인사고과" />
-			<entry key="sm_url" value="/per/rating/perrating.tra?1" />
-		</map>
-		        <map>
-			<entry key="sm_name" value="인사메뉴" />
-			<entry key="sm_url" value="/per/rating/testform.tra?1" />
-		</map>
-    </util:list>
-    <!-- 인사고과 -->
-    <util:list id="per-submenu" list-class="java.util.ArrayList">
-        <map>
-			<entry key="sm_name" value="근태" />
-			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
-		</map>
-        <map>
-			<entry key="sm_name" value="증명서발급" />
-			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
-		</map>
-		        <map>
-			<entry key="sm_name" value="급여관리" />
-			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
-		</map>
-		        <map>
-			<entry key="sm_name" value="인사고과" />
-			<entry key="sm_url" value="/per/rating/perrating.tra?1" />
-		</map>
-		        <map>
-			<entry key="sm_name" value="인사메뉴" />
-			<entry key="sm_url" value="/per/rating/testform.tra?1" />
-		</map>
-    
-    </util:list>
+	</util:list>
 
-        
-=======
-    </util:list> 
-    -->
-    <!-- 인사권자 전용 -->
-  <util:list id="per-submenu" list-class="java.util.ArrayList">
+	<!-- 증명서발급 -->
+	<!-- 급여관리 -->
+	<!-- 인사고과 -->
+	<util:list id="per-submenu" list-class="java.util.ArrayList">
+		<map>
+			<entry key="sm_name" value="근태" />
+			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
+		</map>
+		<map>
+			<entry key="sm_name" value="증명서발급" />
+			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
+		</map>
+		<map>
+			<entry key="sm_name" value="급여관리" />
+			<entry key="sm_url" value="/per/salary/salaryList.tra?1" />
+		</map>
+		<map>
+			<entry key="sm_name" value="인사고과" />
+			<entry key="sm_url" value="/per/rating/perrating.tra?1" />
+		</map>
+		<map>
+			<entry key="sm_name" value="인사메뉴" />
+			<entry key="sm_url" value="/per/rating/testform.tra?1" />
+		</map>
+	</util:list>
+
+
+	<!-- 인사권자 전용 -->
+	<util:list id="perauth-submenu" list-class="java.util.ArrayList">
 		<map>
 			<entry key="sm_name" value="사원 명부" />
 			<entry key="sm_url" value="/per/empList" />
@@ -109,7 +62,6 @@
 			<entry key="sm_name" value="인력관리" />
 			<entry key="sm_url" value="/per/empList" />
 		</map>
-		
-	</util:list>      
->>>>>>> refs/heads/dnscjf2
+
+	</util:list>
 </beans>

@@ -34,7 +34,7 @@ public class PersonnelController {
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/salary/salary";
 	}
-<<<<<<< HEAD
+
 	
 	@RequestMapping(value="/per/rating/perrating.tra", method = RequestMethod.GET)
 	public String viewRating(@RequestParam Map<String, Object> pMap, Model mod) {
@@ -136,13 +136,13 @@ public class PersonnelController {
 		logger.info("certPrintList호출");
 		return "per/cert/certform";
 	}
-=======
+
 	//사원명부
 	@RequestMapping(value = "/per/empList", method = RequestMethod.GET)
 	public String per(Locale locale, Model mod) {
 		logger.info("Welcome home! The client locale is");
 		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
-		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-submenu");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/emplist";
@@ -158,7 +158,7 @@ public class PersonnelController {
 	public String labcont(Locale locale, Model mod) {
 		logger.info("Welcome home! The client locale is");
 		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
-		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-submenu");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/labcont";
@@ -174,7 +174,7 @@ public class PersonnelController {
 	public String empcont(Locale locale, Model mod) {
 		logger.info("Welcome home! The client locale is");
 		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
-		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-submenu");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/empcont";
@@ -186,5 +186,4 @@ public class PersonnelController {
 		return "per/onlyauthper/empconttable";
 	}
 
->>>>>>> refs/heads/dnscjf2
 }
