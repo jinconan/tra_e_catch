@@ -100,7 +100,7 @@ public class PersonnelController {
 	}
 	
 	//증명서관리
-	@RequestMapping(value="/per/attd/cert.tra", method = RequestMethod.GET)
+	@RequestMapping(value="/per/cert/cert.tra", method = RequestMethod.GET)
 	public String certList(@RequestParam Map<String, Object> pMap, Model mod) {
 		//컨트롤러로 부터 넘겨받는 속성
 		//subMenuList : List<Map<String, Object>>
@@ -114,5 +114,25 @@ public class PersonnelController {
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/cert/cert_mainList";
 		
+	}
+	//증명서 출력기록 페이지
+	@RequestMapping(value="/per/cert/certprint.tra", method = RequestMethod.POST)
+	public String certPrintList(@RequestParam Map<String, Object> pMap, Model mod) {
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		logger.info("certPrintList호출");
+		return "per/cert/cert_printList";
+	}
+	//증명서 양식 페이지
+	@RequestMapping(value="/per/cert/certform.tra", method = RequestMethod.POST)
+	public String certform(@RequestParam Map<String, Object> pMap, Model mod) {
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		logger.info("certPrintList호출");
+		return "per/cert/certform";
 	}
 }
