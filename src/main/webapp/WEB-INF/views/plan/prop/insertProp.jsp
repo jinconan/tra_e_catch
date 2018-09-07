@@ -13,10 +13,7 @@
 	<!-- 본문 -->
 	<div class="container">
 		<!-- 좌측 사이드 메뉴 -->
-		<nav class="col-sm-2 nav nav-pills nav-stacked nav-pills-stacked-example">
-			<li role="presentation"><a href="<%=request.getContextPath()%>/plan/prop/view/propList/1">기획서 리스트</a></li>
-			<li role="presentation" class="active"><a href="<%=request.getContextPath()%>/plan/prop/view/insertProp">기획서 작성</a></li>
-		</nav>
+		<jsp:include page="/WEB-INF/views/_common/submenu.jsp"/>
 
 		<!-- 기획서 작성 폼 -->
 		<div class="col-sm-8">
@@ -39,8 +36,10 @@
 						<input type="file" class="form-control" id="propTitle" placeholder="파일" required="required">
 					</div>
 				</div>
-
-				<button type="submit" class="btn btn-primary">제출</button>
+				
+				<div class="pull-right">
+					<button type="submit" class="btn btn-primary">등록</button>
+				</div>
 			</form>
 
 		</div>

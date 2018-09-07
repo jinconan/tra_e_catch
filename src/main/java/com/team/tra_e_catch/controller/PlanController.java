@@ -18,6 +18,14 @@ public class PlanController {
 	
 	private static final Logger logger = Logger.getLogger(PlanController.class);
 
+	///////////////////////////////////////////////기획서////////////////////////////////////////
+
+	/**
+	 * 기획서 리스트 페이지 요청
+	 * @param mod
+	 * @param pageNumber
+	 * @return plan/prop/propList
+	 */
 	@RequestMapping(value="/plan/prop/view/list/{pageNumber}")
 	public String viewPropList(Model mod, @PathVariable int  pageNumber) {
 		logger.info("viewPropList(pageNumber="+pageNumber+")");
@@ -30,10 +38,14 @@ public class PlanController {
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		
-		
 		return "plan/prop/propList";
 	}
 	
+	/**
+	 * 기획서 추가 페이지 요청
+	 * @param mod
+	 * @return plan/prop/insertProp
+	 */
 	@RequestMapping(value="/plan/prop/view/insert")
 	public String viewInsertProp(Model mod) {
 		logger.info("viewInsertProp()");
@@ -44,6 +56,44 @@ public class PlanController {
 		return "plan/prop/insertProp";
 	}
 	
+	/**
+	 * 기획서 수정 페이지 요청
+	 * @param mod
+	 * @param propNo
+	 * @return plan/prop/updateProp
+	 */
+	@RequestMapping(value="/plan/prop/view/update/{propNo}")
+	public String viewUpdateProp(Model mod, @PathVariable int propNo) {
+		logger.info("viewUpdateProp()");
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
+		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("propNo", propNo);
+		return "plan/prop/updateProp";
+	}
+	
+	
+	/**
+	 * 기획서 상세페이지 요청
+	 * @param mod
+	 * @param propNo
+	 * @return plan/prop/propDetail
+	 */
+	@RequestMapping(value="/plan/prop/view/detail/{propNo}")
+	public String viewProp(Model mod, @PathVariable int propNo) {
+		logger.info("viewProp()");
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
+		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("propNo", propNo);
+		return "plan/prop/propDetail";
+	}
+	
+	
+	
+	///////////////////////////////////////////////프로젝트////////////////////////////////////////
 	@RequestMapping(value="/plan/proj/view/list/{pageNumber}")
 	public String viewProjList(Model mod) {
 		logger.info("viewProjList()");

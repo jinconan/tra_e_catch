@@ -5,6 +5,15 @@
 <meta charset="UTF-8">
 <title>기획서 리스트</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<script>
+	$(document).ready(function() {
+		$(".tr_prop").click(function() {
+			var prop_no = $(this).find("td")[0].innerText;
+			location.href="<%=request.getContextPath()%>/plan/prop/view/detail/"+prop_no;
+		})
+	})
+	
+</script>
 </head>
 <body>
 	<!-- 헤더 -->
@@ -13,12 +22,6 @@
 	<!-- 본문 -->
 	<div class="container">
 		<!-- 좌측 사이드 메뉴 -->
-		<%--
-		<nav class="col-sm-2 nav nav-pills nav-stacked nav-pills-stacked-example">
-			<li role="presentation" class="active"><a href="<%=request.getContextPath()%>/plan/prop/view/propList/1">기획서 리스트</a></li>
-			<li role="presentation"><a href="<%=request.getContextPath()%>/plan/prop/view/insertProp">기획서 작성</a></li>
-		</nav>
-		--%>
 		<%@ include file="/WEB-INF/views/_common/submenu.jsp" %>
 		
 		<!-- 중앙 게시판 -->
@@ -37,7 +40,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr class="tr_prop">
 						<td>1</td>
 						<td>1빠</td>
 						<td>견자단</td>

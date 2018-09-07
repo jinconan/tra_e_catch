@@ -12,24 +12,36 @@
 <title>프로젝트 정보</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['timeline']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var container = document.getElementById('timeline');
-        var chart = new google.visualization.Timeline(container);
-        var dataTable = new google.visualization.DataTable();
+	google.charts.load('current', {
+		'packages' : [ 'timeline' ]
+		,'language': 'ko'
+	});
+	google.charts.setOnLoadCallback(drawChart);
+	function drawChart() {
+		var container = document.getElementById('timeline');
+		var chart = new google.visualization.Timeline(container);
+		var dataTable = new google.visualization.DataTable();
 
-        dataTable.addColumn({ type: 'string', id: 'President' });
-        dataTable.addColumn({ type: 'date', id: 'Start' });
-        dataTable.addColumn({ type: 'date', id: 'End' });
-        dataTable.addRows([
-          [ '전체 기간',  new Date(2018, 8, 29),  new Date(2018, 10, 12) ]
-          ,[ '화면작업', new Date(2018, 9, 3), new Date(2018, 9, 14) ]
-        ]);
+		dataTable.addColumn({
+			type : 'string',
+			id : 'plan'
+		});
+		dataTable.addColumn({
+			type : 'date',
+			id : 'Start'
+		});
+		dataTable.addColumn({
+			type : 'date',
+			id : 'End'
+		});
+		dataTable.addRows([
+			[ '전체 기간', new Date(2018, 8, 29), new Date(2018, 10, 12) ]
+			, [ '화면작업', new Date(2018, 9, 3), new Date(2018, 9, 14) ]
+		]);
 
-        chart.draw(dataTable);
-      }
-    </script>
+		chart.draw(dataTable);
+	}
+</script>
 </head>
 <body>
 	<!-- 헤더 -->
@@ -48,9 +60,11 @@
 		테스트 일정을 달력으로 출력해도 좋을듯. 
 		-->
 			<div class="well profile">
-					
+
 				<div class="row">
-					<h2><strong>엽문</strong></h2>
+					<h2>
+						<strong>엽문</strong>
+					</h2>
 					<p>
 						<strong>상태: </strong> 진행중(2018.04.17 ~ 2018.10.26)
 					</p>
@@ -58,19 +72,34 @@
 						<strong>플랫폼: </strong> <span class="tags">PS4</span> <span class="tags">PC</span>
 					</p>
 				</div>
-				
+
 				<div class="row">
 					<p>
 						<strong>오늘의 일정</strong>
 					</p>
 					<div id="timeline" style="height: 180px;"></div>
 				</div>
-				
+
 				<div class="row">
 					<p>
 						<strong>게시판</strong>
 					</p>
-					<div>게시판</div>
+					<div class="col-sm-3">
+						<div class="thumbnail">
+							<div class="well">
+								<h4>게시판1</h4>
+								<button type="button" class="btn btn-primary btn-xs btn-update btn-add-card">들어가기</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="thumbnail">
+							<div class="well">
+								<h4>게시판2</h4>
+								<button type="button" class="btn btn-primary btn-xs btn-update btn-add-card">들어가기</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

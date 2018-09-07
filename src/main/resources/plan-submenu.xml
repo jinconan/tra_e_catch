@@ -6,11 +6,11 @@
 	<util:list id="prod-submenu" list-class="java.util.ArrayList">
         <map>
 			<entry key="sm_name" value="기획서 리스트" />
-			<entry key="sm_url" value="/plan/prop/view/propList/1" />
+			<entry key="sm_url" value="/plan/prop/view/list/1" />
 		</map>
 		<map>
 			<entry key="sm_name" value="기획서 작성" />
-			<entry key="sm_url" value="/plan/prop/view/insertProp" />
+			<entry key="sm_url" value="/plan/prop/view/insert" />
 		</map>
     </util:list>
     
