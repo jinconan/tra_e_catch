@@ -1,18 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>»ç¿ø¸íºÎ</title>
+<title>ì‚¬ì›ëª…ë¶€</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#btn_emp").click(function(){
 			$.ajax({
-				url:"/tra_e_catch/emptable.ens"
+				url:"/tra_e_catch/per/emptable"
 				,method:"GET"
 				,success:function(data){
-					alert("¾ÆÀÛ½º ¼º°ø");
+					alert("ì•„ì‘ìŠ¤ ì„±ê³µ");
 					$("#emptable").html(data);
 				}
 			 ,error:function(Object){
@@ -23,88 +23,104 @@
 		});
 	});
 </script>
+	<script type="text/javascript">
+	$(function() {
+		$('#datetimepicker1').datetimepicker();
+		$('#datetimepicker2').datetimepicker();
+		$('#datetimepicker3').datetimepicker();
+	});
+</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
 	<%-- <jsp:include page="/WEB-INF/views/_common/header.jsp" /> --%>
-	<div class="col-md-12">
+<div class="container">
+	<%@ include file="/WEB-INF/views/_common/submenu.jsp" %>
+	<div class="col-md-10">
 		<form class="form-horizontal">
 		  <div class="page-header">
-          <h1>»ç¿ø¸íºÎ <small>basic form</small></h1>
+          <h1>ì‚¬ì›ëª…ë¶€ <small>basic form</small></h1>
          </div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="inputEmail">ÀÌ¸§</label>
-				<div class="col-sm-6">
+				<label class="col-sm-3 control-label" for="inputEmail">ì´ë¦„</label>
+				<div class="col-sm-3">
 					<input class="form-control" id="inputEmail" type="email"
-						placeholder="ÀÌ¸§">
+						placeholder="ì´ë¦„">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="inputPassword">Á÷±ŞÄÚµå</label>
-				<div class="col-sm-6">
+				<label class="col-sm-3 control-label" for="inputPassword">ì§ê¸‰ì½”ë“œ</label>
+				<div class="col-sm-4">
 					<input class="form-control" id="inputPassword" type="password"
-						placeholder="Á÷Á¢ÄÚµå">
+						placeholder="ì§ì ‘ì½”ë“œ">
 					
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="inputPasswordCheck">ºÎ¼­ÄÚµå</label>
-				<div class="col-sm-6">
+				<label class="col-sm-3 control-label" for="inputPasswordCheck">ë¶€ì„œì½”ë“œ</label>
+				<div class="col-sm-4">
 					<input class="form-control" id="inputPasswordCheck" type="password"
-						placeholder="ºÎ¼­ÄÚµå">
+						placeholder="ë¶€ì„œì½”ë“œ">
 					
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="inputName">Áö¿ªÄÚµå</label>
-				<div class="col-sm-6">
+				<label class="col-sm-3 control-label" for="inputName">ì§€ì—­ì½”ë“œ</label>
+				<div class="col-sm-4">
 					<input class="form-control" id="inputName" type="text"
-						placeholder="Áö¿ªÄÚµå">
+						placeholder="ì§€ì—­ì½”ë“œ">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="inputNumber">ÀÔ»çÀÏÀÚ</label>
-				<div class="col-sm-6">
-					<div class="input-group">
-						<input type="tel" class="form-control" id="inputNumber"
-							placeholder="ÀÔ»çÀÏÀÚ" />
-							
-					</div>
+				<label class="col-sm-3 control-label" for="inputNumber">ì…ì‚¬ì¼ì</label>
+				<div class="col-sm-3">
+					<div class='input-group date' id='datetimepicker1'>
+							<input type='text' class="form-control" placeholder="ì…ì‚¬ì¼ì"/> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar" ></span>
+							</span>
+						</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="inputNumberCheck">»ıÀÏ</label>
-				<div class="col-sm-6">
-					<div class="input-group">
-						<input class="form-control" id="inputNumberCheck" type="text"
-							placeholder="»ıÀÏ">
-					</div>
+				<label class="col-sm-3 control-label" for="inputNumberCheck">ìƒì¼</label>
+				<div class="col-sm-3">
+					<div class='input-group date' id='datetimepicker2'>
+							<input type='text' class="form-control" placeholder="ìƒì¼"/> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar" ></span>
+							</span>
+						</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="inputEmail">Åğ»ç¿©ºÎ</label>
-				<div class="col-sm-6">
+				<label class="col-sm-3 control-label" for="inputEmail">í‡´ì‚¬ì—¬ë¶€</label>
+				<div class="col-sm-5">
 					<input class="form-control" id="inputEmail" type="email"
-						placeholder="Åğ»ç¿©ºÎ">
+						placeholder="í‡´ì‚¬ì—¬ë¶€">
 				</div>
 			</div>		
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="inputEmail">¸¶Áö¸·±Ù¹«ÀÏ</label>
-				<div class="col-sm-6">
-					<input class="form-control" id="inputEmail" type="email"
-						placeholder="¸¶Áö¸·±Ù¹«ÀÏ">
+				<label class="col-sm-3 control-label" for="inputEmail">ë§ˆì§€ë§‰ê·¼ë¬´ì¼</label>
+				<div class="col-sm-3">
+					<div class='input-group date' id='datetimepicker3'>
+							<input type='text' class="form-control" placeholder="ë§ˆì§€ë§‰ê·¼ë¬´ì¼"/> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar" ></span>
+							</span>
+						</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label" for="inputEmail">¾ÆÀÌµğ</label>
-				<div class="col-sm-6">
+				<label class="col-sm-3 control-label" for="inputEmail">ì•„ì´ë””</label>
+				<div class="col-sm-3">
 					<input class="form-control" id="inputEmail" type="email"
-						placeholder="¾ÆÀÌµğ">
+						placeholder="ì•„ì´ë””">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="inputEmail">password</label>
-				<div class="col-sm-6">
+				<div class="col-sm-3">
 					<input class="form-control" id="inputEmail" type="email"
 						placeholder="password">
 				</div>
@@ -113,7 +129,7 @@
 			<div class="form-group">
 				<div class="col-sm-12 text-center">
 					<button id="btn_emp"class="btn btn-primary">
-						°Ë»ö<i class="fa fa-check spaceLeft"></i>
+						ê²€ìƒ‰<i class="fa fa-check spaceLeft"></i>
 					</button>
 					
 				</div>
@@ -124,5 +140,6 @@
 		</form>
 		<hr>
 	</div>
+	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </body>
 </html>
