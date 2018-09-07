@@ -17,6 +17,8 @@
 		,'language': 'ko'
 	});
 	google.charts.setOnLoadCallback(drawChart);
+	
+	//타임라인 차트 그리기 함수
 	function drawChart() {
 		var container = document.getElementById('timeline');
 		var chart = new google.visualization.Timeline(container);
@@ -41,6 +43,10 @@
 
 		chart.draw(dataTable);
 	}
+	
+	$(window).resize(function(Event) {
+		drawChart();
+	})
 </script>
 </head>
 <body>

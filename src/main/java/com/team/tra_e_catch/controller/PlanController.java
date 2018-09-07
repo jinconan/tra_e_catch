@@ -94,6 +94,11 @@ public class PlanController {
 	
 	
 	///////////////////////////////////////////////프로젝트////////////////////////////////////////
+	/**
+	 * 프로젝트 전체 리스트 페이지 요청
+	 * @param mod
+	 * @return
+	 */
 	@RequestMapping(value="/plan/proj/view/list/{pageNumber}")
 	public String viewProjList(Model mod) {
 		logger.info("viewProjList()");
@@ -104,6 +109,11 @@ public class PlanController {
 		return "plan/proj/projList";
 	}
 	
+	/**
+	 * 프로젝트 진행중 리스트 페이지 요청
+	 * @param mod
+	 * @return
+	 */
 	@RequestMapping(value="/plan/proj/view/list/ing/{pageNumber}")
 	public String viewProjIngList(Model mod) {
 		logger.info("viewProjIngList()");
@@ -114,6 +124,11 @@ public class PlanController {
 		return "plan/proj/projList";
 	}
 	
+	/**
+	 * 프로젝트 종료 리스트 페이지 요청
+	 * @param mod
+	 * @return
+	 */
 	@RequestMapping(value="/plan/proj/view/list/end/{pageNumber}")
 	public String viewProjEndList(Model mod) {
 		logger.info("viewProjEndList()");
@@ -124,6 +139,11 @@ public class PlanController {
 		return "plan/proj/projList";
 	}
 	
+	/**
+	 * 프로젝트 중단 리스트 페이지 요청
+	 * @param mod
+	 * @return
+	 */
 	@RequestMapping(value="/plan/proj/view/list/stop/{pageNumber}")
 	public String viewProjStopList(Model mod) {
 		logger.info("viewProjStopList()");
@@ -133,6 +153,13 @@ public class PlanController {
 		mod.addAttribute("subMenuList", subMenuList);
 		return "plan/proj/projList";
 	}
+	
+	/**
+	 * 프로젝트 상세 페이지 요청
+	 * @param mod
+	 * @param projNo
+	 * @return
+	 */
 	@RequestMapping(value="/plan/proj/view/detail/{projNo}")
 	public String viewProjDetail(Model mod, @PathVariable int projNo) {
 		logger.info("viewProjDetail()");
@@ -144,14 +171,31 @@ public class PlanController {
 		return "plan/proj/projDetail";
 	}
 	
+	/**
+	 * 프로젝트 멤버 리스트 페이지 요청
+	 * @param mod
+	 * @param projNo
+	 * @return
+	 */
 	@RequestMapping(value="/plan/proj/view/memList/{projNo}")
 	public String viewProjMemList(Model mod, @PathVariable int projNo) {
 		logger.info("viewProjMemList()");
 		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
-		mod.addAttribute("curSubMenu", "팀원 리스트");
+		mod.addAttribute("curSubMenu", "참여자 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("projNo", projNo);
 		return "plan/proj/projMemList";
+	}
+	
+	@RequestMapping(value="/plan/proj/view/timeline/{projNo}")
+	public String viewProjTimeline(Model mod, @PathVariable int projNo) {
+		logger.info("viewProjTimeline()");
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
+		mod.addAttribute("curSubMenu", "타임라인");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("projNo", projNo);
+		return "plan/proj/projTimeline";
 	}
 }

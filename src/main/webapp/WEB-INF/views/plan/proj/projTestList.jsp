@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>팀원 리스트</title>
+<title>프로젝트 테스트</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 </head>
 <body>

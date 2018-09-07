@@ -41,16 +41,12 @@
     	<entry key="sm_url" value="/plan/proj/view/detail/" />
     </map>
     <map>
-    	<entry key="sm_name" value="팀원 리스트"/>
+    	<entry key="sm_name" value="참여자 리스트"/>
     	<entry key="sm_url" value="/plan/proj/view/memList/" />
     </map>
     <map>
     	<entry key="sm_name" value="타임라인"/>
     	<entry key="sm_url" value="/plan/proj/view/timeline/" />
-    </map>
-    <map>
-    	<entry key="sm_name" value="테스트"/>
-    	<entry key="sm_url" value="/plan/proj/view/test/" />
     </map>
     <map>
     	<entry key="sm_name" value="게시판 관리"/>
