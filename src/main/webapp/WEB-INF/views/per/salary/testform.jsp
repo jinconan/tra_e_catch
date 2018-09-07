@@ -5,10 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>결재문서</title>
-<%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 </head>
 <body>
-<div class="col-xs-offset-4">
 	<table border="1"style="text-align: center; width: 600px">
 		<tr>
 			<td colspan="7"><div>
@@ -71,6 +69,5 @@
 		
 		</td></tr>
 			</table>
-			</div>
 </body>
 </html>
