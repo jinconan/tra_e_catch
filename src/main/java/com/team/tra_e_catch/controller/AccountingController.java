@@ -72,5 +72,24 @@ public class AccountingController {
 		mod.addAttribute("subMenuList", subMenuList);
 		return "acc/welfare/wel_main";
 	}
+	
+	@RequestMapping(value = "slip/in", method = RequestMethod.GET)
+	public String slip_init(Model mod,@RequestParam Map<String, Object> pMap) {
+		logger.info("slip/in진입");
+		ApplicationContext context = new ClassPathXmlApplicationContext("accounting-submenu.xml");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("acc-submenu");
+		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "acc/slip/slip_init";
+	}
+	@RequestMapping(value = "/tax/in", method = RequestMethod.GET)
+	public String tax_init(Model mod,@RequestParam Map<String, Object> pMap) {
+		logger.info("slip/in진입");
+		ApplicationContext context = new ClassPathXmlApplicationContext("accounting-submenu.xml");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("acc-submenu");
+		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "/acc/tax/tax_init";
+	}
 
 }
