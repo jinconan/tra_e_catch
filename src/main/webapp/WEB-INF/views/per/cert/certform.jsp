@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<table border="1" width="30%" height="800px" align="center">
+<script type="text/javascript">
+
+$('.c_form').click(function(){
+	alert("되니?");	
+	console.log( "ready!" );
+	$('.c_form').printThis(); <!-- print 할 부분에 설정 -->
+});
+</script>
+	<table class="c_form" border="1" width="80%" height="800px" >
 		<tr>
 			<td colspan="4"><h3 align="center">재 직 증 명 서</h3></td>
 		</tr>
@@ -64,5 +65,3 @@
 
 		</tr>
 	</table>
-</body>
-</html>
