@@ -49,6 +49,7 @@ public class PersonnelController {
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/rating/perrating";
 	}
+	//기안서폼 임시저장
 	@RequestMapping(value="/per/rating/testform.tra", method = RequestMethod.GET)
 	public String formTest(@RequestParam Map<String, Object> pMap, Model mod) {
 		//컨트롤러로 부터 넘겨받는 속성
@@ -62,6 +63,56 @@ public class PersonnelController {
 		mod.addAttribute("curSubMenu", "인사메뉴");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/salary/testform";
+		
+	}
+	
+	//출퇴근관리 
+	@RequestMapping(value="/per/attd/attlist.tra", method = RequestMethod.GET)
+	public String attWork(@RequestParam Map<String, Object> pMap, Model mod) {
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		logger.info("attWork호출");
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-attsub");//근태 관련 서브메뉴 호출
+		mod.addAttribute("curSubMenu", "출퇴근관리");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "per/attd/attd_attenList";
+		
+	}
+	//연차관리
+	@RequestMapping(value="/per/attd/leave.tra", method = RequestMethod.GET)
+	public String attLeave(@RequestParam Map<String, Object> pMap, Model mod) {
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		logger.info("attLeave호출");
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-attsub");//근태 관련 서브메뉴 호출
+		mod.addAttribute("curSubMenu", "연차관리");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "per/attd/attd_leaveList";
+		
+	}
+	
+	//증명서관리
+	@RequestMapping(value="/per/attd/cert.tra", method = RequestMethod.GET)
+	public String certList(@RequestParam Map<String, Object> pMap, Model mod) {
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		logger.info("certList호출");
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-attsub");//근태 관련 서브메뉴 호출
+		mod.addAttribute("curSubMenu", "연차관리");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "per/cert/cert_mainList";
 		
 	}
 }
