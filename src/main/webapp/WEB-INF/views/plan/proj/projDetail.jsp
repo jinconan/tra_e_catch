@@ -2,7 +2,6 @@
 <%
 	//프로젝트 번호
 	int projNo = (Integer) request.getAttribute("projNo");
-
 	//게시판 리스트 받아오기
 %>
 <!DOCTYPE html>
@@ -11,6 +10,20 @@
 <meta charset="UTF-8">
 <title>프로젝트 정보</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<script>
+	//한 프로젝트에 대한 서브메뉴의 경우에는 PK를 뒤에 붙여주어야함.
+	$(document).ready(function() {
+		var $a = $("#submenu>li>a");
+		
+		$a.each(function(i,data) {
+			var href= $(this).attr("href");
+			console.log("before : " + href);
+			$(this).attr("href", href+"/${projNo}" );
+			var href= $(this).attr("href");
+			console.log("after : " + href);
+		});
+	})
+</script>
 <script type="text/javascript">
 	google.charts.load('current', {
 		'packages' : [ 'timeline' ]
