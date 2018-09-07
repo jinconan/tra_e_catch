@@ -14,5 +14,24 @@
 		</map>
     </util:list> 
     -->
-        
+    <!-- 인사권자 전용 -->
+  <util:list id="per-submenu" list-class="java.util.ArrayList">
+		<map>
+			<entry key="sm_name" value="사원 명부" />
+			<entry key="sm_url" value="/per/empList" />
+		</map>
+		<map>
+			<entry key="sm_name" value="근로계약서 관리" />
+			<entry key="sm_url" value="/per/labcont" />
+		</map>
+		<map>
+			<entry key="sm_name" value="고용계약서" />
+			<entry key="sm_url" value="/per/empcont" />
+		</map>
+		<map>
+			<entry key="sm_name" value="인력관리" />
+			<entry key="sm_url" value="/per/empList" />
+		</map>
+		
+	</util:list>      
 </beans>
