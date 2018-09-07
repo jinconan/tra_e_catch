@@ -28,7 +28,7 @@ public class ProductController {
 		//subMenuList : List<Map<String, Object>>
 		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
 		//curSubMenu : String
-		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("prod-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);

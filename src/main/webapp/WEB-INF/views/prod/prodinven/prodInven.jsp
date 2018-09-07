@@ -32,7 +32,7 @@
 				  &nbsp;&nbsp;재고 관리 대장
 			</h3>
 		   </div>
-			<input id="myInput" type="text" placeholder="Search..">
+			조회 : <input id="myInput" type="text" placeholder="Search.."><button class="btn btn-default btn-xs" type="submit">조회</button>
 			
 			 
 			 <table class="table">
@@ -61,7 +61,7 @@
 				  	</tbody>		
 				  </table>
 				  <button class="btn btn-default btn-xs" type="submit">추가</button>
-				  <button class="btn btn-default btn-xs" type="submit">조회</button>
+				  <button class="btn btn-default btn-xs" type="submit">전체 조회</button>
 				  <button class="btn btn-default btn-xs" type="submit">수정</button>
 				  <button class="btn btn-default btn-xs" type="submit">삭제</button>
 			</div>	  
