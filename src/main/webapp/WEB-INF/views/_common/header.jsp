@@ -64,14 +64,13 @@
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						설정<span class="glyphicon glyphicon-cog"></span>
+						My<span class="glyphicon glyphicon-cog"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="<%=contextPath%>/conf/view/login">로그인</a></li>
-						<li><a href="/conf/view">로그아웃</a></li>
-						<li><a href="<%=contextPath%>/conf/view/modify">정보수정</a></li>
+						<li><a href="<%=contextPath%>/scv/view/login">로그인</a></li>
+						<li><a href="<%=contextPath%>/scv/view/join">직원등록</a></li>
+						<li><a href="<%=contextPath%>/scv/view/modify">정보수정</a></li>
 					</ul></li>
 			</ul>
 		</div>

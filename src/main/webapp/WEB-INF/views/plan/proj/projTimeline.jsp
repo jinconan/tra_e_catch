@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <title>프로젝트 타임라인</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<script src="<%=request.getContextPath()%>/js/google_chart_loader.js"></script>
 <script>
 	google.charts.load('current', {
 		'packages' : [ 'timeline' ],

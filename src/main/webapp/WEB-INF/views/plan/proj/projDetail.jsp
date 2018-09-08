@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>프로젝트 정보</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<script src="<%=request.getContextPath()%>/js/google_chart_loader.js"></script>
 <script>
 	//한 프로젝트에 대한 서브메뉴의 경우에는 PK를 뒤에 붙여주어야함.
 	$(document).ready(function() {
