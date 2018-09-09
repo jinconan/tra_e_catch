@@ -185,9 +185,15 @@ public class PlanController {
 		mod.addAttribute("curSubMenu", "참여자 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("projNo", projNo);
-		return "plan/proj/projMemList";
+		return "plan/proj/projMemberList";
 	}
 	
+	/**
+	 * 프로젝트 타임라인 페이지 요청
+	 * @param mod
+	 * @param projNo
+	 * @return
+	 */
 	@RequestMapping(value="/plan/proj/view/timeline/{projNo}")
 	public String viewProjTimeline(Model mod, @PathVariable int projNo) {
 		logger.info("viewProjTimeline()");
@@ -197,5 +203,76 @@ public class PlanController {
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("projNo", projNo);
 		return "plan/proj/projTimeline";
+	}
+	
+	/**
+	 * 프로젝트 DIY게시판 관리 페이지 요청
+	 * @param mod
+	 * @param projNo
+	 * @return
+	 */
+	@RequestMapping(value="/plan/proj/view/boardConfig/{projNo}")
+	public String viewBoardConfig(Model mod, @PathVariable int projNo) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
+		mod.addAttribute("curSubMenu", "게시판 관리");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("projNo", projNo);
+		return "plan/proj/projBoardConfig";
+	}
+	
+	//////////////////////////////////////DIY게시판 ////////////////////////////////////////////
+	/**
+	 * DIY게시판 리스트 페이지 요청
+	 * @param mod
+	 * @param projNo
+	 * @param boardNo
+	 * @return
+	 */
+	@RequestMapping(value="/plan/proj/board/view/{projNo}/{boardNo}")
+	public String viewBoardList(Model mod, @PathVariable int projNo, @PathVariable int boardNo) {
+		
+		return "plan/proj/diy/diyBoardList";
+	}
+	
+	/**
+	 * DIY게시판 게시글 상세 페이지 요청
+	 * @param mod
+	 * @param projNo
+	 * @param boardNo
+	 * @param articleNo
+	 * @return
+	 */
+	@RequestMapping(value="/plan/proj/board/view/detail/{projNo}/{boardNo}/{articleNo}")
+	public String viewBoardDetail(Model mod, 
+			@PathVariable int projNo, @PathVariable int boardNo, @PathVariable int articleNo) {
+		
+		return "plan/proj/diy/diyBoardDetail";
+	}
+	
+	/**
+	 * DIY게시판 게시글 수정 페이지 요청
+	 * @param mod
+	 * @param projNo
+	 * @param boardNo
+	 * @return
+	 */
+	@RequestMapping(value="/plan/proj/board/view/update/{projNo}/{boardNo}/{articleNo}")
+	public String viewBoardUpdate(Model mod, 
+			@PathVariable int projNo, @PathVariable int boardNo, @PathVariable int articleNo) {
+		
+		return "plan/proj/diy/diyBoardUpdate";
+	}
+	/**
+	 * DIY게시판 게시글 추가 페이지 요청
+	 * @param mod
+	 * @param projNo
+	 * @param boardNo
+	 * @return
+	 */
+	@RequestMapping(value="/plan/proj/board/view/insert/{projNo}/{boardNo}")
+	public String viewBoardUpdate(Model mod, @PathVariable int projNo, @PathVariable int boardNo) {
+		
+		return "plan/proj/diy/diyBoardInsert";
 	}
 }

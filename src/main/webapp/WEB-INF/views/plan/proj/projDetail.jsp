@@ -19,7 +19,7 @@
 		$a.each(function(i,data) {
 			var href= $(this).attr("href");
 			console.log("before : " + href);
-			$(this).attr("href", href+"/${projNo}" );
+			$(this).attr("href", href+"${projNo}" );
 			var href= $(this).attr("href");
 			console.log("after : " + href);
 		});
@@ -79,7 +79,7 @@
 		게시판 생성은 팀장만 가능, 테스트 리스트 게시판(테스트 종류, 기간, 인원,첨부자료 유무), 각 테스트마다  n개의 첨부자료.
 		테스트 일정을 달력으로 출력해도 좋을듯. 
 		-->
-			<div class="well profile">
+			<div class="well">
 
 				<div class="row">
 					<h2>
@@ -104,20 +104,11 @@
 					<p>
 						<strong>게시판</strong>
 					</p>
-					<div class="col-sm-3">
-						<div class="thumbnail">
-							<div class="well">
-								<h4>게시판1</h4>
-								<button type="button" class="btn btn-primary btn-xs btn-update btn-add-card">들어가기</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="thumbnail">
-							<div class="well">
-								<h4>게시판2</h4>
-								<button type="button" class="btn btn-primary btn-xs btn-update btn-add-card">들어가기</button>
-							</div>
+					<div class="col-sm-4">
+						<div class="well">
+							<h4>게시판1</h4>
+							<a class="btn btn-xs btn-update btn-add-card btn-success" role="button"
+								href="<%=request.getContextPath() %>/plan/proj/board/view/<%= projNo%>/1">들어가기</a>
 						</div>
 					</div>
 				</div>

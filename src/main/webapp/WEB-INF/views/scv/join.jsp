@@ -34,50 +34,51 @@
 		<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 		<!-- 본문 -->
 		<div class="col-sm-10">
-			
-			<form action="" class="form-horizontal" method="post">
-				<h2>직원 등록</h2>
-				<div class="form-group">
-					<label for="emp_name" class="col-sm-3 control-label">이름</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" id="emp_name" name="emp_name" required/>
+			<div class="well">
+				<h2><strong>직원 등록</strong></h2>
+				<form action="" class="form-horizontal" method="post">
+					<div class="form-group">
+						<label for="emp_name" class="col-sm-3 control-label">이름</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="emp_name" name="emp_name" required/>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="emp_id" class="col-sm-3 control-label">아이디</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" id="emp_id" name="emp_id" required/>
+					<div class="form-group">
+						<label for="emp_id" class="col-sm-3 control-label">아이디</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="emp_id" name="emp_id" required/>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="emp_email" class="col-sm-3 control-label">이메일</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control" id="emp_email" name="emp_email" placeholder="xxxx@xxxXX.xxx" required/>
+					<div class="form-group">
+						<label for="emp_email" class="col-sm-3 control-label">이메일</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="emp_email" name="emp_email" placeholder="xxxx@xxxXX.xxx" required/>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="emp_birthday" class="control-label col-sm-3">생일</label>
-					<div class="col-sm-3">
-						<input type="text" class="form-control form_datetime" id="emp_birthday" name="emp_birthday" readonly>
+					<div class="form-group">
+						<label for="emp_birthday" class="control-label col-sm-3">생일</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control form_datetime" id="emp_birthday" name="emp_birthday" readonly>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="d_gender" class="col-sm-3 control-label">성별</label>
-					<div id="d_gender" class="col-sm-3">
-						<label class="radio-inline control-label">
-							<input type="radio" id="emp_male" name="emp_gender" value="남" checked>남
-						</label>
-						<label class="radio-inline control-label">
-							<input type="radio" id="emp_female" name="emp_gender" value="여">여
-						</label>
+					<div class="form-group">
+						<label for="d_gender" class="col-sm-3 control-label">성별</label>
+						<div id="d_gender" class="col-sm-3">
+							<label class="radio-inline control-label">
+								<input type="radio" id="emp_male" name="emp_gender" value="남" checked>남
+							</label>
+							<label class="radio-inline control-label">
+								<input type="radio" id="emp_female" name="emp_gender" value="여">여
+							</label>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-3 col-sm-3">
-						<button class="btn btn-primary">등록</button>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-3">
+							<button class="btn btn-primary">등록</button>
+						</div>
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>			
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />

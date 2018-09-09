@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로젝트 테스트</title>
+<title>게시글 수정</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 </head>
 <body>
@@ -14,13 +14,13 @@
 	<!-- 본문 -->
 	<div class="container">
 		<!-- 좌측 사이드 메뉴 -->
-		<%@ include file="/WEB-INF/views/_common/submenu.jsp" %>
-		
-		<!-- 작성할 부분 -->
-		<div class="col-sm-10">
+		<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
+
+		<!-- 기획서 작성 폼 -->
+		<div class="col-sm-8">
 		</div>
 	</div>
-
+	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </body>
 </html>

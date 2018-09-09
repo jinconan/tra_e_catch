@@ -22,26 +22,29 @@
 
 		<!-- 기획서 작성 폼 -->
 		<div class="col-sm-8">
-			<form class="form-horizontal">
-				<div class="form-group">
-					<label for="propWriter" class="col-sm-2">작성자</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="propWriter" placeholder="작성자" readonly="readonly">
+			<div class="well">
+				
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label for="propWriter" class="col-sm-2">작성자</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="propWriter" placeholder="작성자" readonly="readonly">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="propTitle" class="col-sm-2">제목</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="propTitle" placeholder="제목" readonly="readonly">
+					<div class="form-group">
+						<label for="propTitle" class="col-sm-2">제목</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="propTitle" placeholder="제목" readonly="readonly">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="propFile" class="col-sm-2">파일</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="propFile" placeholder="파일" readonly="readonly">
+					<div class="form-group">
+						<label for="propFile" class="col-sm-2">파일</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="propFile" placeholder="파일" readonly="readonly">
+						</div>
 					</div>
-				</div>
-				<div class="pull-right">
+				</form>
+				<div class="btn-group">
 					<button type="button" class="btn btn-primary" 
 						onclick="location.href='<%=request.getContextPath()%>/plan/prop/view/list/1'">
 						목록
@@ -54,14 +57,17 @@
 						onclick="#">
 						삭제
 					</button>
+				
 				</div>
-			</form>
+				<div class="row">
+				</div>
+			</div>
 
 		</div>
 
 
 	</div>
-
+	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 
 </body>
 </html>

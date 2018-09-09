@@ -50,7 +50,7 @@
     </map>
     <map>
     	<entry key="sm_name" value="게시판 관리"/>
-    	<entry key="sm_url" value="/plan/proj/view/board/list" />
+    	<entry key="sm_url" value="/plan/proj/view/boardConfig/" />
     </map>
     </util:list>
 </beans>
