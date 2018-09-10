@@ -48,10 +48,8 @@
 						전자결재<span class="glyphicon glyphicon-credit-card"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="<%=contextPath %>/pay/epay">전자결재관리</a></li>
-						<li class="divider"></li>
-						<li><a href="#">결재권자 설정</a></li>
-						<li><a href="<%=contextPath %>/pay/orgchart">조직도</a>
+						<li><a href="<%=contextPath %>/pay/epay">기안문서</a></li>
+						<li><a href="<%=contextPath %>/pay/epay/epaywait">결재목록</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 						회계<span class="glyphicon glyphicon-piggy-bank"></span>
