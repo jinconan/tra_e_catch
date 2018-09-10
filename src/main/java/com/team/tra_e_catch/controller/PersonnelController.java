@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PersonnelController {
 
 	private static final Logger logger = Logger.getLogger(PersonnelController.class);
-
-	@RequestMapping(value="/per/salary/salaryList.tra", method = RequestMethod.GET)
+	//급여관리
+	@RequestMapping(value="/per/salary/salaryList", method = RequestMethod.GET)
 	public String viewSalary(@RequestParam Map<String, Object> pMap, Model mod) {
 		//컨트롤러로 부터 넘겨받는 속성
 		//subMenuList : List<Map<String, Object>>
@@ -35,8 +35,8 @@ public class PersonnelController {
 		return "per/salary/salary";
 	}
 
-	
-	@RequestMapping(value="/per/rating/perrating.tra", method = RequestMethod.GET)
+	//인사고과 메인
+	@RequestMapping(value="/per/rating/perrating", method = RequestMethod.GET)
 	public String viewRating(@RequestParam Map<String, Object> pMap, Model mod) {
 		//컨트롤러로 부터 넘겨받는 속성
 		//subMenuList : List<Map<String, Object>>
@@ -51,7 +51,7 @@ public class PersonnelController {
 		return "per/rating/perrating";
 	}
 	//기안서폼 임시저장
-	@RequestMapping(value="/per/rating/testform.tra", method = RequestMethod.GET)
+	@RequestMapping(value="/per/rating/testform", method = RequestMethod.GET)
 	public String formTest(@RequestParam Map<String, Object> pMap, Model mod) {
 		//컨트롤러로 부터 넘겨받는 속성
 		//subMenuList : List<Map<String, Object>>
@@ -68,7 +68,7 @@ public class PersonnelController {
 	}
 	
 	//출퇴근관리 
-	@RequestMapping(value="/per/attd/attlist.tra", method = RequestMethod.GET)
+	@RequestMapping(value="/per/attd/attlist", method = RequestMethod.GET)
 	public String attWork(@RequestParam Map<String, Object> pMap, Model mod) {
 		//컨트롤러로 부터 넘겨받는 속성
 		//subMenuList : List<Map<String, Object>>
@@ -84,7 +84,7 @@ public class PersonnelController {
 		
 	}
 	//연차관리
-	@RequestMapping(value="/per/attd/leave.tra", method = RequestMethod.GET)
+	@RequestMapping(value="/per/attd/leave", method = RequestMethod.GET)
 	public String attLeave(@RequestParam Map<String, Object> pMap, Model mod) {
 		//컨트롤러로 부터 넘겨받는 속성
 		//subMenuList : List<Map<String, Object>>
@@ -101,7 +101,7 @@ public class PersonnelController {
 	}
 	
 	//증명서관리
-	@RequestMapping(value="/per/cert/cert.tra", method = RequestMethod.GET)
+	@RequestMapping(value="/per/cert/cert", method = RequestMethod.GET)
 	public String certList(@RequestParam Map<String, Object> pMap, Model mod) {
 		//컨트롤러로 부터 넘겨받는 속성
 		//subMenuList : List<Map<String, Object>>
@@ -117,7 +117,7 @@ public class PersonnelController {
 		
 	}
 	//증명서 출력기록 페이지
-	@RequestMapping(value="/per/cert/certprint.tra", method = RequestMethod.POST)
+	@RequestMapping(value="/per/cert/certprint", method = RequestMethod.POST)
 	public String certPrintList(@RequestParam Map<String, Object> pMap, Model mod) {
 		//컨트롤러로 부터 넘겨받는 속성
 		//subMenuList : List<Map<String, Object>>
@@ -127,7 +127,7 @@ public class PersonnelController {
 		return "per/cert/cert_printList";
 	}
 	//증명서 양식 페이지
-	@RequestMapping(value="/per/cert/certform.tra", method = RequestMethod.POST)
+	@RequestMapping(value="/per/cert/certform", method = RequestMethod.POST)
 	public String certform(@RequestParam Map<String, Object> pMap, Model mod) {
 		//컨트롤러로 부터 넘겨받는 속성
 		//subMenuList : List<Map<String, Object>>
