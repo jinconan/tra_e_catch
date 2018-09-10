@@ -13,16 +13,6 @@
 			</a>
 		</div>
 
-		
-		<!--  
-		
-		근태 메인 : /per/attd/attlist
-증명서 메인 : /per/cert/cert
-급여 메인 : /per/salary/salaryList 
-인사고과 메인 : /per/rating/perrating
-		
-		
-		-->
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
@@ -35,7 +25,7 @@
 						<li><a href="<%=contextPath%>/per/salary/salaryList">급여관리</a></li>
 						<li><a href="<%=contextPath%>/per/rating/perrating">인사고과</a></li>
 						<li class="divider"></li>
-						<li><a href="<%=contextPath%>">인사권자 전용</a></li>
+						<li><a href="<%=contextPath%>/per/empList">인사권자 전용</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 						상품<span class="glyphicon glyphicon-shopping-cart"></span>
@@ -58,9 +48,10 @@
 						전자결재<span class="glyphicon glyphicon-credit-card"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">전자결재관리</a></li>
+						<li><a href="<%=contextPath %>/pay/epay">전자결재관리</a></li>
 						<li class="divider"></li>
 						<li><a href="#">결재권자 설정</a></li>
+						<li><a href="<%=contextPath %>/pay/orgchart">조직도</a>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 						회계<span class="glyphicon glyphicon-piggy-bank"></span>
