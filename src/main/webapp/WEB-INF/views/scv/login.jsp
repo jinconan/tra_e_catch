@@ -1,14 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%--
-	<%-- 
-	form정보
-	action : 미정
-	method : post
-	-------------
-	[필드명, 이름, 아이디(이름과 아이디가 다를 경우에 명시)]
-	아이디		: emp_id
-	패스워드		: emp_pw
-	아이디기억	: cb_remember_id
+	ERP 시스템은 무조건 로그인이 선행되어야 함.
+	로그인이 안되어있을 경우에는 어떠한 링크를 타더라도 로그인페이지로 이동함.
+	
+	<form>
+	로그인 양식
+	-----------------------------------------------
+	action = /scv/login(컨텍스트경로는 제외)
+	method = post
+	------------------------------------------------
+	params[name,설명]
+	
+	[emp_id,아이디]
+	[emp_pw,패스워드]
+	[cb_remember_id,아이디 기억]
  --%>
 <!DOCTYPE html>
 <html>
@@ -20,32 +25,33 @@
 <body>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 	<div class="container">
-		<jsp:include page="/WEB-INF/views/_common/submenu.jsp" /> 
-		<div class="col-sm-10">
+		<%-- 로그인은 서브메뉴를 필요로 하지 않는다. --%>
+		<%-- <jsp:include page="/WEB-INF/views/_common/submenu.jsp" /> --%>
+		<div class="col-sm-12">
 			<div class="well">
 				<h2><strong>로그인</strong></h2>
-				<form action="" class="form-horizontal" method="post">
+				<form action="<%= request.getContextPath() %>/scv/login" class="form-horizontal" method="post">
 					<div class="form-group">
-						<label for="emp_id" class="col-sm-3 control-label">ID</label>
-						<div class="col-sm-3">
+						<label for="emp_id" class="sr-only control-label">ID</label>
+						<div class="col-sm-offset-4 col-sm-4">
 							<input type="text" id="emp_id" name="emp_id" class="form-control" placeholder="ID" required="required" autofocus="autofocus"> 
 						</div> 
 					</div>
 					<div class="form-group">
-						<label for="emp_pw" class="col-sm-3 control-label">Password</label> 
-						<div class="col-sm-3">
+						<label for="emp_pw" class="sr-only control-label">Password</label> 
+						<div class="col-sm-offset-4 col-sm-4 ">
 							<input type="password" id="emp_pw" name="emp_pw" class="form-control" placeholder="Password" required="required">
 						</div> 
 					</div>
 					<div class="form-group">
-						<div class="col-sm-offset-3 col-sm-3">
+						<div class="col-sm-offset-4 col-sm-4">
 							<div class="checkbox">
 								<input type="checkbox" id="cb_remember_id" name="cb_remember_id" value="1">아이디 기억
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-offset-3 col-sm-3">
+						<div class="col-sm-offset-4 col-sm-4">
 							<button class="btn btn-primary btn-block" type="submit">로그인</button>
 						</div>
 					</div>

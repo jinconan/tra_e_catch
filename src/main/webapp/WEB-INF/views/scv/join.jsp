@@ -20,7 +20,7 @@
 <script>
 	$(document).ready(function() {
 		$(".form_datetime").datetimepicker({
-			format : 'yyyy-mm-dd'
+			format : 'yyyy. mm. dd'
 			, minView : 2
 			, 
 		});
@@ -74,7 +74,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-3">
-							<button class="btn btn-primary">등록</button>
+							<button class="btn btn-primary btn-block">등록</button>
 						</div>
 					</div>
 				</form>
