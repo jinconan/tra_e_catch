@@ -18,6 +18,12 @@
 	</util:list>
 
 	<!-- 증명서발급 -->
+		<util:list id="per-certsub" list-class="java.util.ArrayList">
+		<map>
+			<entry key="sm_name" value="증명서발급" />
+			<entry key="sm_url" value="/per/cert/cert" />
+		</map>
+		</util:list>
 	<!-- 급여관리 -->
 	<!-- 인사고과 -->
 	<util:list id="per-submenu" list-class="java.util.ArrayList">

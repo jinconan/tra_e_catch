@@ -1,34 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
-</head>
-<body>
-<script type="text/javascript">
-var $table = $('#p_table');
-var mydata = 
-[
-	{
-	
-	    		"a_date"   :"2018-09-07",
-	    		"a_cla"    :"재직증명서",
-	    		"a_use"    :"은행제출용",
-	    		"a_conf"   :"Y",
-	    		"a_print"  :"Y"
-	}
-];
-
-$(function () {
-$('#p_table').bootstrapTable({
-    data: mydata
-});
-});
-</script>
-
+    pageEncoding="UTF-8" %>
 <div class="table-responsive col-xs-8">
 				<table id="p_table" class="table table-striped table-hover">
 					<thead>
@@ -45,5 +16,27 @@ $('#p_table').bootstrapTable({
 					<tbody>
 					</tbody>
 				</table>
-</body>
-</html>
+				</div>
+				
+				
+				
+<script type="text/javascript">
+var $table = $('#p_table');
+var mydata = 
+[
+	{
+	
+	    		"a_date"   :"2018-09-07",
+	    		"a_cla"    :"재직증명서",
+	    		"a_use"    :"은행제출용",
+	    		"a_conf"   :"Y",
+	    		"a_print"  :"Y"
+	}
+];
+
+
+$('#p_table').bootstrapTable({
+    data: mydata
+});
+
+</script>
