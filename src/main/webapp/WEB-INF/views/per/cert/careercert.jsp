@@ -5,13 +5,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-
+ 
 $('.c_form').click(function(){
 	alert("되니?");	
 	console.log( "ready!" );
 	$('.c_form').printThis(); <!-- print 할 부분에 설정 -->
 });
-
+ 
 </script>
 </head>
 <body>
