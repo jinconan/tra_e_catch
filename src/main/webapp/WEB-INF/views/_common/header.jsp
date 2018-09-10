@@ -13,6 +13,16 @@
 			</a>
 		</div>
 
+		
+		<!--  
+		
+		근태 메인 : /per/attd/attlist
+증명서 메인 : /per/cert/cert
+급여 메인 : /per/salary/salaryList 
+인사고과 메인 : /per/rating/perrating
+		
+		
+		-->
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
@@ -20,12 +30,12 @@
 						인사<span class="glyphicon glyphicon-user"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-							<li><a href="#">근태</a></li>
-						<li><a href="#">증명서 발급</a></li>
-						<li><a href="#">급여관리</a></li>
-						<li><a href="#">인사고과</a></li>
+							<li><a href="<%=contextPath%>/per/attd/attlist">근태</a></li>
+						<li><a href="<%=contextPath%>/per/cert/cert">증명서 발급</a></li>
+						<li><a href="<%=contextPath%>/per/salary/salaryList">급여관리</a></li>
+						<li><a href="<%=contextPath%>/per/rating/perrating">인사고과</a></li>
 						<li class="divider"></li>
-						<li><a href="#">인사권자 전용</a></li>
+						<li><a href="<%=contextPath%>">인사권자 전용</a></li>
 					</ul></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 						상품<span class="glyphicon glyphicon-shopping-cart"></span>
