@@ -105,7 +105,7 @@ public class PlanController {
 		logger.info("viewProjInsert()");
 		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
-		mod.addAttribute("curSubMenu", "프로젝트 추가");
+		mod.addAttribute("curSubMenu", "프로젝트 등록");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "plan/proj/projInsert";
 	}
@@ -119,7 +119,7 @@ public class PlanController {
 	public String viewProjUpdate(Model mod, @PathVariable int projNo) {
 		logger.info("viewProjUpdate()");
 		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
-		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
 		mod.addAttribute("curSubMenu", "프로젝트 정보");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "plan/proj/projUpdate";
@@ -135,7 +135,7 @@ public class PlanController {
 		logger.info("viewProjList()");
 		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
-		mod.addAttribute("curSubMenu", "전체 프로젝트 리스트");
+		mod.addAttribute("curSubMenu", "프로젝트 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "plan/proj/projList";
 	}
@@ -150,7 +150,7 @@ public class PlanController {
 		logger.info("viewProjIngList()");
 		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
-		mod.addAttribute("curSubMenu", "진행중");
+		mod.addAttribute("curSubMenu", "프로젝트 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "plan/proj/projList";
 	}
@@ -165,7 +165,7 @@ public class PlanController {
 		logger.info("viewProjEndList()");
 		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
-		mod.addAttribute("curSubMenu", "종료");
+		mod.addAttribute("curSubMenu", "프로젝트 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "plan/proj/projList";
 	}
@@ -180,7 +180,7 @@ public class PlanController {
 		logger.info("viewProjStopList()");
 		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
-		mod.addAttribute("curSubMenu", "중단");
+		mod.addAttribute("curSubMenu", "프로젝트 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "plan/proj/projList";
 	}

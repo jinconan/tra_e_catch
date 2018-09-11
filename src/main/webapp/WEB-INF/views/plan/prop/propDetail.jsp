@@ -23,12 +23,15 @@
 		<!-- 기획서 작성 폼 -->
 		<div class="col-sm-8">
 			<div class="well">
-				
 				<form class="form-horizontal">
 					<div class="form-group">
 						<label for="propWriter" class="col-sm-2">작성자</label>
-						<div class="col-sm-10">
+						<div class="col-sm-4">
 							<input type="text" class="form-control" id="propWriter" placeholder="작성자" readonly="readonly">
+						</div>
+						<label for="propDate" class="col-sm-2">작성일</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="propDate" placeholder="작성일" readonly="readonly">
 						</div>
 					</div>
 					<div class="form-group">
@@ -41,6 +44,12 @@
 						<label for="propFile" class="col-sm-2">파일</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="propFile" placeholder="파일" readonly="readonly">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="propContent" class="col-sm-2">내용</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" name="propContent" id="propContent" rows="3" readonly="readonly"></textarea>
 						</div>
 					</div>
 				</form>

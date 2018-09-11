@@ -16,15 +16,15 @@
     
     <!-- 프로젝트 리스트 서브메뉴 -->
     <util:list id="proj-list-submenu" list-class="java.util.ArrayList">
-    	<map>
-			<entry key="sm_name" value="프로젝트 추가" />
-			<entry key="sm_url" value="/plan/proj/view/insert" />
-		</map>    	
         <map>
-			<entry key="sm_name" value="전체 프로젝트 리스트" />
+			<entry key="sm_name" value="프로젝트 리스트" />
 			<entry key="sm_url" value="/plan/proj/view/list/1" />
 		</map>
-        <map>
+    	<map>
+			<entry key="sm_name" value="프로젝트 등록" />
+			<entry key="sm_url" value="/plan/proj/view/insert" />
+		</map>    	
+        <!-- <map>
 			<entry key="sm_name" value="진행중" />
 			<entry key="sm_url" value="/plan/proj/view/list/ing/1" />
 		</map>
@@ -35,7 +35,7 @@
         <map>
 			<entry key="sm_name" value="중단" />
 			<entry key="sm_url" value="/plan/proj/view/list/stop/1" />
-		</map>
+		</map> -->
     </util:list>
     
     <!-- 프로젝트 내용 서브메뉴 -->
@@ -56,5 +56,9 @@
     	<entry key="sm_name" value="게시판 관리"/>
     	<entry key="sm_url" value="/plan/proj/view/boardConfig/" />
     </map>
+    <map>
+		<entry key="sm_name" value="전체 프로젝트 리스트" />
+		<entry key="sm_url" value="/plan/proj/view/list/1" />
+	</map>
     </util:list>
 </beans>

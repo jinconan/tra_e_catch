@@ -15,7 +15,6 @@
 	//한 프로젝트에 대한 서브메뉴의 경우에는 PK를 뒤에 붙여주어야함.
 	$(document).ready(function() {
 		var $a = $("#submenu>li>a");
-		
 		$a.each(function(i,data) {
 			var href= $(this).attr("href");
 			console.log("before : " + href);
@@ -23,6 +22,16 @@
 			var href= $(this).attr("href");
 			console.log("after : " + href);
 		});
+		
+		//삭제버튼 클릭 이벤트
+		$("#btn_del_project").click(function() {
+			var result = confirm("정말 이 프로젝트를 삭제하시겠습니까?");
+			
+			if(result == true) {
+				//삭제 처리 추가
+				location.href="<%=request.getContextPath()%>/plan/proj/view/list/1";
+			}
+		})
 	})
 </script>
 <script type="text/javascript">
@@ -85,11 +94,9 @@
 					<h2>
 						<strong>엽문</strong>
 						<div class="btn-group">
-							<button type="button" id="btn_mod_project" class="btn btn-warning">
-								<a href="<%=request.getContextPath() %>/plan/proj/view/update/<%=projNo %>">
+							<a class="btn btn-warning" id="btn_mod_project" href="<%=request.getContextPath() %>/plan/proj/view/update/<%=projNo %>">
 									변경
-								</a>
-							</button>
+							</a>
 							<button type="button" id="btn_del_project" class="btn btn-danger">삭제</button>
 						</div>
 					</h2>

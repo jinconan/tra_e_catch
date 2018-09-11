@@ -29,6 +29,12 @@ $(document).ready(function() {
 		<div class="col-sm-10">
 			<div class="well">
 				<h2><strong>프로젝트 리스트</strong></h2>
+				<ul class="nav nav-pills">
+				  <li role="presentation" class="active"><a href="#">전체</a></li>
+				  <li role="presentation"><a href="#">진행중</a></li>
+				  <li role="presentation"><a href="#">종료</a></li>
+				  <li role="presentation"><a href="#">중단</a></li>
+				</ul>
 				<table class="table table-condensed">
 					<thead>
 						<tr>

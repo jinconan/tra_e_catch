@@ -67,7 +67,6 @@
 						My<span class="glyphicon glyphicon-cog"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="<%=contextPath%>/scv/view/login">로그인</a></li>
 						<li><a href="<%=contextPath%>/scv/view/join">직원등록</a></li>
 						<li><a href="<%=contextPath%>/scv/view/modify">정보수정</a></li>
 					</ul></li>
