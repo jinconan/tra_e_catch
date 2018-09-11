@@ -16,7 +16,7 @@
 		<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 
 		<!-- 기획서 작성 폼 -->
-		<div class="col-sm-8">
+		<div class="col-sm-10">
 			<div class="well">
 				<form class="form-horizontal">
 					<div class="form-group">

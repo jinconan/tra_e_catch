@@ -94,6 +94,37 @@ public class PlanController {
 	
 	
 	///////////////////////////////////////////////프로젝트////////////////////////////////////////
+	
+	/**
+	 * 프로젝트 추가 페이지 요청
+	 * @param mod
+	 * @return
+	 */
+	@RequestMapping("/plan/proj/view/insert")
+	public String viewProjInsert(Model mod) {
+		logger.info("viewProjInsert()");
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
+		mod.addAttribute("curSubMenu", "프로젝트 추가");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "plan/proj/projInsert";
+	}
+	
+	/**
+	 * 프로젝트 수정 페이지 요청
+	 * @param mod
+	 * @return
+	 */
+	@RequestMapping("/plan/proj/view/update/{projNo}")
+	public String viewProjUpdate(Model mod, @PathVariable int projNo) {
+		logger.info("viewProjUpdate()");
+		ApplicationContext context = new ClassPathXmlApplicationContext("plan-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
+		mod.addAttribute("curSubMenu", "프로젝트 정보");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "plan/proj/projUpdate";
+	}
+	
 	/**
 	 * 프로젝트 전체 리스트 페이지 요청
 	 * @param mod

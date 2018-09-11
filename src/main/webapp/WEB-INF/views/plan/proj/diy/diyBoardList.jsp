@@ -27,12 +27,18 @@
 						<thead>
 							<tr>
 								<th width="10%">#</th>
-								<th width="90%">제목</th>
+								<th width="50%">제목</th>
+								<th width="15%">작성자</th>
+								<th width="15%">날짜</th>
+								<th width="10%">제목</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>1</td>
+								<td>1빠</td>
+								<td>1빠</td>
+								<td>1빠</td>
 								<td>1빠</td>
 							</tr>
 						</tbody>

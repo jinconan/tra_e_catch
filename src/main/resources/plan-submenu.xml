@@ -16,6 +16,10 @@
     
     <!-- 프로젝트 리스트 서브메뉴 -->
     <util:list id="proj-list-submenu" list-class="java.util.ArrayList">
+    	<map>
+			<entry key="sm_name" value="프로젝트 추가" />
+			<entry key="sm_url" value="/plan/proj/view/insert" />
+		</map>    	
         <map>
 			<entry key="sm_name" value="전체 프로젝트 리스트" />
 			<entry key="sm_url" value="/plan/proj/view/list/1" />

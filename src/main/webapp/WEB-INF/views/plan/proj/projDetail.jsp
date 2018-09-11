@@ -84,6 +84,14 @@
 				<div class="row">
 					<h2>
 						<strong>엽문</strong>
+						<div class="btn-group">
+							<button type="button" id="btn_mod_project" class="btn btn-warning">
+								<a href="<%=request.getContextPath() %>/plan/proj/view/update/<%=projNo %>">
+									변경
+								</a>
+							</button>
+							<button type="button" id="btn_del_project" class="btn btn-danger">삭제</button>
+						</div>
 					</h2>
 					<p>
 						<strong>상태: </strong> 진행중(2018.04.17 ~ 2018.10.26)
@@ -91,7 +99,7 @@
 					<p>
 						<strong>플랫폼: </strong> <span class="tags">PS4</span> <span class="tags">PC</span>
 					</p>
-				</div>
+				</div> 
 
 				<div class="row">
 					<p>
