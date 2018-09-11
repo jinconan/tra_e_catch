@@ -1,16 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 <script type="text/javascript">
-
+ 
 $('.c_form').click(function(){
 	alert("되니?");	
 	console.log( "ready!" );
 	$('.c_form').printThis(); <!-- print 할 부분에 설정 -->
 });
+ 
 </script>
-	<table class="c_form" border="1" width="80%" height="800px" >
+</head>
+<body>
+	<table class="c_form" border="1" width="80%" height="800px">
 		<tr>
-			<td colspan="4"><h3 align="center">재 직 증 명 서</h3></td>
+			<td colspan="4"><h3 align="center">경 력 증 명 서</h3></td>
 		</tr>
 
 		<tr>
@@ -37,7 +44,7 @@ $('.c_form').click(function(){
 
 		<tr>
 			<td align="center" width="16%">재직기간</td>
-			<td colspan="3" align="center">2018-04-07 ~ 현재</td>
+			<td colspan="3" align="center">2018-04-07 ~ 현재&nbsp;(x년xx개월)</td>
 		</tr>
 		<tr>
 			<td align="center" width="20%">용도</td>
@@ -66,3 +73,5 @@ $('.c_form').click(function(){
 
 		</tr>
 	</table>
+</body>
+</html>

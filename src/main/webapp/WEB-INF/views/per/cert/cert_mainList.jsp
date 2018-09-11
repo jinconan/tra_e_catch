@@ -6,17 +6,25 @@
 <title>증명서 발급</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 </head>
+
 <script type="text/javascript">
-function listoption(optnum){
-	if(optnum==1){
+
+	
+	
+
+function listoption(){
+	var optnum = $("#optionnum").val();
+	//alert(optnum);
+	if(optnum=="1"){
 		$.ajax({
 	        method:"POST"
-	        ,url:"/tra_e_catch/per/cert/certform.tra"
+	        ,url:"/tra_e_catch/per/cert/certform"
 	        ,data:"",
 	        success : function(log){
 	        	
 	        	console.log(log);
 	        	$("#d_formprint").html(log);
+	        	$("#d_usepoint").text($("#useinput").val());
 	        	
 	        }
 			,error : function(xhr) {
@@ -24,9 +32,60 @@ function listoption(optnum){
 			}
         });
 	}
+	/* 경력증명서 */
+	else if(optnum==2){
+		$.ajax({
+	        method:"POST"
+	        ,url:"/tra_e_catch/per/cert/careercert"
+	        ,data:"",
+	        success : function(log){
+	        	
+	        	console.log(log);
+	        	$("#d_formprint").html(log);
+	        	$("#d_usepoint").text($("#useinput").val());
+	        }
+			,error : function(xhr) {
+				console.log("땡");
+			}
+        });
+	}
+	/* 사직서 양식 */
+	else if(optnum==3){
+		$.ajax({
+	        method:"POST"
+	        ,url:"/tra_e_catch/per/cert/retireform"
+	        ,data:"",
+	        success : function(log){
+	        	
+	        	console.log(log);
+	        	$("#d_formprint").html(log);
+	        }
+			,error : function(xhr) {
+				console.log("땡");
+			}
+        });
+	}
+	/* 시말서 양식 */
+	else if(optnum==4){
+		$.ajax({
+	        method:"POST"
+	        ,url:"/tra_e_catch/per/cert/reasonform"
+	        ,data:"",
+	        success : function(log){
+	        	
+	        	console.log(log);
+	        	$("#d_formprint").html(log);
+	        }
+			,error : function(xhr) {
+				console.log("땡");
+			}
+        });
+	}
+
+
 	$.ajax({
         method:"POST"
-        ,url:"/tra_e_catch/per/cert/certprint.tra"
+        ,url:"/tra_e_catch/per/cert/certprint"
         ,success : function(log){
         	$("#d_printlist").html(log);
           }
@@ -47,37 +106,36 @@ function listoption(optnum){
 			<div class="panel panel-primary col-xs-8">
 				<table>
 					<tr>
-						<td>증명서 종류 :</td>
+						<td>증명서 종류 :&nbsp;&nbsp;&nbsp;</td>
 						<td>
-							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-								증명서 선택 <span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:listoption(1)">재직증명서</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="listoption(2)">경력증명서</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="listoption(3)">사직서</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="listoption(4)">시말서</a></li>
-							</ul>
+						<select class="form-control" id="optionnum">
+							<option value="0">증명서 선택</option>
+							<option value="1">재직증명서</option>
+							<option value="2">경력증명서</option>
+							<option value="3">사직서</option>
+							<option value="4">시말서</option>
+						</select>
 						</td>
 						<td>&nbsp;&nbsp;&nbsp;</td>
-						<td>사용 용도</td>
-						
-						<td><input type="text" class="form-control" placeholder="ex)은행제출용"></td>
-					<td>
-					&nbsp;&nbsp;<button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>OK
-						</button>
+						<td>사용 용도 : &nbsp;&nbsp;&nbsp;</td>
+
+						<td><input type="text" id="useinput" class="form-control" placeholder="ex)은행제출용"></div></td>
+						<td>&nbsp;&nbsp;
+							<button type="button" class="btn btn-primary" onclick="listoption()">
+								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>OK
+							</button>
 						</td>
-						</tr>
+					</tr>
 				</table>
-				
+
 			</div>
-<div class="col-xs-10">
+			<div class="col-xs-10">
 				<div id="d_formprint">여기에 증명서 출력</div>
-		</div>
+			</div>
 			<!-- 메인화면 끝 -->
-			
+
 			<!-- 증명서.jsp파일(ajax, 팝업창으로 처리) -->
-			
+
 			<!-- 해당버튼 테이블(ajax처리) -->
 			<div id="d_printlist"></div>
 		</div>

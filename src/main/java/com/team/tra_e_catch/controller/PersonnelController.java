@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 /*@RequestMapping(value="/per")*/
 public class PersonnelController {
-
+////////////////////////////////김훈태 작성///////////////////////////////////////
 	private static final Logger logger = Logger.getLogger(PersonnelController.class);
 	//급여관리
 	@RequestMapping(value="/per/salary/salaryList", method = RequestMethod.GET)
@@ -110,8 +110,8 @@ public class PersonnelController {
 		logger.info("certList호출");
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
-		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-attsub");//근태 관련 서브메뉴 호출
-		mod.addAttribute("curSubMenu", "연차관리");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-certsub");//증명서 관리 서브메뉴
+		mod.addAttribute("curSubMenu", "증명서발급");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/cert/cert_mainList";
 		
@@ -126,9 +126,9 @@ public class PersonnelController {
 		logger.info("certPrintList호출");
 		return "per/cert/cert_printList";
 	}
-	//증명서 양식 페이지
+	//재직증명서 양식 페이지
 	@RequestMapping(value="/per/cert/certform", method = RequestMethod.POST)
-	public String certform(@RequestParam Map<String, Object> pMap, Model mod) {
+	public String serform(@RequestParam Map<String, Object> pMap, Model mod) {
 		//컨트롤러로 부터 넘겨받는 속성
 		//subMenuList : List<Map<String, Object>>
 		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
@@ -136,7 +136,43 @@ public class PersonnelController {
 		logger.info("certPrintList호출");
 		return "per/cert/certform";
 	}
-
+	//경력증명서 양식 페이지
+	@RequestMapping(value="/per/cert/careercert", method = RequestMethod.POST)
+	public String careercert(@RequestParam Map<String, Object> pMap, Model mod) {
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		logger.info("certPrintList호출");
+		return "per/cert/careercert";
+	}
+	//사직서 양식 페이지
+		@RequestMapping(value="/per/cert/retireform", method = RequestMethod.POST)
+		public String retirecert(@RequestParam Map<String, Object> pMap, Model mod) {
+			//컨트롤러로 부터 넘겨받는 속성
+			//subMenuList : List<Map<String, Object>>
+			//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+			//curSubMenu : String
+			logger.info("certPrintList호출");
+			return "per/cert/retireform";
+		}
+		//시말서 양식 페이지
+		@RequestMapping(value="/per/cert/reasonform", method = RequestMethod.POST)
+		public String reasoncert(@RequestParam Map<String, Object> pMap, Model mod) {
+			//컨트롤러로 부터 넘겨받는 속성
+			//subMenuList : List<Map<String, Object>>
+			//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+			//curSubMenu : String
+			logger.info("certPrintList호출");
+			return "per/cert/reasonform";
+		}
+		
+		
+////////////////////////////////김훈태 작성 끝 ///////////////////////////////////////		
+		
+		
+		
+		
 	//사원명부
 	@RequestMapping(value = "/per/empList", method = RequestMethod.GET)
 	public String per(Locale locale, Model mod) {
