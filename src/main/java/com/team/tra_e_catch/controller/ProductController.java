@@ -25,7 +25,7 @@ public class ProductController {
 	
 	private static final Logger logger = Logger.getLogger(ProductController.class);
 	
-	@RequestMapping(value="/prod/view/prodCRUD")
+	@RequestMapping(value="/prod/prodCRUD/prodCRUD")
 	public String viewProdCRUD(Model mod, @RequestParam Map<String,Object> pMap) {
 		logger.info("viewProdCRUD()");
 		
@@ -40,7 +40,7 @@ public class ProductController {
 		
 		return "prod/prodCRUD/prodCRUD";
 	}
-	@RequestMapping(value="/prod/view/prodInven")
+	@RequestMapping(value="/prod/prodinven/prodInven")
 	public String viewProdInven(Model mod, @RequestParam Map<String,Object> pMap) {
 		logger.info("viewProdInven()");
 		
@@ -55,7 +55,7 @@ public class ProductController {
 		
 		return "prod/prodinven/prodInven";
 	}
-	@RequestMapping(value="/prod/view/prodStat")
+	@RequestMapping(value="/prod/prodstat/prodStat")
 	public String viewProdstat(Model mod, @RequestParam Map<String,Object> pMap) {
 		logger.info("viewProdstat()");
 		
@@ -70,7 +70,7 @@ public class ProductController {
 		
 		return "prod/prodstat/prodStat";
 	}
-	@RequestMapping(value="/prod/view/prodTran")
+	@RequestMapping(value="/prod/prodtran/prodTran")
 	public String viewProdTran(Model mod, @RequestParam Map<String,Object> pMap) {
 		logger.info("viewProdTran()");
 		

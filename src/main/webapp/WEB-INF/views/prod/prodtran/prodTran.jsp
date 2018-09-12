@@ -27,6 +27,7 @@
 	<div class="container">
 <!---------------------- 서브메뉴 ------------------------>
 	 	<jsp:include page="/WEB-INF/views/_common/submenu.jsp"/> 
+	 
    	<div class="col-sm-10">
 		
 <!----------------------- 제목 -------------------------->		
