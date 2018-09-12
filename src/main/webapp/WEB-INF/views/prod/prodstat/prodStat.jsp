@@ -1,20 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" href="/dev_jsp201809020/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/dev_jsp201809020/bootstrap/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/dev_jsp201809020/bootstrap/css/sticky-footer.css">
-<link rel="stylesheet" href="/dev_jsp201809020/bootstrap/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css">
-<script src="/dev_jsp201809020/bootstrap/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
-<script src="/dev_jsp201809020/bootstrap/js/google_chart_loader.js"></script>
-<script src="/dev_jsp201809020/bootstrap/js/jquery-2.2.4.min.js"></script>
-<script src="/dev_jsp201809020/bootstrap/js/bootstrap.min.js"></script>
-<script src="/dev_jsp201809020/bootstrap/js/moment.js"></script>
-
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-
+<%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <title>Insert title here</title>
 
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -45,15 +35,20 @@
     </script>
 </head>
 <body>
+
+<!----------------------- 헤더 ----------------------->
 <jsp:include page="/WEB-INF/views/_common/header.jsp"/>
 
+<!--------------------- 서브 메뉴 ---------------------->	
 	<div class="container">
-	
-	 <jsp:include page="/WEB-INF/views/_common/header.jsp"/>
+	 	<jsp:include page="/WEB-INF/views/_common/submenu.jsp"/> 
+   	<div class="col-sm-10">
 	 
    <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
 	</div>
-	
-	<jsp:include page="/WEB-INF/views/_common/header.jsp"/>
+</div>
+
+<!-------------------- 하단 메뉴 ------------------->
+<jsp:include page="/WEB-INF/views/_common/footer.jsp"/>
 </body>
 </html>
