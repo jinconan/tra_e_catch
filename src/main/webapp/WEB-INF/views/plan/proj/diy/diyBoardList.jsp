@@ -15,7 +15,7 @@
 		<!-- 좌측 사이드 메뉴 -->
 		<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 
-		<div class="col-sm-8">
+		<div class="col-sm-10">
 			<div class="well">
 				<div class="row">
 					<h2>
@@ -28,9 +28,10 @@
 							<tr>
 								<th width="10%">#</th>
 								<th width="50%">제목</th>
-								<th width="15%">작성자</th>
+								<th width="10%">작성자</th>
 								<th width="15%">날짜</th>
-								<th width="10%">제목</th>
+								<th width="10%">조회수</th>
+								<th width="5%">첨부</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -38,8 +39,9 @@
 								<td>1</td>
 								<td>1빠</td>
 								<td>1빠</td>
-								<td>1빠</td>
-								<td>1빠</td>
+								<td>1999-11-11</td>
+								<td>1</td>
+								<td></td>
 							</tr>
 						</tbody>
 					</table>

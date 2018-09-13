@@ -11,10 +11,6 @@
 			format : 'yyyy. mm. dd',
 			minView : 2
 		});
-
-		$('#d_preview').scrollspy({
-			target : '.navbar-example'
-		})
 	})
 </script>
 </head>
@@ -41,18 +37,12 @@
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="projTitle" id="projTitle" placeholder="프로젝트명" required="required">
 						</div>
-						<!-- <div class="col-sm-2">
-							<button type="button" id="btn_preview" class="btn btn-primary">미리보기</button>
-						</div> -->
 					</div>
 					<div class="form-group">
 						<label for="projLeader" class="col-sm-2 control-label">담당자</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="projTitle" id="projLeader" placeholder="담당자" readonly required="required">
 						</div>
-						<!-- <div class="col-sm-2">
-							<button type="button" id="btn_preview" class="btn btn-primary">미리보기</button>
-						</div> -->
 					</div>
 					<div class="form-group">
 						<label for="projPeriod" class="col-sm-2 control-label">기간</label>
@@ -65,25 +55,25 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="projPlatform" class="col-sm-2 control-label">플랫폼</label>
+						<label for="projMember" class="col-sm-2 control-label">멤버</label>
 						<div class="col-sm-10">
 
 							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 								<div class="panel panel-default">
 									<div class="panel-heading" role="tab" id="headingOne">
-										<input type="text" class="panel-title form-control" id="platforms" readonly data-toggle="collapse" data-parent="#accordion" href="#platform_list" aria-expanded="true" aria-controls="collapseOne" />
+										<input type="text" class="panel-title form-control" id="platforms" readonly data-toggle="collapse" data-parent="#accordion" href="#member_list" aria-expanded="true" aria-controls="collapseOne" />
 									</div>
-									<div id="platform_list" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+									<div id="member_list" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 										<div class="panel-body">
 											<div class="input-group">
 												<span class="input-group-addon"> 
-													<input type="checkbox" aria-label="cb_platform1">
-												</span><input type="text" class="form-control" aria-label="cb_platform1" value="PS4" readonly="readonly">
+													<input type="checkbox" aria-label="cb_member1">
+												</span><input type="text" class="form-control" aria-label="cb_member1" value="홍길동" readonly="readonly">
 											</div>
 											<div class="input-group">
 												<span class="input-group-addon"> 
-													<input type="checkbox" aria-label="cb_platform2">
-												</span><input type="text" class="form-control" aria-label="cb_platform2" value="PC" readonly="readonly">
+													<input type="checkbox" aria-label="cb_member2">
+												</span><input type="text" class="form-control" aria-label="cb_member2" value="김유신" readonly="readonly">
 											</div>
 										</div>
 									</div>

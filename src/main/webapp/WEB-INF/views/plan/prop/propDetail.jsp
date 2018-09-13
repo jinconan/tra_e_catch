@@ -2,7 +2,6 @@
 <%
 	//프로젝트 번호
 	int propNo = (Integer) request.getAttribute("propNo");
-
 %>
 <!DOCTYPE html>
 <html>
@@ -18,10 +17,10 @@
 	<!-- 본문 -->
 	<div class="container">
 		<!-- 좌측 사이드 메뉴 -->
-		<jsp:include page="/WEB-INF/views/_common/submenu.jsp"/>
+		<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 
 		<!-- 기획서 작성 폼 -->
-		<div class="col-sm-8">
+		<div class="col-sm-10">
 			<div class="well">
 				<form class="form-horizontal">
 					<div class="form-group">
@@ -54,22 +53,12 @@
 					</div>
 				</form>
 				<div class="btn-group">
-					<button type="button" class="btn btn-primary" 
-						onclick="location.href='<%=request.getContextPath()%>/plan/prop/view/list/1'">
-						목록
-					</button>
-					<button type="button" class="btn btn-warning"
-						onclick="location.href='<%=request.getContextPath()%>/plan/prop/view/update/1'">
-						수정
-					</button>
-					<button type="button" class="btn btn-danger"
-						onclick="#">
-						삭제
-					</button>
-				
+					<button type="button" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/plan/prop/view/list/1'">목록</button>
+					<button type="button" class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/plan/prop/view/update/1'">수정</button>
+					<button type="button" class="btn btn-danger" onclick="">삭제</button>
+
 				</div>
-				<div class="row">
-				</div>
+				<div class="row"></div>
 			</div>
 
 		</div>
