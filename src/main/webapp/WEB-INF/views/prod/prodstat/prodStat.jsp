@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <title>Insert title here</title>
-
+<script src="/resources/js/google_chart_loader.js"></script>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});

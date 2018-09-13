@@ -38,11 +38,14 @@
 				</div>
 <!--------------------- 작업 지시서 폼 -----------------------> 				
 				<div class="form-group">
+					
+					
 					<label class="col-sm-3 control-label" for="inputEmail">등록코드</label>
 					<div class="col-sm-3">
 						<input class="form-control" id="inputgubun" type="email"
 							placeholder="등록코드">
 					</div>
+					
 					<div class="btn-group">
 
 						<!-- 버튼태그 -->
@@ -69,7 +72,6 @@
 					<div class="col-sm-3">
 						<input class="form-control" id="inputPassword" type="password"
 							placeholder="결제방식">
-
 					</div>
 				</div>
 
@@ -84,12 +86,8 @@
 							</span>
 						</div>
 					</div>
-
-
-
-					
 				</div>
-
+				
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="inputEmail">결제코드</label>
@@ -107,8 +105,40 @@
 					</div>
 				</div>
 		</div>
+				
+		<div class="form-group" id="emptable"></div>
+		</form>
+		<hr>
+		<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>날짜</th>
+								<th>등록코드</th>
+								<th>거래처코드</th>
+								<th>결제방식</th>
+								<th>결제일자</th>
+								<th>결제코드</th>
+								<th>거래량</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>2018-08-01</td>
+								<td>2343</td>
+								<td>st-21</td>
+								<td>카드</td>
+								<td>2018-07-31</td>
+								<td>2351</td>
+								<td>3</td>
+							</tr>
+						
+						</tbody>
+					</table>
+		
 		<div class="form-group">
-			<div class="col-sm-12 text-center">
+			<div class="col-sm-12 text-right">
 				<button id="btn_pay" class="btn btn-primary">
 					저장<i class="fa fa-check spaceLeft"></i>
 				</button>
@@ -118,9 +148,6 @@
 
 			</div>
 		</div>
-		<div class="form-group" id="emptable"></div>
-		</form>
-		<hr>
 	</div>
 </div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp"/>

@@ -17,19 +17,19 @@
 	<util:list id="prod-submenu" list-class="java.util.ArrayList">
         <map>
 			<entry key="sm_name" value="작업 지시서" />
-			<entry key="sm_url" value="/prod/prodCRUD/prodCRUD" />
+			<entry key="sm_url" value="/prod/view/prodCRUD" />
 		</map>
 		 <map>
 			<entry key="sm_name" value="재고 관리" />
-			<entry key="sm_url" value="/prod/prodinven/prodInven" />
+			<entry key="sm_url" value="/prod/view/prodInven" />
 		</map>
 		 <map>
 			<entry key="sm_name" value="상품 통계" />
-			<entry key="sm_url" value="/prod/prodstat/prodStat" />
+			<entry key="sm_url" value="/prod/view/prodStat" />
 		</map>
 		 <map>
 			<entry key="sm_name" value="거래 내역서" />
-			<entry key="sm_url" value="/prod/prodtran/prodTran" />
+			<entry key="sm_url" value="/prod/view/prodTran" />
 		</map>
     </util:list> 
     
