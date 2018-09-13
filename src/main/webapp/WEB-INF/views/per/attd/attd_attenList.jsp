@@ -10,40 +10,10 @@
 <body style="margin-top: 30px">
 	<script type="text/javascript">
 		var $table = $('#p_table');
-		var mydata = [
-			{	"EMP_NO" : "1",
-				"a_date" : "2018-08-08",
-				"a_time" : "08:59",
-				"l_time" : "23:50",
-				"a_cla" : "정상출근",
-				"a_etc" : "야근"
-			},
-			{
-				"a_date" : "2018-08-09",
-				"a_cla" : "출근",
-				"a_swork" : "10:59",
-				"a_ework" : "19:50",
-				"a_etc" : "지각"
-			},
-			{
-				"a_date" : "2018-08-10",
-				"a_cla" : "출근",
-				"a_swork" : "09:31",
-				"a_ework" : "19:00",
-				"a_etc" : "지각"
-			},
-			{
-				"a_date" : "2018-08-08",
-				"a_cla" : "출근",
-				"a_swork" : "10:12",
-				"a_ework" : "18:59",
-				"a_etc" : "지각, 조기퇴근"
-			}
-		];
-	
+		
 		$(function() {
-			$('#p_table').bootstrapTable({
-				data : mydata
+			$('#p_table').bootstrapTable('refresh', {
+				url:'/per/attd/attdjson'				
 			});
 		});
 	</script>

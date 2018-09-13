@@ -5,7 +5,7 @@
 <%@ page import="com.google.gson.Gson" %>
 <%
 	List<Map<String,Object>> getAttdjson = 
-		(List<Map<String,Object>>)request.getAttribute("getAttdjson");
+		(List<Map<String,Object>>)request.getAttribute("getAttdList");
 	Gson gs = new Gson();
 	String jsonattd = gs.toJson(getAttdjson);
 	out.print(jsonattd);
