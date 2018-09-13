@@ -10,8 +10,9 @@
 <body style="margin-top: 30px">
 <script type="text/javascript">
 var $table = $('#p_table');
+
 var mydata = 
-[
+ [
 	{
 	    "p_date": "2018-09-04",
 	    "p_cla": "월급여",
@@ -45,11 +46,12 @@ var mydata =
 	    "p_cla": "월급여",
 	    "p_pay": "$9977"
 	}
-];
+]; 
 
 $(function () {
 $('#p_table').bootstrapTable({
     data: mydata
+    /* url:'/per/salary/salaryjson' */ //json포멧으로 받는 url은 해당 컨트롤러에서 담당.
 });
 });
 

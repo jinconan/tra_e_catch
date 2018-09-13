@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -13,10 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.team.tra_e_catch.personnel.PersonnelLogic;
+
 
 @Controller
 /*@RequestMapping(value="/per")*/
 public class PersonnelController {
+	@Autowired
+	PersonnelLogic personnelLogic = null;
 ////////////////////////////////김훈태 작성///////////////////////////////////////
 	private static final Logger logger = Logger.getLogger(PersonnelController.class);
 	//급여관리
@@ -33,6 +40,21 @@ public class PersonnelController {
 		mod.addAttribute("curSubMenu", "급여관리");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/salary/salary";
+	}
+	//급여관리테이블URL(JSON)
+	@RequestMapping(value="/per/salary/salaryjson", method = RequestMethod.GET)
+	public String viewSalaryjson(@RequestParam Map<String, Object> pMap, Model mod) {
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		logger.info("salary호출");
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-submenu");
+		mod.addAttribute("curSubMenu", "급여관리");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "per/salary/salaryjson";
 	}
 
 	//인사고과 메인
@@ -83,6 +105,19 @@ public class PersonnelController {
 		return "per/attd/attd_attenList";
 		
 	}
+	//출퇴근데이터(JSON)
+		@RequestMapping(value="/per/attd/attdjson")
+		public String viewAttdjson(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
+			//컨트롤러로 부터 넘겨받는 속성
+			//subMenuList : List<Map<String, Object>>
+			//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+			//curSubMenu : String
+			logger.info("viewAttdjson호출");
+			List<Map<String, Object>> attdList = null;
+			attdList =personnelLogic.getAttdList(pMap,res);
+			mod.addAttribute("getAttdList", attdList);
+			return "forward:attdjson.jsp";
+		}
 	//연차관리
 	@RequestMapping(value="/per/attd/leave", method = RequestMethod.GET)
 	public String attLeave(@RequestParam Map<String, Object> pMap, Model mod) {
