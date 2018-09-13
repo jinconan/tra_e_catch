@@ -22,6 +22,17 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+     
+     <!-- 파일 업로드용 필터 -->
+     <filter>
+          <filter-name>MultipartFilter</filter-name>
+          <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+     </filter>
+     <filter-mapping>
+          <filter-name>MultipartFilter</filter-name>
+          <url-pattern>*.bo2</url-pattern>
+     </filter-mapping>
+	
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
