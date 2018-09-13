@@ -11,11 +11,11 @@
 	<script type="text/javascript">
 		var $table = $('#p_table');
 		var mydata = [
-			{
+			{	"EMP_NO" : "1",
 				"a_date" : "2018-08-08",
+				"a_time" : "08:59",
+				"l_time" : "23:50",
 				"a_cla" : "정상출근",
-				"a_swork" : "08:59",
-				"a_ework" : "23:50",
 				"a_etc" : "야근"
 			},
 			{
@@ -79,11 +79,12 @@
 					<thead>
 						<tr>
 							<!-- data-field에는 json포멧으로 데이터를 담을예정  -->
+							<th width="5%" data-field="EMP_NO">사원번호</th>
 							<th width="5%" data-field="a_date">일자</th>
-							<th width="20%" data-field="a_cla">구분</th>
-							<th width="30%" data-field="a_swork">출근시간</th>
-							<th width="30%" data-field="a_ework">퇴근시간</th>
-							<th width="15%" data-field="a_etc">비고</th>
+							<th width="30%" data-field="a_time">출근시간</th>
+							<th width="30%" data-field="l_time">퇴근시간</th>
+							<th width="20%" data-field="time_chk">출근상태</th>
+							<th width="15%" data-field="time_etc">퇴근상태</th>
 
 						</tr>
 					</thead>

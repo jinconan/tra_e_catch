@@ -34,6 +34,21 @@ public class PersonnelController {
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/salary/salary";
 	}
+	//급여관리테이블URL(JSON)
+	@RequestMapping(value="/per/salary/salaryjson", method = RequestMethod.GET)
+	public String viewSalaryjson(@RequestParam Map<String, Object> pMap, Model mod) {
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		logger.info("salary호출");
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-submenu");
+		mod.addAttribute("curSubMenu", "급여관리");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "per/salary/salaryjson";
+	}
 
 	//인사고과 메인
 	@RequestMapping(value="/per/rating/perrating", method = RequestMethod.GET)
@@ -83,6 +98,21 @@ public class PersonnelController {
 		return "per/attd/attd_attenList";
 		
 	}
+	//출퇴근데이터(JSON)
+		@RequestMapping(value="/per/salary/salaryjson", method = RequestMethod.GET)
+		public String viewAttdjson(@RequestParam Map<String, Object> pMap, Model mod) {
+			//컨트롤러로 부터 넘겨받는 속성
+			//subMenuList : List<Map<String, Object>>
+			//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+			//curSubMenu : String
+			logger.info("salary호출");
+			
+			ApplicationContext context = new ClassPathXmlApplicationContext("personnel-submenu.xml");
+			List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-submenu");
+			mod.addAttribute("curSubMenu", "출퇴근관리");
+			mod.addAttribute("subMenuList", subMenuList);
+			return "per/attd/attdjson";
+		}
 	//연차관리
 	@RequestMapping(value="/per/attd/leave", method = RequestMethod.GET)
 	public String attLeave(@RequestParam Map<String, Object> pMap, Model mod) {
