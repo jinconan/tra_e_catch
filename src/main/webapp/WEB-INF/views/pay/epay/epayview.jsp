@@ -30,10 +30,10 @@
 					<h1>결제 문서작성</h1>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputEmail">분류</label>
+					<label class="col-sm-3 control-label" for="inputEmail">담당부서</label>
 					<div class="col-sm-3">
 						<input class="form-control" id="inputEmail" type="email"
-							placeholder="분류">
+							placeholder="담당부서">
 					</div>
 					<div class="btn-group">
 
@@ -44,22 +44,22 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a href="#">메뉴1</a></li>
-							<li><a href="#">메뉴2</a></li>
+							<li><a href="#">부서명</a></li>
+							<li><a href="#">부서명</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputPassword">제목</label>
+					<label class="col-sm-3 control-label" for="doc_name">제목</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="inputPassword" type="password"
+						<input class="form-control" id="doc_name" type="name"
 							placeholder="제목">
 
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputNumber">시행일자</label>
+					<label class="col-sm-3 control-label" for="doc-start-date">시행일자</label>
 					<div class="col-sm-2" style="padding-right: 0px;">
 
 						<div class='input-group date' id='datetimepicker1'>
@@ -72,7 +72,7 @@
 
 
 
-					<label class="col-sm-2 control-label" for="inputNumber">종료일자</label>
+					<label class="col-sm-2 control-label" for="doc-end-date">종료일자</label>
 					<div class="col-sm-2" style="padding-left: 0px;">
 
 						<div class='input-group date' id='datetimepicker2'>
@@ -86,14 +86,14 @@
 
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputEmail">내용</label>
+					<label class="col-sm-3 control-label" for="doc-data">내용</label>
 					<div class="col-sm-6">
 						<textarea class="form-control" rows="20"></textarea>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputEmail">공람자</label>
+					<label class="col-sm-3 control-label" for="doc-emp">공람자</label>
 					<div class="col-sm-3">
 						<input class="form-control" id="inputEmail" type="email"
 							placeholder="공람자">
