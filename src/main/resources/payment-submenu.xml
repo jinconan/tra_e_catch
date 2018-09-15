@@ -14,27 +14,31 @@
 		</map>
     </util:list> 
     -->
-    <!-- 전자 결제 관리 서브 메뉴 -->
+    <!-- 기안문서 서브 메뉴 -->
         <util:list id="pay-submenu" list-class="java.util.ArrayList">
 		<map>
-			<entry key="sm_name" value="결제 문서 작성" />
+			<entry key="sm_name" value="기안문서 작성" />
 			<entry key="sm_url" value="/pay/epay" />
 		</map>
 		<map>
-			<entry key="sm_name" value="기안 문서" />
+			<entry key="sm_name" value="기안 목록" />
 			<entry key="sm_url" value="/pay/epay/drift" />
 		</map>
 		<map>
+			<entry key="sm_name" value="부결 기안" />
+			<entry key="sm_url" value="/pay/epay/backdrift" />
+		</map>
+		
+	</util:list>
+	<!-- 결제 목록 메뉴 -->
+	<util:list id="pay-submenu" list-class="java.util.ArrayList">
+      <map>
 			<entry key="sm_name" value="결제 대기 문서" />
 			<entry key="sm_url" value="/pay/epay/epaywait" />
 		</map>
 		<map>
 			<entry key="sm_name" value="결제 완료 문서" />
 			<entry key="sm_url" value="/pay/epay/epayend" />
-		</map>
-		<map>
-			<entry key="sm_name" value="부결 기안" />
-			<entry key="sm_url" value="/pay/epay/backdrift" />
 		</map>
 	</util:list>
 </beans>
