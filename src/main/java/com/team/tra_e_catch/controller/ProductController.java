@@ -25,7 +25,7 @@ public class ProductController {
 	
 	private static final Logger logger = Logger.getLogger(ProductController.class);
 	
-	@RequestMapping(value="/prod/prodCRUD/prodCRUD")
+	@RequestMapping(value="/prod/view/prodCRUD")
 	public String viewProdCRUD(Model mod, @RequestParam Map<String,Object> pMap) {
 		logger.info("viewProdCRUD()");
 		
@@ -35,12 +35,12 @@ public class ProductController {
 		//curSubMenu : String
 		ApplicationContext context = new ClassPathXmlApplicationContext("product-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("curSubMenu", "작업 지시서");
 		mod.addAttribute("subMenuList", subMenuList);
 		
 		return "prod/prodCRUD/prodCRUD";
 	}
-	@RequestMapping(value="/prod/prodinven/prodInven")
+	@RequestMapping(value="/prod/view/prodInven")
 	public String viewProdInven(Model mod, @RequestParam Map<String,Object> pMap) {
 		logger.info("viewProdInven()");
 		
@@ -50,12 +50,12 @@ public class ProductController {
 		//curSubMenu : String
 		ApplicationContext context = new ClassPathXmlApplicationContext("product-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
-		mod.addAttribute("curSubxMenu", "기획서 리스트");
+		mod.addAttribute("curSubxMenu", "재고 관리");
 		mod.addAttribute("subMenuList", subMenuList);
 		
 		return "prod/prodinven/prodInven";
 	}
-	@RequestMapping(value="/prod/prodstat/prodStat")
+	@RequestMapping(value="/prod/view/prodStat")
 	public String viewProdstat(Model mod, @RequestParam Map<String,Object> pMap) {
 		logger.info("viewProdstat()");
 		
@@ -65,12 +65,12 @@ public class ProductController {
 		//curSubMenu : String
 		ApplicationContext context = new ClassPathXmlApplicationContext("product-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("curSubMenu", "상품 통계");
 		mod.addAttribute("subMenuList", subMenuList);
 		
 		return "prod/prodstat/prodStat";
 	}
-	@RequestMapping(value="/prod/prodtran/prodTran")
+	@RequestMapping(value="/prod/view/prodTran")
 	public String viewProdTran(Model mod, @RequestParam Map<String,Object> pMap) {
 		logger.info("viewProdTran()");
 		
@@ -80,7 +80,7 @@ public class ProductController {
 		//curSubMenu : String
 		ApplicationContext context = new ClassPathXmlApplicationContext("product-submenu.xml");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("curSubMenu", "거래 내역서");
 		mod.addAttribute("subMenuList", subMenuList);
 		
 		return "prod/prodtran/prodTran";
