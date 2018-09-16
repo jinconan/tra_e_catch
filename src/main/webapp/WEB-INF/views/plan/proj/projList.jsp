@@ -9,8 +9,8 @@
 <script>
 $(document).ready(function() {
 	$(".tr_proj").click(function(event){
-		var proj_no = $(this).find("td")[0].innerText;
-		location.href="<%=request.getContextPath()%>/plan/proj/view/detail/"+proj_no;
+		var projNo = $(this).find("td")[0].innerText;
+		location.href="<%=request.getContextPath()%>/plan/view/projDetail?projNo="+projNo;
 	})
 })
 </script>

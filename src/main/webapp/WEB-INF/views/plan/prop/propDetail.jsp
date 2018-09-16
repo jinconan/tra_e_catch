@@ -53,8 +53,8 @@
 					</div>
 				</form>
 				<div class="btn-group">
-					<button type="button" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/plan/prop/view/list/1'">목록</button>
-					<button type="button" class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/plan/prop/view/update/1'">수정</button>
+					<button type="button" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/plan/view/propList?pageNo=1'">목록</button>
+					<button type="button" class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/plan/view/propUpdate?propNo=<%=propNo%>'">수정</button>
 					<button type="button" class="btn btn-danger" onclick="">삭제</button>
 
 				</div>

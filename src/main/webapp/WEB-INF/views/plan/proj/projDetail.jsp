@@ -17,10 +17,10 @@
 		var $a = $("#submenu>li>a");
 		$a.each(function(i,data) {
 			var href= $(this).attr("href");
-			console.log("before : " + href);
+			if($(this).text().trim() == "전체 프로젝트 리스트") {
+				return;
+			}
 			$(this).attr("href", href+"${projNo}" );
-			var href= $(this).attr("href");
-			console.log("after : " + href);
 		});
 		
 		//삭제버튼 클릭 이벤트
@@ -29,7 +29,7 @@
 			
 			if(result == true) {
 				//삭제 처리 추가
-				location.href="<%=request.getContextPath()%>/plan/proj/view/list/1";
+				location.href="<%=request.getContextPath()%>/plan/view/projList/all?pageNo=1";
 			}
 		})
 	})
@@ -94,7 +94,7 @@
 					<h2>
 						<strong>엽문</strong>
 						<div class="btn-group">
-							<a class="btn btn-warning" id="btn_mod_project" href="<%=request.getContextPath() %>/plan/proj/view/update/<%=projNo %>">
+							<a class="btn btn-warning" id="btn_mod_project" href="<%=request.getContextPath() %>/plan/view/projUpdate?projNo=<%=projNo %>">
 									변경
 							</a>
 							<button type="button" id="btn_del_project" class="btn btn-danger">삭제</button>
@@ -123,7 +123,7 @@
 						<div class="well">
 							<h4>게시판1</h4>
 							<a class="btn btn-xs btn-update btn-add-card btn-success" role="button"
-								href="<%=request.getContextPath() %>/plan/proj/board/view/<%= projNo%>/1">들어가기</a>
+								href="<%=request.getContextPath() %>/plan/view/diyBoardList?projNo=<%= projNo%>&boardNo=1&pageNo=1">들어가기</a>
 						</div>
 					</div>
 				</div>

@@ -8,8 +8,8 @@
 <script>
 	$(document).ready(function() {
 		$(".tr_prop").click(function() {
-			var prop_no = $(this).find("td")[0].innerText;
-			location.href="<%=request.getContextPath()%>/plan/prop/view/detail/"+prop_no;
+			var propNo = $(this).find("td")[0].innerText;
+			location.href="<%=request.getContextPath()%>/plan/view/propDetail?propNo="+propNo;
 		})
 	})
 	

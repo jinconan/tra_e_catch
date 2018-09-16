@@ -57,6 +57,10 @@
 			<entry key="sm_url" value="/per/empList" />
 		</map>
 		<map>
+			<entry key="sm_name" value="사원  등록" />
+			<entry key="sm_url" value="/per/empRegist" />
+		</map>
+		<map>
 			<entry key="sm_name" value="근로계약서 관리" />
 			<entry key="sm_url" value="/per/labcont" />
 		</map>

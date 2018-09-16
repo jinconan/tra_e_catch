@@ -18,54 +18,56 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PaymentController {
 	
 	private static final Logger logger = Logger.getLogger(PaymentController.class);
-	//결제 문서 작성
+	private final ApplicationContext context = new ClassPathXmlApplicationContext("submenu/payment-submenu.xml");
+	
+	//////////////////////////// 기안 ///////////////////////////////
+	//기안 문서 작성
 	@RequestMapping(value = "/epay", method = RequestMethod.GET)
-	public String epay(Locale locale, Model mod) {
+	public String epay(Model mod) {
 		logger.info("Welcome home! The client locale is");
-		ApplicationContext context = new ClassPathXmlApplicationContext("payment-submenu.xml");
-		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-draft-submenu");
+		mod.addAttribute("curSubMenu", "기안문서 작성");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "pay/epay/epayview";
 	}
 	//기안 문서
-	@RequestMapping(value = "/epay/drift", method = RequestMethod.GET)
-	public String draft(Locale locale, Model mod) {
+	@RequestMapping(value = "/epay/draft", method = RequestMethod.GET)
+	public String draft(Model mod) {
 		logger.info("Welcome home! The client locale is");
-		ApplicationContext context = new ClassPathXmlApplicationContext("payment-submenu.xml");
-		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-draft-submenu");
+		mod.addAttribute("curSubMenu", "기안 목록");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "pay/epay/draft";
 	}
-	//결제 대기 문서
-	@RequestMapping(value = "/epay/epaywait", method = RequestMethod.GET)
-	public String epaywait(Locale locale, Model mod) {
+	
+	//부결기안
+	@RequestMapping(value = "/epay/backdraft", method = RequestMethod.GET)
+	public String backdrift(Model mod) {
 		logger.info("Welcome home! The client locale is");
-		ApplicationContext context = new ClassPathXmlApplicationContext("payment-submenu.xml");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-draft-submenu");
+		mod.addAttribute("curSubMenu", "부결 기안");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "pay/epay/backdraft";
+	}
+	
+	//////////////////////////// 결재 //////////////////////////////////
+	//결재 대기 문서
+	@RequestMapping(value = "/epay/epaywait", method = RequestMethod.GET)
+	public String epaywait(Model mod) {
+		logger.info("Welcome home! The client locale is");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("curSubMenu", "결재 대기 문서");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "pay/epay/epaywait";
 	}
-	//결제 완료 문서
+	//결재 완료 문서
 	@RequestMapping(value = "/epay/epayend", method = RequestMethod.GET)
-	public String epayend(Locale locale, Model mod) {
+	public String epayend(Model mod) {
 		logger.info("Welcome home! The client locale is");
-		ApplicationContext context = new ClassPathXmlApplicationContext("payment-submenu.xml");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("curSubMenu", "결재 완료 문서");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "pay/epay/epayend";
 	}
-	//부결기안
-	@RequestMapping(value = "/epay/backdrift", method = RequestMethod.GET)
-	public String backdrift(Locale locale, Model mod) {
-		logger.info("Welcome home! The client locale is");
-		ApplicationContext context = new ClassPathXmlApplicationContext("payment-submenu.xml");
-		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
-		mod.addAttribute("subMenuList", subMenuList);
-		return "pay/epay/backdrift";
-	}
+	
 }

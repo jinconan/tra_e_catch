@@ -8,43 +8,62 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class SCVController {
-	
+
 	private static final Logger logger = Logger.getLogger(SCVController.class);
 
-		@RequestMapping(value = "/scv/login", method = RequestMethod.POST)
+	/**
+	 * 로그인 처리 요청 메소드
+	 * @param mod
+	 * @return
+	 */
+	@RequestMapping(value = "/scv/login", method = RequestMethod.POST)
 	public String login(Model mod) {
 		logger.info("login");
 		return "home";
 	}
-	
-	
+
+	/**
+	 * 로그인 페이지 요청 메소드
+	 * @param mod
+	 * @return
+	 */
 	@RequestMapping(value = "/scv/view/login", method = RequestMethod.GET)
 	public String viewLogin(Model mod) {
 		logger.info("viewLogin");
 		return "scv/login";
 	}
-	
-	@RequestMapping(value = "/scv/view/join", method = RequestMethod.GET)
-	public String viewJoin(Model mod) {
-		logger.info("viewJoin");
-		return "scv/join";
-	}
-	
+
+	/**
+	 * 로그아웃 처리 요청 메소드
+	 * @param mod
+	 * @return
+	 */
 	@RequestMapping(value = "/scv/logout", method = RequestMethod.GET)
 	public String logout(Model mod) {
 		logger.info("logout");
 		return "home";
 	}
+
+	/**
+	 * 정보 수정 처리 요청 메소드
+	 * @param mod
+	 * @return
+	 */
 	@RequestMapping(value = "/scv/modify", method = RequestMethod.POST)
 	public String modify(Model mod) {
 		logger.info("modify");
 		return "scv/modify";
 	}
+
+	/**
+	 * 정보 수정 페이지 요청 메소드
+	 * @param mod
+	 * @return
+	 */
 	@RequestMapping(value = "/scv/view/modify", method = RequestMethod.GET)
 	public String viewModify(Model mod) {
 		logger.info("viewModify");
 		return "scv/modify";
 	}
-	
-	
+
 }

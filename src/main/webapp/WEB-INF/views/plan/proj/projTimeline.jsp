@@ -49,10 +49,10 @@ $(document).ready(function() {
 	
 	$a.each(function(i,data) {
 		var href= $(this).attr("href");
-		console.log("before : " + href);
+		if($(this).text().trim() == "전체 프로젝트 리스트") {
+			return;
+		}
 		$(this).attr("href", href+"${projNo}" );
-		var href= $(this).attr("href");
-		console.log("after : " + href);
 	});
 	
 	$("#btn_add_timeline").click(function() {

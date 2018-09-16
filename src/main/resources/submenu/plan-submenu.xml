@@ -6,11 +6,11 @@
 	<util:list id="prod-submenu" list-class="java.util.ArrayList">
         <map>
 			<entry key="sm_name" value="기획서 리스트" />
-			<entry key="sm_url" value="/plan/prop/view/list/1" />
+			<entry key="sm_url" value="/plan/view/propList?pageNo=1" />
 		</map>
 		<map>
 			<entry key="sm_name" value="기획서 작성" />
-			<entry key="sm_url" value="/plan/prop/view/insert" />
+			<entry key="sm_url" value="/plan/view/propInsert" />
 		</map>
     </util:list>
     
@@ -18,47 +18,35 @@
     <util:list id="proj-list-submenu" list-class="java.util.ArrayList">
         <map>
 			<entry key="sm_name" value="프로젝트 리스트" />
-			<entry key="sm_url" value="/plan/proj/view/list/1" />
+			<entry key="sm_url" value="/plan/view/projList/all?pageNo=1" />
 		</map>
     	<map>
 			<entry key="sm_name" value="프로젝트 등록" />
-			<entry key="sm_url" value="/plan/proj/view/insert" />
+			<entry key="sm_url" value="/plan/view/projInsert" />
 		</map>    	
-        <!-- <map>
-			<entry key="sm_name" value="진행중" />
-			<entry key="sm_url" value="/plan/proj/view/list/ing/1" />
-		</map>
-        <map>
-			<entry key="sm_name" value="종료" />
-			<entry key="sm_url" value="/plan/proj/view/list/end/1" />
-		</map>
-        <map>
-			<entry key="sm_name" value="중단" />
-			<entry key="sm_url" value="/plan/proj/view/list/stop/1" />
-		</map> -->
     </util:list>
     
     <!-- 프로젝트 내용 서브메뉴 -->
     <util:list id="proj-submenu" list-class="java.util.ArrayList">
     <map>
     	<entry key="sm_name" value="프로젝트 정보"/>
-    	<entry key="sm_url" value="/plan/proj/view/detail/" />
+    	<entry key="sm_url" value="/plan/view/projDetail?projNo=" />
     </map>
     <map>
     	<entry key="sm_name" value="참여자 리스트"/>
-    	<entry key="sm_url" value="/plan/proj/view/memList/" />
+    	<entry key="sm_url" value="/plan/view/projMemberList?projNo=" />
     </map>
     <map>
     	<entry key="sm_name" value="타임라인"/>
-    	<entry key="sm_url" value="/plan/proj/view/timeline/" />
+    	<entry key="sm_url" value="/plan/view/projTimeline?projNo=" />
     </map>
     <map>
     	<entry key="sm_name" value="게시판 관리"/>
-    	<entry key="sm_url" value="/plan/proj/view/boardConfig/" />
+    	<entry key="sm_url" value="/plan/view/projBoardConfig?projNo=" />
     </map>
     <map>
 		<entry key="sm_name" value="전체 프로젝트 리스트" />
-		<entry key="sm_url" value="/plan/proj/view/list/1" />
+		<entry key="sm_url" value="/plan/view/projList/all?pageNo=1" />
 	</map>
     </util:list>
 </beans>

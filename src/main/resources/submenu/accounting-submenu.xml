@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<!-- 
+	<util:list id="XXX-submenu" list-class="java.util.ArrayList">
+        <map>
+			<entry key="sm_name" value="메뉴1 이름" />
+			<entry key="sm_url" value="메뉴1 링크" />
+		</map>
+		 <map>
+			<entry key="sm_name" value="메뉴2 이름" />
+			<entry key="sm_url" value="메뉴2 링크" />
+		</map>
+    </util:list> 
+    -->
+    <util:list id="acc-submenu"
+	list-class="java.util.ArrayList">
+	<!-- <map> <entry key="sm_name" value="매출 관리" /> <entry key="sm_url" value="/acc/sal" 
+		/> </map> -->
+	<map>
+		<entry key="sm_name" value="전표처리 관리" />
+		<entry key="sm_url" value="/acc/slip" />
+	</map>
+		<map>
+		<entry key="sm_name" value="팀운영비 관리" />
+		<entry key="sm_url" value="/acc/team" />
+	</map>
+	<map>
+		<entry key="sm_name" value="복지지원비 조회" />
+		<entry key="sm_url" value="/acc/wel" />
+	</map>
+	<map>
+		<entry key="sm_name" value="세금 관리" />
+		<entry key="sm_url" value="/acc/tax" />
+	</map>
+</util:list>    
+</beans>
