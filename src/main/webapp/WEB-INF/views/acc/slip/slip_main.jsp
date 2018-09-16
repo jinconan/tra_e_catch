@@ -186,7 +186,7 @@
 						</nav>
 					</div>
 					<div class="col-xs-2 col-md-2 sx-buttom">
-						<input type="button" class="form-control" value="글작성" onclick="location.href='/acc/tax/in'">
+						<input type="button" class="form-control" value="글작성" onclick="location.href='slip/in'">
 					</div>
 				</div>
 			</form>

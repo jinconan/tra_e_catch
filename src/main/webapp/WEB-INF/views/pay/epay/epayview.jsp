@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>기안문서 작성</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script type="text/javascript">
 	$(function() {
@@ -27,7 +27,7 @@
 		<div class="col-md-10">
 			<form class="form-horizontal">
 				<div class="page-header">
-					<h1>결제 문서작성</h1>
+					<h1>기안 문서작성</h1>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="inputEmail">담당부서</label>

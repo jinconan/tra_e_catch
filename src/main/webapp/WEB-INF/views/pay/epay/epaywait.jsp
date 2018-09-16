@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>결재 대기 문서</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 </head>
 <body>
@@ -14,7 +14,7 @@
 <div class="col-md-10">
  <form class="form-horizontal">
 				<div class="page-header">
-					<h1>결제 대기 문서</h1>
+					<h1>결재 대기 문서</h1>
 				</div>
     <table class="table table-striped">
               <thead>

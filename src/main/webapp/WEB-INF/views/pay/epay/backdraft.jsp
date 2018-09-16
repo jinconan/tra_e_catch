@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>결재 완료 문서</title>
+<title>부결 기안</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 </head>
 <body>
@@ -14,7 +14,7 @@
 <div class="col-md-10">
  <form class="form-horizontal">
 				<div class="page-header">
-					<h1>결재 완료 문서</h1>
+					<h1>부결 기안</h1>
 				</div>
     <table class="table table-striped">
               <thead>
@@ -62,7 +62,7 @@
       </a>
     </li>
   </ul>
-  </div>
+</div>
 </nav>
 </form>
                 </div>
