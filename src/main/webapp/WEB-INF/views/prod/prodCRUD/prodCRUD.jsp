@@ -98,14 +98,6 @@
 					</div>
 				</div>
 
-
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputEmail">내용</label>
-					<div class="col-sm-6">
-						<textarea class="form-control" rows="20"></textarea>
-					</div>
-				</div>
-
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="inputEmail">담당자</label>
 					<div class="col-sm-3">
@@ -113,8 +105,49 @@
 							placeholder="담당자">
 					</div>
 				</div>
+
+				 <table class="table table-bordered responsive-table bordered">
+				
+				  	<tbody>
+				  		<tr>
+				  		 	<td>상품코드</td>
+				  			<td>상품명</td>
+				  			<td>수량</td>
+				  			<td>비고</td>
+				  		</tr>
+				  		<tr>	
+				  			<td>p-3456</td>
+				  			<td>The witcher</td>
+				  			<td>4</td>
+				  	    	<td>잔고량 :3 </td>
+				  	    </tr>
+				  	    <tr>	
+				  			<td>p-3456</td>
+				  			<td>The witcher</td>
+				  			<td>4</td>
+				  	    	<td>잔고량 :3 </td>
+				  	    </tr>
+				  	    <tr>	
+				  			<td>p-3456</td>
+				  			<td>The witcher</td>
+				  			<td>4</td>
+				  	    	<td>잔고량 :3 </td>
+				  	    </tr>
+				  	    <tr>	
+				  			<td><input type="text" class="form-control " placeholder="Text input"></td>
+				  			<td><input type="text" class="form-control " placeholder="Text input"></td>
+				  			<td><input type="text" class="form-control " placeholder="Text input"></td>
+				  	    	<td><input type="text" class="form-control " placeholder="Text input"></td>
+				  	    </tr>
+				  	</tbody>		
+				  </table>
+				<button class="btn btn-default btn-xs" type="submit">조회</button>
+				<button class="btn btn-default btn-xs" type="submit">저장</button>
+				<button class="btn btn-default btn-xs" type="submit">수정</button>
+				<button class="btn btn-default btn-xs" type="submit">삭제</button>
+
 		</div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<div class="col-sm-12 text-center">
 				<button id="btn_pay" class="btn btn-primary">
 					저장<i class="fa fa-check spaceLeft"></i>
@@ -124,7 +157,7 @@
 				</button>
 
 			</div>
-		</div>
+		</div> -->
 		<div class="form-group" id="emptable"></div>
 		</form>
 		<hr>
