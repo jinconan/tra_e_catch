@@ -20,7 +20,7 @@
 		/> </map> -->
 	<map>
 		<entry key="sm_name" value="전표처리 관리" />
-		<entry key="sm_url" value="/acc/slip" />
+		<entry key="sm_url" value="/acc/slip/1" />
 	</map>
 		<map>
 		<entry key="sm_name" value="팀운영비 관리" />
