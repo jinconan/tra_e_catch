@@ -7,14 +7,15 @@
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <%-- <jsp:include page="/WEB-INF/views/_common/header.jsp" /> --%>
 </head>
-<body style="margin-top: 30px">
+<body>
 	<script type="text/javascript">
-		var $table = $('#p_table');
-		
+/* 		var $table = $('#p_table');
+		 */
 		$(function() {
 			$('#p_table').bootstrapTable('refresh', {
-				url:'/per/attd/attdjson'				
+				url:'<%=request.getContextPath()%>/per/attd/attdjson'				
 			});
+			
 		});
 	</script>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
@@ -49,12 +50,12 @@
 					<thead>
 						<tr>
 							<!-- data-field에는 json포멧으로 데이터를 담을예정  -->
-							<th width="5%" data-field="EMP_NO">사원번호</th>
-							<th width="5%" data-field="a_date">일자</th>
-							<th width="30%" data-field="a_time">출근시간</th>
-							<th width="30%" data-field="l_time">퇴근시간</th>
-							<th width="20%" data-field="time_chk">출근상태</th>
-							<th width="15%" data-field="time_etc">퇴근상태</th>
+							<th width="15%" data-field="EMP_NO">사원번호</th>
+							<th width="10%" data-field="a_date">일자</th>
+							<th width="20%" data-field="a_time">출근시간</th>
+							<th width="20%" data-field="l_time">퇴근시간</th>
+							<th width="20%" data-field="TIME_CHK">출근상태</th>
+							<th width="15%" data-field="TIME_ETC">퇴근상태</th>
 
 						</tr>
 					</thead>

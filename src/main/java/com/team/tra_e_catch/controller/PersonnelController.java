@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -20,10 +21,13 @@ import com.team.tra_e_catch.personnel.PersonnelLogic;
 
 
 @Controller
-/*@RequestMapping(value="/per")*/
 public class PersonnelController {
 	@Autowired
-	PersonnelLogic personnelLogic = null;
+	private PersonnelLogic personnelLogic = null;
+	/*@Autowired를 사용하면 setter메소드에 사용될 이름은 반드시 클래스 이름과 일치시킬것.
+	 * 만일 setter객체 주입법을 사용하는 경우라면 개발자가 그 이름을 xml문서에 등록할 수 있지만
+	 * @Autowired를 사용할 땐 xml문서에 추가 등록자체가 필요없기 때문임.
+	 */
 	private static final Logger logger = Logger.getLogger(PersonnelController.class);
 	private final ApplicationContext context = new ClassPathXmlApplicationContext("submenu/personnel-submenu.xml");
 ////////////////////////////////김훈태 작성///////////////////////////////////////
@@ -105,7 +109,7 @@ public class PersonnelController {
 			//curSubMenu : String
 			logger.info("viewAttdjson호출");
 			List<Map<String, Object>> attdList = null;
-			attdList =personnelLogic.getAttdList(pMap,res);
+			attdList = personnelLogic.getAttdList(pMap,res);
 			mod.addAttribute("getAttdList", attdList);
 			return "per/attd/attdjson";
 		}

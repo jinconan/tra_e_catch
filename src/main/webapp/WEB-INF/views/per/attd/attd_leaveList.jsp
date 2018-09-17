@@ -7,7 +7,7 @@
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <%-- <jsp:include page="/WEB-INF/views/_common/header.jsp" /> --%>
 </head>
-<body style="margin-top: 30px">
+<body>
 <script type="text/javascript">
 var $table = $('#p_table');
 var mydata = 
