@@ -44,11 +44,11 @@
 	<!-- 아래 두 개의 Bean (server-address, test-address) 중에서 선택하여 data-source-target의 url 프로퍼티에 넣어줘서 사용 -->
 	<!-- ======================================================================= -->
 	<bean id="server-address" class="java.lang.String">
-		<constructor-arg type="String" value="jdbc:oracle:thin:@192.168.0.221:orcl11"/>
+		<constructor-arg type="String" value="jdbc:oracle:thin:@192.168.0.221:1521:orcl11"/>
 	</bean>
 	
 	<bean id="test-address" class="java.lang.String">
-		<constructor-arg type="String" value="jdbc:oracle:thin:@localhost:orcl11"/>
+		<constructor-arg type="String" value="jdbc:oracle:thin:@localhost:1521:orcl11"/>
 	</bean>
 	<!-- ======================================================================= -->
 
