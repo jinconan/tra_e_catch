@@ -154,7 +154,7 @@
 				</button>
 				<button id="btn_pay" class="btn btn-primary">
 					취소<i class="fa fa-check spaceLeft"></i>
-				</button>
+				</button> 
 
 			</div>
 		</div> -->
