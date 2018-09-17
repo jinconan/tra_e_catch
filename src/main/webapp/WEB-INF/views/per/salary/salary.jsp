@@ -9,50 +9,11 @@
 </head>
 <body>
 <script type="text/javascript">
-var $table = $('#p_table');
-
-var mydata = 
- [
-	{
-	    "p_date": "2018-09-04",
-	    "p_cla": "월급여",
-	    "p_pay": "$9977"
-	},{
-	    "p_date": "2018-08-04",
-	    "p_cla": "월급여",
-	    "p_pay": "$9977"
-	},{
-	    "p_date": "2018-07-04",
-	    "p_cla": "월급여",
-	    "p_pay": "$9977"
-	},{
-	    "p_date": "2018-06-04",
-	    "p_cla": "월급여",
-	    "p_pay": "$9977"
-	},{
-	    "p_date": "2018-05-04",
-	    "p_cla": "월급여",
-	    "p_pay": "$9977"
-	},{
-	    "p_date": "2018-04-04",
-	    "p_cla": "월급여",
-	    "p_pay": "$9977"
-	},{
-	    "p_date": "2018-03-04",
-	    "p_cla": "월급여",
-	    "p_pay": "$9977"
-	},{
-	    "p_date": "2018-02-04",
-	    "p_cla": "월급여",
-	    "p_pay": "$9977"
-	}
-]; 
-
-$(function () {
-$('#p_table').bootstrapTable({
-    data: mydata
-    /* url:'/per/salary/salaryjson' */ //json포멧으로 받는 url은 해당 컨트롤러에서 담당.
-});
+$(function() {
+	$('#p_table').bootstrapTable({
+		url:'<%=request.getContextPath()%>/per/salary/salaryjson'				
+	});
+	
 });
 
 </script>
@@ -90,9 +51,9 @@ $('#p_table').bootstrapTable({
 				<thead>
 					<tr>
 					<!-- data-field에는 json포멧으로 데이터를 담을예정  -->
-						<th width="5%" data-field="p_date">급여지급일자</th>
-						<th width="40%" data-field="p_cla">급여구분</th>
-						<th width="30%" data-field="p_pay">금액</th>
+						<th width="5%" data-field="GIVE_DATE">급여지급일자</th>
+						<th width="40%" data-field="NOTE">급여구분</th>
+						<th width="30%" data-field="SAL">금액</th>
 					</tr>
 				</thead>
 				<tbody>

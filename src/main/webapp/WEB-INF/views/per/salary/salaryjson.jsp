@@ -5,7 +5,7 @@
 <%@ page import="com.google.gson.Gson" %>
 <%
 	List<Map<String,Object>> getSalaryjson = 
-		(List<Map<String,Object>>)request.getAttribute("getSalaryjson");
+		(List<Map<String,Object>>)request.getAttribute("getSalList");
 	Gson gs = new Gson();
 	String jsonsalary = gs.toJson(getSalaryjson);
 	out.print(jsonsalary);

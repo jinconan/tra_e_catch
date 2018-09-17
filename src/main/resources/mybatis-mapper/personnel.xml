@@ -7,5 +7,12 @@
 	select * from comchk where emp_no = 1 and rownum < 51 
 	 ]]>
 </select>
+<select id="getSalList" parameterType="map" resultType="map">
 
+<![CDATA[
+	select give_date, note, sal from salary where emp_no=1 order by give_date desc
+	 
+]]>
+
+</select>
 </mapper>

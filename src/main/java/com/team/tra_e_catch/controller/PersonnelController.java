@@ -45,17 +45,30 @@ public class PersonnelController {
 		return "per/salary/salary";
 	}
 	//급여관리테이블URL(JSON)
-	@RequestMapping(value="/per/salary/salaryjson", method = RequestMethod.GET)
-	public String viewSalaryjson(@RequestParam Map<String, Object> pMap, Model mod) {
+	@RequestMapping(value="/per/salary/salaryjson")
+	public String viewSalaryjson(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
 		//컨트롤러로 부터 넘겨받는 속성
 		//subMenuList : List<Map<String, Object>>
 		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
 		//curSubMenu : String
-		logger.info("salary호출");
-		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-submenu");
-		mod.addAttribute("curSubMenu", "급여관리");
-		mod.addAttribute("subMenuList", subMenuList);
+		logger.info("viewSalaryjson호출");
+		List<Map<String, Object>> salList = null;
+		salList = personnelLogic.getSalList(pMap,res);
+		mod.addAttribute("getSalList", salList);
 		return "per/salary/salaryjson";
+	}
+	//출퇴근데이터(JSON)
+	@RequestMapping(value="/per/attd/attdjson")
+	public String viewAttdjson(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		logger.info("viewAttdjson호출");
+		List<Map<String, Object>> attdList = null;
+		attdList = personnelLogic.getAttdList(pMap,res);
+		mod.addAttribute("getAttdList", attdList);
+		return "per/attd/attdjson";
 	}
 
 	//인사고과 메인
@@ -100,19 +113,7 @@ public class PersonnelController {
 		return "per/attd/attd_attenList";
 		
 	}
-	//출퇴근데이터(JSON)
-		@RequestMapping(value="/per/attd/attdjson")
-		public String viewAttdjson(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
-			//컨트롤러로 부터 넘겨받는 속성
-			//subMenuList : List<Map<String, Object>>
-			//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
-			//curSubMenu : String
-			logger.info("viewAttdjson호출");
-			List<Map<String, Object>> attdList = null;
-			attdList = personnelLogic.getAttdList(pMap,res);
-			mod.addAttribute("getAttdList", attdList);
-			return "per/attd/attdjson";
-		}
+
 	//연차관리
 	@RequestMapping(value="/per/attd/leave", method = RequestMethod.GET)
 	public String attLeave(@RequestParam Map<String, Object> pMap, Model mod) {
