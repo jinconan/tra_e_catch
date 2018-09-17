@@ -136,8 +136,12 @@
 						
 						</tbody>
 					</table>
-		
-		<div class="form-group">
+				
+				<button class="btn btn-default btn-xs" type="submit">조회</button>
+				<button class="btn btn-default btn-xs" type="submit">저장</button>
+				<button class="btn btn-default btn-xs" type="submit">수정</button>
+				<button class="btn btn-default btn-xs" type="submit">삭제</button>
+		<!-- <div class="form-group">
 			<div class="col-sm-12 text-right">
 				<button id="btn_pay" class="btn btn-primary">
 					저장<i class="fa fa-check spaceLeft"></i>
@@ -147,7 +151,7 @@
 				</button>
 
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp"/>
