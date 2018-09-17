@@ -12,7 +12,7 @@
 /* 		var $table = $('#p_table');
 		 */
 		$(function() {
-			$('#p_table').bootstrapTable('refresh', {
+			$('#p_table').bootstrapTable({
 				url:'<%=request.getContextPath()%>/per/attd/attdjson'				
 			});
 			
@@ -50,7 +50,7 @@
 					<thead>
 						<tr>
 							<!-- data-field에는 json포멧으로 데이터를 담을예정  -->
-							<th width="15%" data-field="EMP_NO">사원번호</th>
+							<!-- <th width="15%" data-field="EMP_NO">사원번호</th> -->
 							<th width="10%" data-field="a_date">일자</th>
 							<th width="20%" data-field="a_time">출근시간</th>
 							<th width="20%" data-field="l_time">퇴근시간</th>
