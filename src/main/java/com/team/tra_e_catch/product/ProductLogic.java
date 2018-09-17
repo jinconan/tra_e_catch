@@ -7,4 +7,9 @@ import org.springframework.stereotype.Service;
 public class ProductLogic {
 	private static final Logger logger = Logger.getLogger(ProductLogic.class);
 	
+	
+	
+	
+	
+	
 }
