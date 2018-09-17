@@ -9,10 +9,11 @@
 	</typeAliases> 
 -->
 	<mappers>
-		<!-- 
-		<mapper resource="com/mybatis/mapper/member.xml" />
-		<mapper resource="com/mybatis/mapper/board.xml" /> 
-		-->
 		<mapper resource="mybatis-mapper/personnel.xml"/>
+		<mapper resource="mybatis-mapper/payment.xml"/>
+		<mapper resource="mybatis-mapper/accounting.xml"/>
+		<mapper resource="mybatis-mapper/plan.xml"/>
+		<mapper resource="mybatis-mapper/product.xml"/>
+		<mapper resource="mybatis-mapper/scv.xml"/>
 	</mappers>
 </configuration>

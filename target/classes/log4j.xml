@@ -10,6 +10,11 @@
 		</layout>
 	</appender>
 	
+	<!-- mybatis-mappers -->
+	<logger name="mybatis-mapper">
+		<level value="debug"/>
+	</logger>
+	
 	<!-- Application Loggers -->
 	<logger name="com.team.tra_e_catch">
 		<level value="info" />

@@ -30,7 +30,7 @@
      </filter>
      <filter-mapping>
           <filter-name>MultipartFilter</filter-name>
-          <url-pattern>*.bo2</url-pattern>
+          <url-pattern>/</url-pattern>
      </filter-mapping>
 	
 	
@@ -47,7 +47,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				/WEB-INF/spring/appServlet/servlet-context.xml
-				/WEB-INF/spring/appServlet/personnel/personnel-bean.xml
+				/WEB-INF/spring/appServlet/servlet-data.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

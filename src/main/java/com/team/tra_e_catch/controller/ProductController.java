@@ -26,6 +26,9 @@ public class ProductController {
 	private static final Logger logger = Logger.getLogger(ProductController.class);
 	private final ApplicationContext context = new ClassPathXmlApplicationContext("submenu/product-submenu.xml");
 	
+	@Autowired
+	private ProductLogic productLogic;
+	
 	@RequestMapping(value="/prod/view/prodCRUD")
 	public String viewProdCRUD(Model mod, @RequestParam Map<String,Object> pMap) {
 		logger.info("viewProdCRUD()");

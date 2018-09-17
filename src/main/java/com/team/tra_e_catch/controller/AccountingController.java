@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -12,12 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.team.tra_e_catch.accounting.AccountingLogic;
+
 @Controller
 @RequestMapping(value="/acc")
 public class AccountingController {
 	
 	private static final Logger logger = Logger.getLogger(AccountingController.class);
 	private final ApplicationContext context = new ClassPathXmlApplicationContext("submenu/accounting-submenu.xml");
+	
+	@Autowired
+	private AccountingLogic accountingLogic;
 	/*
 	@RequestMapping(value = "/sal", method = RequestMethod.GET)
 	public String sal_main(Model mod, @RequestParam Map<String, Object> pMap) {

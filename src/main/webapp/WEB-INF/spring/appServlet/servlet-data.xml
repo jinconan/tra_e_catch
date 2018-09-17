@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 인사 업무 로직 & DAO -->
+	<bean id="personnelLogic"
+		class="com.team.tra_e_catch.personnel.PersonnelLogic" />
+	<bean id="sqlPerDao"
+		class="com.team.tra_e_catch.personnel.SqlPerDao">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+
+	<!-- 회계 업무 로직 & DAO -->
+	<bean id="accountingLogic"
+		class="com.team.tra_e_catch.accounting.AccountingLogic" />
+	<bean id="sqlAccDao"
+		class="com.team.tra_e_catch.accounting.SqlAccDao">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+
+	<!-- 결재 업무 로직 & DAO -->
+	<bean id="paymentLogic"
+		class="com.team.tra_e_catch.payment.PaymentLogic" />
+	<bean id="sqlPayDao"
+		class="com.team.tra_e_catch.payment.SqlPayDao">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+
+	<!-- 기획 업무 로직 & DAO -->
+	<bean id="planLogic" class="com.team.tra_e_catch.plan.PlanLogic" />
+	<bean id="sqlPlanDao" class="com.team.tra_e_catch.plan.SqlPlanDao">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+
+	<!-- 상품 업무 로직 & DAO -->
+	<bean id="productLogic"
+		class="com.team.tra_e_catch.product.ProductLogic" />
+	<bean id="sqlProdDao"
+		class="com.team.tra_e_catch.product.SqlProdDao">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+
+	<!-- 사원 개인 업무 로직 & DAO -->
+	<bean id="scvLogic" class="com.team.tra_e_catch.scv.ScvLogic" />
+	<bean id="sqlScvDao" class="com.team.tra_e_catch.scv.SqlScvDao">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+</beans>
