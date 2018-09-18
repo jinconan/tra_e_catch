@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.planMapper">
-	
+
+	<!-- 
+	프로젝트 리스트 페이지에서 사용(페이지네이션 처리하려면 인라인뷰보다는 뷰 생성하는게 
+	코드가 깔끔할듯하여 페이지네이션 고려안함
+	파라미터 목록 
+	-->
+	<select id="getProjList" resultType="map" parameterType="map">
+	SELECT proj_member.proj_no
+	  ,proj_status.name
+	  ,project.name
+	  ,employee.name
+	  ,project.start_date
+	  ,project.end_sched_date
+	  ,project.end_date
+	FROM proj_member, role_type, employee, project, proj_status
+	WHERE role_type.rtype_no = 101<!-- 101은 팀장 -->
+		<choose>
+			<when test="pstatus_name!=null and pstatus_name.equals('진행중')">
+			AND proj_status.pstatus_no = 1
+			</when>
+			<when test="pstatus_name!=null and pstatus_name.equals('종료')">
+			AND proj_status.pstatus_no = 2
+			</when>
+			<when test="pstatus_name!=null and pstatus_name.equals('중단')">
+			AND proj_status.pstatus_no = 3
+			</when>
+			<otherwise></otherwise>
+		</choose>
+		AND proj_member.rtype_no = role_type.rtype_no
+		AND project.pstatus_no = proj_status.pstatus_no
+		AND proj_member.proj_no = project.proj_no
+		AND proj_member.emp_no = employee.emp_no
+		<if test="leader_name != null">
+		AND employee.name = #{leader_name}
+		</if>
+		
+	</select>
 </mapper>

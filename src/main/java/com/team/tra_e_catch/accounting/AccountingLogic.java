@@ -1,18 +1,6 @@
 package com.team.tra_e_catch.accounting;
 
-<<<<<<< HEAD
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class AccountingLogic {
-	Logger logger = Logger.getLogger(AccountingLogic.class);
-	@Autowired
-	private SqlAccDao sqlAccDao = null;
-	
-	
-=======
 import java.util.List;
 import java.util.Map;
 
@@ -53,5 +41,5 @@ public class AccountingLogic {
 		s = sqlAccDao.Team_Dao(counts);
 		return s;
 	}
->>>>>>> refs/heads/cw_09181
+
 }
