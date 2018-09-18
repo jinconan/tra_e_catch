@@ -4,13 +4,13 @@
 <select id="getAttdList" parameterType="map" resultType="map">
 	<!-- select * from comchk where emp_no = 1 and rownum<50 -->
 	<![CDATA[
-	select * from comchk where emp_no = 1 and rownum < 51 
+	select * from comchk where emp_no = 1 and rownum < 11 
 	 ]]>
 </select>
 <select id="getSalList" parameterType="map" resultType="map">
 
 <![CDATA[
-	select give_date, note, sal from salary where emp_no=1 order by give_date desc
+	select * from sal_list where emp_no = 1 and rownum<13
 	 
 ]]>
 

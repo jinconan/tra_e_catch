@@ -42,8 +42,8 @@
 	</bean>
 
 	<!-- 사원 개인 업무 로직 & DAO -->
-	<bean id="scvLogic" class="com.team.tra_e_catch.scv.ScvLogic" />
+	<!-- <bean id="scvLogic" class="com.team.tra_e_catch.scv.ScvLogic" />
 	<bean id="sqlScvDao" class="com.team.tra_e_catch.scv.SqlScvDao">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
-	</bean>
+	</bean> -->
 </beans>

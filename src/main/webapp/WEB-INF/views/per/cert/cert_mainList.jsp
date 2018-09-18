@@ -15,6 +15,7 @@
 function listoption(){
 	var optnum = $("#optionnum").val();
 	//alert(optnum);
+	
 	if(optnum=="1"){
 		$.ajax({
 	        method:"POST"
@@ -25,12 +26,18 @@ function listoption(){
 	        	console.log(log);
 	        	$("#d_formprint").html(log);
 	        	$("#d_usepoint").text($("#useinput").val());
+	        	listform();
 	        	
 	        }
 			,error : function(xhr) {
 				console.log("땡");
 			}
         });
+	}
+	else if(optnum==0){
+		alert("증명서를 선택해 주세요");
+		
+		
 	}
 	/* 경력증명서 */
 	else if(optnum==2){
@@ -43,6 +50,7 @@ function listoption(){
 	        	console.log(log);
 	        	$("#d_formprint").html(log);
 	        	$("#d_usepoint").text($("#useinput").val());
+	        	listform();
 	        }
 			,error : function(xhr) {
 				console.log("땡");
@@ -59,6 +67,7 @@ function listoption(){
 	        	
 	        	console.log(log);
 	        	$("#d_formprint").html(log);
+	        	listform();
 	        }
 			,error : function(xhr) {
 				console.log("땡");
@@ -75,6 +84,7 @@ function listoption(){
 	        	
 	        	console.log(log);
 	        	$("#d_formprint").html(log);
+	        	listform();
 	        }
 			,error : function(xhr) {
 				console.log("땡");
@@ -83,6 +93,10 @@ function listoption(){
 	}
 
 
+
+}
+
+function listform(){
 	$.ajax({
         method:"POST"
         ,url:"/tra_e_catch/per/cert/certprint"
@@ -91,8 +105,6 @@ function listoption(){
           }
            });
 }
-
-
 
 
 </script>
@@ -130,7 +142,7 @@ function listoption(){
 
 			</div>
 			<div class="col-xs-10">
-				<div id="d_formprint">여기에 증명서 출력</div>
+				<div id="d_formprint"></div>
 			</div>
 			<!-- 메인화면 끝 -->
 

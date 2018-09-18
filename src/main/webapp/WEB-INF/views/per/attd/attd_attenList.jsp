@@ -12,18 +12,25 @@
 /* 		var $table = $('#p_table');
 		 */
 		$(function() {
-			$('#p_table').bootstrapTable({
-				url:'<%=request.getContextPath()%>/per/attd/attdjson'				
-			});
 			
-		});
+			$('#p_table').bootstrapTable({
+				url:'<%=request.getContextPath()%>/per/attd/attdjson'
+			});
+			$('.pagination').twbsPagination({
+		        totalPages: 5,
+		        onPageClick: function (evt, page) {
+		            $('#content').text('batch forms here ' + page);
+		        }
+		    });		
+	});
+		 
 	</script>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 
 	<div class="container">
 		<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 		<h3>
-			<b>출 결 관 리</b>
+			<b>출 결 내 역</b>
 		</h3>
 		<div class="col-sm-10">
 			<div class="col-sm-3">

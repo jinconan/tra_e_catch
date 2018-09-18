@@ -193,7 +193,7 @@ public class PersonnelController {
 			logger.info("certPrintList호출");
 			return "per/cert/reasonform";
 		}
-		
+		//평정 데이터 확인
 		
 ////////////////////////////////김훈태 작성 끝 ///////////////////////////////////////		
 		
