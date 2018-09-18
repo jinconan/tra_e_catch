@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team.tra_e_catch.accounting.AccountingLogic;
 
-<<<<<<< HEAD
-=======
 
 /*
  * 클래스명 : AccountingController
@@ -27,18 +25,13 @@ import com.team.tra_e_catch.accounting.AccountingLogic;
  * 날짜 : 2018-08-31
  */
 
-
->>>>>>> refs/heads/cw_09181
 @Controller
 @RequestMapping(value="/acc")
 public class AccountingController {
 	
 	private static final Logger logger = Logger.getLogger(AccountingController.class);
 	private final ApplicationContext context = new ClassPathXmlApplicationContext("submenu/accounting-submenu.xml");
-<<<<<<< HEAD
-=======
 	List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("acc-submenu");
->>>>>>> refs/heads/cw_09181
 	
 	@Autowired
 	private AccountingLogic accountingLogic;

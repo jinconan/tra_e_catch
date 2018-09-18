@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -120,34 +121,30 @@ public class PlanController {
 	}
 	
 	/**
-	 * 프로젝트 전체 리스트 페이지 요청
+	 * 프로젝트 전체 리스트 페이지 요청 (all, ing,end,stop)
 	 * @param mod
 	 * @return
 	 */
-	@RequestMapping(value="/plan/view/projList/{proj_status}")
+	@RequestMapping(value="/plan/view/projList/{pstatus_name}")
 	public String viewProjList(Model mod
-			, @PathVariable("proj_status") String proj_status
-			, @RequestParam(name="pageNo", defaultValue="1") int pageNo) {
+			, @PathVariable(name="pstatus_name",required=true) String pstatus_name
+			, @RequestParam(name="pageNo", defaultValue="1") int pageNo
+			, @RequestParam(name="leader_name", required=false) String leader_name
+			, @RequestParam(name="project_name", required=false) String project_name) {
+		logger.info("viewProjList() 호출");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
 		mod.addAttribute("curSubMenu", "프로젝트 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
-		
-		//전체 리스트
-		if("all".equals(proj_status)) {
-			
-		}
-		//진행중 리스트
-		else if("ing".equals(proj_status)) {
-			
-		}
-		//종료 리스트
-		else if("end".equals(proj_status)) {
-			
-		}
-		//중단 리스트
-		else if("stop".equals(proj_status)) {
-			
-		}
+
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		pMap.put("pageNo", pageNo);
+		pMap.put("pstatus_name", pstatus_name);
+		if(leader_name != null)
+			pMap.put("leader_name", leader_name);
+		if(project_name !=null)
+			pMap.put("project_name", project_name);
+		List<Map<String,Object>> projList = planLogic.getProjList(pMap);
+		mod.addAttribute("projList", projList);
 		return "plan/proj/projList";
 	}
 	

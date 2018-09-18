@@ -41,13 +41,6 @@
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</bean>
 
-<<<<<<< HEAD
-	<!-- 사원 개인 업무 로직 & DAO -->
-	<!-- <bean id="scvLogic" class="com.team.tra_e_catch.scv.ScvLogic" />
-	<bean id="sqlScvDao" class="com.team.tra_e_catch.scv.SqlScvDao">
-		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
-	</bean> -->
-=======
 	<!-- 사원 개인 업무 로직 & DAO 
 	<bean id="scvLogic" class="com.team.tra_e_catch.scv.ScvLogic" />
 	지금당장 찾지 못해서 주석처리
@@ -55,5 +48,4 @@
 	<bean id="sqlScvDao" class="com.team.tra_e_catch.scv.SqlScvDao">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</bean>
->>>>>>> refs/heads/cw_09181
 </beans>

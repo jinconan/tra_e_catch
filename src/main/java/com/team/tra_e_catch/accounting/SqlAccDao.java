@@ -1,29 +1,11 @@
 package com.team.tra_e_catch.accounting;
 
-<<<<<<< HEAD
-import org.apache.log4j.Logger;
-import org.mybatis.spring.SqlSessionTemplate;
-
-
-public class SqlAccDao {
-	Logger logger = Logger.getLogger(SqlAccDao.class);
-	private SqlSessionTemplate sqlSessionTemplate = null;
-	
-	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
-		this.sqlSessionTemplate = sqlSessionTemplate;
-	}
-	
-=======
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
-
-
-
-
 
 /*
  * 클래스명 : AccountingController
@@ -44,6 +26,5 @@ public class SqlAccDao {
 		list = sqlSessionTemplate.selectList("timecell",counts);
 		return list;
 	}
->>>>>>> refs/heads/cw_09181
 	
 }
