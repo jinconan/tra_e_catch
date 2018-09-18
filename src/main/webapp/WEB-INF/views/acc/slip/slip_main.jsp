@@ -20,7 +20,22 @@
 	margin-top: 30px;
 }
 </style>
+<%
+	int counts = (Integer)request.getAttribute("counts");
+	int list = (((counts-1)/10)*10)+1;
+	int num = (counts%10);
+%>
 </head>
+	<script type="text/javascript">
+		$(function() {
+			$('#p_table').bootstrapTable({
+				url:'<%=request.getContextPath()%>/accR/slip/<%=counts%>'				
+			});
+			
+			var base = $('#liid'+<%=num%>);
+			base.addClass('active');
+		});
+	</script>
 <body>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 	<div class="container">
@@ -31,162 +46,47 @@
 				<h2 class="form-signin-heading">작성한 전표</h2>
 				</div>
 				<div class="row">
-					<table class="table table-striped">
+					<table class="table table-striped" id="p_table">
 						<thead>
 							<tr>
-								<th>번호</th>
-								<th>일자</th>
-								<th>분류</th>
-								<th>구분</th>
-								<th>계정과목</th>
-								<th>거래처</th>
-								<th>적요</th>
-								<th>금액</th>
-								<th>첨부자료</th>
-							</tr>
+								<th data-field="순번">번호</th>
+								<th data-field="일자">일자</th>
+								<th data-field="분류">분류</th>
+								<th data-field="구분">구분</th>
+								<th data-field="적요">적요</th>
+								<th data-field="작성자">담당자</th>
+								<th data-field="금액">금액</th>
+								<th data-field="첨부자료">첨부자료</th>
+							</tr>   
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>2018-08-01</td>
-								<td>팀운영비</td>
-								<td>입금</td>
-								<td>당좌예금</td>
-								<td>직원</td>
-								<td>급여 지금</td>
-								<td>3000000</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>2018-08-02</td>
-								<td>팀운영비</td>
-								<td>출금</td>
-								<td>급여</td>
-								<td>직원</td>
-								<td>급여 지금</td>
-								<td>2800000</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>2018-08-02</td>
-								<td>팀운영비</td>
-								<td>출금</td>
-								<td>급여</td>
-								<td>직원</td>
-								<td>급여 지금</td>
-								<td>2800000</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>2018-08-02</td>
-								<td>복지지원비</td>
-								<td>출금</td>
-								<td>급여</td>
-								<td>직원</td>
-								<td>급여 지금</td>
-								<td>2800000</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>2018-08-02</td>
-								<td>복지지원비</td>
-								<td>출금</td>
-								<td>급여</td>
-								<td>직원</td>
-								<td>급여 지금</td>
-								<td>2800000</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>2018-08-02</td>
-								<td>복지지원비</td>
-								<td>출금</td>
-								<td>급여</td>
-								<td>직원</td>
-								<td>급여 지금</td>
-								<td>2800000</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>7</td>
-								<td>2018-08-02</td>
-								<td>복지지원비</td>
-								<td>출금</td>
-								<td>급여</td>
-								<td>직원</td>
-								<td>급여 지금</td>
-								<td>2800000</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>7</td>
-								<td>2018-08-02</td>
-								<td>복지지원비</td>
-								<td>출금</td>
-								<td>급여</td>
-								<td>직원</td>
-								<td>급여 지금</td>
-								<td>2800000</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>8</td>
-								<td>2018-08-02</td>
-								<td>복지지원비</td>
-								<td>출금</td>
-								<td>급여</td>
-								<td>직원</td>
-								<td>급여 지금</td>
-								<td>2800000</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>9</td>
-								<td>2018-08-02</td>
-								<td>복지지원비</td>
-								<td>출금</td>
-								<td>급여</td>
-								<td>직원</td>
-								<td>급여 지금</td>
-								<td>2800000</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10</td>
-								<td>2018-08-02</td>
-								<td>복지지원비</td>
-								<td>출금</td>
-								<td>급여</td>
-								<td>직원</td>
-								<td>급여 지금</td>
-								<td>2800000</td>
-								<td></td>
-							</tr>
-						</tbody>
+					</tbody>
 					</table>
-				</div>
+					</div>
 				<div class="row">
 					<div class="col-xs-10 .col-md-10">
 						<nav>
 							<ul class="pagination">
-								<li class="disabled"><a href="#" aria-label="Previous"><span
+								<li><a href="<%=request.getContextPath()%>/acc/slip/1" aria-label="Previous"><span
 										aria-hidden="true"> << </span></a></li>
-								<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">2 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">3 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">4 <span class="sr-only">(current)</span></a></li>
-								<li class="disabled"><a href="#" aria-label="Previous"><span
-										aria-hidden="true"> >> </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/acc/slip/<%=list-1%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
+								<li id="liid1"><a href="<%=request.getContextPath()%>/acc/slip/<%=list%>"><%=list%><span class="sr-only">(current)</span></a></li>
+								<li id="liid2"><a href="<%=request.getContextPath()%>/acc/slip/<%=list+1%>"><%=list+1%><span class="sr-only">(current)</span></a></li>
+								<li id="liid3"><a href="<%=request.getContextPath()%>/acc/slip/<%=list+2%>"><%=list+2%><span class="sr-only">(current)</span></a></li>
+								<li id="liid4"><a href="<%=request.getContextPath()%>/acc/slip/<%=list+3%>"><%=list+3%><span class="sr-only">(current)</span></a></li>
+								<li id="liid5"><a href="<%=request.getContextPath()%>/acc/slip/<%=list+4%>"><%=list+4%><span class="sr-only">(current)</span></a></li>
+								<li id="liid6"><a href="<%=request.getContextPath()%>/acc/slip/<%=list+5%>"><%=list+5%><span class="sr-only">(current)</span></a></li>
+								<li id="liid7"><a href="<%=request.getContextPath()%>/acc/slip/<%=list+6%>"><%=list+6%><span class="sr-only">(current)</span></a></li>
+								<li id="liid8"><a href="<%=request.getContextPath()%>/acc/slip/<%=list+7%>"><%=list+7%><span class="sr-only">(current)</span></a></li>
+								<li id="liid9"><a href="<%=request.getContextPath()%>/acc/slip/<%=list+8%>"><%=list+8%><span class="sr-only">(current)</span></a></li>
+								<li id="liid0"><a href="<%=request.getContextPath()%>/acc/slip/<%=list+9%>"><%=list+9%> <span class="sr-only">(current)</span></a></li>
+								<li><a href="<%=request.getContextPath()%>/acc/slip/<%=list+10%>" aria-label="Previous"><span aria-hidden="true"> > </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/acc/slip/<%=list+100%>" aria-label="Previous"><span aria-hidden="true"> >> </span></a></li>
 							</ul>
 						</nav>
 					</div>
 					<div class="col-xs-2 col-md-2 sx-buttom">
-						<input type="button" class="form-control" value="글작성" onclick="location.href='slip/in'">
+						<input type="button" class="form-control" value="글작성" onclick="location.href='in'">
 					</div>
 				</div>
 			</form>

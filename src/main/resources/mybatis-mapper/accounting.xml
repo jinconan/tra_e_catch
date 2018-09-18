@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.accountingMapper">
+<<<<<<< HEAD
 	
+=======
+	<select id="timecell" parameterType="int" resultType="Map">
+	select * from (
+	select 일자,분류,구분,적요,작성자,금액,첨부자료,rownum as 순번 from T_VIEW_slipList where 담당자
+	= 1 order by 일자)
+	where 순번 betWeen #{counts}*10-9 and #{counts}*10
+	order by 순번
+	</select>
+>>>>>>> refs/heads/cw_09181
 </mapper>
