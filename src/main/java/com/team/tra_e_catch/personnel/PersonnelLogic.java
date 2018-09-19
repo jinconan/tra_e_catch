@@ -39,4 +39,13 @@ public class PersonnelLogic {
 		return salList;
 	}
 
+
+	public List<Map<String, Object>> getTeamList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		logger.info("getTeamList 호출 성공");
+		List<Map<String,Object>> teamList = null;
+		teamList = sqlPerDao.getTeamList(pMap);
+		return teamList;
+	}
+
 }

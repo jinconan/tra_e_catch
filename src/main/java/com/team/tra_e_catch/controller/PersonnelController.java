@@ -164,6 +164,22 @@ public class PersonnelController {
 			return "per/cert/reasonform";
 		}
 		//평정 데이터 확인
+		//servrating
+		@RequestMapping(value="/rating/servrating")
+		public String sendRating(@RequestParam Map<String, Object> pMap, Model mod) {
+		
+			logger.info("sendRating호출");
+			List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-submenu");
+			mod.addAttribute("curSubMenu", "인사고과");
+			mod.addAttribute("subMenuList", subMenuList);
+			System.out.print(pMap.get("w_content"));
+			System.out.print(pMap.get("e_content"));
+			System.out.print(pMap.get("pm_content"));
+			System.out.print(pMap.get("emp_name"));
+			
+			System.out.print("사이즈 : "+pMap.size());
+			return "per/rating/perrating";
+		}
 		
 ////////////////////////////////김훈태 작성 끝 ///////////////////////////////////////		
 		

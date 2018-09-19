@@ -26,11 +26,24 @@ $(function() {
 			
 		})
 	}
+	$.ajax({
+		url:'<%=request.getContextPath()%>/perR/rating/list',
+		type: "json",
+		success: function(data){
+			for(i in data){
+				$("#e_list").append("<option val="+data[i].EMP_NO+">"+data[i].NAME+"</option>");
+				
+			}
+		}
+	})
+	
 	
 });
 
 function isok(){
 	alert("저장되었습니다.");
+	$("#f_content").attr("action","./servrating");
+	$("#f_content").submit();
 }
 
 </script>
@@ -46,6 +59,8 @@ function isok(){
     margin-bottom: 10px;
     margin-top: 10px;
     padding-top: 10px;">
+    
+    <form id="f_content" method="post">
 
 				<div class="col-xs-4 col-sm-4">
 					<div class="panel panel-primary">
@@ -66,7 +81,7 @@ function isok(){
 
 				<div class="row">
 					<div class="col-xs-7">
-						<textarea class="form-control" rows="4" placeholder="개인평가를 작성해 주세요"></textarea>
+						<textarea class="form-control" rows="4" placeholder="개인평가를 작성해 주세요" id="w_content"name="w_content"></textarea>
 						<br>
 						<select class="form-control" id="ranknum">
 							<option value="0">분기 선택</option>
@@ -89,15 +104,10 @@ function isok(){
 				</div>
 				<div class="row">
 					<div class="col-xs-7">
-						<select class="form-control" id="emp_name">
-							<option value="0">팀원선택</option>
-							<option value="1">김훈태</option>
-							<option value="2">이진</option>
-							<option value="3">신철우</option>
-							<option value="4">최운철</option>
-							<option value="5">신중욱</option>
+						<select class="form-control" id="e_list" name="e_list">
+
 						</select>
-						<textarea class="form-control" rows="5" placeholder="숨김상태로 있다가 팀원 을 선택하게되면 자동으로 창을 띄울 생각 님들은 어떰?"></textarea>
+						<textarea class="form-control" rows="5" placeholder="숨김상태로 있다가 팀원 을 선택하게되면 자동으로 창을 띄울 생각 님들은 어떰?" name="e_content"id="e_content"></textarea>
 					</div>
 					</div>
 
@@ -110,11 +120,11 @@ function isok(){
 				</div>
 				<div class="row">
 					<div class="col-xs-7">
-						<textarea class="form-control" rows="5" placeholder="팀장평가를 작성해 주세요"></textarea>
+						<textarea class="form-control" rows="5" placeholder="팀장평가를 작성해 주세요"id="pm_content" name="pm_content"></textarea>
 
 					</div>
 					</div>
-
+</form>
 	</div>
 	</td></tr>
 </table>

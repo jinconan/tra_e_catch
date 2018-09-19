@@ -65,5 +65,14 @@ public class PersonnelREST {
 		return attdList;
 	}
 	
+	@RequestMapping("rating/list")
+	private List<Map<String, Object>> viewTeamjson(@RequestParam Map<String, Object> pMap){
+		logger.info("viewTeamjsonø‰√ª");
+		List<Map<String, Object>> teamList = null;
+		teamList = personnelLogic.getTeamList(pMap);
+		logger.info(teamList);
+		return teamList;
+	}
+	
 	
 }
