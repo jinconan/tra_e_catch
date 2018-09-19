@@ -57,31 +57,13 @@ public class PersonnelREST {
 		return salList;
 	}
 	
-	/*//급여관리테이블URL(JSON)
-		@RequestMapping(value="/salary/salaryjson")
-		public String viewSalaryjson(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
-			//컨트롤러로 부터 넘겨받는 속성
-			//subMenuList : List<Map<String, Object>>
-			//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
-			//curSubMenu : String
-			logger.info("viewSalaryjson호출");
-			List<Map<String, Object>> salList = null;
-			salList = personnelLogic.getSalList(pMap,res);
-			mod.addAttribute("getSalList", salList);
-			return "per/salary/salaryjson";
-		}
-		//출퇴근데이터(JSON)
-		@RequestMapping(value="/attd/attdjson")
-		public String viewAttdjson(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
-			//컨트롤러로 부터 넘겨받는 속성
-			//subMenuList : List<Map<String, Object>>
-			//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
-			//curSubMenu : String
-			logger.info("viewAttdjson호출");
-			List<Map<String, Object>> attdList = null;
-			attdList = personnelLogic.getAttdList(pMap,res);
-			mod.addAttribute("getAttdList", attdList);
-			return "per/attd/attdjson";
-		}*/
+	@RequestMapping("attd/{counts}")
+	private List<Map<String, Object>> viewAttdjson(@PathVariable int counts){
+		logger.info("viewAttdjson요청");
+		List<Map<String, Object>> attdList = null;
+		attdList = personnelLogic.getAttdList(counts);
+		return attdList;
+	}
+	
 	
 }

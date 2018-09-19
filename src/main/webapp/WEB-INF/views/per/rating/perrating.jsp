@@ -29,7 +29,9 @@ $(function() {
 	
 });
 
-
+function isok(){
+	alert("저장되었습니다.");
+}
 
 </script>
 <jsp:include page="/WEB-INF/views/_common/header.jsp" />
@@ -117,7 +119,7 @@ $(function() {
 	</td></tr>
 </table>
 	<div class="col-xs-offset-5">
-	<button type="button" class="btn btn-primary">
+	<button type="button" class="btn btn-primary" onclick=javascript:isok()>
 		<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> OK
 	</button>
 

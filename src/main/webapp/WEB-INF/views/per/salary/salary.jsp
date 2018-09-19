@@ -70,7 +70,7 @@ $(function() {
 				<ul class="pagination">
 								<li><a href="<%=request.getContextPath()%>/per/salary/1" aria-label="Previous"><span
 										aria-hidden="true"> << </span></a></li>
-								<li><a href="<%=request.getContextPath()%>/acc/slip/<%=list-1%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/per/salary/<%=list-1%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
 								<li id="liid1"><a href="<%=request.getContextPath()%>/per/salary/<%=list%>"><%=list%><span class="sr-only">(current)</span></a></li>
 								<li id="liid2"><a href="<%=request.getContextPath()%>/per/salary/<%=list+1%>"><%=list+1%><span class="sr-only">(current)</span></a></li>
 								<li id="liid3"><a href="<%=request.getContextPath()%>/per/salary/<%=list+2%>"><%=list+2%><span class="sr-only">(current)</span></a></li>

@@ -17,13 +17,13 @@ public class PersonnelLogic {
 	@Autowired
 	private SqlPerDao sqlPerDao = null;
 	//출퇴근 관리 JSON데이터 요청
-	public List<Map<String, Object>> getAttdList(Map<String, Object> pMap, HttpServletResponse res) {
+	public List<Map<String, Object>> getAttdList(int counts) {
 		// TODO Auto-generated method stub
 		logger.info("getAttdList 호출 성공");
 		
 		List<Map<String,Object>> attdList = null;
 		
-		attdList = sqlPerDao.getAttdList(pMap);
+		attdList = sqlPerDao.getAttdList(counts);
 		return attdList;
 	}
 	

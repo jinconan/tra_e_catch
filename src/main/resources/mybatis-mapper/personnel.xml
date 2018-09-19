@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.personnelMapper">
-<select id="getAttdList" parameterType="map" resultType="map">
+<select id="getAttdList" parameterType="int" resultType="map">
 	<!-- select * from comchk where emp_no = 1 and rownum<50 -->
+	<!-- emp_no={사원번호} -->
 	<![CDATA[
-	select * from comchk where emp_no = 1 and rownum < 11 
+	    select * from
+    (select emp_no, a_date,a_time,l_time,time_chk,time_etc, rownum as rno
+     from comchk where emp_no = 1 order by rno)
+     where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno
 	 ]]>
 </select>
 <select id="getSalList" parameterType="int" resultType="map">

@@ -43,7 +43,16 @@ public class PersonnelController {
 		mod.addAttribute("counts", counts);
 		return "per/salary/salary";
 	}
-	
+	//출퇴근관리 
+		@RequestMapping(value="/attd/{counts}", method = RequestMethod.GET)
+		public String viewAttd(@RequestParam Map<String, Object> pMap, Model mod, @PathVariable int counts) {
+			logger.info("viewAttd호출");
+			List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-attsub");//근태 관련 서브메뉴 호출
+			mod.addAttribute("curSubMenu", "출퇴근관리");
+			mod.addAttribute("subMenuList", subMenuList);
+			return "per/attd/attd_attenList";
+			
+		}
 
 	//인사고과 메인
 	@RequestMapping(value="/rating/perrating", method = RequestMethod.GET)
@@ -73,20 +82,7 @@ public class PersonnelController {
 		
 	}
 	
-	//출퇴근관리 
-	@RequestMapping(value="/attd/attlist", method = RequestMethod.GET)
-	public String attWork(@RequestParam Map<String, Object> pMap, Model mod) {
-		//컨트롤러로 부터 넘겨받는 속성
-		//subMenuList : List<Map<String, Object>>
-		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
-		//curSubMenu : String
-		logger.info("attWork호출");
-		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("per-attsub");//근태 관련 서브메뉴 호출
-		mod.addAttribute("curSubMenu", "출퇴근관리");
-		mod.addAttribute("subMenuList", subMenuList);
-		return "per/attd/attd_attenList";
-		
-	}
+	
 
 	//연차관리
 	@RequestMapping(value="/attd/leave", method = RequestMethod.GET)
