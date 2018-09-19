@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%
 	List<Map<String, Object>> projList = (List<Map<String, Object>>)request.getAttribute("projList");
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -11,7 +10,21 @@
 <title>프로젝트 리스트</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
+	var pstatus_name = "${requestScope.pstatus_name}";
+</script>
+<script>
 $(document).ready(function() {
+	//프로젝트 리스트 상단 탭 active 속성 부여
+	var $pstatus_list = $("#pstatus_list li");
+	if(pstatus_name=="all")
+		$pstatus_list.eq(0).addClass("active");
+	else if(pstatus_name=="ing")
+		$pstatus_list.eq(1).addClass("active");
+	else if(pstatus_name=="end")
+		$pstatus_list.eq(2).addClass("active");
+	else if(pstatus_name=="stop")
+		$pstatus_list.eq(3).addClass("active");
+	
 	$(".tr_proj").click(function(event){
 		var projNo = $(this).find("td")[0].innerText;
 		location.href="<%=request.getContextPath()%>/plan/view/projDetail?projNo="+projNo;
@@ -46,11 +59,11 @@ $(document).ready(function() {
 		<div class="col-sm-10">
 			<div class="well">
 				<h2><strong>프로젝트 리스트</strong></h2>
-				<ul class="nav nav-pills">
-				  <li role="presentation" class="active"><a href="#">전체</a></li>
-				  <li role="presentation"><a href="#">진행중</a></li>
-				  <li role="presentation"><a href="#">종료</a></li>
-				  <li role="presentation"><a href="#">중단</a></li>
+				<ul id="pstatus_list" class="nav nav-pills">
+				  <li role="presentation"><a href="./all">전체</a></li>
+				  <li role="presentation"><a href="./ing">진행중</a></li>
+				  <li role="presentation"><a href="./end">종료</a></li>
+				  <li role="presentation"><a href="./stop">중단</a></li>
 				</ul>
 				<table class="table table-condensed">
 					<thead>

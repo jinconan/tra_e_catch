@@ -135,7 +135,7 @@ public class PlanController {
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
 		mod.addAttribute("curSubMenu", "프로젝트 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
-
+		mod.addAttribute("pstatus_name",pstatus_name);
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("pageNo", pageNo);
 		pMap.put("pstatus_name", pstatus_name);
