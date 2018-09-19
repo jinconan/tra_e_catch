@@ -7,12 +7,19 @@
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <%-- <jsp:include page="/WEB-INF/views/_common/header.jsp" /> --%>
 </head>
+<%
+	int counts = (Integer)request.getAttribute("counts");
+	int list = (((counts-1)/10)*10)+1;
+	int num = (counts%10);
+%>
 <body>
 <script type="text/javascript">
 $(function() {
 	$('#p_table').bootstrapTable({
-		url:'<%=request.getContextPath()%>/per/salary/salaryjson'				
+		url:'<%=request.getContextPath()%>/perR/salary/<%=counts%>'				
 	});
+	var base = $('#liid'+<%=num%>);
+	base.addClass('active');
 	
 });
 
@@ -61,12 +68,22 @@ $(function() {
 			</table>
 			<nav>
 				<ul class="pagination">
-					<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true"> << </span></a></li>
-					<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">2 <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">3 <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">4 <span class="sr-only">(current)</span></a></li>
-				</ul>
+								<li><a href="<%=request.getContextPath()%>/per/salary/1" aria-label="Previous"><span
+										aria-hidden="true"> << </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/acc/slip/<%=list-1%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
+								<li id="liid1"><a href="<%=request.getContextPath()%>/per/salary/<%=list%>"><%=list%><span class="sr-only">(current)</span></a></li>
+								<li id="liid2"><a href="<%=request.getContextPath()%>/per/salary/<%=list+1%>"><%=list+1%><span class="sr-only">(current)</span></a></li>
+								<li id="liid3"><a href="<%=request.getContextPath()%>/per/salary/<%=list+2%>"><%=list+2%><span class="sr-only">(current)</span></a></li>
+								<li id="liid4"><a href="<%=request.getContextPath()%>/per/salary/<%=list+3%>"><%=list+3%><span class="sr-only">(current)</span></a></li>
+								<li id="liid5"><a href="<%=request.getContextPath()%>/per/salary/<%=list+4%>"><%=list+4%><span class="sr-only">(current)</span></a></li>
+								<li id="liid6"><a href="<%=request.getContextPath()%>/per/salary/<%=list+5%>"><%=list+5%><span class="sr-only">(current)</span></a></li>
+								<li id="liid7"><a href="<%=request.getContextPath()%>/per/salary/<%=list+6%>"><%=list+6%><span class="sr-only">(current)</span></a></li>
+								<li id="liid8"><a href="<%=request.getContextPath()%>/per/salary/<%=list+7%>"><%=list+7%><span class="sr-only">(current)</span></a></li>
+								<li id="liid9"><a href="<%=request.getContextPath()%>/per/salary/<%=list+8%>"><%=list+8%><span class="sr-only">(current)</span></a></li>
+								<li id="liid0"><a href="<%=request.getContextPath()%>/per/salary/<%=list+9%>"><%=list+9%> <span class="sr-only">(current)</span></a></li>
+								<li><a href="<%=request.getContextPath()%>/per/salary/<%=list+10%>" aria-label="Previous"><span aria-hidden="true"> > </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/per/salary/<%=list+100%>" aria-label="Previous"><span aria-hidden="true"> >> </span></a></li>
+							</ul>
 			</nav>
 		</div>
 	</div>

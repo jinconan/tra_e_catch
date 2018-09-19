@@ -24,7 +24,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<%=contextPath%>/per/attd/attlist">근태</a></li>
 						<li><a href="<%=contextPath%>/per/cert/cert">증명서 발급</a></li>
-						<li><a href="<%=contextPath%>/per/salary/salaryList">급여관리</a></li>
+						<li><a href="<%=contextPath%>/per/salary/1">급여관리</a></li>
 						<li><a href="<%=contextPath%>/per/rating/perrating">인사고과</a></li>
 						<li class="divider"></li>
 						<li><a href="<%=contextPath%>/per/empList">인사권자 전용</a></li>

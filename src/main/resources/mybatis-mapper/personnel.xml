@@ -7,10 +7,12 @@
 	select * from comchk where emp_no = 1 and rownum < 11 
 	 ]]>
 </select>
-<select id="getSalList" parameterType="map" resultType="map">
+<select id="getSalList" parameterType="int" resultType="map">
 
 <![CDATA[
-	select * from sal_list where emp_no = 1 and rownum<13
+	select * from (
+	select GIVE_DATE, NOTE, SAL, rownum as rno from sal_list where emp_no = 1 order by GIVE_DATE desc)
+	where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno 
 	 
 ]]>
 

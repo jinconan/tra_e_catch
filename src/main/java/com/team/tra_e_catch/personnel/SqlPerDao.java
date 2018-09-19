@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.personnel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,10 +27,10 @@ public class SqlPerDao {
 		return attdList;
 	}
 	//급여내역 데이터 요청 DB
-	public List<Map<String, Object>> getSalList(Map<String, Object> pMap) {
+	public List<Map<String, Object>> getSalList(int counts) {
 		// TODO Auto-generated method stub
-		List<Map<String,Object>> salList = null;
-		salList = sqlSessionTemplate.selectList("getSalList",pMap);
+		List<Map<String,Object>> salList = new ArrayList<Map<String,Object>>();
+		salList = sqlSessionTemplate.selectList("getSalList",counts);
 		return salList;
 	}
 	
