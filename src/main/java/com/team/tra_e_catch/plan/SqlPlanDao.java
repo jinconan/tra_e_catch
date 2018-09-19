@@ -18,8 +18,7 @@ public class SqlPlanDao {
 	public List<Map<String, Object>> getProjList(Map<String, Object> pMap) {
 		logger.info("getProjList() »£√‚");
 		
-//		return sqlSessionTemplate.selectList(
-//				"com.mybatis.mapper.planMapper.getProjList", pMap);
-		return new ArrayList<Map<String,Object>>();
+		return sqlSessionTemplate.selectList(
+				"com.mybatis.mapper.planMapper.getProjList", pMap);
 	}
 }

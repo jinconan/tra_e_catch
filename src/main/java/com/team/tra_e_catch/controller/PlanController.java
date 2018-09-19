@@ -129,8 +129,8 @@ public class PlanController {
 	public String viewProjList(Model mod
 			, @PathVariable(name="pstatus_name",required=true) String pstatus_name
 			, @RequestParam(name="pageNo", defaultValue="1") int pageNo
-			, @RequestParam(name="leader_name", required=false) String leader_name
-			, @RequestParam(name="project_name", required=false) String project_name) {
+			, @RequestParam(name="searchColumn", required=false) String searchColumn
+			, @RequestParam(name="searchValue", required=false) String searchValue) {
 		logger.info("viewProjList() 호출");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-list-submenu");
 		mod.addAttribute("curSubMenu", "프로젝트 리스트");
@@ -139,10 +139,11 @@ public class PlanController {
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("pageNo", pageNo);
 		pMap.put("pstatus_name", pstatus_name);
-		if(leader_name != null)
-			pMap.put("leader_name", leader_name);
-		if(project_name !=null)
-			pMap.put("project_name", project_name);
+		
+		if(searchColumn != null) {
+			pMap.put("serchColumn",  searchColumn);
+			pMap.put("searchValue", searchValue);
+		}
 		List<Map<String,Object>> projList = planLogic.getProjList(pMap);
 		mod.addAttribute("projList", projList);
 		return "plan/proj/projList";
