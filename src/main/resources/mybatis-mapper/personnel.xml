@@ -29,4 +29,32 @@ select emp_no, name, team_no from employee where team_no = 4
 ]]>
 
 </select>
+<select id="getEmpList" parameterType="map" resultType="map">
+
+<![CDATA[
+	select name,hire_date,lev_no,dept_no,loc_no,birthday,email,team_no
+      from employee 
+]]>
+<where>
+<!-- <if test="dept_no != null">
+	and dept_no = #{dept_no}
+</if>
+<if test="name != null">
+	and name = #{name}
+</if>
+<if test="lev_no != null">
+	and lev_no = #{lev_no}
+</if> -->
+<if test='dept_no!= null and dept_no !="" '>
+	and dept_no = #{dept_no}
+</if>
+<if test='name!= null and !name.equals("")'>
+	and name = #{name}
+</if>
+ <if test='lev_no!= null and lev_no != ""'>
+	and lev_no = #{lev_no}
+</if>
+</where>
+</select>
+
 </mapper>

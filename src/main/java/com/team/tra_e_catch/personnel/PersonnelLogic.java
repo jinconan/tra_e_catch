@@ -16,6 +16,7 @@ public class PersonnelLogic {
 	
 	@Autowired
 	private SqlPerDao sqlPerDao = null;
+	
 	//출퇴근 관리 JSON데이터 요청
 	public List<Map<String, Object>> getAttdList(int counts) {
 		// TODO Auto-generated method stub
@@ -37,6 +38,13 @@ public class PersonnelLogic {
 		
 		salList = sqlPerDao.getSalList(counts);
 		return salList;
+	}
+	//사원명부 데이터 요청
+	public List<Map<String, Object>> getEmpList(Map<String, Object> pMap, HttpServletResponse res) {
+		logger.info("getEmpList 호출 성공");
+		List<Map<String, Object>> getEmpList = null;
+		getEmpList = sqlPerDao.getEmpList(pMap);
+		return getEmpList;
 	}
 
 

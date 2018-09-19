@@ -1,6 +1,6 @@
 package com.team.tra_e_catch.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -184,12 +184,34 @@ public class PersonnelController {
 ////////////////////////////////김훈태 작성 끝 ///////////////////////////////////////		
 		
 	//사원명부
+<<<<<<< HEAD
 	@RequestMapping(value = "/empList", method = RequestMethod.GET)
 	public String per(Locale locale, Model mod) {
 		logger.info("Welcome home! The client locale is");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
+=======
+	@RequestMapping(value = "/per/empList")
+	public String per(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
+		logger.info("Welcome home! The client locale is1");
+		
+		logger.info(pMap);
+		logger.info(pMap.get("name")+"\t"+pMap.get("lev-no")+"\t"+pMap.get("dept-no"));
+		String a = (String)pMap.get("lev-no");
+		System.out.println(a);
+		try {
+			List<Map<String, Object>> getEmpList = null;
+			getEmpList = personnelLogic.getEmpList(pMap,res);
+			mod.addAttribute("getEmpList", getEmpList);
+			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+			mod.addAttribute("curSubMenu", "기획서 리스트");
+			mod.addAttribute("subMenuList", subMenuList);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+>>>>>>> refs/heads/dnscjf7
 		return "per/onlyauthper/emplist";
 	}
 	//사원명부 검색 테이블 

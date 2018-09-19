@@ -33,6 +33,7 @@ public class SqlPerDao {
 		salList = sqlSessionTemplate.selectList("getSalList",counts);
 		return salList;
 	}
+<<<<<<< HEAD
 	public List<Map<String, Object>> getTeamList(Map<String, Object> pMap) {
 		// TODO Auto-generated method stub
 		logger.info("sqlTeam확인");
@@ -40,6 +41,15 @@ public class SqlPerDao {
 		teamList = sqlSessionTemplate.selectList("getTeamList",pMap);
 		System.out.println(teamList.size());
 		return teamList;
+=======
+	//사원명부 데이터 요청 DB
+	public List<Map<String, Object>> getEmpList(Map<String, Object> pMap) {
+		logger.info("들어왔어");
+		List<Map<String, Object>> getEmpList = null;
+		getEmpList = sqlSessionTemplate.selectList("getEmpList",pMap );
+		return getEmpList;
+		
+>>>>>>> refs/heads/dnscjf7
 	}
 	
 }
