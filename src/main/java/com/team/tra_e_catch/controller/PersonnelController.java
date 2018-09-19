@@ -1,6 +1,6 @@
 package com.team.tra_e_catch.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -199,8 +199,11 @@ public class PersonnelController {
 		
 	//사원명부
 	@RequestMapping(value = "/per/empList", method = RequestMethod.GET)
-	public String per(Locale locale, Model mod) {
-		logger.info("Welcome home! The client locale is");
+	public String per(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
+		logger.info("Welcome home! The client locale is1");
+		List<Map<String, Object>> getEmpList = null;
+		getEmpList = personnelLogic.getEmpList(pMap,res);
+		mod.addAttribute("getEmpList", getEmpList);
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);

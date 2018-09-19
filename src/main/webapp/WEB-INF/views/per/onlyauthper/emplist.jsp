@@ -23,13 +23,13 @@
 		});
 	});
 </script>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	$(function() {
 		$('#datetimepicker1').datetimepicker();
 		$('#datetimepicker2').datetimepicker();
 		$('#datetimepicker3').datetimepicker();
 	});
-</script>
+</script> -->
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
@@ -41,12 +41,14 @@
 		  <div class="page-header">
           <h1>사원명부 <small>basic form</small></h1>
          </div>
+         <form id="f_info">
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="per-name">이름</label>
 				<div class="col-sm-3">
 					<input class="form-control" id="per-name" type="name"
 						placeholder="이름">
 				</div>
+				
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="lev-no">직급코드</label>
@@ -64,7 +66,8 @@
 					
 				</div>
 			</div>
-			<div class="form-group">
+			</form>
+			<!-- <div class="form-group">
 				<label class="col-sm-3 control-label" for="loc-no">지역코드</label>
 				<div class="col-sm-4">
 					<input class="form-control" id="loc-no" type="loc-code"
@@ -124,7 +127,7 @@
 					<input class="form-control" id="emp-pass" type="password"
 						placeholder="password">
 				</div>
-			</div>				
+			</div>				 -->
 			</div>
 			<div class="form-group">
 				<div class="col-sm-12 text-center">

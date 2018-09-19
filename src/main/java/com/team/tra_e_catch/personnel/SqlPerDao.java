@@ -32,5 +32,13 @@ public class SqlPerDao {
 		salList = sqlSessionTemplate.selectList("getSalList",pMap);
 		return salList;
 	}
+	//사원명부 데이터 요청 DB
+	public List<Map<String, Object>> getEmpList(Map<String, Object> pMap) {
+		logger.info("들어왔어");
+		List<Map<String, Object>> getEmpList = null;
+		getEmpList = sqlSessionTemplate.selectList("getEmpList",pMap );
+		return getEmpList;
+		
+	}
 	
 }

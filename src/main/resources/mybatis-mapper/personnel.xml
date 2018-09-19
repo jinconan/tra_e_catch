@@ -15,4 +15,12 @@
 ]]>
 
 </select>
+<select id="getEmpList" parameterType="map" resultType="map">
+
+<![CDATA[
+	select * from sal_list where emp_no = 1 and rownum<13
+]]>
+
+</select>
+
 </mapper>
