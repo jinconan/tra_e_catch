@@ -8,15 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PathVariable;
-=======
->>>>>>> refs/heads/dnscjf7
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
-=======
-import org.springframework.web.bind.annotation.RequestMethod;
->>>>>>> refs/heads/dnscjf7
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,7 +48,6 @@ public class PersonnelREST {
 		List<Map<String, Object>> as = accountingLogic.teamR_Logic();
 		return as;
 	}*/
-<<<<<<< HEAD
 	
 	@RequestMapping("salary/{counts}")
 	private List<Map<String, Object>> viewSalaryjson(@PathVariable int counts){
@@ -83,7 +75,6 @@ public class PersonnelREST {
 	}
 	
 	
-=======
 	@RequestMapping(value = "empList")
 	public List<Map<String, Object>> per(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
 		logger.info("Welcome home! The client locale is1");
@@ -94,5 +85,4 @@ public class PersonnelREST {
 		mod.addAttribute("getEmpList", getEmpList);
 		return getEmpList;
 	}
->>>>>>> refs/heads/dnscjf7
 }
