@@ -198,15 +198,25 @@ public class PersonnelController {
 ////////////////////////////////김훈태 작성 끝 ///////////////////////////////////////		
 		
 	//사원명부
-	@RequestMapping(value = "/per/empList", method = RequestMethod.GET)
+	@RequestMapping(value = "/per/empList")
 	public String per(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
 		logger.info("Welcome home! The client locale is1");
-		List<Map<String, Object>> getEmpList = null;
-		getEmpList = personnelLogic.getEmpList(pMap,res);
-		mod.addAttribute("getEmpList", getEmpList);
-		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
-		mod.addAttribute("subMenuList", subMenuList);
+		
+		logger.info(pMap);
+		logger.info(pMap.get("name")+"\t"+pMap.get("lev-no")+"\t"+pMap.get("dept-no"));
+		String a = (String)pMap.get("lev-no");
+		System.out.println(a);
+		try {
+			List<Map<String, Object>> getEmpList = null;
+			getEmpList = personnelLogic.getEmpList(pMap,res);
+			mod.addAttribute("getEmpList", getEmpList);
+			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+			mod.addAttribute("curSubMenu", "기획서 리스트");
+			mod.addAttribute("subMenuList", subMenuList);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "per/onlyauthper/emplist";
 	}
 	//사원명부 검색 테이블 

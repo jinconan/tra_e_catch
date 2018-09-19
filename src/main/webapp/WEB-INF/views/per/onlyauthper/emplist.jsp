@@ -5,10 +5,52 @@
 <head>
 <title>사원명부</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<%
+	List<Map<String,Object>> getEmpList = (List<Map<String,Object>>)request.getAttribute("getEmpList");
+%>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#btn_emp").click(function(){
+			
+			$('#p_table').bootstrapTable({
+				method: "post",
+				contentType: 'application/x-www-form-urlencoded',
+				queryParams: function(p){
+                    return{
+                    	lev_no : $("#lev-no").val(),
+                    	name : $("#per-name").val(),
+                    	dept_no : $("#dept-no").val(),
+                    };
+				}
+				,url:'<%=request.getContextPath()%>/perR/empList'
+			});
+			/* var lev_no = $("#lev-no").val();
+			var name = $("#name").val();
+			var dept_no = $("#dept-no").val();
+			
+			param = "lev-no="+lev_no+"&name="+name+"&dept-no="+dept_no */
+
+			/* var param = {};
+			param.lev_no = $("#lev-no").val();
+			param.name = $("#name").val();
+			param.dept_no = $("#dept-no").val(); */
+			
+			
+			<%-- alert(param);
 			$.ajax({
+				url:'<%=request.getContextPath()%>/perR/empList'
+				,data:param
+				,dataType:"json"
+				,method:"POST"
+				,success:function(data){
+					alert(data);
+					$('#p_table').bootstrapTable({data:data})
+				}
+			 ,error:function(Object){
+		    	 alert("error : "+Object.responseText);
+		     }
+			}); --%>
+		/* 	$.ajax({
 				url:"/tra_e_catch/per/emptable"
 				,method:"GET"
 				,success:function(data){
@@ -19,7 +61,7 @@
 		    	 alert("error : "+Object.responseText);
 		     }
 			});
-			return false;
+			return false; */
 		});
 	});
 </script>
@@ -45,7 +87,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="per-name">이름</label>
 				<div class="col-sm-3">
-					<input class="form-control" id="per-name" type="name"
+					<input class="form-control" name="name" id="per-name" type="per-name"
 						placeholder="이름">
 				</div>
 				
@@ -53,7 +95,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="lev-no">직급코드</label>
 				<div class="col-sm-4">
-					<input class="form-control" id="lev-no" type="lev-code"
+					<input class="form-control" name="lev-no" id="lev-no" type="lev-code"
 						placeholder="직접코드">
 					
 				</div>
@@ -61,7 +103,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="dept-no">부서코드</label>
 				<div class="col-sm-4">
-					<input class="form-control" id="dept-no" type="dept-code"
+					<input class="form-control" name="dept-no" id="dept-no" type="dept-code"
 						placeholder="부서코드">
 					
 				</div>
@@ -137,9 +179,32 @@
 					
 				</div>
 			</div>
-			<div class="form-group" id="emptable">
+			<!-- <div class="form-group" id="emptable">
 				
-			</div>  
+			</div>   -->
+			<div class="table-responsive col-xs-9">
+				<table id="p_table" class="table table-striped table-hover">
+					<thead>
+						<tr>
+						
+							<!-- data-field에는 json포멧으로 데이터를 담을예정  -->
+							<!-- <th width="15%" data-field="EMP_NO">사원번호</th> -->
+							<th width="10%" data-field="NAME">이름</th>
+							<th width="20%" data-field="HIRE_DATE">입사일자</th>
+							<th width="20%" data-field="LEV_NO">직급코드</th>
+							<th width="20%" data-field="DEPT_NO">부서코드</th>
+							<th width="10%" data-field="LOC_NO">지역코드</th>
+							<th width="20%" data-field="BIRTHDAY">생일</th>
+							<th width="20%" data-field="EMAIL">이메일</th>
+							<th width="15%" data-field="TEAM_NO">팀코드</th>
+							
+
+						</tr>
+					</thead>
+					<tbody>
+					
+					</tbody>
+				</table>
 		</form>
 		<hr>
 	</div>
