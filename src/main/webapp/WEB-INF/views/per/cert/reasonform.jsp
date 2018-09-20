@@ -7,15 +7,13 @@
 <script type="text/javascript">
 
 $('.c_form').click(function(){
-	alert("되니?");	
-	console.log( "ready!" );
 	$('.c_form').printThis(); <!-- print 할 부분에 설정 -->
 });
 
 </script>
 </head>
 <body>
-	<table class="c_form" border="1" width="80%" height="800px">
+	<table class="c_form" border="1" width="100%" height="1000px">
 		<tr>
 			<td colspan="4"><h3 align="center">시 말 서</h3></td>
 		</tr>

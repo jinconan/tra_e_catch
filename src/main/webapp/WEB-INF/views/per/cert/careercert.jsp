@@ -7,33 +7,45 @@
 <script type="text/javascript">
  
 $('.c_form').click(function(){
-	alert("되니?");	
-	console.log( "ready!" );
 	$('.c_form').printThis(); <!-- print 할 부분에 설정 -->
 });
- 
+$(function() {
+	$.ajax({
+		url:'<%=request.getContextPath()%>/perR/indivemp',
+		type: "json",
+		success: function(data){
+			$("#ename").text(data[0].ENAME);//사원이름
+			$("#bday").append(data[0].BDAY);//사원생년월일
+			$("#tname").append(data[0].TNAME);//팀이름
+			$("#clev").append(data[0].CLEV);//직급
+			$("#hday").append(data[0].HDAY);//입사일자
+			$("#sdate").append(data[0].SDATE);//현재 일자
+		}
+	})
+	 
+});
 </script>
 </head>
 <body>
-	<table class="c_form" border="1" width="80%" height="800px">
+	<table class="c_form" border="1" width="100%" height="1000px">
 		<tr>
 			<td colspan="4"><h3 align="center">경 력 증 명 서</h3></td>
 		</tr>
 
 		<tr>
 			<td align="center" width="16%">성 명</td>
-			<td align="center">김위백</td>
+			<td align="center"><div id="ename"></div></td>
 			<td align="center" width="14%">생년월일</td>
-			<td align="center">1992년01월07일</td>
+			<td align="center"><div id="bday"></div></td>
 		<tr>
 			<td align="center">부 서</td>
-			<td align="center">인사팀</td>
+			<td align="center"><div id="tname"></div></td>
 			<td align="center">직급</td>
-			<td align="center">찌끄래기</td>
+			<td align="center"><div id="clev"></div></td>
 		</tr>
 
 		<tr>
-			<td align="center">현주소</td>
+			<td align="center">근무지</td>
 			<td colspan="3" align="center">경기도 과천시 과천동 513-13호</td>
 		</tr>
 
@@ -44,7 +56,7 @@ $('.c_form').click(function(){
 
 		<tr>
 			<td align="center" width="16%">재직기간</td>
-			<td colspan="3" align="center">2018-04-07 ~ 현재&nbsp;(x년xx개월)</td>
+			<td colspan="3" align="center"><div id="hday"></div>~ 현재</td>
 		</tr>
 		<tr>
 			<td align="center" width="20%">용도</td>
@@ -54,10 +66,11 @@ $('.c_form').click(function(){
 			<td colspan="4" rowspan="40" align="center">
 			  <br>
 			   <br>
-			    상기 사항은 사실과 틀림없음을 증명함.<br>
+			    <br>
 				 <br> <br> 
-				 날자때려박는곳~<br> <br> <br> <br> <br>
-				  <br> <br> <br>
+				 <br> <br> <br> <br> <br>
+				  <br> <br> <br><br> <br>상기 사항은 사실과 틀림없음을 증명함. <br>
+				  <br> <br><br><div id="sdate"></div><br> <br><br>
 				  <table align="right">
 				 <tr><td align="right">서울특별시 강남구 싸이동 1-1&nbsp;&nbsp;&nbsp;</td></tr>
 				 <tr><td align="right">주식회사 위백스닷컴&nbsp;&nbsp;&nbsp;</td></tr>

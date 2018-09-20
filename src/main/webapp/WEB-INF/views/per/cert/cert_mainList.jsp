@@ -115,7 +115,7 @@ function listform(){
 		<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 		<div class="col-sm-10">
 			<!-- 메인화면 -->
-			<div class="panel panel-primary col-xs-8">
+			<div class="panel panel-primary col-xs-10">
 				<table>
 					<tr>
 						<td>증명서 종류 :&nbsp;&nbsp;&nbsp;</td>

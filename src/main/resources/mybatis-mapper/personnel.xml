@@ -11,6 +11,17 @@
      where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno
 	 ]]>
 </select>
+<!-- 개인신상정보 -->
+<select id="getIndivList" parameterType="map" resultType="map">
+<![CDATA[
+
+select * from v_emp where emp_no = 84
+
+]]>
+</select>
+
+
+
  <resultMap id="cos_type1" type="java.util.HashMap"></resultMap>
 
 <select id="setSerList" statementType="CALLABLE" parameterType="hashmap">
@@ -38,7 +49,7 @@
 <select id="getTeamList" parameterType="map" resultType="map">
 
 <![CDATA[
-select emp_no, name, team_no from employee where team_no = 19
+select * from v_emp where team_no = 4
 
 
 ]]>

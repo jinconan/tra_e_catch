@@ -31,7 +31,7 @@ $(function() {
 		type: "json",
 		success: function(data){
 			for(i in data){
-				$("#e_list").append("<option val="+data[i].EMP_NO+">"+data[i].NAME+"</option>");
+				$("#e_list").append("<option val="+data[i].EMP_NO+">"+data[i].ENAME+"</option>");
 				
 			}
 		}

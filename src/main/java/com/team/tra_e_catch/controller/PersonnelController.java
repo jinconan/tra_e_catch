@@ -105,10 +105,6 @@ public class PersonnelController {
 	// 증명서관리
 	@RequestMapping(value = "/cert/cert", method = RequestMethod.GET)
 	public String certList(@RequestParam Map<String, Object> pMap, Model mod) {
-		// 컨트롤러로 부터 넘겨받는 속성
-		// subMenuList : List<Map<String, Object>>
-		// [{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
-		// curSubMenu : String
 		logger.info("certList호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-certsub");// 증명서 관리
 																											// 서브메뉴
@@ -121,10 +117,6 @@ public class PersonnelController {
 	// 증명서 출력기록 페이지
 	@RequestMapping(value = "/cert/certprint", method = RequestMethod.POST)
 	public String certPrintList(@RequestParam Map<String, Object> pMap, Model mod) {
-		// 컨트롤러로 부터 넘겨받는 속성
-		// subMenuList : List<Map<String, Object>>
-		// [{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
-		// curSubMenu : String
 		logger.info("certPrintList호출");
 		return "per/cert/cert_printList";
 	}
@@ -132,10 +124,6 @@ public class PersonnelController {
 	// 재직증명서 양식 페이지
 	@RequestMapping(value = "/cert/certform", method = RequestMethod.POST)
 	public String serform(@RequestParam Map<String, Object> pMap, Model mod) {
-		// 컨트롤러로 부터 넘겨받는 속성
-		// subMenuList : List<Map<String, Object>>
-		// [{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
-		// curSubMenu : String
 		logger.info("certPrintList호출");
 		return "per/cert/certform";
 	}
@@ -143,10 +131,6 @@ public class PersonnelController {
 	// 경력증명서 양식 페이지
 	@RequestMapping(value = "/cert/careercert", method = RequestMethod.POST)
 	public String careercert(@RequestParam Map<String, Object> pMap, Model mod) {
-		// 컨트롤러로 부터 넘겨받는 속성
-		// subMenuList : List<Map<String, Object>>
-		// [{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
-		// curSubMenu : String
 		logger.info("certPrintList호출");
 		return "per/cert/careercert";
 	}
@@ -181,11 +165,6 @@ public class PersonnelController {
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-submenu");
 		mod.addAttribute("curSubMenu", "인사고과");
 		mod.addAttribute("subMenuList", subMenuList);
-		System.out.print(pMap.get("w_content"));
-		System.out.print(pMap.get("e_content"));
-		System.out.print(pMap.get("pm_content"));
-		System.out.print("넌 뭐니 : "+pMap.get("e_list"));//셀렉된 사람의 이름이 나오네..?
-		System.out.print("사이즈 : " + pMap.size());
 		List<Map<String, Object>> servList = null;
 		servList = personnelLogic.setServrating(pMap);
 		

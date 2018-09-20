@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
-<div class="table-responsive col-xs-8">
+<div class="table-responsive col-xs-10">
 				<table id="p_table" class="table table-striped table-hover">
 					<thead>
 						<tr>

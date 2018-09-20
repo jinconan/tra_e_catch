@@ -66,5 +66,13 @@ public class PersonnelLogic {
 	}
 
 
+	public List<Map<String, Object>> getindivList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> serList = null;
+		serList = sqlPerDao.getIndivList(pMap);
+		return serList;
+	}
+
+
 
 }

@@ -85,4 +85,13 @@ public class PersonnelREST {
 		mod.addAttribute("getEmpList", getEmpList);
 		return getEmpList;
 	}
+	
+	//개인신상정보
+	@RequestMapping(value = "indivemp")
+	public List<Map<String, Object>> indivEmpList(@RequestParam Map<String, Object> pMap) {
+		List<Map<String, Object>> indivList = null;
+		indivList = personnelLogic.getindivList(pMap);
+		
+		return indivList;
+	}
 }
