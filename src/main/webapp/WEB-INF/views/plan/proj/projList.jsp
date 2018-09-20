@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%
 	List<Map<String, Object>> projList = (List<Map<String, Object>>)request.getAttribute("projList");
+	String pstatus_name = (String)request.getAttribute("pstatus_name");
+	int pageNo = (Integer)request.getAttribute("pageNo");
 %>
 <!DOCTYPE html>
 <html>
@@ -10,7 +12,7 @@
 <title>프로젝트 리스트</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
-	var pstatus_name = "${requestScope.pstatus_name}";
+	var pstatus_name = "<%=pstatus_name%>";
 </script>
 <script>
 $(document).ready(function() {
@@ -91,7 +93,7 @@ $(document).ready(function() {
 									<td><%=proj.get("emp_name")%></td>
 									<!-- 중단, 종료는 종료일자, 진행중은 예정일자 -->
 					<%
-								if(proj.get("pstatus_name").equals("진행중")) {
+								if("ing".equals(pstatus_name)) {
 					%>
 									<td><%=proj.get("start_date")%> ~ <%=proj.get("end_sched_date")%></td>
 					<%

@@ -29,10 +29,6 @@ public class PlanLogic {
 		} else if("stop".equals((String)pMap.get("pstatus_name"))) {
 			pMap.put("pstatus_name", "Áß´Ü");
 		} 
-<<<<<<< HEAD
-=======
-			
->>>>>>> refs/heads/cw_0920
 		
 		List<Map<String,Object>> projList = sqlPlanDao.getProjList(pMap);
 		return projList;
