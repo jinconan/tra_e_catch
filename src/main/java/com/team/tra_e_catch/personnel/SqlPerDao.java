@@ -1,11 +1,13 @@
 package com.team.tra_e_catch.personnel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 
 
 public class SqlPerDao {
@@ -46,13 +48,18 @@ public class SqlPerDao {
 		logger.info("들어왔어");
 		List<Map<String, Object>> getEmpList = null;
 		getEmpList = sqlSessionTemplate.selectList("getEmpList",pMap );
+		
 		return getEmpList;
 		
 	}
+	//근무평정 데이터 insert
+	
 	public List<Map<String, Object>> setSerList(Map<String, Object> pMap) {
 		// TODO Auto-generated method stub
 		List<Map<String, Object>> serList = null;
-		serList = sqlSessionTemplate.selectList("setSerList",pMap );
+		serList = sqlSessionTemplate.selectOne("setSerList",pMap);
+		
+		
 		return serList;
 	}
 	

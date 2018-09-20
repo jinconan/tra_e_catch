@@ -11,6 +11,21 @@
      where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno
 	 ]]>
 </select>
+ <resultMap id="cos_type1" type="java.util.HashMap"></resultMap>
+
+<select id="setSerList" statementType="CALLABLE" parameterType="hashmap">
+
+  {CALL proc_serv_write(273,#{e_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{w_content, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{e_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{pm_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{cos_type1, mode=OUT, jdbcType=VARCHAR, javaType=java.sql.ResultSet, resultMap=cos_type1})}
+  <!-- System.out.print(pMap.get("w_content"));
+		System.out.print(pMap.get("e_content"));
+		System.out.print(pMap.get("pm_content"));
+		System.out.print(pMap.get("emp_name"));
+		
+		System.out.print("넌 뭐니 : "+pMap.get("e_list"));//셀렉된 사람의 이름이 나오네..?
+		(p_writer,   p_emp_name,   w_content,   e_content,   pm_content, msg out varchar2)-->
+
+</select>
+
 <select id="getSalList" parameterType="int" resultType="map">
 
 <![CDATA[
@@ -23,7 +38,7 @@
 <select id="getTeamList" parameterType="map" resultType="map">
 
 <![CDATA[
-select emp_no, name, team_no from employee where team_no = 4
+select emp_no, name, team_no from employee where team_no = 19
 
 
 ]]>

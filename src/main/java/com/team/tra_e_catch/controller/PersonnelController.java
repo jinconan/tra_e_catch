@@ -184,7 +184,6 @@ public class PersonnelController {
 		System.out.print(pMap.get("w_content"));
 		System.out.print(pMap.get("e_content"));
 		System.out.print(pMap.get("pm_content"));
-		System.out.print(pMap.get("emp_name"));
 		System.out.print("넌 뭐니 : "+pMap.get("e_list"));//셀렉된 사람의 이름이 나오네..?
 		System.out.print("사이즈 : " + pMap.size());
 		List<Map<String, Object>> servList = null;

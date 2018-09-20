@@ -43,8 +43,6 @@ $(function() {
 
 function isok(){
 /* 	alert("저장되었습니다."); */
-
-
 	
 	alert($("#e_list option:selected").val());
 	
