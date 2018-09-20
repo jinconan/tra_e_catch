@@ -1,5 +1,7 @@
 package com.team.tra_e_catch.REST;
 
+import java.util.*;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,19 +25,17 @@ public class ProductREST {
 	private ProductLogic productLogic;
 	
 	
-		/*
-		 * init메서드 : 
-		 * out데이터 : 
-		 * 용도 : 
-		 * 비고 : 
-		 */
-	
-	// 예제
+		
 	/*
-	@RequestMapping("")
+	 * init메서드 : prodTran.jsp
+	 * out데이터 : 거래내역 리스트
+	 * 용도 : 거래내역 리스트를 출력하는 메서드의 REST
+	 * 비고 : 
+	 */
+	@RequestMapping("/tran")
 	private List<Map<String, Object>> team() {
 		logger.info("진입");
-		List<Map<String, Object>> as = accountingLogic.teamR_Logic();
+		List<Map<String, Object>> as = productLogic.teamR_Logic();
 		return as;
-	}*/
+	}
 }
