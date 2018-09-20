@@ -56,4 +56,15 @@ public class PersonnelLogic {
 		return teamList;
 	}
 
+
+
+	public List<Map<String, Object>> setServrating(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> serList = null;
+		serList = sqlPerDao.setSerList(pMap);
+		return serList;
+	}
+
+
+
 }

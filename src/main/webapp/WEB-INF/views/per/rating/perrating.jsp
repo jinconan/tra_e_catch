@@ -36,14 +36,20 @@ $(function() {
 			}
 		}
 	})
-	
-	
+	 
+
+
 });
 
 function isok(){
-	alert("저장되었습니다.");
-	$("#f_content").attr("action","./servrating");
-	$("#f_content").submit();
+/* 	alert("저장되었습니다."); */
+
+
+	
+	alert($("#e_list option:selected").val());
+	
+	 $("#f_content").attr("action","./servrating");
+	$("#f_content").submit(); 
 }
 
 </script>

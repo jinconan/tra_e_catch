@@ -49,5 +49,11 @@ public class SqlPerDao {
 		return getEmpList;
 		
 	}
+	public List<Map<String, Object>> setSerList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> serList = null;
+		serList = sqlSessionTemplate.selectList("setSerList",pMap );
+		return serList;
+	}
 	
 }
