@@ -3,6 +3,8 @@ package com.team.tra_e_catch.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.tra_e_catch.payment.PaymentLogic;
 
@@ -23,6 +27,17 @@ public class PaymentController {
 	
 	@Autowired
 	private PaymentLogic paymentLogic;
+	@RequestMapping("getPaymentList")
+	public @ResponseBody List<Map<String,Object>> getPaymentList(Model mod, @RequestParam Map<String,Object> pMap, HttpServletResponse res)
+	{
+		logger.info("Welcome home! The client locale is");
+		List<Map<String,Object>> paymentList = null;
+		paymentList = paymentLogic.getPaymentList(pMap,res);
+		mod.addAttribute("paymentList",paymentList);
+		return paymentList;
+		
+	}
+	
 	
 	//////////////////////////// 기안 ///////////////////////////////
 	//기안 문서 작성
@@ -34,6 +49,18 @@ public class PaymentController {
 		mod.addAttribute("subMenuList", subMenuList);
 		return "pay/epay/epayview";
 	}
+	//작업지시서 작성
+		@RequestMapping(value="/epay/jobInst", method = RequestMethod.GET)
+		public String certList(Model mod) {
+			//컨트롤러로 부터 넘겨받는 속성
+			//subMenuList : List<Map<String, Object>>
+			//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+			//curSubMenu : String
+			logger.info("jobInst호출");
+			return "pay/epay/jobInst";
+			
+	}
+	
 	//기안 문서
 	@RequestMapping(value = "/epay/draft", method = RequestMethod.GET)
 	public String draft(Model mod) {

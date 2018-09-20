@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<% %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,18 +18,69 @@
 		   ,minView:2
 		});
 	});
-</script>
+	
 
+	/* function listoption(){
+		var optnum = $("#optionnum").val();
+		//alert(optnum);
+		if(optnum=="0"){
+			$.ajax({
+		        method:"POST"
+		        ,url:"/tra_e_catch/epay/jobInst"
+		        ,data:"",
+		        success : function(log){
+		        	
+		        	console.log(log);
+		        	
+		        }
+				,error : function(xhr) {
+					console.log("땡");
+				}
+	        });
+		}
+	
+	}
+	function insertForm(){
+		//$("#f_insert").attr("method","post");
+		$("#f_insert").attr("action","./boardinsert.bo2");
+		$("#f_insert").submit();
+	} */
+	
+	</script>
 </head>
 <body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#f_jobInst").datagrid({
+			url:'./try_e_catch/pay/epay/jobInst'
+
+		});
+	});
+</script>	
 	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
 	<div class="container">
 		<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
 		<div class="col-md-10">
-			<form class="form-horizontal">
+			
+			<form class="form-horizontal" id="f_insert" method="post">
 				<div class="page-header">
 					<h1>기안 문서작성</h1>
 				</div>
+				
+				<!-- 분류 버튼 -->
+				<div class="btn-group">
+					<button type="button" class="btn btn-default dropdown-toggle"
+						data-toggle="dropdown" aria-expanded="false">
+						분류 <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu" id="optionum" onclick="listoption()">
+						<li><a href="#f_jobInst">작업지시서</a></li>
+						<li><a href="#">기안 문서</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+					</ul>
+				</div>
+				
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="inputEmail">담당부서</label>
 					<div class="col-sm-3">
@@ -100,14 +152,18 @@
 					</div>
 				</div>
 		</div>
+	
 		<div class="form-group">
 			<div class="col-sm-12 text-center">
 				<button id="btn_pay" class="btn btn-primary">
 					저장<i class="fa fa-check spaceLeft"></i>
 				</button>
-
+				<button id="btn_pay" class="btn btn-primary">
+					취소<i class="fa fa-check spaceLeft"></i>
+				</button>
 			</div>
 		</div>
+	
 		<div class="form-group" id="emptable"></div>
 		</form>
 		<hr>
