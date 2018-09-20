@@ -23,6 +23,20 @@
 			});
 			var base = $('#liid'+<%=num%>);
 			base.addClass('active');
+			
+			$.ajax({
+				url:'<%=request.getContextPath()%>/perR/indivemp',
+				type: "json",
+				success: function(data){
+					$("#empno").append(" "+data[0].EMP_NO);//사원이름
+					$("#ename").append(" "+data[0].ENAME);//사원이름
+					$("#bday").append(" "+data[0].BDAY);//사원생년월일
+					$("#tname").append(" "+data[0].TNAME);//팀이름
+					$("#clev").append(" "+data[0].CLEV);//직급
+					$("#hday").append(" "+data[0].HDAY);//입사일자
+					$("#sdate").append(" "+data[0].SDATE);//현재일자
+				}
+			})
 	}); 
 		 
 	</script>
@@ -40,14 +54,27 @@
 				</div>
 				<div class="row">
 					<blockquote>
-						<p>WeBack Kim</p>
+						<p id="ename"></p>
 						<small><cite>Seoul, Korea <i class="glyphicon glyphicon-map-marker"></i></cite></small>
 					</blockquote>
 				</div>
 				<div class="row">
 					<p>
-						<i class="glyphicon glyphicon-user"></i> 18-111111 <br> <i class="glyphicon glyphicon-lock"></i> 인사팀<br> <i class="glyphicon glyphicon-edit"></i> 부장 <br> <i class="glyphicon glyphicon-calendar"></i> 2018-09-04<br> <i class="glyphicon glyphicon-time"></i> 0년차
-					</p>
+					<!-- 
+					$("#ename").text(data[0].ENAME);//사원이름
+					$("#bday").append(data[0].BDAY);//사원생년월일
+					$("#tname").append(data[0].TNAME);//팀이름
+					$("#clev").append(data[0].CLEV);//직급
+					$("#hday").append(data[0].HDAY);//입사일자
+					$("#sdate").append(data[0].SDATE);//현재일자
+					 -->
+						<i class="glyphicon glyphicon-user" id="empno"></i>
+						<br>
+						<i class="glyphicon glyphicon-lock" id="tname"></i>
+						<br>
+						<i class="glyphicon glyphicon-edit" id="clev"></i>
+						 <br> <i class="glyphicon glyphicon-calendar" id="hday"></i>
+						 </p>
 				</div>
 			</div>
 
