@@ -117,6 +117,7 @@ public class PlanController {
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
 		mod.addAttribute("curSubMenu", "프로젝트 정보");
 		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("projNo", projNo);
 		return "plan/proj/projUpdate";
 	}
 	
@@ -139,16 +140,19 @@ public class PlanController {
 		mod.addAttribute("curSubMenu", "프로젝트 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("pstatus_name",pstatus_name);
+		mod.addAttribute("pageNo",pageNo);
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("pageNo", pageNo);
 		pMap.put("pstatus_name", pstatus_name);
 		
 		if(searchColumn != null) {
-			pMap.put("serchColumn",  searchColumn);
+			pMap.put("searchColumn",  searchColumn);
 			pMap.put("searchValue", searchValue);
 		}
-		List<Map<String,Object>> projList = planLogic.getProjList(pMap);
-		mod.addAttribute("projList", projList);
+		Map<String, Object> logicResult = planLogic.getProjList(pMap);
+		
+		mod.addAttribute("projList", logicResult.get("projList"));
+		mod.addAttribute("numOfProjPage",logicResult.get("numOfProjPage"));
 		return "plan/proj/projList";
 	}
 	
@@ -161,11 +165,15 @@ public class PlanController {
 	 */
 	@RequestMapping(value="/plan/view/projDetail")
 	public String viewProjDetail(Model mod
-			, @RequestParam("projNo") int projNo) {
+			, @RequestParam(value="projNo", required=true) int projNo) {
+		logger.info("viewProjDetail()");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
 		mod.addAttribute("curSubMenu", "프로젝트 정보");
 		mod.addAttribute("subMenuList", subMenuList);
-		mod.addAttribute("projNo", projNo);
+		
+		Map<String, Object> projDetail = planLogic.getProjDetail(projNo);
+		mod.addAttribute("projDetail", projDetail);
+		
 		return "plan/proj/projDetail";
 	}
 	
@@ -217,6 +225,24 @@ public class PlanController {
 		return "plan/proj/projBoardConfig";
 	}
 	
+	
+	@RequestMapping("/plan/projInsert")
+	public String projInsert(@RequestParam("projName") String projName
+			, @RequestParam("startDate") String startDate
+			, @RequestParam("endSchedDate") String endSchedDate) {
+		logger.info("projInsert("+projName+", "+startDate+", "+endSchedDate+")");
+		
+		int result = planLogic.insertProj(projName,startDate,endSchedDate);
+		
+		return "redirect:/plan/view/projList/all";
+	}
+	
+	@RequestMapping("/plan/projDelete")
+	public String projDelete(@RequestParam(value="projNo", required=true) int projNo) {
+		logger.info("projDelete("+projNo+")");
+		int result = planLogic.deleteProj(projNo);
+		return "redirect:/plan/view/projList/all";
+	}
 	//////////////////////////////////////DIY게시판 ////////////////////////////////////////////
 	/**
 	 * DIY게시판 리스트 페이지 요청

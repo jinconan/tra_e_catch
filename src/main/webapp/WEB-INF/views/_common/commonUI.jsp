@@ -18,3 +18,6 @@
 <script src="<%=path.toString()%>/js/bootstrap-table.min.js"></script>
 <script src="<%=path.toString()%>/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 <script src="<%=path.toString()%>/js/printThis.js"></script>
+<style>
+	body { padding-bottom: 70px; }
+</style>

@@ -3,41 +3,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로젝트 타임라인</title>
+<title>프로젝트 일정</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script src="<%=request.getContextPath()%>/js/google_chart_loader.js"></script>
-<script>
-	var container = null; //타임라인이 그려질 div영역
-	var chart = null; //container에 그려진 차트
-	var dataTable = null; //chart가 사용할 데이터 테이블
-	var dataTableRows = [
-		[ '전체 기간', new Date(2018, 8, 29), new Date(2018, 10, 12) ]
-		, [ '계획수립', new Date(2018, 8, 29), new Date(2018, 8, 31) ]
-		, [ '화면작업', new Date(2018, 9, 3), new Date(2018, 9, 14) ]
-		, [ '테스트', new Date(2018, 9, 29), new Date(2018, 10, 5) ]
-	]; //dataTable에 들어갈 row들
+<script type="text/javascript">
+
+	var jsonProjTimeline = null;
+	$.ajax({
+		url:"<%=request.getContextPath()%>/planR/json/projTimeline"
+		,async:false
+		,data:"projNo=${requestScope.projNo}&isToday=false"
+		,dataType:"json"
+		,success:function(data) {
+			//string으로 받아온 날짜를 자바스크립트의 Date타입으로 변환.
+			console.log(data);
+			for(var i=0;i<data.rows.length;i++) {
+				data.rows[i].c[1].v = new Date(data.rows[i].c[1].v);
+				data.rows[i].c[2].v = new Date(data.rows[i].c[2].v);
+			}
+			jsonProjTimeline = data;
+		}
+		,error:function(xhr) {
+			console.log("error");
+		}
+	})
 	
+	//구글차트 로딩
 	google.charts.load('current', {
-		'packages' : [ 'timeline' ],
-		'language' : 'ko'
+		'packages' : [ 'timeline' ]
+		,'language': 'ko'
 	});
 	google.charts.setOnLoadCallback(drawChart);
-
+	
 	//타임라인 차트 그리기 함수
 	function drawChart() {
-		container = document.getElementById('timeline');
-		chart = new google.visualization.Timeline(container);
-		dataTable = new google.visualization.DataTable({
-			cols : [
-				 {type : 'string', id : 'plan'}
-				,{type : 'date', id : 'start'}
-				,{type : 'date', id : 'end'}
-			]
-		});
-		dataTable.addRows(dataTableRows);
-		chart.draw(dataTable);
-	}
+		var container = document.getElementById('timeline');
+		var chart = new google.visualization.Timeline(container);
 
+		if(jsonProjTimeline.rows.length != 0) {
+			var dataTable = new google.visualization.DataTable(jsonProjTimeline);
+			chart.draw(dataTable);
+		}
+		else {
+			container.innerHTML="<p class='bg-danger'>없음</p>";
+		}
+	}
+	
+	//브라우저 크기 변경시 차트 다시 그리기
 	$(window).resize(function(Event) {
 		drawChart();
 	})
@@ -52,7 +64,7 @@ $(document).ready(function() {
 		if($(this).text().trim() == "전체 프로젝트 리스트") {
 			return;
 		}
-		$(this).attr("href", href+"${projNo}" );
+		$(this).attr("href", href+"${requestScope.projNo}" );
 	});
 	
 	$("#btn_add_timeline").click(function() {
@@ -121,7 +133,7 @@ $(document).ready(function() {
 
 				<div class="row">
 					<h2>
-						<strong>프로젝트 타임라인</strong>
+						<strong>프로젝트 일정</strong>
 						<div class="btn-group">
 							<button type="button" id="btn_add_timeline" class="btn btn-primary">추가</button>
 							<button type="button" id="btn_mod_timeline" class="btn btn-warning">변경</button>

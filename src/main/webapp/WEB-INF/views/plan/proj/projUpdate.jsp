@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	int projNo = (Integer)request.getAttribute("projNo");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +16,7 @@
 			if($(this).text().trim() == "전체 프로젝트 리스트") {
 				return;
 			}
-			$(this).attr("href", href+"${projNo}" );
+			$(this).attr("href", href+"<%=projNo%>" );
 		});
 		
 		$(".form_datetime").datetimepicker({

@@ -8,7 +8,7 @@
 <script>
 	$(function() {
 		$(".form_datetime").datetimepicker({
-			format : 'yyyy. mm. dd',
+			format : 'yyyy-mm-dd',
 			minView : 2
 		});
 	})
@@ -31,53 +31,26 @@
 						<strong> 프로젝트 등록 </strong>
 					</h2>
 				</div>
-				<form class="form-horizontal">
+				<form action="<%=request.getContextPath() %>/plan/projInsert" method="post" class="form-horizontal">
 					<div class="form-group">
 						<label for="projTitle" class="col-sm-2 control-label">프로젝트명</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="projTitle" id="projTitle" placeholder="프로젝트명" required="required">
+							<input type="text" class="form-control" name="projName" id="projName" placeholder="프로젝트명" required="required">
 						</div>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="projLeader" class="col-sm-2 control-label">담당자</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" name="projTitle" id="projLeader" placeholder="담당자" readonly required="required">
 						</div>
-					</div>
+					</div> -->
 					<div class="form-group">
 						<label for="projPeriod" class="col-sm-2 control-label">기간</label>
 						<div class="col-sm-10">
 							<div class="input-group">
-								<input type="text" class="form-control form_datetime" id="time_start" name="time_start" placeholder="시작일" readonly required />
+								<input type="text" class="form-control form_datetime" id="startDate" name="startDate" placeholder="시작일" readonly required />
 								<div class="input-group-addon">~</div>
-								<input type="text" class="form-control form_datetime" id="time_end" name="time_end" placeholder="종료일" readonly required />
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="projMember" class="col-sm-2 control-label">멤버</label>
-						<div class="col-sm-10">
-
-							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-								<div class="panel panel-default">
-									<div class="panel-heading" role="tab" id="headingOne">
-										<input type="text" class="panel-title form-control" id="platforms" readonly data-toggle="collapse" data-parent="#accordion" href="#member_list" aria-expanded="true" aria-controls="collapseOne" />
-									</div>
-									<div id="member_list" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-										<div class="panel-body">
-											<div class="input-group">
-												<span class="input-group-addon"> 
-													<input type="checkbox" aria-label="cb_member1">
-												</span><input type="text" class="form-control" aria-label="cb_member1" value="홍길동" readonly="readonly">
-											</div>
-											<div class="input-group">
-												<span class="input-group-addon"> 
-													<input type="checkbox" aria-label="cb_member2">
-												</span><input type="text" class="form-control" aria-label="cb_member2" value="김유신" readonly="readonly">
-											</div>
-										</div>
-									</div>
-								</div>
+								<input type="text" class="form-control form_datetime" id="endSchedDate" name="endSchedDate" placeholder="종료일" readonly required />
 							</div>
 						</div>
 					</div>

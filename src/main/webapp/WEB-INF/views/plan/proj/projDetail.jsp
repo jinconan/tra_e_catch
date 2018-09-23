@@ -1,8 +1,13 @@
+<%@page import="java.math.BigDecimal"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	//프로젝트 번호
-	int projNo = (Integer) request.getAttribute("projNo");
-	//게시판 리스트 받아오기
+	Map<String,Object>	projDetail		= (Map<String,Object>) request.getAttribute("projDetail");
+	int					projNo			= ((BigDecimal)projDetail.get("proj_no")).intValue();
+	String				proj_name		= (String)projDetail.get("proj_name");
+	String 				pstatus_name	= (String)projDetail.get("pstatus_name");
+	String 				start_date 		= (String)projDetail.get("start_date");
+	String 				end_sched_date	= (String)projDetail.get("end_sched_date");
+	String 				end_date 		= projDetail.containsKey("end_date") ?(String)projDetail.get("end_date") : null;
 %>
 <!DOCTYPE html>
 <html>
@@ -20,21 +25,42 @@
 			if($(this).text().trim() == "전체 프로젝트 리스트") {
 				return;
 			}
-			$(this).attr("href", href+"${projNo}" );
+			$(this).attr("href", href+"<%=projNo%>" );
 		});
+		
 		
 		//삭제버튼 클릭 이벤트
 		$("#btn_del_project").click(function() {
 			var result = confirm("정말 이 프로젝트를 삭제하시겠습니까?");
-			
 			if(result == true) {
-				//삭제 처리 추가
-				location.href="<%=request.getContextPath()%>/plan/view/projList/all?pageNo=1";
+				location.href="<%=request.getContextPath()%>/plan/projDelete?projNo=<%=projNo%>";
 			}
 		})
 	})
 </script>
 <script type="text/javascript">
+
+	var jsonProjTimeline = null;
+	$.ajax({
+		url:"<%=request.getContextPath()%>/planR/json/projTimeline"
+		,async:false
+		,data:"projNo=<%=projNo%>&isToday=true"
+		,dataType:"json"
+		,success:function(data) {
+			//string으로 받아온 날짜를 자바스크립트의 Date타입으로 변환.
+			console.log(data);
+			for(var i=0;i<data.rows.length;i++) {
+				data.rows[i].c[1].v = new Date(data.rows[i].c[1].v);
+				data.rows[i].c[2].v = new Date(data.rows[i].c[2].v);
+			}
+			jsonProjTimeline = data;
+		}
+		,error:function(xhr) {
+			console.log("error");
+		}
+	})
+	
+	//구글차트 로딩
 	google.charts.load('current', {
 		'packages' : [ 'timeline' ]
 		,'language': 'ko'
@@ -45,28 +71,17 @@
 	function drawChart() {
 		var container = document.getElementById('timeline');
 		var chart = new google.visualization.Timeline(container);
-		var dataTable = new google.visualization.DataTable();
 
-		dataTable.addColumn({
-			type : 'string',
-			id : 'plan'
-		});
-		dataTable.addColumn({
-			type : 'date',
-			id : 'Start'
-		});
-		dataTable.addColumn({
-			type : 'date',
-			id : 'End'
-		});
-		dataTable.addRows([
-			[ '전체 기간', new Date(2018, 8, 29), new Date(2018, 10, 12) ]
-			, [ '화면작업', new Date(2018, 9, 3), new Date(2018, 9, 14) ]
-		]);
-
-		chart.draw(dataTable);
+		if(jsonProjTimeline.rows.length != 0) {
+			var dataTable = new google.visualization.DataTable(jsonProjTimeline);
+			chart.draw(dataTable);
+		}
+		else {
+			container.innerHTML="<p class='bg-danger'>없음</p>";
+		}
 	}
 	
+	//브라우저 크기 변경시 차트 다시 그리기
 	$(window).resize(function(Event) {
 		drawChart();
 	})
@@ -83,16 +98,12 @@
 
 		<!-- 작성할 부분 -->
 		<div class="col-sm-10">
-			<!--  
-		멤버 리스트, 	기간(진행중인 경우 : 시작~종료 예정, 그외 : 시작 ~종료), 소스 URL, 사용플랫폼, 게시판 리스트
-		게시판 생성은 팀장만 가능, 테스트 리스트 게시판(테스트 종류, 기간, 인원,첨부자료 유무), 각 테스트마다  n개의 첨부자료.
-		테스트 일정을 달력으로 출력해도 좋을듯. 
-		-->
+
 			<div class="well">
 
 				<div class="row">
 					<h2>
-						<strong>엽문</strong>
+						<strong><%=proj_name %></strong>
 						<div class="btn-group">
 							<a class="btn btn-warning" id="btn_mod_project" href="<%=request.getContextPath() %>/plan/view/projUpdate?projNo=<%=projNo %>">
 									변경
@@ -101,10 +112,13 @@
 						</div>
 					</h2>
 					<p>
-						<strong>상태: </strong> 진행중(2018.04.17 ~ 2018.10.26)
-					</p>
-					<p>
-						<strong>플랫폼: </strong> <span class="tags">PS4</span> <span class="tags">PC</span>
+						<strong>상태: </strong> 
+						<%
+						if("진행중".equals(pstatus_name))
+							out.print(pstatus_name+"("+start_date + " ~ " + end_sched_date+")");
+						else
+							out.print(pstatus_name+"("+start_date + " ~ " + end_date+")");
+						%>
 					</p>
 				</div> 
 

@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	List<Map<String, Object>> projList = (List<Map<String, Object>>)request.getAttribute("projList");
-	String pstatus_name = (String)request.getAttribute("pstatus_name");
-	int pageNo = (Integer)request.getAttribute("pageNo");
+	List<Map<String, Object>>	projList		= (List<Map<String, Object>>)request.getAttribute("projList");
+	String						pstatus_name	= (String)request.getAttribute("pstatus_name");
+	
+	int							pageNo			= (Integer) request.getAttribute("pageNo");
+	int							numOfProjPage	= (Integer)request.getAttribute("numOfProjPage");
+	int 						pageGroup 		= (int)Math.ceil(pageNo/5.0);
+	int 						maxPageGroup 	= (int)Math.ceil(numOfProjPage/5.0);
 %>
 <!DOCTYPE html>
 <html>
@@ -93,19 +97,15 @@ $(document).ready(function() {
 									<td><%=proj.get("emp_name")%></td>
 									<!-- 중단, 종료는 종료일자, 진행중은 예정일자 -->
 					<%
-								if("ing".equals(pstatus_name)) {
+								if("진행중".equals(proj.get("pstatus_name"))) {
 					%>
-									<td><%=proj.get("start_date")%> ~ <%=proj.get("end_sched_date")%></td>
+									<td><%=proj.get("start_date")%> ~ <%=proj.get("end_sched_date")%></td></tr>
 					<%
 								} else {
 					%>
-									<td><%=proj.get("start_date")%> ~ <%=proj.get("end_date")%></td>
+									<td><%=proj.get("start_date")%> ~ <%=proj.get("end_date")%></td></tr>
 					<% 
 								} 
-					%>
-								</tr>
-					
-					<%			
 							}						
 						}
 					%>
@@ -115,21 +115,58 @@ $(document).ready(function() {
 				<!-- 페이지네이션 -->
 				<nav class="text-center">
 					<ul class="pagination">
-						<li class="disabled"><a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						</a></li>
-						<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-						</a></li>
+					<%
+						if(pageGroup <=1) {
+					%>
+						<li class="disabled">
+							<a href='#' aria-label='Previous'> <span aria-hidden='true'>&laquo;</span></a>
+						</li>
+					<%		
+						} else {
+					%>
+						<li>
+							<a href="<%=pstatus_name %>?pageNo=<%=(pageGroup-1)*5 %>" aria-label="Previous"> 
+							<span aria-hidden='true'>&laquo;</span></a>
+						</li>
+					<%
+						}
+							
+						for(int i = (pageGroup-1)*5 + 1 ;i<=Math.min(pageGroup*5,numOfProjPage);i++) {
+							if(pageNo == i) {
+					%>
+							<li class="active">
+					<%
+							} else {
+					%>
+							<li>
+					<%
+							}
+							
+					%>
+							<a href="<%=pstatus_name %>?pageNo=<%=i %>"><%=i %></a></li>
+					<%
+						}						
+						if(pageGroup >= maxPageGroup) {
+					%>
+						<li class="disabled">
+							<a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+							</a></li>
+					<%		
+						} else {
+					%>
+						<li>
+							<a href="<%=pstatus_name %>?pageNo=<%=pageGroup*5 +1%>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					<%
+						}
+					%>
+						
 					</ul>
 				</nav>
-	
+	                    
 				<!-- 검색창 -->
-				<form action="./all" method="post" class="form-inline text-center" id="form_search">
-					<input type="hidden" name="pageNo" value="1"/>
+				<form action="<%=pstatus_name %>?pageNo=1" method="post" class="form-inline text-center" id="form_search">
 					<div class="form-group">
 						<select class="form-control" name="searchColumn">
 							<option value="project_name">프로젝트명</option>
@@ -137,7 +174,7 @@ $(document).ready(function() {
 						</select> 
 						<label class="sr-only" for="searchValue">검색창</label> 
 						<input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="검색">
-						<button class="btn btn-default">검색</button>
+						<button type="submit" class="btn btn-default">검색</button>
 					</div>
 				</form>
 			</div>
