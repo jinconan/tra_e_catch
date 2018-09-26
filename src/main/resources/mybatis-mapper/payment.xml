@@ -3,8 +3,9 @@
 <mapper namespace="com.mybatis.mapper.paymentMapper">
 	
 	<select id="getPaymentList" resultType="map" parameterType="map">
-	SELECT emp_no, dtype_no, path, content, doc_no, up_date
-		FROM DOCS
+	<![CDATA[
+	select * from DOCS where rownum < 11 
+	 ]]>
 	</select>
 	
 	

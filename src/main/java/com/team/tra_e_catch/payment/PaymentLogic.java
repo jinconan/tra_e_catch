@@ -14,8 +14,9 @@ public class PaymentLogic {
 	private final Logger logger = Logger.getLogger(PaymentLogic.class);
 	
 	@Autowired
-	private SqlPayDao sqlPayDao;
-
+	private SqlPayDao sqlPayDao = null;
+	
+	//기안 문서 JSON데이터 요청
 	public List<Map<String, Object>> getPaymentList(Map<String, Object> pMap, HttpServletResponse res) {
 		logger.info("getPaymentList 호출");
 		List<Map<String,Object>> paymentList = null;
