@@ -8,14 +8,35 @@
 		FROM(
 		SELECT rownum rno
 		,proj_no as "proj_no"
-		,pstatus_no as "pstatus_no"
+		,pstatus_no as
+		"pstatus_no"
 		, pstatus_name as "pstatus_name"
 		, proj_name as "proj_name"
 		, emp_name as "emp_name"
 		, start_date as "start_date"
-		, end_sched_date as "end_sched_date"
+		, end_sched_date
+		as "end_sched_date"
 		, end_date as "end_date"
-		FROM v_getprojlist
+		FROM (
+		SELECT project.proj_no AS proj_no,
+		proj_status.pstatus_no AS pstatus_no,
+		proj_status.name AS pstatus_name,
+		project.name AS proj_name,
+		proj_member.name AS emp_name,
+		project.start_date AS start_date,
+		project.end_sched_date AS end_sched_date,
+		project.end_date AS end_date
+		FROM (SELECT proj_no, role_type.rtype_no, employee.name
+		FROM employee, role_type, proj_member
+		WHERE proj_member.rtype_no = role_type.rtype_no
+		AND proj_member.emp_no = employee.emp_no
+		AND role_type.rtype_no = 101) proj_member,
+		project,
+		proj_status
+		WHERE project.pstatus_no = proj_status.pstatus_no
+		AND proj_member.proj_no(+) = project.proj_no
+		ORDER BY project.proj_no DESC
+		)
 		<where>
 			<choose>
 				<when test="pstatus_name!=null and pstatus_name.equals('진행중')">
@@ -87,72 +108,82 @@
 		,end_date as "end_date"
 		,first_pay as "first_pay"
 		FROM project
-		WHERE proj_no = #{proj_no}
+		WHERE
+		proj_no = #{proj_no}
 	</select>
-	
+
 	<!-- 프로젝트 참여 리스트 -->
-	<select id="getJsonProjMemberList" parameterType="int" resultType="map">
+	<select id="getJsonProjMemberList" parameterType="int"
+		resultType="map">
 		SELECT e.emp_no as "empNo"
-		    ,e.name as "empName"
-		    ,r.name as "roleName"
-		    ,lev.name as "levName"
-		    ,d.name as "deptName"
-		    ,t.name as "teamName"
-		    ,'' as "startDate"
-		FROM proj_member pm 
-		    inner join project p on pm.proj_no=p.proj_no
-		    inner join employee e on pm.emp_no=e.emp_no
-		    inner join role_type r on r.rtype_no=pm.rtype_no
-		    inner join ctlevel lev on lev.lev_no=e.lev_no
-		    inner join department d on d.dept_no=e.dept_no
-		    inner join team t on t.team_no=e.team_no
+		,e.name as "empName"
+		,r.name as "roleName"
+		,lev.name as "levName"
+		,d.name as "deptName"
+		,t.name as "teamName"
+		,'' as "startDate"
+		FROM proj_member pm
+		inner join project p on pm.proj_no=p.proj_no
+		inner join employee e on pm.emp_no=e.emp_no
+		inner join role_type r on r.rtype_no=pm.rtype_no
+		inner join ctlevel lev on lev.lev_no=e.lev_no
+		inner join department d on d.dept_no=e.dept_no
+		inner join team t on t.team_no=e.team_no
 		WHERE p.proj_no=#{1}
-		ORDER BY r.rtype_no ASC, lev.lev_no ASC
+		ORDER BY
+		r.rtype_no ASC, lev.lev_no ASC
 	</select>
 
 	<!-- 프로젝트 미참여자 리스트 -->
-	<select id="getJsonNotProjMemberList" parameterType="int" resultType="map">
+	<select id="getJsonNotProjMemberList" parameterType="int"
+		resultType="map">
 		SELECT e.emp_no as "empNo"
-	    ,e.name as "empName", lev.name as "levName", d.name as "deptName",t.name as "teamName"  
-	    FROM employee e 
-	        INNER JOIN ctlevel lev ON e.lev_no = lev.lev_no
-	        INNER JOIN department d ON e.dept_no = d.dept_no
-	        INNER JOIN team t ON e.team_no = t.team_no
-	    WHERE resign_yn = 0 
-	        AND emp_no NOT IN 
-	            (SELECT e.emp_no 
-	                FROM employee e 
-	                    INNER JOIN proj_member pm ON e.emp_no = pm.emp_no
-	                WHERE pm.proj_no = #{1})
-	    ORDER BY lev.lev_no ASC, e.emp_no ASC
+		,e.name as "empName", lev.name as "levName", d.name as "deptName",t.name as
+		"teamName"
+		FROM employee e
+		INNER JOIN ctlevel lev ON e.lev_no = lev.lev_no
+		INNER JOIN department d ON e.dept_no = d.dept_no
+		INNER JOIN team t ON e.team_no = t.team_no
+		WHERE resign_yn = 0
+		AND emp_no NOT IN
+		(SELECT e.emp_no
+		FROM employee e
+		INNER JOIN proj_member pm ON e.emp_no = pm.emp_no
+		WHERE pm.proj_no = #{1})
+		ORDER BY lev.lev_no ASC, e.emp_no ASC
 	</select>
-	
+
 	<!-- 프로젝트 일정 리스트 Json으로 사용하기위한 단순한 버전 -->
 	<select id="getJsonProjTimeline" parameterType="map"
 		resultType="map">
-		SELECT schedule.sched_no as "sched_no" 
+		SELECT schedule.sched_no as "sched_no"
 		,schedule.name as "sched_name"
 		,schedule.start_date as "start_date"
 		,SCHEDULE.END_DATE as "end_date"
 		FROM schedule,project
-		WHERE schedule.proj_no = project.proj_no
+		WHERE
+		schedule.proj_no = project.proj_no
 		<if test="proj_no != null">
 			AND project.proj_no = #{proj_no}
 		</if>
 		<if test="isToday == true">
-			AND TO_DATE(TO_CHAR(sysdate,'YYYY-MM-DD'),'YYYY-MM-DD') BETWEEN TO_DATE(schedule.start_date,'YYYY-MM-DD') AND
+			AND TO_DATE(TO_CHAR(sysdate,'YYYY-MM-DD'),'YYYY-MM-DD')
+			BETWEEN TO_DATE(schedule.start_date,'YYYY-MM-DD') AND
 			TO_DATE(schedule.end_date,'YYYY-MM-DD')
 		</if>
 		ORDER BY schedule.sched_no ASC
 	</select>
 
 	<insert id="insertProj" parameterType="map">
-		INSERT INTO project(proj_no, name, start_date, end_sched_date, pstatus_no)
-		VALUES((SELECT NVL(MAX(proj_no),0)+1 FROM project), #{proj_name}, #{start_date},#{end_sched_date},1)
+		INSERT INTO
+		project(proj_no, name, start_date, end_sched_date, pstatus_no)
+		VALUES((SELECT NVL(MAX(proj_no),0)+1 FROM project), #{proj_name},
+		#{start_date},#{end_sched_date},1)
 	</insert>
 
 	<delete id="deleteProj" parameterType="int">
-		DELETE FROM project WHERE proj_no = #{1}
+		DELETE FROM project WHERE
+		proj_no = #{1}
 	</delete>
 
 	<update id="updateProj" parameterType="map">
@@ -168,11 +199,13 @@
 		</set>
 		WHERE proj_no = #{proj_no}
 	</update>
-	
+
 	<insert id="insertTimeline" parameterType="map">
-		INSERT INTO schedule(proj_no, sched_no, name, start_date, end_date)
-			VALUES(#{proj_no},(SELECT NVL(MAX(sched_no),0)+1 FROM schedule WHERE proj_no = #{proj_no}),
-			#{sched_name},#{start_date},#{end_date})
+		INSERT INTO
+		schedule(proj_no, sched_no, name, start_date, end_date)
+		VALUES(#{proj_no},(SELECT NVL(MAX(sched_no),0)+1 FROM schedule WHERE
+		proj_no = #{proj_no}),
+		#{sched_name},#{start_date},#{end_date})
 	</insert>
 	<update id="updateTimeline" parameterType="map">
 		UPDATE schedule
@@ -190,20 +223,22 @@
 			AND sched_no = #{sched_no}
 		</if>
 	</delete>
-	
+
 	<insert id="insertMember" parameterType="map">
-		INSERT INTO proj_member(proj_no, emp_no, rtype_no)
-			VALUES(#{proj_no}, #{emp_no},102)
+		INSERT INTO
+		proj_member(proj_no, emp_no, rtype_no)
+		VALUES(#{proj_no}, #{emp_no},102)
 	</insert>
-	
+
 	<delete id="deleteMember" parameterType="map">
-	DELETE FROM proj_member
+		DELETE FROM proj_member
 		WHERE proj_no = #{proj_no} AND emp_no = #{emp_no}
 	</delete>
-	
+
 	<update id="updateMember" parameterType="map">
-	UPDATE proj_member
+		UPDATE proj_member
 		SET rtype_no = #{rtype_no}
-		WHERE proj_no = #{proj_no} AND emp_no = #{emp_no}
+		WHERE proj_no = #{proj_no} AND
+		emp_no = #{emp_no}
 	</update>
 </mapper>

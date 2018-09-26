@@ -152,6 +152,8 @@ public class PlanController {
 		if(searchColumn != null) {
 			pMap.put("searchColumn",  searchColumn);
 			pMap.put("searchValue", searchValue);
+			mod.addAttribute("searchColumn",searchColumn);
+			mod.addAttribute("searchValue", searchValue);
 		}
 		Map<String, Object> logicResult = planLogic.getProjList(pMap);
 		

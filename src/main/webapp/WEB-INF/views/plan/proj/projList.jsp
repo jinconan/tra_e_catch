@@ -3,6 +3,9 @@
 <%
 	List<Map<String, Object>>	projList		= (List<Map<String, Object>>)request.getAttribute("projList");
 	String						pstatus_name	= (String)request.getAttribute("pstatus_name");
+	String 						searchColumn 	= (request.getAttribute("searchColumn") != null) ? (String)request.getAttribute("searchColumn") : null;
+	String 						searchValue 	= (request.getAttribute("searchValue")!=null) ? (String)request.getAttribute("searchValue") : null;
+	String 						searchParams 	= (searchColumn!=null) ? "&searchColumn="+searchColumn+"&searchValue="+searchValue : "";
 	
 	int							pageNo			= (Integer) request.getAttribute("pageNo");
 	int							numOfProjPage	= (Integer)request.getAttribute("numOfProjPage");
@@ -66,10 +69,10 @@ $(document).ready(function() {
 			<div class="well">
 				<h2><strong>프로젝트 리스트</strong></h2>
 				<ul id="pstatus_list" class="nav nav-pills">
-				  <li role="presentation"><a href="./all">전체</a></li>
-				  <li role="presentation"><a href="./ing">진행중</a></li>
-				  <li role="presentation"><a href="./end">종료</a></li>
-				  <li role="presentation"><a href="./stop">중단</a></li>
+				  <li role="presentation"><a href="./all?<%=searchParams%>">전체</a></li>
+				  <li role="presentation"><a href="./ing?<%=searchParams%>">진행중</a></li>
+				  <li role="presentation"><a href="./end?<%=searchParams%>">종료</a></li>
+				  <li role="presentation"><a href="./stop?<%=searchParams%>">중단</a></li>
 				</ul>
 				<table class="table table-condensed">
 					<thead>
@@ -143,7 +146,7 @@ $(document).ready(function() {
 							}
 							
 					%>
-							<a href="<%=pstatus_name %>?pageNo=<%=i %>"><%=i %></a></li>
+							<a href="<%=pstatus_name %>?pageNo=<%=i %><%=searchParams%>"><%=i %></a></li>
 					<%
 						}						
 						if(pageGroup >= maxPageGroup) {
@@ -166,15 +169,15 @@ $(document).ready(function() {
 				</nav>
 	                    
 				<!-- 검색창 -->
-				<form action="<%=pstatus_name %>?pageNo=1" method="post" class="form-inline text-center" id="form_search">
+				<form action="<%=pstatus_name %>?pageNo=1" method="get" class="form-inline text-center" id="form_search">
 					<div class="form-group">
-						<select class="form-control" name="searchColumn">
+						<select class="form-control" name="searchColumn" >
 							<option value="project_name">프로젝트명</option>
 							<option value="leader_name">담당자</option>
 						</select> 
 						<label class="sr-only" for="searchValue">검색창</label> 
 						<input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="검색">
-						<button type="submit" class="btn btn-default">검색</button>
+						<button class="btn btn-default">검색</button>
 					</div>
 				</form>
 			</div>
