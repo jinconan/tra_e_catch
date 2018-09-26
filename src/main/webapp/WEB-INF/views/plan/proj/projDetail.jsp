@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로젝트 정보</title>
+<title>트라E캐치 프로젝트-<%= proj_name%> </title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script src="<%=request.getContextPath()%>/js/google_chart_loader.js"></script>
 <script>
@@ -33,9 +33,29 @@
 		$("#btn_del_project").click(function() {
 			var result = confirm("정말 이 프로젝트를 삭제하시겠습니까?");
 			if(result == true) {
-				location.href="<%=request.getContextPath()%>/plan/projDelete?projNo=<%=projNo%>";
+				document.forms[0].action="<%=request.getContextPath()%>/plan/projDelete";
+				document.forms[0].submit();
 			}
 		})
+		
+		//중단 버튼 클릭 이벤트
+		$("#btn_stop").click(function() {
+			document.forms[0].action="<%=request.getContextPath()%>/plan/projUpdate?pstatusNo=3";
+			document.forms[0].submit();
+		})
+		
+		//재개 버튼 클릭 이벤트
+		$("#btn_restart").click(function() {
+			document.forms[0].action="<%=request.getContextPath()%>/plan/projUpdate?pstatusNo=1";
+			document.forms[0].submit();
+		})
+		
+		//종료 버튼 클릭 이벤트
+		$("#btn_end").click(function() {
+			document.forms[0].action="<%=request.getContextPath()%>/plan/projUpdate?pstatusNo=2&endDate="+dateToString(new Date());
+			document.forms[0].submit();
+		})
+		
 	})
 </script>
 <script type="text/javascript">
@@ -102,22 +122,44 @@
 			<div class="well">
 
 				<div class="row">
+					<form method="post">
+						<input type="hidden" name="projNo" id="projNo" value="<%=projNo%>">
+					</form>
 					<h2>
 						<strong><%=proj_name %></strong>
-						<div class="btn-group">
+						<span class="btn-group">
 							<a class="btn btn-warning" id="btn_mod_project" href="<%=request.getContextPath() %>/plan/view/projUpdate?projNo=<%=projNo %>">
 									변경
 							</a>
 							<button type="button" id="btn_del_project" class="btn btn-danger">삭제</button>
-						</div>
+						</span>
 					</h2>
 					<p>
-						<strong>상태: </strong> 
+						<strong>상태: </strong>
 						<%
-						if("진행중".equals(pstatus_name))
-							out.print(pstatus_name+"("+start_date + " ~ " + end_sched_date+")");
-						else
-							out.print(pstatus_name+"("+start_date + " ~ " + end_date+")");
+						if("종료".equals(pstatus_name)) {
+						%>
+						<%=pstatus_name %>(<%=start_date %> ~ <%=end_date %>)
+						<%
+						} else {
+						%>
+						<%=pstatus_name %>(<%=start_date %> ~ <%=end_sched_date %>)
+						<span class="btn-group">
+							<%
+							if("진행중".equals(pstatus_name)) {
+							%>
+							<a id="btn_stop" class="btn btn-info">중단</a>
+							<%
+							} else {
+							%>
+							<a id="btn_restart" class="btn btn-info">재개</a>
+							<%
+							}
+							%>
+							<a id="btn_end" class="btn btn-danger">종료</a>
+						</span>
+						<%
+						}
 						%>
 					</p>
 				</div> 

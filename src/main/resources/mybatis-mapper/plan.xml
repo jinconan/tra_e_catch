@@ -6,47 +6,48 @@
 	<select id="getProjList" resultType="map" parameterType="map">
 		SELECT *
 		FROM(
-		    SELECT rownum rno
-		    ,proj_no as "proj_no"
-		    ,pstatus_no as "pstatus_no"
-		    , pstatus_name as "pstatus_name"
-		    , proj_name as "proj_name"
-		    , emp_name as "emp_name"
-		    , start_date as "start_date"
-		    , end_sched_date as "end_sched_date"
-		    , end_date  as "end_date"
-		    FROM v_getprojlist 
-			<where>
-				<choose>
-					<when test="pstatus_name!=null and pstatus_name.equals('진행중')">
-						AND pstatus_no = 1
-					</when>
-					<when test="pstatus_name!=null and pstatus_name.equals('종료')">
-						AND pstatus_no = 2
-					</when>
-					<when test="pstatus_name!=null and pstatus_name.equals('중단')">
-						AND pstatus_no = 3
-					</when>
-					<otherwise></otherwise>
-				</choose>
-				<choose>
-					<when
-						test="searchColumn != null and searchColumn.equals('project_name')">
-						AND proj_name LIKE '%' || #{searchValue} || '%'
-					</when>
-					<when
-						test="searchColumn != null and searchColumn.equals('leader_name')">
-						AND emp_name LIKE '%' || #{searchValue} || '%'
-					</when>
-					<otherwise></otherwise>
-				</choose>
-			</where>
-			)
-			WHERE rno BETWEEN (#{pageNo}-1)*10+1 AND #{pageNo}*10
+		SELECT rownum rno
+		,proj_no as "proj_no"
+		,pstatus_no as "pstatus_no"
+		, pstatus_name as "pstatus_name"
+		, proj_name as "proj_name"
+		, emp_name as "emp_name"
+		, start_date as "start_date"
+		, end_sched_date as "end_sched_date"
+		, end_date as "end_date"
+		FROM v_getprojlist
+		<where>
+			<choose>
+				<when test="pstatus_name!=null and pstatus_name.equals('진행중')">
+					AND pstatus_no = 1
+				</when>
+				<when test="pstatus_name!=null and pstatus_name.equals('종료')">
+					AND pstatus_no = 2
+				</when>
+				<when test="pstatus_name!=null and pstatus_name.equals('중단')">
+					AND pstatus_no = 3
+				</when>
+				<otherwise></otherwise>
+			</choose>
+			<choose>
+				<when
+					test="searchColumn != null and searchColumn.equals('project_name')">
+					AND proj_name LIKE '%' || #{searchValue} || '%'
+				</when>
+				<when
+					test="searchColumn != null and searchColumn.equals('leader_name')">
+					AND emp_name LIKE '%' || #{searchValue} || '%'
+				</when>
+				<otherwise></otherwise>
+			</choose>
+		</where>
+		)
+		WHERE rno BETWEEN (#{pageNo}-1)*10+1 AND #{pageNo}*10
 	</select>
 
 	<!-- 특정 조건에 대해서 조회된 프로젝트 리스트의 총 페이지 개수를 구함. -->
-	<select id="getNumOfProjPage" resultType="int" parameterType="map">
+	<select id="getNumOfProjPage" resultType="int"
+		parameterType="map">
 		SELECT CEIL(count(*)/10)
 		FROM v_getprojlist
 		<where>
@@ -75,59 +76,134 @@
 			</choose>
 		</where>
 	</select>
-	
+
 	<!-- 프로젝트 번호로 해당 프로젝트 조회 -->
 	<select id="getProjDetail" parameterType="int" resultType="map">
-		SELECT proj_no as "proj_no" 
-	        ,name as "proj_name"
-	        ,DECODE(pstatus_no,1,'진행중',2,'종료',3,'중단') as "pstatus_name"
-	        ,start_date as "start_date"
-	        ,end_sched_date as "end_sched_date"
-	        ,end_date as "end_date"
-	        ,first_pay as "first_pay"
-	    FROM project
-	    WHERE proj_no = #{proj_no}
+		SELECT proj_no as "proj_no"
+		,name as "proj_name"
+		,DECODE(pstatus_no,1,'진행중',2,'종료',3,'중단') as "pstatus_name"
+		,start_date as "start_date"
+		,end_sched_date as "end_sched_date"
+		,end_date as "end_date"
+		,first_pay as "first_pay"
+		FROM project
+		WHERE proj_no = #{proj_no}
 	</select>
 	
-	<!-- 일정 리턴. 원할시 당일 일정 조회가능. -->
-	<select id="getProjTimeline" parameterType="map" resultType="map">
-	SELECT project.proj_no as "proj_no" 
-	    ,sched_no as "sched_no"
-	    ,schedule.name as "sched_name"
-	    ,project.name as "proj_name"
-	    ,schedule.start_date as "start_date"
-	    ,SCHEDULE.END_DATE as "end_date"
-	FROM schedule,project
-	WHERE schedule.proj_no = project.proj_no
-	<if test="proj_no != null">
-		AND project.proj_no = #{proj_no}
-	</if>
-	<if test="isToday">
-		AND sysdate BETWEEN TO_DATE(schedule.start_date,'YYYY-MM-DD') AND TO_DATE(schedule.end_date,'YYYY-MM-DD')
-	</if>
+	<!-- 프로젝트 참여 리스트 -->
+	<select id="getJsonProjMemberList" parameterType="int" resultType="map">
+		SELECT e.emp_no as "empNo"
+		    ,e.name as "empName"
+		    ,r.name as "roleName"
+		    ,lev.name as "levName"
+		    ,d.name as "deptName"
+		    ,t.name as "teamName"
+		    ,'' as "startDate"
+		FROM proj_member pm 
+		    inner join project p on pm.proj_no=p.proj_no
+		    inner join employee e on pm.emp_no=e.emp_no
+		    inner join role_type r on r.rtype_no=pm.rtype_no
+		    inner join ctlevel lev on lev.lev_no=e.lev_no
+		    inner join department d on d.dept_no=e.dept_no
+		    inner join team t on t.team_no=e.team_no
+		WHERE p.proj_no=#{1}
+		ORDER BY r.rtype_no ASC, lev.lev_no ASC
+	</select>
+
+	<!-- 프로젝트 미참여자 리스트 -->
+	<select id="getJsonNotProjMemberList" parameterType="int" resultType="map">
+		SELECT e.emp_no as "empNo"
+	    ,e.name as "empName", lev.name as "levName", d.name as "deptName",t.name as "teamName"  
+	    FROM employee e 
+	        INNER JOIN ctlevel lev ON e.lev_no = lev.lev_no
+	        INNER JOIN department d ON e.dept_no = d.dept_no
+	        INNER JOIN team t ON e.team_no = t.team_no
+	    WHERE resign_yn = 0 
+	        AND emp_no NOT IN 
+	            (SELECT e.emp_no 
+	                FROM employee e 
+	                    INNER JOIN proj_member pm ON e.emp_no = pm.emp_no
+	                WHERE pm.proj_no = #{1})
+	    ORDER BY lev.lev_no ASC, e.emp_no ASC
 	</select>
 	
-	<!-- 프로젝트 일정 리스트 JSOn으로 사용하기위한 단순한 버전 -->
-	<select id="getJsonProjTimeline" parameterType="map" resultType="map">
-	SELECT schedule.name as "sched_name"
-	    ,schedule.start_date as "start_date"
-	    ,SCHEDULE.END_DATE as "end_date"
-	FROM schedule,project
-	WHERE schedule.proj_no = project.proj_no
-	<if test="proj_no != null">
-		AND project.proj_no = #{proj_no}
-	</if>
-	<if test="isToday == true">
-		AND sysdate BETWEEN TO_DATE(schedule.start_date,'YYYY-MM-DD') AND TO_DATE(schedule.end_date,'YYYY-MM-DD')
-	</if>	
+	<!-- 프로젝트 일정 리스트 Json으로 사용하기위한 단순한 버전 -->
+	<select id="getJsonProjTimeline" parameterType="map"
+		resultType="map">
+		SELECT schedule.sched_no as "sched_no" 
+		,schedule.name as "sched_name"
+		,schedule.start_date as "start_date"
+		,SCHEDULE.END_DATE as "end_date"
+		FROM schedule,project
+		WHERE schedule.proj_no = project.proj_no
+		<if test="proj_no != null">
+			AND project.proj_no = #{proj_no}
+		</if>
+		<if test="isToday == true">
+			AND TO_DATE(TO_CHAR(sysdate,'YYYY-MM-DD'),'YYYY-MM-DD') BETWEEN TO_DATE(schedule.start_date,'YYYY-MM-DD') AND
+			TO_DATE(schedule.end_date,'YYYY-MM-DD')
+		</if>
+		ORDER BY schedule.sched_no ASC
 	</select>
-	
+
 	<insert id="insertProj" parameterType="map">
-	INSERT INTO project(proj_no, name, start_date, end_sched_date, pstatus_no)
-		VALUES(5000, #{proj_name}, #{start_date},#{end_sched_date},1)
+		INSERT INTO project(proj_no, name, start_date, end_sched_date, pstatus_no)
+		VALUES((SELECT NVL(MAX(proj_no),0)+1 FROM project), #{proj_name}, #{start_date},#{end_sched_date},1)
+	</insert>
+
+	<delete id="deleteProj" parameterType="int">
+		DELETE FROM project WHERE proj_no = #{1}
+	</delete>
+
+	<update id="updateProj" parameterType="map">
+		UPDATE project
+		<set>
+			<if test="proj_name != null">name=#{proj_name},</if>
+			<if test="start_date != null">start_date=#{start_date},</if>
+			<if test="end_sched_date != null">end_sched_date=#{end_sched_date},</if>
+			<if test="end_date != null">end_date=#{end_date},</if>
+			<if test="pstatus_no != null">pstatus_no=#{pstatus_no},</if>
+			<if test="prod_no != null">prod_no=#{prod_no},</if>
+			<if test="first_pay != null">first_pay=#{first_pay}</if>
+		</set>
+		WHERE proj_no = #{proj_no}
+	</update>
+	
+	<insert id="insertTimeline" parameterType="map">
+		INSERT INTO schedule(proj_no, sched_no, name, start_date, end_date)
+			VALUES(#{proj_no},(SELECT NVL(MAX(sched_no),0)+1 FROM schedule WHERE proj_no = #{proj_no}),
+			#{sched_name},#{start_date},#{end_date})
+	</insert>
+	<update id="updateTimeline" parameterType="map">
+		UPDATE schedule
+		<set>
+			<if test="sched_name != null">name=#{sched_name},</if>
+			<if test="start_date != null">start_date=#{start_date},</if>
+			<if test="end_date != null">end_date=#{end_date}</if>
+		</set>
+		WHERE proj_no = #{proj_no} AND sched_no = #{sched_no}
+	</update>
+	<delete id="deleteTimeline" parameterType="map">
+		DELETE FROM schedule
+		WHERE proj_no = #{proj_no}
+		<if test="sched_no != null">
+			AND sched_no = #{sched_no}
+		</if>
+	</delete>
+	
+	<insert id="insertMember" parameterType="map">
+		INSERT INTO proj_member(proj_no, emp_no, rtype_no)
+			VALUES(#{proj_no}, #{emp_no},102)
 	</insert>
 	
-	<delete id="deleteProj" parameterType="int">
-	DELETE FROM project WHERE proj_no = #{1}
+	<delete id="deleteMember" parameterType="map">
+	DELETE FROM proj_member
+		WHERE proj_no = #{proj_no} AND emp_no = #{emp_no}
 	</delete>
+	
+	<update id="updateMember" parameterType="map">
+	UPDATE proj_member
+		SET rtype_no = #{rtype_no}
+		WHERE proj_no = #{proj_no} AND emp_no = #{emp_no}
+	</update>
 </mapper>

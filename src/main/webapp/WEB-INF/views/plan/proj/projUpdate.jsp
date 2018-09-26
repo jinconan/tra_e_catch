@@ -1,12 +1,28 @@
+<%@page import="java.math.BigDecimal"%>
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	int projNo = (Integer)request.getAttribute("projNo");
+	int projNo = -1;
+	String projName = "";
+	String startDate = "";
+	String endSchedDate = "";
+	
+	Map<String,Object> projDetail = (request.getAttribute("projDetail") != null) ? 
+			(Map<String,Object>) request.getAttribute("projDetail") : null;
+	
+	if(projDetail != null) {
+		projNo = (projDetail.containsKey("proj_no"))? ((BigDecimal)projDetail.get("proj_no")).intValue() : -1;
+		projName = (projDetail.containsKey("proj_name")) ? (String)projDetail.get("proj_name") : "";
+		startDate = (projDetail.containsKey("start_date")) ? (String)projDetail.get("start_date") : "";
+		endSchedDate = (projDetail.containsKey("end_sched_date")) ? (String)projDetail.get("end_sched_date") : "";
+	}
+	
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로젝트 변경</title>
+<title>트라E캐치 프로젝트 변경</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
 	$(function() {
@@ -20,13 +36,20 @@
 		});
 		
 		$(".form_datetime").datetimepicker({
-			format : 'yyyy. mm. dd',
+			format : 'yyyy-mm-dd',
 			minView : 2
 		});
-
-		$('#d_preview').scrollspy({
-			target : '.navbar-example'
+		
+		//시작일 선택하면 종료예정일은 시작일부터 활성화.
+		$("#startDate").datetimepicker().on("changeDate",function(ev) {
+			$("#endSchedDate").datetimepicker("setStartDate",$("#startDate").val())
 		})
+		
+		//종료예정일 선택하면 시작일은 최대 종료예정일까지 활성화
+		$("#endSchedDate").datetimepicker().on("changeDate",function(ev) {
+			$("#startDate").datetimepicker("setEndDate",$("#endSchedDate").val())
+		})
+		
 	})
 </script>
 </head>
@@ -47,59 +70,27 @@
 						<strong> 프로젝트 변경 </strong>
 					</h2>
 				</div>
-				<form class="form-horizontal">
+				<form action="<%=request.getContextPath() %>/plan/projUpdate" method="post" class="form-horizontal">
+					<input type="hidden" name="projNo" id="projNo" value="<%=projNo%>">
 					<div class="form-group">
-						<label for="projTitle" class="col-sm-2 control-label">프로젝트명</label>
+						<label for="projName" class="col-sm-2 control-label">프로젝트명</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="projTitle" id="projTitle" placeholder="프로젝트명" required="required">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="projLeader" class="col-sm-2 control-label">담당자</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="projTitle" id="projLeader" placeholder="담당자" readonly required="required">
+							<input type="text" class="form-control" name="projName" id="projName" placeholder="프로젝트명" value="<%=projName %>" required="required">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="projPeriod" class="col-sm-2 control-label">기간</label>
 						<div class="col-sm-10">
 							<div class="input-group">
-								<input type="text" class="form-control form_datetime" id="time_start" name="time_start" placeholder="시작일" readonly required />
+								<input type="text" class="form-control form_datetime" id="startDate" name="startDate" placeholder="시작일" value="<%=startDate %>" readonly required />
 								<div class="input-group-addon">~</div>
-								<input type="text" class="form-control form_datetime" id="time_end" name="time_end" placeholder="종료일" readonly required />
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="projMember" class="col-sm-2 control-label">멤버</label>
-						<div class="col-sm-10">
-
-							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-								<div class="panel panel-default">
-									<div class="panel-heading" role="tab" id="headingOne">
-										<input type="text" class="panel-title form-control" id="platforms" readonly data-toggle="collapse" data-parent="#accordion" href="#member_list" aria-expanded="true" aria-controls="collapseOne" />
-									</div>
-									<div id="member_list" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-										<div class="panel-body">
-											<div class="input-group">
-												<span class="input-group-addon"> 
-													<input type="checkbox" aria-label="cb_member1">
-												</span><input type="text" class="form-control" aria-label="cb_member1" value="홍길동" readonly="readonly">
-											</div>
-											<div class="input-group">
-												<span class="input-group-addon"> 
-													<input type="checkbox" aria-label="cb_member2">
-												</span><input type="text" class="form-control" aria-label="cb_member2" value="김유신" readonly="readonly">
-											</div>
-										</div>
-									</div>
-								</div>
+								<input type="text" class="form-control form_datetime" id="endSchedDate" name="endSchedDate" placeholder="종료예정일" value="<%=endSchedDate %>" readonly required />
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-2">
-							<button class="btn btn-primary btn-block">변경</button>
+							<button class="btn btn-warning btn-block">변경</button>
 						</div>
 					</div>
 				</form>

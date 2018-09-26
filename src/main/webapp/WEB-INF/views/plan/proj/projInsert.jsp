@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로젝트 등록</title>
+<title>트라E캐치 프로젝트 등록</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
 	$(function() {
@@ -11,6 +11,17 @@
 			format : 'yyyy-mm-dd',
 			minView : 2
 		});
+		
+		//시작일 선택하면 종료예정일은 시작일부터 활성화.
+		$("#startDate").datetimepicker().on("changeDate",function(ev) {
+			$("#endSchedDate").datetimepicker("setStartDate",$("#startDate").val())
+		})
+		
+		//종료예정일 선택하면 시작일은 최대 종료예정일까지 활성화
+		$("#endSchedDate").datetimepicker().on("changeDate",function(ev) {
+			$("#startDate").datetimepicker("setEndDate",$("#endSchedDate").val())
+		})
+		
 	})
 </script>
 </head>
@@ -38,19 +49,13 @@
 							<input type="text" class="form-control" name="projName" id="projName" placeholder="프로젝트명" required="required">
 						</div>
 					</div>
-					<!-- <div class="form-group">
-						<label for="projLeader" class="col-sm-2 control-label">담당자</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" name="projTitle" id="projLeader" placeholder="담당자" readonly required="required">
-						</div>
-					</div> -->
 					<div class="form-group">
 						<label for="projPeriod" class="col-sm-2 control-label">기간</label>
 						<div class="col-sm-10">
 							<div class="input-group">
 								<input type="text" class="form-control form_datetime" id="startDate" name="startDate" placeholder="시작일" readonly required />
 								<div class="input-group-addon">~</div>
-								<input type="text" class="form-control form_datetime" id="endSchedDate" name="endSchedDate" placeholder="종료일" readonly required />
+								<input type="text" class="form-control form_datetime" id="endSchedDate" name="endSchedDate" placeholder="종료예정일" readonly required />
 							</div>
 						</div>
 					</div>
@@ -63,7 +68,6 @@
 			</div>
 
 		</div>
-
 
 	</div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />

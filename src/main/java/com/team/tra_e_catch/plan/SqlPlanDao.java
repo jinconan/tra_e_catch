@@ -72,36 +72,7 @@ public class SqlPlanDao {
 		return result;
 	}
 
-	/**
-	 * 프로젝트의 일정 리스트를 리턴
-	 * @param pMap
-	 * @return
-	 */
-	public List<Map<String, Object>> getProjTimeline(Map<String,Object> pMap) {
-		logger.info("getProjTimeline()");
-		List<Map<String,Object>> result = null;
-		try {
-			result = sqlSessionTemplate.selectList("mybatis-mapper.planMapper.getProjTimeline", pMap);
-			logger.info("result.size(): "+result.size());
-		} catch(Exception e) {
-			logger.error(e.toString());
-			result = new ArrayList<Map<String, Object>> ();
-		}
-		return result;
-	}
-	
-	public List<Map<String, Object>> getJsonProjTimeline(Map<String,Object> pMap) {
-		logger.info("getJsonProjTimeline()");
-		List<Map<String,Object>> result = null;
-		try {
-			result = sqlSessionTemplate.selectList("mybatis-mapper.planMapper.getJsonProjTimeline", pMap);
-			logger.info("result.size(): "+result.size());
-		} catch(Exception e) {
-			logger.error(e.toString());
-			result = new ArrayList<Map<String, Object>> ();
-		}
-		return result;
-	}
+
 
 	public int insertProj(Map<String, Object> pMap) {
 		logger.info("insertProj()");
@@ -125,4 +96,127 @@ public class SqlPlanDao {
 		}
 		return result;
 	}
+	
+	public int updateProj(Map<String,Object> pMap) {
+		logger.info("updateProj()");
+		int result =0;
+		try {
+			result = sqlSessionTemplate.update("mybatis-mapper.planMapper.updateProj", pMap);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+
+	public int insertTimeline(Map<String,Object> pMap) {
+		logger.info("insertTimeline()");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.insert("mybatis-mapper.planMapper.insertTimeline",pMap);
+			logger.info("insertTimeline() = " + result);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+	public int updateTimeline(Map<String,Object> pMap) {
+		logger.info("updateTimeline()");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("mybatis-mapper.planMapper.updateTimeline",pMap);
+			logger.info("updateTimeline() = " + result);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+	public int deleteTimeline(Map<String,Object> pMap) {
+		logger.info("deleteTimeline()");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.delete("mybatis-mapper.planMapper.deleteTimeline",pMap);
+			logger.info("deleteTimeline() = " + result);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+	
+	public int insertMember(Map<String, Object> pMap) {
+		logger.info("insertMember()");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.insert("mybatis-mapper.planMapper.insertMember",pMap);
+			logger.info("insertMember() = " + result);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+	public int deleteMember(Map<String, Object> pMap) {
+		logger.info("deleteMember()");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.delete("mybatis-mapper.planMapper.deleteMember",pMap);
+			logger.info("deleteMember() = " + result);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+	public int updateMember(Map<String, Object> pMap) {
+		logger.info("updateMember()");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("mybatis-mapper.planMapper.updateMember",pMap);
+			logger.info("updateMember() = " + result);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+	
+	/////////////////RESTController에서 사용하는 DAO 메소드들 //////////////////////////////
+	public List<Map<String, Object>> getJsonProjTimeline(Map<String,Object> pMap) {
+		logger.info("getJsonProjTimeline()");
+		List<Map<String,Object>> result = null;
+		try {
+			result = sqlSessionTemplate.selectList("mybatis-mapper.planMapper.getJsonProjTimeline", pMap);
+			logger.info("result.size(): "+result.size());
+		} catch(Exception e) {
+			logger.error(e.toString());
+			result = new ArrayList<Map<String, Object>> ();
+		}
+		return result;
+	}
+	
+	public List<Map<String, Object>> getJsonProjMemberList(int projNo) {
+		logger.info("getJsonProjMemberList()");
+		List<Map<String, Object>> result = null;
+		try {
+			result = sqlSessionTemplate.selectList("mybatis-mapper.planMapper.getJsonProjMemberList",projNo);
+			logger.info("size() = " + result.size());
+		} catch(Exception e) {
+			logger.error(e.toString());
+			result = new ArrayList<Map<String,Object>>();
+		}
+		return result;
+	}
+	
+	public List<Map<String, Object>> getJsonNotProjMemberList(int projNo) {
+		logger.info("getJsonNotProjMemberList()");
+		List<Map<String, Object>> result = null;
+		try {
+			result = sqlSessionTemplate.selectList("mybatis-mapper.planMapper.getJsonNotProjMemberList",projNo);
+			logger.info("size() = " + result.size());
+		} catch(Exception e) {
+			logger.error(e.toString());
+			result = new ArrayList<Map<String,Object>>();
+		}
+		return result;
+	}
+
+
+	
+	
 }

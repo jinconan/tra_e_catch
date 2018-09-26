@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로젝트 리스트</title>
+<title>트라E캐치 프로젝트 리스트</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
 	var pstatus_name = "<%=pstatus_name%>";

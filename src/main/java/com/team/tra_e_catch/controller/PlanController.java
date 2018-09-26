@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 import com.team.tra_e_catch.plan.PlanLogic;
 
 @Controller
@@ -117,7 +118,10 @@ public class PlanController {
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
 		mod.addAttribute("curSubMenu", "프로젝트 정보");
 		mod.addAttribute("subMenuList", subMenuList);
-		mod.addAttribute("projNo", projNo);
+		
+		Map<String, Object> projDetail = planLogic.getProjDetail(projNo);
+		mod.addAttribute("projDetail", projDetail);
+		
 		return "plan/proj/projUpdate";
 	}
 	
@@ -226,7 +230,7 @@ public class PlanController {
 	}
 	
 	
-	@RequestMapping("/plan/projInsert")
+	@RequestMapping(value="/plan/projInsert", method=RequestMethod.POST)
 	public String projInsert(@RequestParam("projName") String projName
 			, @RequestParam("startDate") String startDate
 			, @RequestParam("endSchedDate") String endSchedDate) {
@@ -237,11 +241,59 @@ public class PlanController {
 		return "redirect:/plan/view/projList/all";
 	}
 	
-	@RequestMapping("/plan/projDelete")
+	@RequestMapping(value="/plan/projDelete", method=RequestMethod.POST)
 	public String projDelete(@RequestParam(value="projNo", required=true) int projNo) {
 		logger.info("projDelete("+projNo+")");
 		int result = planLogic.deleteProj(projNo);
 		return "redirect:/plan/view/projList/all";
+	}
+	
+	@RequestMapping(value="/plan/projUpdate", method=RequestMethod.POST)
+	public String projUpdate(@RequestParam Map<String,Object> pMap) {
+		logger.info("projUpdate()");
+		int result = planLogic.updateProj(pMap);
+		return "redirect:/plan/view/projDetail?projNo="+pMap.get("proj_no");
+	}
+	
+	@RequestMapping(value="/plan/timelineInsert", method=RequestMethod.POST)
+	public String timelineInsert(@RequestParam Map<String,Object> pMap) {
+		logger.info("timelineInsert()");
+		int result = planLogic.insertTimeline(pMap);
+		return "redirect:/planR/json/projTimeline?isToday=false&projNo="+pMap.get("proj_no");
+	}
+	@RequestMapping(value="/plan/timelineUpdate", method=RequestMethod.POST)
+	public String timelineUpdate(@RequestParam Map<String,Object> pMap) {
+		logger.info("timelineUpdate()");
+		int result = planLogic.updateTimeline(pMap);
+		return "redirect:/planR/json/projTimeline?isToday=false&projNo="+pMap.get("proj_no");
+	}
+	@RequestMapping(value="/plan/timelineDelete", method=RequestMethod.POST)
+	public String timelineDelete(@RequestParam Map<String,Object> pMap) {
+		logger.info("timelineDelete()");
+		int result = planLogic.deleteTimeline(pMap);
+		return "redirect:/planR/json/projTimeline?isToday=false&projNo="+pMap.get("proj_no");
+	}
+	
+	@RequestMapping(value="/plan/memberInsert", method=RequestMethod.POST)
+	public String memberInsert(@RequestParam Map<String, Object> pMap) {
+		logger.info("memberInsert");
+		logger.info(pMap.toString());
+		int result = planLogic.insertMember(pMap);
+		return "redirect:/planR/json/projMemberList?projNo="+pMap.get("projNo");
+	}
+	
+	@RequestMapping(value="/plan/memberDelete", method=RequestMethod.POST)
+	public String memberDelete(@RequestParam Map<String, Object> pMap) {
+		logger.info("memberDelete");
+		int result = planLogic.deleteMember(pMap);
+		return "redirect:/planR/json/projMemberList?projNo="+pMap.get("proj_no");
+	}
+	
+	@RequestMapping(value="/plan/memberUpdate", method=RequestMethod.POST)
+	public String memberUpdate(@RequestParam Map<String, Object> pMap) {
+		logger.info("memberUpdate");
+		int result = planLogic.updateMember(pMap);
+		return "redirect:/planR/json/projMemberList?projNo="+pMap.get("proj_no");
 	}
 	//////////////////////////////////////DIY게시판 ////////////////////////////////////////////
 	/**

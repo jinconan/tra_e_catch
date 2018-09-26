@@ -36,4 +36,14 @@ public class PlanREST {
 		
 		return planLogic.getJsonProjTimeline(projNo, Boolean.parseBoolean(isToday));
 	}
+	
+	@RequestMapping("/json/projMemberList")
+	public List<Map<String,Object>> getMemberListJson(@RequestParam("projNo") int projNo) {
+		return planLogic.getJsonProjMemberList(projNo);
+	}
+	
+	@RequestMapping("/json/notProjMemberList")
+	public List<Map<String,Object>> getNotMemberListJson(@RequestParam("projNo") int projNo) {
+		return planLogic.getJsonNotProjMemberList(projNo);
+	}
 }

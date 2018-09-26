@@ -18,6 +18,8 @@
 <script src="<%=path.toString()%>/js/bootstrap-table.min.js"></script>
 <script src="<%=path.toString()%>/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
 <script src="<%=path.toString()%>/js/printThis.js"></script>
+<!-- 프로젝트에서 직접 작성한 공통 자바스크립트 -->
+<script src="<%=path.toString()%>/js/commonJS.js"></script>
 <style>
 	body { padding-bottom: 70px; }
 </style>

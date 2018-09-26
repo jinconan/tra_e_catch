@@ -3,12 +3,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로젝트 일정</title>
+<title>트라E캐치 프로젝트 일정</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script src="<%=request.getContextPath()%>/js/google_chart_loader.js"></script>
 <script type="text/javascript">
-
+	var container = null;
+	var chart = null;
+	var dataTable = null;
 	var jsonProjTimeline = null;
+	
 	$.ajax({
 		url:"<%=request.getContextPath()%>/planR/json/projTimeline"
 		,async:false
@@ -21,6 +24,7 @@
 				data.rows[i].c[1].v = new Date(data.rows[i].c[1].v);
 				data.rows[i].c[2].v = new Date(data.rows[i].c[2].v);
 			}
+			console.log(data);
 			jsonProjTimeline = data;
 		}
 		,error:function(xhr) {
@@ -37,11 +41,10 @@
 	
 	//타임라인 차트 그리기 함수
 	function drawChart() {
-		var container = document.getElementById('timeline');
-		var chart = new google.visualization.Timeline(container);
-
+		container = document.getElementById('timeline');
+		chart = new google.visualization.Timeline(container);
 		if(jsonProjTimeline.rows.length != 0) {
-			var dataTable = new google.visualization.DataTable(jsonProjTimeline);
+			dataTable = new google.visualization.DataTable(jsonProjTimeline);
 			chart.draw(dataTable);
 		}
 		else {
@@ -51,6 +54,7 @@
 	
 	//브라우저 크기 변경시 차트 다시 그리기
 	$(window).resize(function(Event) {
+		chart.clearChart();	
 		drawChart();
 	})
 </script>
@@ -72,10 +76,10 @@ $(document).ready(function() {
 		$(this).attr("data-toggle", "modal");
 		$(this).attr("data-target", "#modalTimeline");
 		$("#modalTimelineLabel").html("<strong>타임라인 추가</strong>");
-	 	$("#time_name").val("");
-		$("#time_start").val("");
-		$("#time_end").val("");
-		$("#btn_modalTimeline").attr("class", "btn btn-primary");
+	 	$("#schedName").val("");
+		$("#startDate").val("");
+		$("#endDate").val("");
+		$("#btn_modalTimeline").attr("class", "btn btn-primary ");
 		$("#btn_modalTimeline").text("추가");
 		
 	})
@@ -83,18 +87,20 @@ $(document).ready(function() {
 		var row = chart.getSelection()[0].row;
 		if(row ==null) {
 			alert("변경할 일정을 선택하세요");
+			return false;
 		}
 		else {
 			$(this).attr("data-toggle", "modal");
 			$(this).attr("data-target", "#modalTimeline");
 			$("#modalTimelineLabel").html("<strong>타임라인 변경</strong>");
 			//선택한 일정 데이터 파싱작업 진행
-			var time_name = dataTable.getFormattedValue(row,0);
-			var time_start = dataTable.getFormattedValue(row,1);
-			var time_end = dataTable.getFormattedValue(row,2);
-			$("#time_name").val(time_name);
-			$("#time_start").val(time_start);
-			$("#time_end").val(time_end);
+			var schedName = dataTable.getFormattedValue(row,0);
+			var startDate = dateToString(new Date(dataTable.getFormattedValue(row,1)));
+			var endDate = dateToString(new Date(dataTable.getFormattedValue(row,2)));
+			
+			$("#schedName").val(schedName);
+			$("#startDate").val(startDate);
+			$("#endDate").val(endDate);
 			$("#btn_modalTimeline").attr("class", "btn btn-warning");
 			$("#btn_modalTimeline").text("변경");
 		}
@@ -103,18 +109,87 @@ $(document).ready(function() {
 		var row = chart.getSelection()[0].row;
 		if(row == null) {
 			alert("삭제할 일정을 선택하세요");
+			return false;
 		} else {
 			var select = confirm("정말 삭제하시겠습니까?");
 			if(select==true) {
-				//삭제 처리 진행
+				var schedNo = jsonProjTimeline.rows[row].schedNo;
+				$.ajax({
+					url:"${pageContext.request.contextPath}/plan/timelineDelete"
+					,data:"projNo=${requestScope.projNo}&schedNo="+schedNo
+					,dataType:"json"
+					,method:"post"
+					,success:function(data) {
+						alert("삭제되었습니다.");
+						for(var i=0;i<data.rows.length;i++) {
+							data.rows[i].c[1].v = new Date(data.rows[i].c[1].v);
+							data.rows[i].c[2].v = new Date(data.rows[i].c[2].v);
+						}
+						jsonProjTimeline = data;
+						chart.clearChart();
+						drawChart();
+						console.log(data);
+					}
+					,error:function(xhr) {
+						console.log("error");
+					}
+				})
 			}
 		}
 	})
 	
+	$("#btn_modalTimeline").click(function() {
+		var $btnText = $("#btn_modalTimeline").text();
+		var schedName = $("#schedName").val();
+		var startDate = $("#startDate").val();
+		var endDate = $("#endDate").val();
+		var data = "projNo=${requestScope.projNo}&schedName="
+			+ schedName + "&startDate=" + startDate + "&endDate=" + endDate;
+		var url = null;
+		if($btnText == "추가"){
+			url = "${pageContext.request.contextPath}/plan/timelineInsert"
+		} else {
+			url = "${pageContext.request.contextPath}/plan/timelineUpdate"
+			var row = chart.getSelection()[0].row;
+			var schedNo = jsonProjTimeline.rows[row].schedNo;
+			data += "&schedNo="+schedNo;
+		}
+		
+		$.ajax({
+			url:url
+			,data:data
+			,method:"post"
+			,dataType:"json"
+			,success:function(data) {
+				for(var i=0;i<data.rows.length;i++) {
+					data.rows[i].c[1].v = new Date(data.rows[i].c[1].v);
+					data.rows[i].c[2].v = new Date(data.rows[i].c[2].v);
+				}
+				jsonProjTimeline = data;
+				chart.clearChart();
+				drawChart();
+				$("#modalTimeline").removeClass("in");
+			}
+			,error:function(xhr) {
+				console.log("error");
+			}
+		})
+	})
+	
 	$(".form_datetime").datetimepicker({
-		format : 'yyyy. mm. dd'
+		format : 'yyyy-mm-dd'
 		, minView : 2
 	});
+	
+	//시작일 선택하면 종료예정일은 시작일부터 활성화.
+	$("#startDate").datetimepicker().on("changeDate",function(ev) {
+		$("#endDate").datetimepicker("setStartDate",$("#startDate").val())
+	})
+	
+	//종료예정일 선택하면 시작일은 최대 종료예정일까지 활성화
+	$("#endDate").datetimepicker().on("changeDate",function(ev) {
+		$("#startDate").datetimepicker("setEndDate",$("#endDate").val())
+	})
 })
 </script>
 </head>
@@ -164,13 +239,13 @@ $(document).ready(function() {
 				</div>
 				<div class="modal-body">
 					<div class="form-inline">
-						<label for="time_name" class="control-label">일정명</label>
-						<input type="text" class="form-control" id="time_name" name="time_name" placeholder="일정명" required/>
+						<label for="schedName" class="control-label">일정명</label>
+						<input type="text" class="form-control" id="schedName" name="schedName" placeholder="일정명" required/>
 						<label for="time_date" class="control-label">기간</label>
 						<div class="input-group">
-							<input type="text" class="form-control form_datetime" id="time_start" name="time_start" placeholder="시작일" readonly required/>
+							<input type="text" class="form-control form_datetime" id="startDate" name="startDate" placeholder="시작일" readonly required/>
 							<div class="input-group-addon">~</div>						
-							<input type="text" class="form-control form_datetime" id="time_end" name="time_end" placeholder="종료일" readonly required/>
+							<input type="text" class="form-control form_datetime" id="endDate" name="endDate" placeholder="종료일" readonly required/>
 						</div>
 						<button id="btn_modalTimeline" class="btn btn-primary">추가</button>
 					</div>

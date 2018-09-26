@@ -107,6 +107,7 @@ public class PlanLogic {
 
 			Map<String,Object> rowMap = new HashMap<String,Object>();
 			rowMap.put("c",schedRow);
+			rowMap.put("schedNo", tlMap.get("sched_no"));
 			rows.add(rowMap);
 		}
 		
@@ -139,6 +140,111 @@ public class PlanLogic {
 		int result = sqlPlanDao.deleteProj(projNo);
 		return result;
 	}
+
+	public int updateProj(Map<String, Object> pMap) {
+		logger.info("updateProj");
+		
+		if(pMap.containsKey("projNo"))
+			pMap.put("proj_no", pMap.get("projNo"));
+		if(pMap.containsKey("projName"))
+			pMap.put("proj_name", pMap.get("projName"));
+		if(pMap.containsKey("startDate"))
+			pMap.put("start_date", pMap.get("startDate"));
+		if(pMap.containsKey("endSchedDate"))
+			pMap.put("end_sched_date", pMap.get("endSchedDate"));
+		if(pMap.containsKey("endDate"))
+			pMap.put("end_date", pMap.get("endDate"));
+		if(pMap.containsKey("pstatusNo"))
+			pMap.put("pstatus_no", pMap.get("pstatusNo"));
+		if(pMap.containsKey("prodNo"))
+			pMap.put("prod_no", pMap.get("prodNo"));
+		if(pMap.containsKey("firstPay"))
+			pMap.put("first_pay", pMap.get("firstPay"));
+		
+		int result = sqlPlanDao.updateProj(pMap);
+		return result;
+	}
 	
+	public int insertTimeline(Map<String,Object> pMap) {
+		logger.info("insertTimeline");
+		
+		if(pMap.containsKey("projNo"))
+			pMap.put("proj_no", pMap.get("projNo"));
+		if(pMap.containsKey("schedName"))
+			pMap.put("sched_name", pMap.get("schedName"));
+		if(pMap.containsKey("startDate"))
+			pMap.put("start_date", pMap.get("startDate"));
+		if(pMap.containsKey("endDate"))
+			pMap.put("end_date", pMap.get("endDate"));
+		return sqlPlanDao.insertTimeline(pMap);
+	}
 	
+	public int updateTimeline(Map<String,Object> pMap) {
+		logger.info("updateTimeline");
+		
+		if(pMap.containsKey("projNo"))
+			pMap.put("proj_no", pMap.get("projNo"));
+		if(pMap.containsKey("schedNo"))
+			pMap.put("sched_no", pMap.get("schedNo"));
+		if(pMap.containsKey("schedName"))
+			pMap.put("sched_name", pMap.get("schedName"));
+		if(pMap.containsKey("startDate"))
+			pMap.put("start_date", pMap.get("startDate"));
+		if(pMap.containsKey("endDate"))
+			pMap.put("end_date", pMap.get("endDate"));
+		return sqlPlanDao.updateTimeline(pMap);
+	}
+	public int deleteTimeline(Map<String,Object> pMap) {
+		logger.info("deleteTimeline");
+		
+		if(pMap.containsKey("projNo"))
+			pMap.put("proj_no", pMap.get("projNo"));
+		if(pMap.containsKey("schedNo"))
+			pMap.put("sched_no", pMap.get("schedNo"));
+		return sqlPlanDao.deleteTimeline(pMap);
+	}
+
+	public List<Map<String, Object>> getJsonProjMemberList(int projNo) {
+		logger.info("getJsonProjMemberList");
+		return sqlPlanDao.getJsonProjMemberList(projNo);
+	}
+
+	public int insertMember(Map<String, Object> pMap) {
+		logger.info("insertMember");
+		if(pMap.containsKey("projNo"))
+			pMap.put("proj_no", pMap.get("projNo"));
+		if(pMap.containsKey("empNo"))
+			pMap.put("emp_no", pMap.get("empNo"));
+		
+		return sqlPlanDao.insertMember(pMap);
+	}
+
+	public int deleteMember(Map<String, Object> pMap) {
+		logger.info("deleteMember");
+		if(pMap.containsKey("projNo"))
+			pMap.put("proj_no", pMap.get("projNo"));
+		if(pMap.containsKey("empNo"))
+			pMap.put("emp_no", pMap.get("empNo"));
+		return sqlPlanDao.deleteMember(pMap);
+	}
+
+	public int updateMember(Map<String, Object> pMap) {
+		logger.info("updateMember");
+		if(pMap.containsKey("projNo"))
+			pMap.put("proj_no", pMap.get("projNo"));
+		if(pMap.containsKey("empNo"))
+			pMap.put("emp_no", pMap.get("empNo"));
+		if(pMap.containsKey("roleName")) {
+			if("∆¿¿Â".equals(pMap.get("roleName")))
+				pMap.put("rtype_no",101);
+			else
+				pMap.put("rtype_no", 102);
+		}
+		return sqlPlanDao.updateMember(pMap);
+	}
+
+	public List<Map<String, Object>> getJsonNotProjMemberList(int projNo) {
+		logger.info("getJsonNotProjMemberList");
+		return sqlPlanDao.getJsonNotProjMemberList(projNo);
+	}
 }

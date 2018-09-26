@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 관리</title>
+<title>트라E캐치 게시판 관리</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
 	//한 프로젝트에 대한 서브메뉴의 경우에는 PK를 뒤에 붙여주어야함.
