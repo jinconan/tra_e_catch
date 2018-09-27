@@ -64,20 +64,6 @@ public class AccountingController {
 	}
 
 	
-	/*
-	 * init메서드 : tax/tax_main.jsp
-	 * out메서드 : acc/tax/tax_main
-	 * 용도 : 세금 관리 페이지 
-	 * 비고 : x
-	 */
-	@RequestMapping(value = "/tax", method = RequestMethod.GET)
-	public String tax_main(Model mod,@RequestParam Map<String, Object> pMap) {
-		logger.info("tax진입");
-		mod.addAttribute("curSubMenu", "세금 관리");
-		mod.addAttribute("subMenuList", subMenuList);
-		return "acc/tax/tax_main";
-	}
-	
 	
 	
 	/*

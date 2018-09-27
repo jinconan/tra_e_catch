@@ -46,78 +46,21 @@ public class AccountingREST{
 		return as;
 	}
 	
-	
-	
-	@RequestMapping("slip/test")
-	private Map<String,Object> team_test() {
-		logger.info("test_slieR진입");
-		Map<String,Object> list = new HashMap<String,Object>();	
-		Map<String,Object> data = new HashMap<String,Object>();
-		Map<String,Object> map1 = null;
-		Map<String,Object> map = null;
-		List<Map<String,Object>> list1 = new ArrayList<Map<String,Object>>();
-		List<Map<String,Object>> list2 = new ArrayList<Map<String,Object>>();
-		Random rd = new Random();
-		
-		map1 = new HashMap<String,Object>();
-		map1.put("caption","연도별 총 판매금액");                  
-		map1.put("subcaption","2018~2018");                  
-		map1.put("xaxisname,","년도");                              
-		map1.put("yaxisname","금액");                       
-		map1.put("showBorder","0");                                         
-		map1.put("numberSuffix","억");                                     
-		map1.put("theme","fusion");
-		list.put("chart", map1);
-		
-		for(int i = 0; i<10; i++) {
-			map = new HashMap<String, Object>();
-			map.put("label", 2008+i);
-			list2.add(map);
-		}	
-		map = new HashMap<String, Object>();
-		map.put("category", list2);
-		list2 = new ArrayList<Map<String,Object>>(); 
-		list2.add(map);
-		list.put("categories", list2);
-		
-		
-		list2 = new ArrayList<Map<String,Object>>();
-		for(int i = 0; i<10; i++) {
-			map = new HashMap<String, Object>();
-			map.put("value", rd.nextInt(100)*100);
-			list2.add(map);
-		}
-		map = new HashMap<String, Object>();
-		map.put("seriesname", "테스트1");
-		map.put("data", list2);
-		list1.add(map);
-		
-		list2 = new ArrayList<Map<String,Object>>();
-		for(int i = 0; i<10; i++) {
-			map = new HashMap<String, Object>();
-			map.put("value", rd.nextInt(100)*100);
-			list2.add(map);
-		}
-		map = new HashMap<String, Object>();
-		map.put("seriesname", "테스트2");
-		map.put("data", list2);
-		list1.add(map);
-		
-		list2 = new ArrayList<Map<String,Object>>();
-		for(int i = 0; i<10; i++) {
-			map = new HashMap<String, Object>();
-			map.put("value", rd.nextInt(100)*100);
-			list2.add(map);
-		}
-		map = new HashMap<String, Object>();
-		map.put("seriesname", "테스트3");
-		map.put("data", list2);
-		list1.add(map);
-		
-		list.put("dataset", list1);
-
-		return list;
+	@RequestMapping("slip/t")
+	private List<Map<String, Object>> t_team(Model mod) {
+		logger.info("slieR진입");
+		List<Map<String, Object>> as = accountingLogic.t_teamR_Logic();	
+		logger.info(as.size());
+		mod.addAttribute("se_sile_list",as.size());
+		return as;
 	}
 	
-	
+	@RequestMapping("slip/b")
+	private List<Map<String, Object>> b_team(Model mod) {
+		logger.info("slieR진입");
+		List<Map<String, Object>> as = accountingLogic.b_teamR_Logic();	
+		logger.info(as.size());
+		mod.addAttribute("se_sile_list",as.size());
+		return as;
+	}
 }

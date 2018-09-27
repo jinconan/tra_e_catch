@@ -29,48 +29,12 @@ public class ProductLogic {
 		return s;
 	}
 	
-	public List<Map<String, Object>> chartsR_Logic() {
+	public Map<String, Object> chartsR_Logic() {
 		logger.info("chartsR_Logic진입");
-		List<Map<String, Object>> s = sqlProdDao.chartsR_Dao();
-		
-		Map<String,Object> map = null;
-		Map<String,Object> list = new HashMap<String,Object>();	
-		List<Map<String,Object>> list1 = new ArrayList<Map<String,Object>>();
-		List<Map<String,Object>> list2 = new ArrayList<Map<String,Object>>();
-		map = new HashMap<String,Object>();
-		map.put("caption","연도별 총 판매금액");                  
-		map.put("subcaption","2018~2018");                  
-		map.put("xaxisname,","년도");                              
-		map.put("yaxisname","금액");                       
-		map.put("showBorder","0");                                         
-		map.put("numberSuffix","억");                                     
-		map.put("theme","fusion");
-		list.put("chart", map);
-		
-		
-		for(Map<String,Object> maplist : s) {
-			map = new HashMap<String, Object>();
-			map.put("label", maplist.get("결제일자"));
-			list2.add(map);
-		}
-		map = new HashMap<String, Object>();
-		map.put("category", list2);
-		list2 = new ArrayList<Map<String,Object>>(); 
-		list2.add(map);
-		list.put("categories", list2);
-		
-		for(Map<String,Object> maplist : s) {
-			map = new HashMap<String, Object>();
-			map.put("value", maplist.get("금액"));
-			list2.add(map);
-		}
-		map = new HashMap<String, Object>();
-		map.put("seriesname", "연도별 금액");
-		map.put("allowDrag", "0");
-		map.put("data", list2);
-		list1.add(map);
-		
-		return s;
+		Chart_Make cm = new Chart_Make();
+		cm.C_Make(sqlProdDao.chartsR_Dao());
+
+		return cm.map;
 	}
 	
 }

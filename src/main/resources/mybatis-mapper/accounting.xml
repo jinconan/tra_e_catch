@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.accountingMapper">
-	<resultMap id="cos_type1" type="java.util.HashMap"></resultMap>
+	<resultMap id="acc_start_list" type="java.util.HashMap"></resultMap>
 	<select id="timecell" statementType="CALLABLE" parameterType="hashmap"  resultType="java.util.HashMap">
 		<!-- select * from
         (select 일자,분류,구분,적요,작성자,금액,첨부자료,rownum as 순번 from (
         select * from T_VIEW_slipList where 담당자 = 1))
         where 순번 betWeen #{counts}*10-9 and #{counts}*10 -->      
-        CALL Pro_slipList(1,#{counst},' ',0,#{cos_type1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=cos_type1})
+        CALL Pro_slipList(1,#{counst},' ',0,#{cos_type1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=acc_start_list})
+	</select>
+
+	<select id="b_timecell"  parameterType="hashmap"  resultType="Map">
+	<![CDATA[
+	select 순번,번호,일자,거래처,구분,금액,증빙,첨부자료 from
+	(
+	Select rownum as 순번,번호,substr(일자,1,10) as 일자,적요 as 거래처,구분,금액,증빙,첨부자료 from T_VIEW_SLIPLIST where 분류 = '팀운영비' and 담당자 = 1
+	)
+	where 순번 between #{counst}*10-9 and #{counst}*10
+    ]]>
+	</select>
+	
+	<select id="t_timecell"  parameterType="hashmap"  resultType="Map">
+	<![CDATA[
+	select 순번,번호,일자,거래처,구분,금액,증빙,첨부자료 from
+	(
+	Select rownum as 순번,번호,substr(일자,1,10) as 일자,적요 as 거래처,구분,금액,증빙,첨부자료 from T_VIEW_SLIPLIST where 분류 = '복지지원비' and 담당자 = 1
+	)
+	where 순번 between #{counst}*10-9 and #{counst}*10
+    ]]>
 	</select>
 </mapper>

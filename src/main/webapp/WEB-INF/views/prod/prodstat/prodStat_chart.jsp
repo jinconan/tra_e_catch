@@ -6,39 +6,34 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <title>Insert title here</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
 
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        
+        var jsonData = $.ajax({
+        	url:"<%=request.getContextPath()%>/proR/slip/test",
+        	dateType:"json",
+        	async:false
+        }).responseText;
+        
+    var data = new google.visualization.DataTable(jsonData);
+    var options = {
+      title : '연도별 총 판매량 및 판매금액',	//제목
+      vAxis: {title: '금액(천원),거래량(개)'},							//로우
+      hAxis: {title: '연도'},							//컬럼
+      seriesType: 'bars',								
+      series: {5: {type: 'line'}}
+    };
 
-<script src="<%=path.toString()%>/js/fusioncharts.js"></script>
-<script src="<%=path.toString()%>/js/jquery-fusioncharts.js"></script>
-<script src="<%=path.toString()%>/js/fusioncharts.theme.fusion.js"></script>
-
-
-</head>
-<script type="text/javascript">
-	$( document ).ready(function() {
-		
-		
-		var jsonD = {};
-
-	    $.getJSON("<%=request.getContextPath()%>/accR/slip/test", function ( data ) {
-
-	        console.log(data);
-	        //alert(data);
-	        jsonD = data;
-
-	    }).done( function () {
-	        $("#chart-container").insertFusionCharts({
-	        	   type: "mscolumn2d",
-	        	   width: "100%",
-	        	   height: "100%",
-	        	   dataFormat: "json",
-	           	   dataSource: jsonD
-	         });
-	    });  
-	});
-
-</script>
+    var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+    </script>
 
 	
 
@@ -105,16 +100,12 @@
     <li><a href="#">Separated link</a></li>
   </ul>
 </div>
-
 <!----------------------------- 그래프 차트 ------------------------------------>
-<div id="chart-container" style="height: 480PX;">FusionMaps XT will load chart here!</div>
-
-
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
 <!--------------------------- 페이지 네이션 처리 --------------------------------->
-
 </div>
 
 <!-------------------- 하단 메뉴 ------------------->
-<jsp:include page="/WEB-INF/views/_common/footer.jsp"/>
+ <jsp:include page="/WEB-INF/views/_common/footer.jsp"/>
 </body>
 </html>
