@@ -6,44 +6,42 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <title>Insert title here</title>
-<script src="/resources/js/google_chart_loader.js"></script>
- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses', 'Profit'],
-          ['2012', 1000, 400, 200],
-          ['2013', 1170, 460, 250],
-          ['2014', 660, 1120, 300],
-          ['2015', 660, 1120, 300],
-          ['2016', 660, 1120, 300],
-          ['2017', 660, 1120, 300],
-          ['2018', 1030, 540, 350]
-        ]);
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        
+        var jsonData = $.ajax({
+        	url:"<%=request.getContextPath()%>/proR/slip/test",
+        	dateType:"json",
+        	async:false
+        }).responseText;
+        
+    var data = new google.visualization.DataTable(jsonData);
+    var options = {
+      title : '연도별 총 판매량 및 판매금액',	//제목
+      vAxis: {title: '금액(천원),거래량(개)'},							//로우
+      hAxis: {title: '연도'},							//컬럼
+      seriesType: 'bars',								
+      series: {5: {type: 'line'}}
+    };
 
-        var options = {
-          chart: {
-            
-          }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
+    var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
     </script>
-</head>
+
+	
+
 <body>
 
 <!----------------------- 헤더 ----------------------->
 <jsp:include page="/WEB-INF/views/_common/header.jsp"/>
-
-
 <!--------------------- 서브 메뉴 ---------------------->	
-	
 	<div class="container">
 	 	<jsp:include page="/WEB-INF/views/_common/submenu.jsp"/> 
    	<div class="col-sm-10">
@@ -102,28 +100,12 @@
     <li><a href="#">Separated link</a></li>
   </ul>
 </div>
-
 <!----------------------------- 그래프 차트 ------------------------------------>
-   <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
-	 
-	</div>
-
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
 <!--------------------------- 페이지 네이션 처리 --------------------------------->
-<center>
-<nav>
-		<ul class="pagination">
-			<li class="abled"><a href="#" aria-label="Previous"><span aria-hidden="true"> << </span></a></li>
-			<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-			<li><a href="#">2 <span class="sr-only">(current)</span></a></li>
-			<li><a href="#">3 <span class="sr-only">(current)</span></a></li>
-			<li><a href="#">4 <span class="sr-only">(current)</span></a></li>
-			<li class="abled"><a href="#" aria-label="Next"><span aria-hidden="true"> >> </span></a></li>
-		</ul>
-	</nav>
 </div>
-</center>
 
 <!-------------------- 하단 메뉴 ------------------->
-<jsp:include page="/WEB-INF/views/_common/footer.jsp"/>
+ <jsp:include page="/WEB-INF/views/_common/footer.jsp"/>
 </body>
 </html>

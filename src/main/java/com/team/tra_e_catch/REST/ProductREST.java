@@ -38,4 +38,12 @@ public class ProductREST {
 		List<Map<String, Object>> as = productLogic.teamR_Logic();
 		return as;
 	}
+	
+	
+	@RequestMapping("slip/test")
+	private Map<String, Object> team_test() {
+		Map<String, Object> as = productLogic.chartsR_Logic();
+
+		return as;
+	}
 }

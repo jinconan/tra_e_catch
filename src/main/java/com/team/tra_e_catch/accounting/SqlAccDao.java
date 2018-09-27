@@ -32,4 +32,26 @@ public class SqlAccDao {
 		return list;
 	}
 	
+	
+	public List<Map<String, Object>> b_Team_Dao() {
+		logger.info("b_Team_Dao진입");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("counst",1);
+		logger.info(map);
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		list = sqlSessionTemplate.selectList("b_timecell",map);
+		return list;
+	}
+	
+	
+	public List<Map<String, Object>> t_Team_Dao() {
+		logger.info("t_Team_Dao진입");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("counst",1);
+		logger.info(map);
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		list = sqlSessionTemplate.selectList("t_timecell",map);
+		return list;
+	}
+	
 }

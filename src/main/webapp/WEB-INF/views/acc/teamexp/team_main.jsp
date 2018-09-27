@@ -21,6 +21,13 @@
 }
 </style>
 </head>
+	<script type="text/javascript">
+		$(function() {
+			$('#p_table').bootstrapTable({
+				url:'<%=request.getContextPath()%>/accR/slip/t'				
+			});
+		});
+	</script>
 <body>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 	<div class="container">
@@ -67,46 +74,20 @@
 					</div>
 				</div>
 				<div class="row">
-					<table class="table table-striped">
+					<table class="table table-striped" id="p_table">
 						<thead>
 							<tr>
-								<th>번호</th>
-								<th>날짜</th>
-								<th>적요</th>
-								<th>거래처</th>
-								<th>수입</th>
-								<th>비용</th>
-								<th>고정자산</th>
-								<th>증빙</th>
-								<th>예금</th>
-								<th>첨부자료</th>
-							</tr>
+								<th data-field="번호">번호</th>
+								<th data-field="일자">날짜</th>
+								<th data-field="거래처">거래처</th>
+								<th data-field="수입">수입</th>
+								<th data-field="비용">비용</th>
+								<th data-field="고정자산">고정자산</th>
+								<th data-field="증빙">증빙</th>
+								<th data-field="첨부자료">첨부자료</th>
+							</tr>   
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>2018-08-01</td>
-								<td>팀활동비</td>
-								<td>본사</td>
-								<td>3000000</td>
-								<td>0</td>
-								<td>0</td>
-								<td>예산</td>
-								<td>3000000</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>2018-08-02</td>
-								<td>팀회식</td>
-								<td>마포닭갈비</td>
-								<td>0</td>
-								<td>167000</td>
-								<td>0</td>
-								<td>카드</td>
-								<td>2833000</td>
-								<td></td>
-							</tr>
 						</tbody>
 					</table>
 				</div>

@@ -9,8 +9,8 @@
 		where 번호 between 1 and 10
 		]]>
 	</select>
-	<resultMap id="cos_type1" type="java.util.HashMap"></resultMap>
+	<resultMap id="chart_Plan1" type="java.util.HashMap"></resultMap>
 	<select id="Pro_Stat_Chart" statementType="CALLABLE" parameterType="hashmap"  resultType="java.util.HashMap">
-	    CALL Pro_Stat_Chart(#{counst},0,#{cos_type1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=cos_type1})
+	    CALL Pro_Stat_Chart(#{counst},0,#{chart_Plan1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=chart_Plan1})
 	</select>
 </mapper>
