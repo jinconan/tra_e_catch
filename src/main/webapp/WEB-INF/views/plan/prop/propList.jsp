@@ -27,7 +27,21 @@ $(function() {
 	//파일 아이콘 클릭시 파일 다운로드 처리할 부분.
 	$downloadIcon.click(function(event) {
 		var row = $(this).closest("tr");
-		console.log(row.find("td.propPath").eq(0).text())
+		var propNo = row.find("td.propNo").eq(0).text();
+		var propFile = row.find("td.propFile").eq(0).text();
+		console.log(propNo+", " + propFile);
+		$.ajax({
+			url:"<%=request.getContextPath()%>/plan/propDownload"
+			,method:"post"
+			,data:"propNo="+propNo+"&propFile="+propFile
+			,success:function(data) {
+				
+			}
+			,error:function(xhr) {
+				console.log("error");
+			}
+			
+		})
 	})
 })
 </script>
@@ -76,7 +90,7 @@ $(function() {
 							<%
 								if(true){
 							%>
-							<td class="propPath" style="display:none;"><%=prop.get("path") %></td>
+							<td class="propFile" style="display:none;"><%=prop.get("path") %></td>
 							<td><i class="propFile glyphicon glyphicon-download-alt"></i></td>	
 							<%									
 								} else {
