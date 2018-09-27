@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,10 +41,17 @@ public class ProductREST {
 	}
 	
 	
-	@RequestMapping("slip/test")
-	private Map<String, Object> team_test() {
+	@RequestMapping("prodStat")
+	private Map<String, Object> proStatR() {
 		Map<String, Object> as = productLogic.chartsR_Logic();
 
+		return as;
+	}
+	
+	@RequestMapping("prodStat_moon/{counts}")
+	private Map<String, Object> proStatR_moon(@PathVariable int counts) {
+		Map<String, Object> as = productLogic.chartsR_moon_Logic(counts);
+		
 		return as;
 	}
 }

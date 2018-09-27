@@ -1,24 +1,33 @@
 package com.team.tra_e_catch.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.tra_e_catch.plan.PlanLogic;
@@ -133,7 +142,47 @@ public class PlanController {
 		return "redirect:/plan/view/propList";
 	}
 	
-	
+	/**
+	 * 기획서 다운로드 요청
+	 * @param res
+	 * @param propNo
+	 * @param propFile
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/plan/propDownload")
+	public ResponseEntity<byte[]> propDownload(HttpServletResponse res
+			, @RequestParam("propNo") int propNo
+			, @RequestParam("propFile") String propFile) {
+		logger.info("propDownload");
+		ResponseEntity<byte[]> entity = null;
+		
+		String fileRepo = "E:\\files\\";
+		String docNo = null;
+		
+		//제안서 번호로부터 문서 테이블에서의 문서 번호리턴.
+		Map<String,Object> pMap = new HashMap<String, Object>();
+		pMap.put("propNo", propNo);
+		Map<String,Object> rMap = planLogic.getPropList(pMap);
+		List<Map<String,Object>> propList = (List<Map<String,Object>>)rMap.get("propList");
+		
+		if(propList.size() != 0) 
+			docNo = (String)propList.get(0).get("doc_no");
+
+		try(InputStream in = new FileInputStream(fileRepo+docNo+"\\"+propFile);) {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.add("Content-Disposition", "attatchment; filename=\"" + 
+                    new String(propFile.getBytes("UTF-8"), "ISO-8859-1") + 
+                    "\"");
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+        return entity;
+	}
 	
 	///////////////////////////////////////////////프로젝트////////////////////////////////////////
 	

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+
 public class Chart_Make {
 	Map<String,Object> list = new HashMap<String,Object>();	
 	Map<String,Object> data = new HashMap<String,Object>();
@@ -17,6 +19,8 @@ public class Chart_Make {
 	public void C_Make(List<Map<String,Object>> exe) {
 		int i = 0;
 		//값 넣는곳 하나당 하나씩		
+		System.err.println(exe.get(0).keySet());
+		System.err.println(exe);
 		for(String s : exe.get(0).keySet()) {
 			map1 = new HashMap<String, Object>();
 			map1.put("id", "");
@@ -33,7 +37,7 @@ public class Chart_Make {
 			list1 = new ArrayList<Map<String,Object>>();
 			for(String s : exex.keySet()) {
 				map1 = new HashMap<String, Object>();
-				map1.put("v", s.equals("결제일자")?s:exex.get(s));
+				map1.put("v", s.equals("DAY")?s:exex.get(s));
 				map1.put("f", exex.get(s));
 				list1.add(map1);
 			}

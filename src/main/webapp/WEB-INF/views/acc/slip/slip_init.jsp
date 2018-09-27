@@ -33,64 +33,29 @@
 					<label class="col-sm-3 control-label" for="inputPassword">분류/구분</label>
 					<div class="col-xs-3">
 						<select class="form-control">
-							<option>월급</option>
 							<option>팀운영비</option>
 							<option>복지지원비</option>
 						</select>
 					</div>
 					<div class="col-xs-3">
 						<select class="form-control">
-							<option>입금</option>
 							<option>출금</option>
+							<option>고정자산</option>
 						</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputPassword">계정과목</label>
-					<div class="col-sm-6">
-						<input class="form-control" id="inputPassword" type="password"
-							placeholder="계정과목">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputPassword">거래처</label>
-					<div class="col-sm-6">
-						<input class="form-control" id="inputPassword" type="password"
-							placeholder="거래처">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="inputPassword">적요</label>
 					<div class="col-sm-6">
 						<input class="form-control" id="inputPassword" type="password"
-							placeholder="적요">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputPassword">제목</label>
-					<div class="col-sm-6">
-						<input class="form-control" id="inputPassword" type="password"
-							placeholder="제목">
+							placeholder="계정과목">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="inputPassword">금액</label>
 					<div class="col-sm-6">
 						<input class="form-control" id="inputPassword" type="password"
-							placeholder="제목">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputEmail">내용</label>
-					<div class="col-sm-6">
-						<textarea class="form-control" rows="20"></textarea>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputEmail">공람자</label>
-					<div class="col-sm-3">
-						<input class="form-control" id="inputEmail" type="email"
-							placeholder="공람자">
+							placeholder="거래처">
 					</div>
 				</div>
 				<div class="form-group">

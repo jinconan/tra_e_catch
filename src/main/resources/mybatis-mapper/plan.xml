@@ -7,7 +7,7 @@
 	SELECT *
 	FROM (
 		 SELECT rownum rno
-		    ,prop_no as "prop_no"
+		    ,prop_no
 		    ,content as "title"
 		    ,name as "emp_name"
 		    ,up_date as "up_date"
@@ -32,6 +32,9 @@
 	    <where>
 	    	<if test="pageNo != null">
 	    		rno between (#{pageNo}-1)*10+1 and (#{pageNo})*10	
+	    	</if>
+	    	<if test="propNo != null">
+	    		AND propNo = #{propNo}
 	    	</if>
 	    	<choose>
 				<when

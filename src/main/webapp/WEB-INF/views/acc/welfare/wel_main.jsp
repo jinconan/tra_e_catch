@@ -20,57 +20,68 @@
 	margin-top: 30px;
 }
 </style>
+<%
+	String datas = "";
+	if(request.getAttribute("datas")!=null){	
+		datas = (String)request.getAttribute("datas");
+	}
+	int counts = (Integer)request.getAttribute("counts");
+	int list = (((counts-1)/10)*10)+1;
+	int num = (counts%10);
+%>
 </head>
 <script type="text/javascript">
 		$(function() {
 			$('#p_table').bootstrapTable({
-				url:'<%=request.getContextPath()%>/accR/slip/b'				
+				url:'<%=request.getContextPath()%>/accR/slip/b/<%=counts%><%=datas%>'				
 			});
+			var base = $('#liid'+<%=num%>);
+			base.addClass('active');
 		});
-	</script>
+</script>
 <body>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 	<div class="container">
 			<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 		<div class="col-sm-10">
-			<form class="form-signin">
-				<h2 class="form-signin-heading">복지지원비</h2>
+			<form class="form-signin" action="<%=request.getContextPath()%>/acc/wel_list" method="POST">
+				<h2 class="form-signin-heading">팀 운영비</h2>
 				<div class="row" Style="margin-bottom: 5px">
 					<div class="col-xs-1">
 						<h5>날짜:</h5>
 					</div>
 					<div class="col-xs-2 los">
 						<input class="form-control" id="fromDate" type="text"
-							placeholder="시작날짜">
+							placeholder="시작날짜" name="std">
 					</div>
 					<div class="col-xs-2 los">
 						<input class="form-control" id="toDate" type="text"
-							placeholder="종료날짜">
+							placeholder="종료날짜" name="dtd">
 					</div>
 					<div class="col-xs-1">
 						<h5>금액:</h5>
 					</div>
 					<div class="col-xs-2 los">
-						<input class="form-control" type="text" placeholder="시작금액">
+						<input class="form-control" type="text" placeholder="시작금액" name="spay" id="spay">
 					</div>
 					<div class="col-xs-2 los">
-						<input class="form-control" type="text" placeholder="종료금액">
+						<input class="form-control" type="text" placeholder="종료금액" name="dpay" id="dpay">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-xs-3">
-						<select class="form-control">
+						<select class="form-control" name="opt">
+							<option>결제타입</option>
 							<option>현영</option>
 							<option>카드</option>
 							<option>세계</option>
-							<option>예산</option>
 						</select>
 					</div>
 					<div class="col-xs-6">
-						<input type="text" class="form-control" placeholder="Text input">
+						<input type="text" class="form-control" placeholder="Text input" name="intxt" id="intxt">
 					</div>
 					<div class="col-xs-2">
-						<input type="button" class="form-control" value="검색">
+						<input type="submit" class="form-control" value="검색">
 					</div>
 				</div>
 				<div class="row">
@@ -79,7 +90,7 @@
 							<tr>
 								<th data-field="번호">번호</th>
 								<th data-field="일자">날짜</th>
-								<th data-field="거래처">거래처</th>
+								<th data-field="거래처">사용한내역</th>
 								<th data-field="비용">비용</th>
 								<th data-field="고정자산">고정자산</th>
 								<th data-field="증빙">증빙</th>
@@ -94,14 +105,21 @@
 					<div class="col-xs-10 .col-md-10">
 						<nav>
 							<ul class="pagination">
-								<li class="disabled"><a href="#" aria-label="Previous"><span
+								<li><a href="<%=request.getContextPath()%>/acc/wel/1" aria-label="Previous"><span
 										aria-hidden="true"> << </span></a></li>
-								<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">2 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">3 <span class="sr-only">(current)</span></a></li>
-								<li><a href="#">4 <span class="sr-only">(current)</span></a></li>
-								<li class="disabled"><a href="#" aria-label="Previous"><span
-										aria-hidden="true"> >> </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/acc/wel/<%=list-1%><%=datas%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
+								<li id="liid1"><a href="<%=request.getContextPath()%>/acc/wel/<%=list%><%=datas%>"><%=list%><span class="sr-only">(current)</span></a></li>
+								<li id="liid2"><a href="<%=request.getContextPath()%>/acc/wel/<%=list+1%><%=datas%>"><%=list+1%><span class="sr-only">(current)</span></a></li>
+								<li id="liid3"><a href="<%=request.getContextPath()%>/acc/wel/<%=list+2%><%=datas%>"><%=list+2%><span class="sr-only">(current)</span></a></li>
+								<li id="liid4"><a href="<%=request.getContextPath()%>/acc/wel/<%=list+3%><%=datas%>"><%=list+3%><span class="sr-only">(current)</span></a></li>
+								<li id="liid5"><a href="<%=request.getContextPath()%>/acc/wel/<%=list+4%><%=datas%>"><%=list+4%><span class="sr-only">(current)</span></a></li>
+								<li id="liid6"><a href="<%=request.getContextPath()%>/acc/wel/<%=list+5%><%=datas%>"><%=list+5%><span class="sr-only">(current)</span></a></li>
+								<li id="liid7"><a href="<%=request.getContextPath()%>/acc/wel/<%=list+6%><%=datas%>"><%=list+6%><span class="sr-only">(current)</span></a></li>
+								<li id="liid8"><a href="<%=request.getContextPath()%>/acc/wel/<%=list+7%><%=datas%>"><%=list+7%><span class="sr-only">(current)</span></a></li>
+								<li id="liid9"><a href="<%=request.getContextPath()%>/acc/wel/<%=list+8%><%=datas%>"><%=list+8%><span class="sr-only">(current)</span></a></li>
+								<li id="liid0"><a href="<%=request.getContextPath()%>/acc/wel/<%=list+9%><%=datas%>"><%=list+9%> <span class="sr-only">(current)</span></a></li>
+								<li><a href="<%=request.getContextPath()%>/acc/wel/<%=list+10%><%=datas%>" aria-label="Previous"><span aria-hidden="true"> > </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/acc/wel/<%=list+100%><%=datas%>" aria-label="Previous"><span aria-hidden="true"> >> </span></a></li>
 							</ul>
 						</nav>
 					</div>

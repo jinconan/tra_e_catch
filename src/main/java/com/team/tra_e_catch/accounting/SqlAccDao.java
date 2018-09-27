@@ -21,10 +21,10 @@ public class SqlAccDao {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
 	
-	public List<Map<String, Object>> Team_Dao(int counts) {
+	public List<Map<String, Object>> Team_Dao(int counst) {
 		logger.info("Team_Dao진입");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("counst", counts);
+		map.put("counst", counst);
 		logger.info(map);
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		sqlSessionTemplate.selectList("timecell",map);
@@ -32,11 +32,14 @@ public class SqlAccDao {
 		return list;
 	}
 	
+	public int Team_size() {
+		logger.info("Team_size진입");
+		return sqlSessionTemplate.selectOne("stertcell");
+	}
 	
-	public List<Map<String, Object>> b_Team_Dao() {
-		logger.info("b_Team_Dao진입");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("counst",1);
+	
+	public List<Map<String, Object>> b_Team_Dao(Map<String, Object> map) {
+		logger.info("t_Team_Dao진입");
 		logger.info(map);
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		list = sqlSessionTemplate.selectList("b_timecell",map);
@@ -44,10 +47,8 @@ public class SqlAccDao {
 	}
 	
 	
-	public List<Map<String, Object>> t_Team_Dao() {
+	public List<Map<String, Object>> t_Team_Dao(Map<String, Object> map) {
 		logger.info("t_Team_Dao진입");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("counst",1);
 		logger.info(map);
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		list = sqlSessionTemplate.selectList("t_timecell",map);

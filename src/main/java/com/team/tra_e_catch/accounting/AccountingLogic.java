@@ -1,8 +1,11 @@
 package com.team.tra_e_catch.accounting;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,25 +38,33 @@ public class AccountingLogic {
 	 * 비고 : x
 	 */
 	
-	public List<Map<String, Object>> teamR_Logic(int counts) {
+	public List<Map<String, Object>> teamR_Logic(int counst) {
 		logger.info("TeamR_Logic진입");
 		List<Map<String, Object>> s = null;
-		s = sqlAccDao.Team_Dao(counts);
+		s = sqlAccDao.Team_Dao(counst);
 		return s;
 	}
 	
-	public List<Map<String, Object>> t_teamR_Logic() {
+	public List<Map<String, Object>> t_teamR_Logic(int counst,HttpServletRequest res) {
 		logger.info("t_TeamR_Logic진입");
 		List<Map<String, Object>> s = null;
-		s = sqlAccDao.t_Team_Dao();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("counst", counst);
+		Arrrtd arr = new Arrrtd();
+		arr.initDate(res,map);
+		s = sqlAccDao.t_Team_Dao(map);
 		gbrun(s);
 		return s;
 	}
 	
-	public List<Map<String, Object>> b_teamR_Logic() {
+	public List<Map<String, Object>> b_teamR_Logic(int counst,HttpServletRequest res) {
 		logger.info("b_TeamR_Logic진입");
 		List<Map<String, Object>> s = null;
-		s = sqlAccDao.b_Team_Dao();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("counst", counst);
+		Arrrtd arr = new Arrrtd();
+		arr.initDate(res,map);
+		s = sqlAccDao.b_Team_Dao(map);
 		gbrun(s);
 		return s;
 	}

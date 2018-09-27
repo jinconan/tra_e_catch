@@ -3,6 +3,7 @@ package com.team.tra_e_catch.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team.tra_e_catch.accounting.AccountingLogic;
+import com.team.tra_e_catch.accounting.Arrrtd;
 
 
 /*
@@ -72,15 +74,93 @@ public class AccountingController {
 	 * 용도 : 팀 운영비 관리 페이지로 이동
 	 * 비고 : x
 	 */
-	@RequestMapping(value = "/team", method = RequestMethod.GET)
-	public String team_main(Model mod,@RequestParam Map<String, Object> pMap) {
+	@RequestMapping(value = "/team/{counts}", method = RequestMethod.GET)
+	public String team_main(Model mod,@RequestParam Map<String, Object> pMap,@PathVariable int counts,HttpServletRequest res) {
 		logger.info("team진입");
-		String acc = accountingLogic.team_Logic();
 		mod.addAttribute("curSubMenu", "팀운영비 관리");
 		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("counts", counts);		
+		Arrrtd arr = new Arrrtd();
+		mod.addAttribute("datas",arr.outDate(res));
 		return "acc/teamexp/team_main";
 	}
 	
+	/*
+	 * init메서드 : team/team_main.jsp
+	 * out메서드 : acc/teamexp/team_main
+	 * 용도 : 팀 운영비 관리 검색시 페이지 이동
+	 * 비고 : x
+	 */
+	@RequestMapping(value = "/team_list", method = RequestMethod.POST)
+	public String team_list(Model mod,@RequestParam Map<String, Object> pMap,@RequestParam Map<String,String> map) {
+		logger.info("team_list진입");
+		logger.info(map);
+		String s = "?y=0";
+		if (map.get("std").length()>1) {
+			s += "&std="+map.get("std").substring(0, 11);
+		}
+		if (map.get("dtd").length()>1) {
+			s += "&dtd=" + map.get("dtd").substring(0, 11);	
+		}	
+		if (map.get("spay").length()>1) {
+			s += "&spay=" + map.get("spay");
+		}
+		if (map.get("dpay").length()>1) {
+			s += "&dpay=" + map.get("dpay");
+		} 
+		if (map.get("opt").length()==2) {
+			s += "&opt=" + map.get("opt");
+		} 
+		if (map.get("intxt").length()>1) {
+			s += "&intxt=" + map.get("intxt");
+		}		
+		s = s.replaceAll(" ", "");
+		mod.addAttribute("curSubMenu", "팀운영비 관리");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("counts",1);
+		mod.addAttribute("datas",s);
+		System.out.println(s);
+		return "acc/teamexp/team_main";
+	}
+	
+	
+	/*
+	 * init메서드 : team/team_main.jsp
+	 * out메서드 : acc/teamexp/team_main
+	 * 용도 : 팀 운영비 관리 검색시 페이지 이동
+	 * 비고 : x
+	 */
+	@RequestMapping(value = "/wel_list", method = RequestMethod.POST)
+	public String wel_list(Model mod,@RequestParam Map<String, Object> pMap,@RequestParam Map<String,String> map) {
+		logger.info("wel_list진입");
+		logger.info(map);
+		String s = "?y=0";
+		if (map.get("std").length()>1) {
+			s += "&std="+map.get("std").substring(0, 11);
+		}
+		if (map.get("dtd").length()>1) {
+			s += "&dtd=" + map.get("dtd").substring(0, 11);	
+		}	
+		if (map.get("spay").length()>1) {
+			s += "&spay=" + map.get("spay");
+		}
+		if (map.get("dpay").length()>1) {
+			s += "&dpay=" + map.get("dpay");
+		} 
+		if (map.get("opt").length()==2) {
+			s += "&opt=" + map.get("opt");
+		} 
+		if (map.get("intxt").length()>1) {
+			s += "&intxt=" + map.get("intxt");
+		}		
+		s = s.replaceAll(" ", "");
+		mod.addAttribute("curSubMenu", "복지지원비 조회");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("counts",1);
+		mod.addAttribute("datas",s);
+		System.out.println(s);
+		return "acc/welfare/wel_main";
+	}
 	
 	
 	/*
@@ -89,11 +169,14 @@ public class AccountingController {
 	 * 용도 : 복지 지원비 조회로 이동
 	 * 비고 : x
 	 */
-	@RequestMapping(value = "/wel", method = RequestMethod.GET)
-	public String wel_main(Model mod,@RequestParam Map<String, Object> pMap) {
+	@RequestMapping(value = "/wel/{counts}", method = RequestMethod.GET)
+	public String wel_main(Model mod,@RequestParam Map<String,String> map,@PathVariable int counts,HttpServletRequest res) {
 		logger.info("wel진입");
 		mod.addAttribute("curSubMenu", "복지지원비 조회");
 		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("counts", counts);	
+		Arrrtd arr = new Arrrtd();
+		mod.addAttribute("datas",arr.outDate(res));
 		return "acc/welfare/wel_main";
 	}
 	

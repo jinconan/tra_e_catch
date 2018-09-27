@@ -30,8 +30,7 @@
 		$(function() {
 			$('#p_table').bootstrapTable({
 				url:'<%=request.getContextPath()%>/accR/slip/<%=counts%>'				
-			});
-			
+			});		
 			var base = $('#liid'+<%=num%>);
 			base.addClass('active');
 		});

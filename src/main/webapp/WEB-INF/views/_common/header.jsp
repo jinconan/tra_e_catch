@@ -68,8 +68,8 @@
 					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<%=contextPath%>/acc/slip/1">전표처리 관리</a></li>
-						<li><a href="<%=contextPath%>/acc/team">팀운영비 관리</a></li>
-						<li><a href="<%=contextPath%>/acc/wel">복지지원비 조회</a></li>
+						<li><a href="<%=contextPath%>/acc/team/1">팀운영비 관리</a></li>
+						<li><a href="<%=contextPath%>/acc/wel/1">복지지원비 조회</a></li>
 					</ul>
 				</li>
 			</ul>
