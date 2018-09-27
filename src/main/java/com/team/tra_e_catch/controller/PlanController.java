@@ -1,8 +1,13 @@
 package com.team.tra_e_catch.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 import com.team.tra_e_catch.plan.PlanLogic;
 
 @Controller
@@ -35,10 +40,24 @@ public class PlanController {
 	 */
 	@RequestMapping(value="/plan/view/propList", method=RequestMethod.GET)
 	public String viewPropList(Model mod
-			, @RequestParam(name="pageNo", defaultValue="1") int pageNo) {
+			, @RequestParam(name="pageNo", defaultValue="1") int pageNo
+			, @RequestParam(name="searchColumn", required=false) String searchColumn
+			, @RequestParam(name="searchValue", required=false) String searchValue) {
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
+		
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		pMap.put("pageNo", pageNo);
+		mod.addAttribute("pageNo", pageNo);
+		if(searchColumn!=null) {
+			pMap.put("searchColumn", searchColumn);
+			pMap.put("searchValue", searchValue);
+		}
+		Map<String, Object> logicResult = planLogic.getPropList(pMap);
+		
+		mod.addAttribute("propList", logicResult.get("propList"));
+		mod.addAttribute("numOfPropPage",logicResult.get("numOfPropPage"));
 		
 		return "plan/prop/propList";
 	}
@@ -49,7 +68,7 @@ public class PlanController {
 	 * @return plan/prop/propInsert
 	 */
 	@RequestMapping(value="/plan/view/propInsert")
-	public String viewInsertProp(Model mod) {
+	public String viewPropInsert(Model mod) {
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "기획서 작성");
 		mod.addAttribute("subMenuList", subMenuList);
@@ -63,8 +82,9 @@ public class PlanController {
 	 * @return plan/prop/propUpdate
 	 */
 	@RequestMapping(value="/plan/view/propUpdate")
-	public String viewUpdateProp(Model mod
+	public String viewPropUpdate(Model mod
 			, @RequestParam(name="propNo", required=true) int propNo) {
+		logger.info("viewPropUpdate");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
@@ -72,22 +92,45 @@ public class PlanController {
 		return "plan/prop/propUpdate";
 	}
 	
-	
-	/**
-	 * 기획서 상세페이지 요청
-	 * @param mod
-	 * @param propNo
-	 * @return plan/prop/propDetail
-	 */
-	@RequestMapping(value="/plan/view/propDetail")
-	public String viewProp(Model mod
-			, @RequestParam("propNo") int propNo) {
-		logger.info("viewProp()");
-		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
-		mod.addAttribute("subMenuList", subMenuList);
-		mod.addAttribute("propNo", propNo);
-		return "plan/prop/propDetail";
+	@RequestMapping(value="/plan/propInsert", method=RequestMethod.POST,headers = ("content-type=multipart/*"))
+	public String propInsert(HttpServletRequest req
+			 ,@RequestParam("propTitle") String propTitle
+			,@RequestParam(value="propFile", required=false) MultipartFile propFile) {
+		
+		String fileRepo = "E:\\files\\";
+		logger.info("propInsert");
+		HttpSession session = req.getSession();
+		Object emp_no = session.getAttribute("emp_no");
+		//아직 세션 구현 안했으니 테스트용으로 강희복
+		if(emp_no == null)
+			emp_no = 1;
+		
+		Map<String, Object> pMap = new HashMap<String,Object>();
+		pMap.put("emp_no",emp_no);
+		pMap.put("propTitle", propTitle);
+		pMap.put("propFile", propFile.getOriginalFilename());
+
+		//result : 인서트된 문서의 PK값
+		int result = planLogic.insertProp(pMap);
+		
+		if(propFile.isEmpty() == false) {
+			String filename = propFile.getOriginalFilename();
+			File directory = new File(fileRepo+result);
+			File file = new File(fileRepo+result+"\\"+filename);
+			directory.mkdir();
+			
+			try {
+				propFile.transferTo(file);
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return "redirect:/plan/view/propList";
 	}
 	
 	
@@ -148,7 +191,7 @@ public class PlanController {
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("pageNo", pageNo);
 		pMap.put("pstatus_name", pstatus_name);
-		
+//		pMap.put("emp_no", 1);
 		if(searchColumn != null) {
 			pMap.put("searchColumn",  searchColumn);
 			pMap.put("searchValue", searchValue);

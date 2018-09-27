@@ -15,7 +15,24 @@ public class PlanLogic {
 
 	@Autowired
 	private SqlPlanDao sqlPlanDao;
+	
+	public Map<String, Object> getPropList(Map<String, Object> pMap) {
+		logger.info("getPropList");
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Map<String, Object>> propList = sqlPlanDao.getPropList(pMap);
+		int numOfPropPage = sqlPlanDao.getNumOfPropPage(pMap);
+		
+		result.put("propList", propList);
+		result.put("numOfPropPage", numOfPropPage);
+		
+		return result;
+	}
 
+	public int insertProp(Map<String, Object> pMap) {
+		logger.info("insertProp");
+		int result = sqlPlanDao.insertProp(pMap);
+		return result;
+	}
 	/**
 	 * 프로젝트 리스트 페이지에서 나타나는 프로젝트들을 구하는 메소드
 	 * @param pMap
@@ -247,4 +264,8 @@ public class PlanLogic {
 		logger.info("getJsonNotProjMemberList");
 		return sqlPlanDao.getJsonNotProjMemberList(projNo);
 	}
+
+	
+
+	
 }

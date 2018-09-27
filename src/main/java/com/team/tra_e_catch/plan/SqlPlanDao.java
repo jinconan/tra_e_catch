@@ -5,18 +5,56 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.slf4j.LoggerFactory;
 
 public class SqlPlanDao {
-//	Logger logger = Logger.getLogger(SqlPlanDao.class);
-	org.slf4j.Logger logger = LoggerFactory.getLogger(SqlPlanDao.class);
+	Logger logger = Logger.getLogger(SqlPlanDao.class);
 	private SqlSessionTemplate sqlSessionTemplate = null;
 
 	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
 
+	public List<Map<String, Object>> getPropList(Map<String, Object> pMap) {
+		logger.info("getPropList() 호출");
+		List<Map<String, Object>> propList = null;	
+		
+		try {
+			propList = sqlSessionTemplate.selectList(
+					"mybatis-mapper.planMapper.getPropList", pMap);
+			logger.info("리스트 수 : " + propList.size());
+		} catch(Exception e) {
+			logger.error(e.toString());
+			propList = new ArrayList<Map<String,Object>>();
+		}
+		return propList;
+	}
+	
+	
+	public int getNumOfPropPage(Map<String, Object> pMap) {
+		logger.info("getNumOfPropPage() 호출");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.selectOne("mybatis-mapper.planMapper.getNumOfPropPage",pMap);
+			logger.info("페이지 수 : " + result);
+		} catch (Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+	
+	public int insertProp(Map<String, Object> pMap) {
+		logger.info("insertProp()");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.insert("mybatis-mapper.planMapper.insertProp", pMap);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+	
 	/**
 	 * 프로젝트 리스트 얻는 메소드
 	 * @param pMap
@@ -215,6 +253,12 @@ public class SqlPlanDao {
 		}
 		return result;
 	}
+
+	
+
+	
+
+	
 
 
 	

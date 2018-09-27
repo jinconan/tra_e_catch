@@ -23,7 +23,7 @@
     	<map>
 			<entry key="sm_name" value="프로젝트 등록" />
 			<entry key="sm_url" value="/plan/view/projInsert" />
-		</map>    	
+		</map>
     </util:list>
     
     <!-- 프로젝트 내용 서브메뉴 -->

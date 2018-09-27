@@ -1,18 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	List<Map<String,Object>> propList = (request.getAttribute("propList")!= null)?
+			(List<Map<String,Object>>)request.getAttribute("propList"):null;
+	int numOfPropPage = (request.getAttribute("numOfPropPage")!=null)?
+			(Integer)request.getAttribute("numOfPropPage"):null;
+			
+	int							pageNo			= (Integer) request.getAttribute("pageNo");
+	String 						searchColumn 	= (request.getAttribute("searchColumn") != null) ? (String)request.getAttribute("searchColumn") : null;
+	String 						searchValue 	= (request.getAttribute("searchValue")!=null) ? (String)request.getAttribute("searchValue") : null;
+	String 						searchParams 	= (searchColumn!=null) ? "&searchColumn="+searchColumn+"&searchValue="+searchValue : "";
+			
+	int 						pageGroup 		= (int)Math.ceil(pageNo/5.0);
+	int 						maxPageGroup 	= (int)Math.ceil(numOfPropPage/5.0);
+			
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>기획서 리스트</title>
+<title>트라E캐치 기획서 리스트</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
-	$(document).ready(function() {
-		$(".tr_prop").click(function() {
-			var propNo = $(this).find("td")[0].innerText;
-			location.href="<%=request.getContextPath()%>/plan/view/propDetail?propNo="+propNo;
-		})
-	})
+$(function() {
+	var $downloadIcon = $("i.propFile");
 	
+	//파일 아이콘 클릭시 파일 다운로드 처리할 부분.
+	$downloadIcon.click(function(event) {
+		var row = $(this).closest("tr");
+		console.log(row.find("td.propPath").eq(0).text())
+	})
+})
 </script>
 </head>
 <body>
@@ -36,82 +53,109 @@
 							<th width="50%">제목</th>
 							<th width="20%">작성자</th>
 							<th width="15%">작성일자</th>
-							<th width="5%">
-								<!-- 파일 다운로드URL 아이콘자리 -->
-							</th>
+							<th style="display:none;">링크</th>
+							<th width="5%">첨부</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="tr_prop">
-							<td>1</td>
-							<td>1빠</td>
-							<td>견자단</td>
-							<td>2015-09-30</td>
-							<td></td>
+						<%
+						if(propList == null || propList.size() == 0) {
+						%>
+						<tr>
+							<td colspan="6" align="center">불러오는데 실패했습니다.</td>
 						</tr>
-						<tr class="tr_prop">
-							<td>2</td>
-							<td>2빠</td>
-							<td>홍금보</td>
-							<td>2016-09-30</td>
+						<%	
+						} else {
+							for(Map<String,Object> prop:propList) {
+						%>
+						<tr>
+							<td class="propNo"><%=prop.get("prop_no") %></td>
+							<td class="propTitle"><%=prop.get("title") %></td>
+							<td class="propWriter"><%=prop.get("emp_name") %></td>
+							<td class="propDate"><%=prop.get("up_date") %></td>
+							<%
+								if(true){
+							%>
+							<td class="propPath" style="display:none;"><%=prop.get("path") %></td>
+							<td><i class="propFile glyphicon glyphicon-download-alt"></i></td>	
+							<%									
+								} else {
+							%>
+							<td style="display:none;"></td>
 							<td></td>
+							<%
+								}
+							%>
 						</tr>
-						<tr class="tr_prop">
-							<td>3</td>
-							<td>3빠</td>
-							<td>주성치</td>
-							<td>2015-09-30</td>
-							<td></td>
-						</tr>
-						<tr class="tr_prop">
-							<td>4</td>
-							<td>4빠</td>
-							<td>이연걸</td>
-							<td>2015-09-30</td>
-							<td></td>
-						</tr>
-						<tr class="tr_prop">
-							<td>5</td>
-							<td>5빠</td>
-							<td>재키찬</td>
-							<td>2016-09-30</td>
-							<td></td>
-						</tr>
-						<tr class="tr_prop">
-							<td>6</td>
-							<td>6빠</td>
-							<td>이소룡</td>
-							<td>2015-09-30</td>
-							<td></td>
-						</tr>
+						<%
+							}
+						}
+						%>
 					</tbody>
 				</table>
 	
 				<!-- 페이지네이션 -->
 				<nav class="text-center">
 					<ul class="pagination">
-						<li class="disabled"><a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						</a></li>
-						<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-						</a></li>
+					<%
+						if(pageGroup <=1) {
+					%>
+						<li class="disabled">
+							<a href='#' aria-label='Previous'> <span aria-hidden='true'>&laquo;</span></a>
+						</li>
+					<%		
+						} else {
+					%>
+						<li>
+							<a href="propList?pageNo=<%=(pageGroup-1)*5 %>" aria-label="Previous"> 
+							<span aria-hidden='true'>&laquo;</span></a>
+						</li>
+					<%
+						}
+							
+						for(int i = (pageGroup-1)*5 + 1 ;i<=Math.min(pageGroup*5,numOfPropPage);i++) {
+							if(pageNo == i) {
+					%>
+							<li class="active">
+					<%
+							} else {
+					%>
+							<li>
+					<%
+							}
+							
+					%>
+							<a href="propList?pageNo=<%=i %><%=searchParams%>"><%=i %></a></li>
+					<%
+						}						
+						if(pageGroup >= maxPageGroup) {
+					%>
+						<li class="disabled">
+							<a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+							</a></li>
+					<%		
+						} else {
+					%>
+						<li>
+							<a href="propList?pageNo=<%=pageGroup*5 +1%>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					<%
+						}
+					%>
 					</ul>
 				</nav>
 	
 				<!-- 검색창 -->
 				<form class="form-inline text-center">
 					<div class="form-group">
-						<select class="form-control" id="searchPropColumn">
-							<option>제목</option>
-							<option>작성자</option>
+						<select class="form-control" id="searchColumn">
+							<option value="propTitle">제목</option>
+							<option value="propWriter">작성자</option>
 						</select> 
-						<label class="sr-only" for="searchProp">검색창</label> 
-						<input type="text" class="form-control" id="searchProp" placeholder="검색">
-						<button type="submit" class="btn btn-default">검색</button>
+						<label class="sr-only" for="searchValue">검색창</label> 
+						<input type="text" class="form-control" id="searchValue" placeholder="검색">
+						<button class="btn btn-default">검색</button>
 					</div>
 				</form>
 			</div>
