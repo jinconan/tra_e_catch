@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.personnelMapper">
+<select id="getCertList" parameterType="map" resultType="map">
+select * from certlist where emp_no = 84
+</select>
 <select id="getAttdList" parameterType="int" resultType="map">
 	<!-- select * from comchk where emp_no = 1 and rownum<50 -->
 	<!-- emp_no={사원번호} -->
@@ -13,11 +16,10 @@
 </select>
 <!-- 개인신상정보 -->
 <select id="getIndivList" parameterType="map" resultType="map">
-<![CDATA[
 
-select * from v_emp where emp_no = 84
+select * from v_emp where emp_no = 84 <!-- 로그인했을때 들어있는정보. -->
 
-]]>
+
 </select>
 
 
@@ -27,13 +29,7 @@ select * from v_emp where emp_no = 84
 <select id="setSerList" statementType="CALLABLE" parameterType="hashmap">
 
   {CALL proc_serv_write(273,#{e_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{w_content, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{e_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{pm_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{cos_type1, mode=OUT, jdbcType=VARCHAR, javaType=java.sql.ResultSet, resultMap=cos_type1})}
-  <!-- System.out.print(pMap.get("w_content"));
-		System.out.print(pMap.get("e_content"));
-		System.out.print(pMap.get("pm_content"));
-		System.out.print(pMap.get("emp_name"));
-		
-		System.out.print("넌 뭐니 : "+pMap.get("e_list"));//셀렉된 사람의 이름이 나오네..?
-		(p_writer,   p_emp_name,   w_content,   e_content,   pm_content, msg out varchar2)-->
+
 
 </select>
 
@@ -48,19 +44,15 @@ select * from v_emp where emp_no = 84
 </select>
 <select id="getTeamList" parameterType="map" resultType="map">
 
-<![CDATA[
 select * from v_emp where team_no = 4
 
-
-]]>
 
 </select>
 <select id="getEmpList" parameterType="map" resultType="map">
 
-<![CDATA[
 	select name,hire_date,lev_no,dept_no,loc_no,birthday,email,team_no
       from employee 
-]]>
+
 <where>
 <!-- <if test="dept_no != null">
 	and dept_no = #{dept_no}

@@ -32,8 +32,8 @@ public class PersonnelController {
 	 */
 	private static final Logger logger = Logger.getLogger(PersonnelController.class);
 	private final ApplicationContext context = new ClassPathXmlApplicationContext("submenu/personnel-submenu.xml");
-
-////////////////////////////////김훈태 작성///////////////////////////////////////
+	
+	////////////////////////////////김훈태 작성///////////////////////////////////////
 	// 급여관리
 	@RequestMapping(value = "/salary/{counts}", method = RequestMethod.GET)
 	public String viewSalary(@RequestParam Map<String, Object> pMap, Model mod, @PathVariable int counts) {
@@ -46,11 +46,12 @@ public class PersonnelController {
 	}
 
 	// 출퇴근관리
-	@RequestMapping(value = "/attd/{counts}", method = RequestMethod.GET)
+	@RequestMapping(value = "/attd/{counts}")
 	public String viewAttd(@RequestParam Map<String, Object> pMap, Model mod, @PathVariable int counts) {
 		logger.info("viewAttd호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-attsub");// 근태 관련 서브메뉴
 																											// 호출
+		System.out.println("사번은 : "+pMap.get("empno"));
 		mod.addAttribute("curSubMenu", "출퇴근관리");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/attd/attd_attenList";
@@ -113,13 +114,17 @@ public class PersonnelController {
 		return "per/cert/cert_mainList";
 
 	}
-
-	// 증명서 출력기록 페이지
 	@RequestMapping(value = "/cert/certprint", method = RequestMethod.POST)
-	public String certPrintList(@RequestParam Map<String, Object> pMap, Model mod) {
-		logger.info("certPrintList호출");
+	public String certPrint(@RequestParam Map<String, Object> pMap, Model mod) {
+		logger.info("certList호출");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-certsub");// 증명서 관리
+																											// 서브메뉴
+		mod.addAttribute("curSubMenu", "증명서발급");
+		mod.addAttribute("subMenuList", subMenuList);
 		return "per/cert/cert_printList";
+
 	}
+
 
 	// 재직증명서 양식 페이지
 	@RequestMapping(value = "/cert/certform", method = RequestMethod.POST)

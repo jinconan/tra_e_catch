@@ -73,8 +73,15 @@ public class PersonnelREST {
 		logger.info(teamList);
 		return teamList;
 	}
-	
-	
+	//증명서 발급 내역
+	@RequestMapping(value = "certlist")
+	public List<Map<String, Object>> certlist(@RequestParam Map<String, Object> pMap) {
+		logger.info(pMap);
+		List<Map<String, Object>> getCertlist = null;
+		getCertlist = personnelLogic.getCertlist(pMap);
+		logger.info(getCertlist);
+		return getCertlist;
+	}
 	@RequestMapping(value = "empList")
 	public List<Map<String, Object>> per(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
 		logger.info("Welcome home! The client locale is1");

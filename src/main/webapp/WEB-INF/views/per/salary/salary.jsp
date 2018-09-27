@@ -24,31 +24,16 @@ $(function() {
 });
 
 </script>
-<jsp:include page="/WEB-INF/views/_common/header.jsp" />
+<jsp:include page="/WEB-INF/views/_common/header.jsp" /> <!-- 드롭다운이 안나옴... -->
 
 <div class="container">
 	<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 		<h3><b>급 여 지 급 내 역</b></h3>
 	<div class="col-sm-10">
 		<div class="col-sm-3">
-			<div class="row">
-				<img src="http://thetransformedmale.files.wordpress.com/2011/06/bruce-wayne-armani.jpg" alt="" class="img-rounded img-responsive">
-			</div>
-			<div class="row">
-				<blockquote>
-					<p>WeBack Kim</p>
-					<small><cite>Seoul, Korea <i class="glyphicon glyphicon-map-marker"></i></cite></small>
-				</blockquote>
-			</div>
-			<div class="row">
-				<p>
-					<i class="glyphicon glyphicon-user"></i> 18-111111 <br>
-					 <i class="glyphicon glyphicon-lock"></i> 인사팀<br>
-					 <i class="glyphicon glyphicon-edit"></i> 부장 <br>
-					 <i class="glyphicon glyphicon-calendar"></i> 2018-09-04<br>
-					  <i class="glyphicon glyphicon-time"></i> 0년차
-				</p>
-			</div>
+			<jsp:include page="/WEB-INF/views/per/empinfo.jsp" /><!-- 인사 프로필 공통코드 작성해서 적용했는데 위에있는 헤더 JSP안읽히는데 충돌인건가요?
+			
+			 -->
 		</div>
 
 
