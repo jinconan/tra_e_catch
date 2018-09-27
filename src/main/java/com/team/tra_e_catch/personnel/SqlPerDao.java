@@ -68,5 +68,11 @@ public class SqlPerDao {
 		indivList = sqlSessionTemplate.selectList("getIndivList",pMap);
 		return indivList;
 	}
+	public List<Map<String, Object>> getCertList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> certList = null;
+		certList = sqlSessionTemplate.selectList("getCertList",pMap);
+		return certList;
+	}
 	
 }

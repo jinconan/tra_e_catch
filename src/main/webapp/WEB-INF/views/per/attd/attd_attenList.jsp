@@ -17,14 +17,15 @@
 /* 		var $table = $('#p_table');
 		 */
 		 $(function() {
-			
+/* 			$("#f_empinfo").attr("action","./1");
+			$("#f_empinfo").submit();  */
 			$('#p_table').bootstrapTable({
 				url:'<%=request.getContextPath()%>/perR/attd/<%=counts%>'
 			});
 			var base = $('#liid'+<%=num%>);
 			base.addClass('active');
 			
-			$.ajax({
+			<%-- $.ajax({
 				url:'<%=request.getContextPath()%>/perR/indivemp',
 				type: "json",
 				success: function(data){
@@ -36,7 +37,7 @@
 					$("#hday").append(" "+data[0].HDAY);//입사일자
 					$("#sdate").append(" "+data[0].SDATE);//현재일자
 				}
-			})
+			}) --%>
 	}); 
 		 
 	</script>
@@ -47,37 +48,13 @@
 		<h3>
 			<b>출 결 내 역</b>
 		</h3>
+		
 		<div class="col-sm-10">
+		
 			<div class="col-sm-3">
-				<div class="row">
-					<img src="http://thetransformedmale.files.wordpress.com/2011/06/bruce-wayne-armani.jpg" alt="" class="img-rounded img-responsive">
-				</div>
-				<div class="row">
-					<blockquote>
-						<p id="ename"></p>
-						<small><cite>Seoul, Korea <i class="glyphicon glyphicon-map-marker"></i></cite></small>
-					</blockquote>
-				</div>
-				<div class="row">
-					<p>
-					<!-- 
-					$("#ename").text(data[0].ENAME);//사원이름
-					$("#bday").append(data[0].BDAY);//사원생년월일
-					$("#tname").append(data[0].TNAME);//팀이름
-					$("#clev").append(data[0].CLEV);//직급
-					$("#hday").append(data[0].HDAY);//입사일자
-					$("#sdate").append(data[0].SDATE);//현재일자
-					 -->
-						<i class="glyphicon glyphicon-user" id="empno"></i>
-						<br>
-						<i class="glyphicon glyphicon-lock" id="tname"></i>
-						<br>
-						<i class="glyphicon glyphicon-edit" id="clev"></i>
-						 <br> <i class="glyphicon glyphicon-calendar" id="hday"></i>
-						 </p>
-				</div>
+				<jsp:include page="/WEB-INF/views/per/empinfo.jsp" />
 			</div>
-
+	
 
 			<!-- 무죄 -->
 			<div class="table-responsive col-xs-9">

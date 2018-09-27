@@ -74,5 +74,13 @@ public class PersonnelLogic {
 	}
 
 
+	public List<Map<String, Object>> getCertlist(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> certList = null;
+		certList = sqlPerDao.getCertList(pMap);
+		return certList;
+	}
+
+
 
 }
