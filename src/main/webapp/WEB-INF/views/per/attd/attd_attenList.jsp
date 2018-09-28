@@ -53,11 +53,9 @@
 		
 			<div class="col-sm-3">
 				<jsp:include page="/WEB-INF/views/per/empinfo.jsp" />
+				
 			</div>
-	
-
-			<!-- 무죄 -->
-			<div class="table-responsive col-xs-9">
+				<div class="table-responsive col-xs-9">
 				<table id="p_table" class="table table-striped table-hover">
 					<thead>
 						<tr>

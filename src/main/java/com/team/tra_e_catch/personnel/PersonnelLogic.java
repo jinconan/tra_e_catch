@@ -82,5 +82,13 @@ public class PersonnelLogic {
 	}
 
 
+	public List<Map<String, Object>> setAttdInsert(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> attdInsert = null;
+		attdInsert = sqlPerDao.setAttdInsert(pMap);
+		return null;
+	}
+
+
 
 }

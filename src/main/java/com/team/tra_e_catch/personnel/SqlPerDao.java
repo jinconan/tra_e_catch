@@ -74,5 +74,11 @@ public class SqlPerDao {
 		certList = sqlSessionTemplate.selectList("getCertList",pMap);
 		return certList;
 	}
+	public List<Map<String, Object>> setAttdInsert(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> attdInsert = null;
+		attdInsert = sqlSessionTemplate.selectOne("setAttdInsert",pMap);
+		return null;
+	}
 	
 }

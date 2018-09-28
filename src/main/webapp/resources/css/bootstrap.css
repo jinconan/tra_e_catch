@@ -6350,6 +6350,7 @@ button.close {
   display: none !important;
   visibility: hidden !important;
 }
+
 .affix {
   position: fixed;
 }
