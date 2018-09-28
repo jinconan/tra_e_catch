@@ -75,23 +75,23 @@ public class ProductController {
 		mod.addAttribute("subMenuList", subMenuList);
 		
 		return "prod/prodstat/prodStat";
-	}
+	}	
 	
-/*	========================================================================================================
- *  ========================================================================================================
-	테테테테 스트용 추후 삭제 예정
-	========================================================================================================
-	========================================================================================================
-*/	
-	@RequestMapping(value="/prod/view/prodStat_chart")
-	public String viewProdstat_chart(Model mod, @RequestParam Map<String,Object> pMap) {
-		logger.info("테스트용");
+	@RequestMapping(value="/prod/view/prodStat_moon/{counts}", method = RequestMethod.GET)
+	public String viewProdstat_moon(Model mod,@PathVariable int counts) {
+		logger.info("viewProdstat()"+counts);
+		
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "상품 통계");
 		mod.addAttribute("subMenuList", subMenuList);
-		
-		return "prod/prodstat/prodStat_chart";
-	}
+		mod.addAttribute("counts", counts);	
+		return "prod/prodstat/prodStat_moon";
+	}	
 	
 	@RequestMapping(value="/prod/view/prodTran")
 	public String viewProdTran(Model mod, @RequestParam Map<String,Object> pMap) {

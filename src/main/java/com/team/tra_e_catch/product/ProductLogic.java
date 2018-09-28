@@ -36,5 +36,12 @@ public class ProductLogic {
 
 		return cm.map;
 	}
+
+	public Map<String, Object> chartsR_moon_Logic(int counts) {
+		logger.info("chartsR_moon_Logic¡¯¿‘");
+		Chart_Make cm = new Chart_Make();
+		cm.C_Make(sqlProdDao.chartsR_moon_Dao(counts));
+		return cm.map;
+	}
 	
 }

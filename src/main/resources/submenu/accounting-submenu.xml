@@ -24,11 +24,11 @@
 	</map>
 		<map>
 		<entry key="sm_name" value="팀운영비 관리" />
-		<entry key="sm_url" value="/acc/team" />
+		<entry key="sm_url" value="/acc/team/1" />
 	</map>
 	<map>
 		<entry key="sm_name" value="복지지원비 조회" />
-		<entry key="sm_url" value="/acc/wel" />
+		<entry key="sm_url" value="/acc/wel/1" />
 	</map>
 </util:list>    
 </beans>

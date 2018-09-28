@@ -8,7 +8,10 @@
 	FROM (
 		 SELECT rownum rno
 		    ,prop_no
+<<<<<<< HEAD
 		    ,doc_no as "doc_no"
+=======
+>>>>>>> refs/heads/cw_0928
 		    ,content as "title"
 		    ,name as "emp_name"
 		    ,up_date as "up_date"
@@ -35,7 +38,11 @@
 	    		rno between (#{pageNo}-1)*10+1 and (#{pageNo})*10	
 	    	</if>
 	    	<if test="propNo != null">
+<<<<<<< HEAD
 	    		AND prop_no = #{propNo}
+=======
+	    		AND propNo = #{propNo}
+>>>>>>> refs/heads/cw_0928
 	    	</if>
 	    	<choose>
 				<when

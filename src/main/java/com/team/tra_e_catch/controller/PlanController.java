@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+<<<<<<< HEAD
 import java.math.BigDecimal;
+=======
+>>>>>>> refs/heads/cw_0928
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -158,6 +161,7 @@ public class PlanController {
 	public ResponseEntity<byte[]> propDownload(HttpServletResponse res
 			, @RequestParam("propNo") int propNo
 			, @RequestParam("propFile") String propFile) {
+<<<<<<< HEAD
 		logger.info("propDownload(): propNo : "+ propNo + ", propFile : " + propFile);
 		ResponseEntity<byte[]> entity = null;
 		
@@ -182,6 +186,33 @@ public class PlanController {
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		} catch(Exception e) {
 			logger.error(e.toString());
+=======
+		logger.info("propDownload");
+		ResponseEntity<byte[]> entity = null;
+		
+		String fileRepo = "E:\\files\\";
+		String docNo = null;
+		
+		//제안서 번호로부터 문서 테이블에서의 문서 번호리턴.
+		Map<String,Object> pMap = new HashMap<String, Object>();
+		pMap.put("propNo", propNo);
+		Map<String,Object> rMap = planLogic.getPropList(pMap);
+		List<Map<String,Object>> propList = (List<Map<String,Object>>)rMap.get("propList");
+		
+		if(propList.size() != 0) 
+			docNo = (String)propList.get(0).get("doc_no");
+
+		try(InputStream in = new FileInputStream(fileRepo+docNo+"\\"+propFile);) {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.add("Content-Disposition", "attatchment; filename=\"" + 
+                    new String(propFile.getBytes("UTF-8"), "ISO-8859-1") + 
+                    "\"");
+			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+
+		} catch(Exception e) {
+			e.printStackTrace();
+>>>>>>> refs/heads/cw_0928
 		}
 		
         return entity;

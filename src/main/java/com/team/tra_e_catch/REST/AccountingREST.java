@@ -2,17 +2,19 @@ package com.team.tra_e_catch.REST;
 
 import java.util.*;
 
-
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import com.team.tra_e_catch.accounting.AccountingLogic;
+import com.team.tra_e_catch.accounting.Arrrtd;
 
 
 /*
@@ -46,19 +48,19 @@ public class AccountingREST{
 		return as;
 	}
 	
-	@RequestMapping("slip/t")
-	private List<Map<String, Object>> t_team(Model mod) {
-		logger.info("slieR진입");
-		List<Map<String, Object>> as = accountingLogic.t_teamR_Logic();	
+	@RequestMapping("slip/t/{counts}")
+	private List<Map<String, Object>> t_team(@PathVariable int counts,Model mod,HttpServletRequest res) {
+		logger.info("slieR_t진입");
+		List<Map<String, Object>> as = accountingLogic.t_teamR_Logic(counts,res);	
 		logger.info(as.size());
 		mod.addAttribute("se_sile_list",as.size());
 		return as;
 	}
 	
-	@RequestMapping("slip/b")
-	private List<Map<String, Object>> b_team(Model mod) {
-		logger.info("slieR진입");
-		List<Map<String, Object>> as = accountingLogic.b_teamR_Logic();	
+	@RequestMapping("slip/b/{counts}")
+	private List<Map<String, Object>> b_team(@PathVariable int counts,Model mod,HttpServletRequest res) {
+		logger.info("slieR_b진입");
+		List<Map<String, Object>> as = accountingLogic.b_teamR_Logic(counts,res);	
 		logger.info(as.size());
 		mod.addAttribute("se_sile_list",as.size());
 		return as;

@@ -14,7 +14,27 @@
 	<![CDATA[
 	select 순번,번호,일자,거래처,구분,금액,증빙,첨부자료 from
 	(
-	Select rownum as 순번,번호,substr(일자,1,10) as 일자,적요 as 거래처,구분,금액,증빙,첨부자료 from T_VIEW_SLIPLIST where 분류 = '팀운영비' and 담당자 = 1
+	Select rownum as 순번,번호,substr(일자,1,10) as 일자,적요 as 거래처,구분,금액,증빙,첨부자료 from T_VIEW_SLIPLIST where 분류 = '복지지원비' and 담당자 = 1
+	]]>
+	<if test='std != null'>
+		<![CDATA[and 일자 >#{std}]]>
+	</if>
+	<if test='dtd != null'>
+		<![CDATA[and 일자 <#{dtd}]]>
+	</if>
+	<if test='spay != null'>
+		<![CDATA[and 금액 >#{spay}]]>
+	</if>
+	<if test='dpay != null'>
+		<![CDATA[and 금액 <#{dpay}]]>
+	</if>
+	<if test='opt != null'>
+		<![CDATA[and 증빙 like #{opt}||'%']]>
+	</if>
+	<if test='intxt != null'>
+		<![CDATA[and 적요 like '%'||#{intxt}||'%']]>
+	</if>
+	<![CDATA[
 	)
 	where 순번 between #{counst}*10-9 and #{counst}*10
     ]]>
@@ -24,7 +44,27 @@
 	<![CDATA[
 	select 순번,번호,일자,거래처,구분,금액,증빙,첨부자료 from
 	(
-	Select rownum as 순번,번호,substr(일자,1,10) as 일자,적요 as 거래처,구분,금액,증빙,첨부자료 from T_VIEW_SLIPLIST where 분류 = '복지지원비' and 담당자 = 1
+	Select rownum as 순번,번호,substr(일자,1,10) as 일자,적요 as 거래처,구분,금액,증빙,첨부자료 from T_VIEW_SLIPLIST where 분류 = '팀운영비' and 담당자 = 1
+	]]>
+	<if test='std != null'>
+		<![CDATA[and 일자 >#{std}]]>
+	</if>
+	<if test='dtd != null'>
+		<![CDATA[and 일자 <#{dtd}]]>
+	</if>
+	<if test='spay != null'>
+		<![CDATA[and 금액 >#{spay}]]>
+	</if>
+	<if test='dpay != null'>
+		<![CDATA[and 금액 <#{dpay}]]>
+	</if>
+	<if test='opt != null'>
+		<![CDATA[and 증빙 like #{opt}||'%']]>
+	</if>
+	<if test='intxt != null'>
+		<![CDATA[and 적요 like '%'||#{intxt}||'%']]>
+	</if>
+	<![CDATA[
 	)
 	where 순번 between #{counst}*10-9 and #{counst}*10
     ]]>

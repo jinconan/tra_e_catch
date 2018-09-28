@@ -29,6 +29,7 @@ $(function() {
 		var row = $(this).closest("tr");
 		var propNo = row.find("td.propNo").eq(0).text();
 		var propFile = row.find("td.propFile").eq(0).text();
+<<<<<<< HEAD
 		
 		$formDownload[0].propNo.value = propNo;
 		$formDownload[0].propFile.value = propFile;
@@ -38,6 +39,22 @@ $(function() {
 	});
 	
 	
+=======
+		console.log(propNo+", " + propFile);
+		$.ajax({
+			url:"<%=request.getContextPath()%>/plan/propDownload"
+			,method:"post"
+			,data:"propNo="+propNo+"&propFile="+propFile
+			,success:function(data) {
+				
+			}
+			,error:function(xhr) {
+				console.log("error");
+			}
+			
+		})
+	})
+>>>>>>> refs/heads/cw_0928
 })
 </script>
 </head>
