@@ -11,12 +11,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.tra_e_catch.payment.PaymentLogic;
+import com.team.tra_e_catch.payment.PaymentVO;
 
 @Controller
 @RequestMapping(value = "/pay")
@@ -38,6 +40,20 @@ public class PaymentController {
 		return "pay/epay/epayjson";
 
 	}
+	@RequestMapping("epayInsert")
+	public String epayInsert(@ModelAttribute PaymentVO pVO)
+	{	
+		//DB 연동 처리
+		int result = 0;
+		pVO.setEmp_no(pVO.getEmp_no());
+		pVO.setDtype_no(pVO.getDtype_no());
+		pVO.setPath(pVO.getPath());
+		pVO.setContent(pVO.getContent());
+		pVO.setDoc_no(pVO.getDoc_no());
+		pVO.setUp_date(pVO.getUp_date());
+		result = paymentLogic.epayInsert(pVO);
+		return "forward:draft.jsp";
+	}
 
 	//////////////////////////// 기안 ///////////////////////////////
 	// 기안 문서 작성
@@ -49,6 +65,7 @@ public class PaymentController {
 		mod.addAttribute("subMenuList", subMenuList);
 		return "pay/epay/epayview";
 	}
+	
 
 	// 작업지시서 작성
 	@RequestMapping(value = "/epay/jobInst", method = RequestMethod.GET)
