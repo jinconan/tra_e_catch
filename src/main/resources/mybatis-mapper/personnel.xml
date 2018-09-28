@@ -22,7 +22,12 @@ select * from v_emp where emp_no = 84 <!-- 로그인했을때 들어있는정보
 
 </select>
 
+<select id="setAttdInsert" statementType="CALLABLE" parameterType="hashmap">
 
+  {CALL proc_comchk(84,#{attSelect, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR})}
+
+
+</select>
 
  <resultMap id="cos_type1" type="java.util.HashMap"></resultMap>
 

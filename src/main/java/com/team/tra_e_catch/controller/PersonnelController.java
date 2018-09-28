@@ -176,6 +176,16 @@ public class PersonnelController {
 		return "per/rating/perrating";
 	}
 
+	
+	@RequestMapping(value = "/attdinsert")
+	public String attdInsert(@RequestParam Map<String, Object> pMap, Model mod) {
+		logger.info("attdInsert호출");
+		List<Map<String, Object>> attdinfo = null;
+		attdinfo = personnelLogic.setAttdInsert(pMap);
+		
+		return "home";
+	}
+
 ////////////////////////////////김훈태 작성 끝 ///////////////////////////////////////		
 
 	// 사원명부
@@ -185,6 +195,7 @@ public class PersonnelController {
 
 		logger.info(pMap);
 		logger.info(pMap.get("name") + "\t" + pMap.get("lev-no") + "\t" + pMap.get("dept-no"));
+		System.out.print(pMap.get("name"));
 		String a = (String) pMap.get("lev-no");
 		System.out.println(a);
 		try {

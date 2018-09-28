@@ -9,7 +9,7 @@
 	List<Map<String,Object>> getEmpList = (List<Map<String,Object>>)request.getAttribute("getEmpList");
 %>
 <script type="text/javascript">
-	$(document).ready(function(){
+$(function() {
 		$("#btn_emp").click(function(){
 			
 			$('#p_table').bootstrapTable({
