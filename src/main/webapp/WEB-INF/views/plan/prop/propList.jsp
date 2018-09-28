@@ -23,26 +23,21 @@
 <script>
 $(function() {
 	var $downloadIcon = $("i.propFile");
-	
+	var $formDownload = $("#f_req_download");
 	//파일 아이콘 클릭시 파일 다운로드 처리할 부분.
 	$downloadIcon.click(function(event) {
 		var row = $(this).closest("tr");
 		var propNo = row.find("td.propNo").eq(0).text();
 		var propFile = row.find("td.propFile").eq(0).text();
+		
+		$formDownload[0].propNo.value = propNo;
+		$formDownload[0].propFile.value = propFile;
 		console.log(propNo+", " + propFile);
-		$.ajax({
-			url:"<%=request.getContextPath()%>/plan/propDownload"
-			,method:"post"
-			,data:"propNo="+propNo+"&propFile="+propFile
-			,success:function(data) {
-				
-			}
-			,error:function(xhr) {
-				console.log("error");
-			}
-			
-		})
-	})
+		
+		$formDownload.submit();
+	});
+	
+	
 })
 </script>
 </head>
@@ -60,6 +55,10 @@ $(function() {
 		<div class="col-sm-10">
 			<div class="well">
 				<h2><strong>기획서 리스트</strong></h2>
+				<form id="f_req_download" action="<%=request.getContextPath() %>/plan/propDownload" method="post">
+					<input type="hidden" name="propNo">
+					<input type="hidden" name="propFile">
+				</form>
 				<table class="table table-condensed">
 					<thead>
 						<tr>
@@ -83,12 +82,12 @@ $(function() {
 							for(Map<String,Object> prop:propList) {
 						%>
 						<tr>
-							<td class="propNo"><%=prop.get("prop_no") %></td>
+							<td class="propNo"><%=prop.get("PROP_NO") %></td>
 							<td class="propTitle"><%=prop.get("title") %></td>
 							<td class="propWriter"><%=prop.get("emp_name") %></td>
 							<td class="propDate"><%=prop.get("up_date") %></td>
 							<%
-								if(true){
+								if(prop.get("path") != null){
 							%>
 							<td class="propFile" style="display:none;"><%=prop.get("path") %></td>
 							<td><i class="propFile glyphicon glyphicon-download-alt"></i></td>	

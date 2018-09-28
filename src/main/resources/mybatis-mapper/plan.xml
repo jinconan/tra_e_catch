@@ -8,6 +8,7 @@
 	FROM (
 		 SELECT rownum rno
 		    ,prop_no
+		    ,doc_no as "doc_no"
 		    ,content as "title"
 		    ,name as "emp_name"
 		    ,up_date as "up_date"
@@ -34,7 +35,7 @@
 	    		rno between (#{pageNo}-1)*10+1 and (#{pageNo})*10	
 	    	</if>
 	    	<if test="propNo != null">
-	    		AND propNo = #{propNo}
+	    		AND prop_no = #{propNo}
 	    	</if>
 	    	<choose>
 				<when
@@ -72,7 +73,7 @@
 	<!-- 기획서 추가 -->
 	<insert id="insertProp" parameterType="map">
 		INSERT INTO docs(emp_no, dtype_no, path, content, doc_no, up_date)
-			VALUES(#{emp_no}, 310,#{propFile},#{propTitle},(SELECT NVL(max(doc_no),0)+1 FROM docs),TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+			VALUES(#{emp_no}, 310,#{propFile},#{propTitle},seq_doc_no.nextval,TO_CHAR(SYSDATE,'YYYY-MM-DD'))
 	</insert>
 	
 	
@@ -275,7 +276,7 @@
 	<insert id="insertProj" parameterType="map">
 		INSERT INTO
 		project(proj_no, name, start_date, end_sched_date, pstatus_no)
-		VALUES((SELECT NVL(MAX(proj_no),0)+1 FROM project), #{proj_name},
+		VALUES(seq_proj_no.nextval, #{proj_name},
 		#{start_date},#{end_sched_date},1)
 	</insert>
 	
@@ -348,4 +349,123 @@
 		WHERE proj_no = #{proj_no} AND
 		emp_no = #{emp_no}
 	</update>
+	
+	<!-- 프로젝트 게시판 목록 조회 -->
+	<select id="getProjBoardList" parameterType="int" resultType="map">
+		SELECT p.proj_no as "proj_no"
+		,pb.board_no as "board_no" ,pb.board_name as "board_name"
+		FROM proj_board pb
+		    INNER JOIN project p ON pb.proj_no = p.proj_no
+		WHERE
+		    P.PROJ_NO = #{1}
+	</select>
+	    
+	<!-- 프로젝트 게시판 추가 -->
+	<insert id="insertProjBoard" statementType="CALLABLE" parameterType="map">
+		{ CALL proc_create_proj_board(#{proj_no}, #{board_name})}
+	</insert>
+	
+	<!-- 프로젝트 게시판 삭제 -->
+	<delete id="deleteProjBoard" parameterType="map">
+		{ CALL proc_delete_proj_board(#{proj_no}, #{board_no})}
+	</delete>
+	
+	<!-- 프로젝트 게시판 이름변경 -->
+	<update id="updateProjBoard" parameterType="map">
+		UPDATE proj_board SET board_name=#{board_name} WHERE proj_no=#{proj_no} AND board_no=#{board_no}
+	</update>
+	
+	<!-- 프로젝트 게시물 추가 -->
+	<insert id="insertArticle" parameterType="map">
+		INSERT INTO board_article(article_no,proj_no,board_no,article_title,article_content
+		,article_path, article_writer, article_date, article_hit)
+		    VALUES(seq_article_no.nextval, #{proj_no},#{board_no},#{article_title},#{article_content}
+		        ,#{article_path},#{article_writer},TO_CHAR(SYSDATE,'YYYY-MM-DD'), 0)
+	</insert>
+	
+	<!-- 프로젝트 게시물 삭제 -->
+	<delete id="deleteArticle" parameterType="int">
+		DELETE FROM board_article WHERE article_no=#{1} 
+	</delete>
+	
+	<!-- 프로젝트 게시물 수정 -->
+	<update id="updateArticle" parameterType="map">
+		UPDATE board_article
+		<set>
+			<if test="article_title != null">
+				article_title = #{article_title},
+			</if>
+			<if test="article_content != null">
+				article_content = #{article_content},
+			</if> 
+			<if test="article_path != null">
+				article_path = #{article_path}
+			</if>
+		</set>
+		WHERE article_no=#{article_no}
+	</update>
+	
+	<!-- 프로젝트 게시물 상세조회(조회수+1) -->
+	<update id="hitArticle" parameterType="int">
+		UPDATE board_article
+		SET article_hit = article_hit+1
+		WHERE article_no = #{1}
+	</update>
+	<!-- 프로젝트 게시물 페이지 갯수-->
+	<select id="getNumOfArticlePage" parameterType="map" resultType="int">
+		SELECT CEIL(count(*)/10)
+		FROM board_article
+		WHERE proj_no=#{proj_no} AND board_no=#{board_no}
+	</select>
+	
+	<select id="getBoardName" parameterType="map" resultType="string">
+		SELECT board_name
+			FROM proj_board
+			WHERE board_no = #{board_no} AND proj_no=#{proj_no}
+	</select>
+	
+	<!-- 프로젝트 게시물 조회 -->
+	<select id="getArticleList" parameterType="map" resultType="map">
+		SELECT *
+        FROM (
+            SELECT rownum rno, ano
+                ,proj_no, board_no, article_no
+                ,article_title,article_content,article_path
+                ,article_writer,article_date,article_hit
+            FROM(
+                SELECT rownum ano
+                    ,proj_no, board_no, article_no
+                    ,article_title,article_content,article_path
+                    ,article_writer,article_date,article_hit
+                FROM(
+                    SELECT p.proj_no,pb.board_no,article_no
+                        ,article_title,article_content,article_path
+                        ,article_writer,article_date,article_hit
+                    FROM board_article a 
+                        INNER JOIN project p ON a.proj_no = p.proj_no
+                        INNER JOIN proj_board pb ON a.board_no = pb.board_no
+                    ORDER BY article_no asc
+                )
+                ORDER BY ano desc
+            )
+        )            
+		<where>
+			<if test="pageNo != null">
+				rno between (#{pageNo}-1)*10+1 and (#{pageNo})*10  
+			</if> 
+			<if test="proj_no != null">AND proj_no=#{proj_no}</if>
+			<if test="board_no != null">AND board_no=#{board_no}</if>
+			<choose>
+				<when test="searchColumn != null and searchColumn.equals('articleTitle')">
+					AND article_title LIKE '%' || #{searchValue} || '%'
+				</when>
+				<when test="searchColumn != null and searchColumn.equals('articleWriter')">
+					AND article_writer LIKE '%' || #{searchValue} || '%'
+				</when>
+				<otherwise></otherwise>
+			</choose>
+		</where>	
+	</select>
+	
+	
 </mapper>

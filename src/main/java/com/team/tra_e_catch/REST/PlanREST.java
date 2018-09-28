@@ -23,7 +23,7 @@ public class PlanREST {
 	Logger logger = Logger.getLogger(PlanREST.class);
 	@Autowired
 	private PlanLogic planLogic;
-	
+
 	/**
 	 * 일정 json 형식 요청
 	 * @param projNo
@@ -33,7 +33,6 @@ public class PlanREST {
 	@RequestMapping("/json/projTimeline")
 	public Map<String,Object> getTimeLineJson(@RequestParam("projNo") int projNo
 			,@RequestParam(value="isToday", defaultValue="true") String isToday) {
-		
 		return planLogic.getJsonProjTimeline(projNo, Boolean.parseBoolean(isToday));
 	}
 	
@@ -45,5 +44,10 @@ public class PlanREST {
 	@RequestMapping("/json/notProjMemberList")
 	public List<Map<String,Object>> getNotMemberListJson(@RequestParam("projNo") int projNo) {
 		return planLogic.getJsonNotProjMemberList(projNo);
+	}
+	
+	@RequestMapping("/json/projBoardList")
+	public List<Map<String,Object>> getProjBoardListJson(@RequestParam("projNo") int projNo) {
+		return planLogic.getProjBoardList(projNo);
 	}
 }

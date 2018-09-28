@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,8 @@ public class PlanController {
 			, @RequestParam(name="pageNo", defaultValue="1") int pageNo
 			, @RequestParam(name="searchColumn", required=false) String searchColumn
 			, @RequestParam(name="searchValue", required=false) String searchValue) {
+		logger.info("viewPropList() : pageNo : " + pageNo);
+		
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
@@ -107,7 +110,7 @@ public class PlanController {
 			,@RequestParam(value="propFile", required=false) MultipartFile propFile) {
 		
 		String fileRepo = "E:\\files\\";
-		logger.info("propInsert");
+		logger.info("propInsert : " + propFile);
 		HttpSession session = req.getSession();
 		Object emp_no = session.getAttribute("emp_no");
 		//아직 세션 구현 안했으니 테스트용으로 강희복
@@ -123,6 +126,7 @@ public class PlanController {
 		int result = planLogic.insertProp(pMap);
 		
 		if(propFile.isEmpty() == false) {
+			logger.debug("파일 업로드 수행");
 			String filename = propFile.getOriginalFilename();
 			File directory = new File(fileRepo+result);
 			File file = new File(fileRepo+result+"\\"+filename);
@@ -154,7 +158,7 @@ public class PlanController {
 	public ResponseEntity<byte[]> propDownload(HttpServletResponse res
 			, @RequestParam("propNo") int propNo
 			, @RequestParam("propFile") String propFile) {
-		logger.info("propDownload");
+		logger.info("propDownload(): propNo : "+ propNo + ", propFile : " + propFile);
 		ResponseEntity<byte[]> entity = null;
 		
 		String fileRepo = "E:\\files\\";
@@ -167,7 +171,7 @@ public class PlanController {
 		List<Map<String,Object>> propList = (List<Map<String,Object>>)rMap.get("propList");
 		
 		if(propList.size() != 0) 
-			docNo = (String)propList.get(0).get("doc_no");
+			docNo = ((BigDecimal)propList.get(0).get("doc_no")).toString();
 
 		try(InputStream in = new FileInputStream(fileRepo+docNo+"\\"+propFile);) {
 			HttpHeaders headers = new HttpHeaders();
@@ -176,9 +180,8 @@ public class PlanController {
                     new String(propFile.getBytes("UTF-8"), "ISO-8859-1") + 
                     "\"");
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-
 		} catch(Exception e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 		
         return entity;
@@ -270,8 +273,9 @@ public class PlanController {
 		mod.addAttribute("subMenuList", subMenuList);
 		
 		Map<String, Object> projDetail = planLogic.getProjDetail(projNo);
+		List<Map<String,Object>> projBoardList = planLogic.getProjBoardList(projNo);
 		mod.addAttribute("projDetail", projDetail);
-		
+		mod.addAttribute("projBoardList", projBoardList);
 		return "plan/proj/projDetail";
 	}
 	
@@ -320,6 +324,8 @@ public class PlanController {
 		mod.addAttribute("curSubMenu", "게시판 관리");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("projNo", projNo);
+		List<Map<String,Object>> projBoardList = planLogic.getProjBoardList(projNo);
+		mod.addAttribute("projBoardList", projBoardList);
 		return "plan/proj/projBoardConfig";
 	}
 	
@@ -389,6 +395,30 @@ public class PlanController {
 		int result = planLogic.updateMember(pMap);
 		return "redirect:/planR/json/projMemberList?projNo="+pMap.get("proj_no");
 	}
+	
+	@RequestMapping(value="/plan/projBoardInsert", method=RequestMethod.POST)
+	public String projBoardInsert(Model mod
+			,@RequestParam Map<String,Object> pMap) {
+		logger.info("projBoardInsert : " + pMap);
+		int result = planLogic.insertProjBoard(pMap);
+		return "redirect:/planR/json/projBoardList?projNo="+pMap.get("proj_no");
+	}
+	
+	@RequestMapping(value="/plan/projBoardDelete", method=RequestMethod.POST)
+	public String projBoardDelete(Model mod
+			,@RequestParam Map<String,Object> pMap) {
+		logger.info("projBoardDelete : " + pMap);
+		int result = planLogic.deleteProjBoard(pMap);
+		return "redirect:/planR/json/projBoardList?projNo="+pMap.get("proj_no");
+	}
+	
+	@RequestMapping(value="/plan/projBoardUpdate", method=RequestMethod.POST)
+	public String projBoardUpdate(Model mod
+			,@RequestParam Map<String,Object> pMap) {
+		logger.info("projBoardUpdate : " + pMap);
+		int result = planLogic.updateProjBoard(pMap);
+		return "redirect:/planR/json/projBoardList?projNo="+pMap.get("proj_no");
+	}
 	//////////////////////////////////////DIY게시판 ////////////////////////////////////////////
 	/**
 	 * DIY게시판 리스트 페이지 요청
@@ -403,7 +433,31 @@ public class PlanController {
 			, @RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo
 			, @RequestParam("pageNo") int pageNo
+			, @RequestParam(name="searchColumn", required=false) String searchColumn
+			, @RequestParam(name="searchValue", required=false) String searchValue
 			) {
+		
+		logger.info("viewBoardList()");
+		logger.info("[projNo:"+projNo+", boardNo:"+boardNo+",pageNo:"+pageNo+",searchColumn:"+searchColumn+",searchValue:"+searchValue+"]");
+		
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		pMap.put("page_no", pageNo);
+		pMap.put("board_no", boardNo);
+		pMap.put("proj_no", projNo);
+		mod.addAttribute("pageNo", pageNo);
+		mod.addAttribute("boardNo",boardNo);
+		mod.addAttribute("projNo",projNo);
+		
+		if(searchColumn!=null) {
+			pMap.put("searchColumn", searchColumn);
+			pMap.put("searchValue", searchValue);
+		}
+		
+		Map<String, Object> logicResult = planLogic.getArticleList(pMap);
+		
+		mod.addAttribute("articleList", logicResult.get("articleList"));
+		mod.addAttribute("numOfArticlePage",logicResult.get("numOfArticlePage"));
+		mod.addAttribute("projBoardList", logicResult.get("projBoardList"));
 		return "plan/proj/diy/diyBoardList";
 	}
 	
@@ -432,7 +486,7 @@ public class PlanController {
 	 * @return
 	 */
 	@RequestMapping(value="/plan/view/diyBoardInsert")
-	public String viewBoardUpdate(Model mod
+	public String viewBoardInsert(Model mod
 			, @RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo) {
 		

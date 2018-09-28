@@ -1,8 +1,10 @@
+<%@page import="java.math.BigDecimal"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	//프로젝트 번호
 	int projNo = (Integer) request.getAttribute("projNo");
 	//게시판 리스트 받아오기
+	List<Map<String,Object>> projBoardList = (List<Map<String,Object>>)request.getAttribute("projBoardList");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,47 +13,126 @@
 <title>트라E캐치 게시판 관리</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
-	//한 프로젝트에 대한 서브메뉴의 경우에는 PK를 뒤에 붙여주어야함.
-	$(document).ready(function() {
-		var $a = $("#submenu>li>a");
-		
-		$a.each(function(i,data) {
-			var href= $(this).attr("href");
-			if($(this).text().trim() == "전체 프로젝트 리스트") {
-				return;
-			}
-			$(this).attr("href", href+"${projNo}" );
-		});
-		
-		$("#btn_add_board").click(function() {
-			$(this).attr("data-toggle", "modal");
-			$(this).attr("data-target", "#modalBoardConfig");
-			$("#board_name").val("");
-			$("#modalBoardConfigLabel").html("<strong>게시판 추가</strong>")
-			$("#btn_modalBoardConfig").attr("class", "btn btn-primary");
-			$("#btn_modalBoardConfig").text("추가");
-		})
-		
-		$(".btns_boardConfig").each(function(i,data) {
-			var boardNo = $("tbody>tr").eq(i).find("td").eq(0)[0].innerText;
-			var boardName = $("tbody>tr").eq(i).find("td").eq(1)[0].innerText;
-			
-			//각 게시판 별 수정 버튼
-			$(".btns_boardConfig").eq(i).find("button").eq(0).click(function() {
-				$(this).attr("data-toggle", "modal");
-				$(this).attr("data-target", "#modalBoardConfig");
-				$("#board_name").val(boardName);
-				$("#modalBoardConfigLabel").html("<strong>게시판 변경</strong>")
-				$("#btn_modalBoardConfig").attr("class", "btn btn-warning");
-				$("#btn_modalBoardConfig").text("변경");
-			})
-			
-			//각 게시판 별 삭제 버튼
-			$(".btns_boardConfig").eq(i).find("button").eq(1).click(function() {
-				var result = confirm("이 게시판을 정말 삭제하시겠습니까?");
-			})
-		})
+var isModify = false;
+var $table = null;
+//한 프로젝트에 대한 서브메뉴의 경우에는 PK를 뒤에 붙여주어야함.
+$(document).ready(function() {
+	$table = $("#tb_boardList");
+	
+	$("#modalAddBoard").on("hidden.bs.modal", function(e) {
+		$("#add_board_name").val("");
 	})
+	
+	$("#modalModBoard").on("hidden.bs.modal", function(e) {
+		$("#mod_board_name").val("");
+		$("#mod_board_no").val("");
+	})
+	$("#modalModBoard").on("show.bs.modal", function(e) {
+		var board = $table.bootstrapTable("getSelections");
+		if(board.length > 0) {
+			var boardNo = board[0].board_no;
+			var beforeName = board[0].board_name;
+			
+			console.log(beforeName);
+			$("#mod_board_name").val(beforeName);
+			$("#mod_board_no").val(boardNo);
+		} else {
+			alert("이름 변경할 게시판을 선택해주세요.");
+			return false;
+		}
+	})
+})
+</script>
+<script>
+//편집버튼 클릭시 메뉴 활성화/비활성화
+function btnModGroupClick() {
+	isModify = !isModify;
+	if(isModify == true) {
+		$("#btnGroupProjBoard>a").eq(0).text("편집완료");
+		$table.bootstrapTable('showColumn','cbBoard');
+		
+	}
+	if(isModify == false) {
+		$("#btnGroupProjBoard>a").eq(0).text("편집시작");
+		$table.bootstrapTable('uncheckAll');
+		$table.bootstrapTable('hideColumn','cbBoard');
+	}
+	$("#btnGroupProjBoard>a").eq(1).toggle();
+	$("#btnGroupProjBoard>a").eq(2).toggle();
+	$("#btnGroupProjBoard>a").eq(3).toggle();
+}
+
+//게시판 생성 버튼 클릭 이벤트
+function btnAddClick() {
+	var $input = $("#add_board_name");
+	var boardName = $input.val().trim();
+	if(boardName == "") {
+		alert("게시판명을 입력해주세요.")
+		return false;
+	} else {
+		$.ajax({
+			method:"post"
+			,url:"<%=request.getContextPath()%>/plan/projBoardInsert"
+			,data:"proj_no=<%=projNo%>&board_name="+boardName
+			,success:function(data) {
+				$table.bootstrapTable("refresh");
+				alert("변경되었습니다.");
+				$("#modalAddBoard").modal("toggle");
+			}
+		})
+		
+	}
+}
+
+//게시판 이름변경 버튼 클릭 이벤트
+function btnModClick() {
+	var $modBoardName = $("#mod_board_name");
+	var $modBoardNo = $("#mod_board_no");
+	var boardName = $modBoardName.val().trim();
+	var boardNo = $modBoardNo.val();
+	
+	if(boardName == "") {
+		alert("게시판명을 입력해 주세요.");
+		return false;
+	} else {
+		$.ajax({
+			method:"post"
+			,url:"<%=request.getContextPath()%>/plan/projBoardUpdate"
+			,data:"proj_no=<%=projNo%>&board_no="+boardNo+"&board_name="+boardName
+			,success:function(data) {
+				$table.bootstrapTable("refresh");
+				alert("변경되었습니다.");
+				$("#modalModBoard").modal("toggle");
+			}
+		})
+	}
+}
+
+//게시판 삭제버튼 클릭 이벤트
+function btnDelClick() {
+	var board = $table.bootstrapTable("getSelections");
+	if(board.length > 0) {
+		var projNo = board[0].proj_no; 
+		var boardNo = board[0].board_no;
+		var boardName = board[0].board_name;
+		
+		if(confirm("["+boardName+"]을 정말 삭제하시겠습니까? 삭제된 게시판의 기록은 전부 제거됩니다.")) {
+			$.ajax({
+				method:"post"
+				,url:"<%=request.getContextPath()%>/plan/projBoardDelete"
+				,data:"proj_no="+projNo+"&board_no="+boardNo
+				,success:function(data) {
+					$table.bootstrapTable("refresh");
+					alert("삭제되었습니다.");
+				}
+			})
+		}
+	} else {
+		alert("삭제할 게시판을 선택해주세요.");
+		return false;
+	}
+}
+
 </script>
 </head>
 <body>
@@ -69,79 +150,99 @@
 				<div class="row">
 					<h2>
 						<strong>게시판 관리</strong>
-						<button type="button" id="btn_add_board" class="btn btn-primary">추가</button>
+						<span id="btnGroupProjBoard" class="btn-group">
+							<a class="btn btn-primary" href="javascript:btnModGroupClick()">편집시작</a>
+							<a class="btn btn-success" data-toggle="modal" data-target="#modalAddBoard" style="display: none;">추가</a>
+							<a class="btn btn-warning" data-toggle="modal" data-target="#modalModBoard" style="display: none;">변경</a>
+							<a class="btn btn-danger" href="javascript:btnDelClick()" style="display: none;">삭제</a>
+						</span>
 					</h2>
 				</div>
-
 				<div class="row">
 					<div class="table-responsive">
-						<table class="table">
-							<thead>
-								<tr>
-									<th width="10%">#</th>
-									<th width="60%">게시판명</th>
-									<th width="30%"></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>게시판1</td>
-									<td>
-										<div class="btns_boardConfig btn-group">
-											<button type="button" class="btn btn-warning">이름변경</button>
-											<button type="button" class="btn btn-danger">삭제</button>
-										</div>
-									</td>								
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>게시판2</td>
-									<td>
-										<div class="btns_boardConfig btn-group">
-											<button type="button" class="btn btn-warning">이름변경</button>
-											<button type="button" class="btn btn-danger">삭제</button>
-										</div>
-									</td>							
-								</tr>
-								
-							</tbody>
+						<table id="tb_boardList" 
+							data-single-select="true"
+							data-url="<%=request.getContextPath() %>/planR/json/projBoardList?projNo=<%=projNo %>"
+							data-toggle="table">
+						    <thead>
+						        <tr>
+						        	<th data-checkbox="true" data-field="cbBoard" data-visible="false"></th>
+						        	<th data-field="board_no">#</th>
+						            <th data-field="board_name">게시판명</th>
+						        </tr>
+						    </thead>
 						</table>
 					</div>
 				</div>
 			</div>
-
 		</div>
 		
 	</div>
-<div id="modalBoardConfig" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalBoardConfigLabel" aria-hidden="true" style="display: none;">
+	<!-- 게시판 추가 모달 -->
+	<div id="modalAddBoard" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalAddBoardLabel" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-
-				<div class="modal-header bg-primary">
+				<div class="modal-header bg-success">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
-					<h4 class="modal-title" id="modalBoardConfigLabel">
+					<h4 class="modal-title" id="modalAddBoardLabel">
 						<strong>게시판 추가</strong>
 					</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<label for="board_name" class="col-sm-2 control-label">게시판명</label>
+						<label for="add_board_name" class="col-sm-2 control-label">게시판명</label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="board_name" name="board_name" placeholder="게시판명" required/>
+							<input type="text" class="form-control" id="add_board_name" name="add_board_name" placeholder="게시판명"/>
 						</div>
 						<div class="col-sm-2">
-							<button id="btn_modalBoardConfig" class="btn btn-primary">추가</button>
+							<a id="btn_modalAddBoard" class="btn btn-primary" href="javascript:btnAddClick()">추가</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- /.modal-content -->
 		</div>
-		<!-- /.modal-dialog -->
+	</div>
+	
+	<!-- 게시판 수정 모달 -->
+	<div id="modalModBoard" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalModBoardLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-warning">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<h4 class="modal-title" id="modalModBoardLabel">
+						<strong>게시판 이름 변경</strong>
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<label for="mod_board_name" class="col-sm-2 control-label">게시판명</label>
+						<div class="col-sm-8">
+							<input type="hidden" id="mod_board_no"/>
+							<input type="text" class="form-control" id="mod_board_name" placeholder="게시판명"/>
+						</div>
+						<div class="col-sm-2">
+							<a id="btn_modalModBoard" class="btn btn-warning" href="javascript:btnModClick()">변경</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
+	<script>
+	var $a = $("#submenu>li>a");
+	
+	$a.each(function(i,data) {
+		var href= $(this).attr("href");
+		if($(this).text().trim() == "전체 프로젝트 리스트") {
+			return;
+		}
+		$(this).attr("href", href+"${projNo}" );
+	});	
+	</script>
 </body>
 </html>

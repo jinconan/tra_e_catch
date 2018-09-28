@@ -52,7 +52,6 @@ public class PlanLogic {
 		
 		List<Map<String,Object>> projList = sqlPlanDao.getProjList(pMap);
 		int numOfProjPage = sqlPlanDao.getNumOfProjPage(pMap);
-
 		result.put("projList", projList);
 		result.put("numOfProjPage", numOfProjPage);
 		
@@ -66,8 +65,7 @@ public class PlanLogic {
 	 */
 	public Map<String, Object> getProjDetail(int projNo) {
 		logger.info("getProjDetail() »£√‚");
-		Map<String,Object> result = sqlPlanDao.getProjDetail(projNo);
-		return result;
+		return sqlPlanDao.getProjDetail(projNo);
 	}
 	
 	/**
@@ -264,6 +262,40 @@ public class PlanLogic {
 		logger.info("getJsonNotProjMemberList");
 		return sqlPlanDao.getJsonNotProjMemberList(projNo);
 	}
+
+	public List<Map<String, Object>> getProjBoardList(int projNo) {
+		logger.info("getProjBoardList : projNo=" +projNo);
+		return sqlPlanDao.getProjBoardList(projNo);
+	}
+
+	public int insertProjBoard(Map<String, Object> pMap) {
+		logger.info("insertProjBoard : " +pMap);
+		return sqlPlanDao.insertProjBoard(pMap);
+	}
+
+	public int deleteProjBoard(Map<String, Object> pMap) {
+		logger.info("deleteProjBoard : " +pMap);
+		return sqlPlanDao.deleteProjBoard(pMap);
+	}
+
+	public int updateProjBoard(Map<String, Object> pMap) {
+		logger.info("updateProjBoard : " +pMap);
+		return sqlPlanDao.updateProjBoard(pMap);
+	}
+
+	public Map<String, Object> getArticleList(Map<String, Object> pMap) {
+		logger.info("getArticleList");
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		List<Map<String, Object>> articleList = sqlPlanDao.getArticleList(pMap);
+		int numOfArticlePage = sqlPlanDao.getNumOfArticlePage(pMap);
+		List<Map<String,Object>> projBoardList = sqlPlanDao.getProjBoardList((Integer)pMap.get("proj_no"));
+		result.put("articleList", articleList);
+		result.put("numOfArticlePage", numOfArticlePage);
+		result.put("projBoardList", projBoardList);
+		return result;
+	}
+
 
 	
 

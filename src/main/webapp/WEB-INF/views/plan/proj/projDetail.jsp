@@ -1,6 +1,9 @@
 <%@page import="java.math.BigDecimal"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+	List<Map<String, Object>> projBoardList = 
+	(List<Map<String,Object>>) request.getAttribute("projBoardList");
+
 	Map<String,Object>	projDetail		= (Map<String,Object>) request.getAttribute("projDetail");
 	int					projNo			= ((BigDecimal)projDetail.get("proj_no")).intValue();
 	String				proj_name		= (String)projDetail.get("proj_name");
@@ -173,15 +176,25 @@
 
 				<div class="row">
 					<p>
-						<strong>게시판</strong>
+						<strong>게시판 목록</strong>
 					</p>
+					<%
+					if(projBoardList != null) {
+						for(int i=0; i<projBoardList.size();i++) {
+							String board_name = (String)projBoardList.get(i).get("board_name");
+							BigDecimal board_no = (BigDecimal)projBoardList.get(i).get("board_no");
+					%>
 					<div class="col-sm-4">
 						<div class="well">
-							<h4>게시판1</h4>
+							<h4><%=board_name %></h4>
 							<a class="btn btn-xs btn-update btn-add-card btn-success" role="button"
-								href="<%=request.getContextPath() %>/plan/view/diyBoardList?projNo=<%= projNo%>&boardNo=1&pageNo=1">들어가기</a>
+								href="<%=request.getContextPath() %>/plan/view/diyBoardList?projNo=<%= projNo%>&boardNo=<%=board_no%>&pageNo=1">들어가기</a>
 						</div>
-					</div>
+					</div>	
+					<%		
+						}
+					}
+					%>
 				</div>
 			</div>
 		</div>

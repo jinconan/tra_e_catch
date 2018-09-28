@@ -19,15 +19,6 @@ $(document).ready(function() {
 	$table = $("#tb_memberList");
 	$notMemberTable = $("#tb_notMemberList");
 	
-	var $a = $("#submenu>li>a");
-	$a.each(function(i, data) {
-		var href= $(this).attr("href");
-		if($(this).text().trim() == "전체 프로젝트 리스트") {
-			return;
-		}
-		$(this).attr("href", href+"${projNo}" );
-	});
-	
 	$("#modalInsertMember").on("hidden.bs.modal", function(e) {
 		$("#tb_notMemberList").bootstrapTable("uncheckAll");
 	})
@@ -250,5 +241,15 @@ function btnAddClick() {
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
+	<script>
+	var $a = $("#submenu>li>a");
+	$a.each(function(i, data) {
+		var href= $(this).attr("href");
+		if($(this).text().trim() == "전체 프로젝트 리스트") {
+			return;
+		}
+		$(this).attr("href", href+"${projNo}" );
+	});
+	</script>
 </body>
 </html>

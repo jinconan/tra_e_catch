@@ -214,6 +214,20 @@ public class SqlPlanDao {
 		return result;
 	}
 	
+	public List<Map<String, Object>> getProjBoardList(int projNo) {
+		logger.info("getJsonNotProjMemberList(): projNo = " + projNo);
+		List<Map<String, Object>> result = null;
+		try {
+			result = sqlSessionTemplate.selectList("mybatis-mapper.planMapper.getProjBoardList",projNo);
+			logger.info("size() = " + result.size());
+		} catch(Exception e) {
+			logger.error(e.toString());
+			result = new ArrayList<Map<String,Object>>();
+		}
+		return result;
+	}
+	
+	
 	/////////////////RESTController에서 사용하는 DAO 메소드들 //////////////////////////////
 	public List<Map<String, Object>> getJsonProjTimeline(Map<String,Object> pMap) {
 		logger.info("getJsonProjTimeline()");
@@ -254,13 +268,78 @@ public class SqlPlanDao {
 		return result;
 	}
 
-	
+	public int insertProjBoard(Map<String, Object> pMap) {
+		logger.info("insertProjBoard() : " + pMap);
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("mybatis-mapper.planMapper.insertProjBoard",pMap);
+			logger.info("insertProjBoard() result = " + result);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
 
-	
+	public int deleteProjBoard(Map<String, Object> pMap) {
+		logger.info("deleteProjBoard() : " + pMap);
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("mybatis-mapper.planMapper.deleteProjBoard",pMap);
+			logger.info("deleteProjBoard() result = " + result);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
 
-	
+	public int updateProjBoard(Map<String, Object> pMap) {
+		logger.info("updateProjBoard() : " + pMap);
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("mybatis-mapper.planMapper.updateProjBoard",pMap);
+			logger.info("updateProjBoard() result = " + result);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
 
+	public List<Map<String, Object>> getArticleList(Map<String, Object> pMap) {
+		logger.info("getArticleList() 호출");
+		List<Map<String, Object>> articleList = null;	
+		
+		try {
+			articleList = sqlSessionTemplate.selectList(
+					"mybatis-mapper.planMapper.getArticleList", pMap);
+			logger.info("리스트 수 : " + articleList.size());
+		} catch(Exception e) {
+			logger.error(e.toString());
+			articleList = new ArrayList<Map<String,Object>>();
+		}
+		return articleList;
+	}
 
-	
-	
+	public int getNumOfArticlePage(Map<String, Object> pMap) {
+		logger.info("getNumOfArticlePage() 호출");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.selectOne("mybatis-mapper.planMapper.getNumOfArticlePage",pMap);
+			logger.info("페이지 수 : " + result);
+		} catch (Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+
+	public String getBoardName(Map<String, Object> pMap) {
+		logger.info("getBoardName() 호출");
+		String result = "";
+		try {
+			result = sqlSessionTemplate.selectOne("mybatis-mapper.planMapper.getBoardName",pMap);
+			logger.info("게시판 명 : " + result);
+		} catch (Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
 }
