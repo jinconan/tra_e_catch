@@ -30,4 +30,19 @@ public class SqlPayDao {
 		
 		return paymentList;
 	}
+	public int getDoc() {
+		int doc_no = 0;//전체 레코드 수를 담을 변수
+		doc_no = sqlSessionTemplate.selectOne("getDoc");
+		return doc_no;
+	}
+	public int getEmp() {
+		int emp_no = 0;//전체 레코드 수를 담을 변수
+		emp_no = sqlSessionTemplate.selectOne("getEmp");
+		return emp_no;
+	}
+	public int epayInsert(PaymentVO pVO) {
+		int result = 0;
+		result = sqlSessionTemplate.insert("epayInsert", pVO);
+		return result;
+	}
 }

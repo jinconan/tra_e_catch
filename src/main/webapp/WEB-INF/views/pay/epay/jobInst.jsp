@@ -21,7 +21,6 @@
 
 </head>
 <body>
-<div id="#f_jobInst"></div>
 <%@ include file="/WEB-INF/views/_common/header.jsp"%>
 	<div class="container">
 	<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
@@ -101,7 +100,7 @@
 
 			</div>
 		</div>
-		<div class="form-group" id="emptable"></div>
+		<div class="form-group" id="empjobtable"></div>
 		</form>
 		<hr>
 	</div>

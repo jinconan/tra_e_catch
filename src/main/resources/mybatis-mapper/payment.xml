@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.paymentMapper">
+	<parameterMap id="pDVO" type="com.team.tra_e_catch.payment.PaymentVO">
+		<parameter property="emp_no" javaType="int" mode="IN"/>
+		<parameter property="dtype_no" javaType="int" mode="IN"/>
+		<parameter property="path" javaType="java.lang.String" mode="IN"/>
+		<parameter property="content" javaType="java.lang.String" mode="IN"/>
+		<parameter property="doc_no" javaType="int" mode="IN"/>
+		<parameter property="up_date" javaType="java.lang.String" mode="IN"/>
+	</parameterMap>
+	<!-- <parameterMap id="pPVO" type="com.vo.BoardSubVO">
+		<parameter property="b_no" javaType="int" mode="IN"/>
+		<parameter property="b_seq" javaType="int" mode="IN"/>
+		<parameter property="b_img" javaType="java.lang.String" mode="IN"/>
+		<parameter property="b_file" javaType="java.lang.String" mode="IN"/>
+		<parameter property="b_size" javaType="double" mode="IN"/>
+	</parameterMap> -->
+	
+	<resultMap id="pDVO" type="com.team.tra_e_catch.payment.PaymentVO">
+		<id property="emp_no" column="emp_no" />
+		<result property="dtype_no" column="dtype_no" />
+		<result property="path" column="path" />
+		<result property="content" column="content" />
+		<result property="doc_no" column="doc_no" />
+		<result property="up_date" column="up_date" />
+		<association property="bsVO" resultMap="rBSVO" /> 
+	</resultMap>
+	<!-- <resultMap id="rBSVO" type="com.vo.BoardSubVO">
+		<id property="b_no" column="b_no" />
+		<id property="b_seq" column="b_seq" />
+		<result property="b_img" column="b_img" />
+		<result property="b_file" column="b_file" />
+	</resultMap> -->
 	
 	<select id="getPaymentList" resultType="map" parameterType="map">
 	<![CDATA[
@@ -8,6 +39,12 @@
 	 ]]>
 	</select>
 	
+	<insert id="epayInsert" parameterMap="pDVO">
+		INSERT INTO DOCS(emp_no,dtype_no,path,content,doc_no
+									up_date)
+						VALUES(#{emp_no},#{dtype_no},#{path},#{content}
+						#{doc_no},to_char(sysdate, 'YYYY-MM-DD'))
+	</insert>
 	
 	
 </mapper>

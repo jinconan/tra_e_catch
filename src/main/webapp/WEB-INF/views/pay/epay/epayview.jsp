@@ -7,6 +7,10 @@
 <meta charset="UTF-8">
 <title>기안문서 작성</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<%
+	
+	 
+%>
 <script type="text/javascript">
 	$(function() {
 		$('#datetimepicker1').datetimepicker({
@@ -50,12 +54,29 @@
 </head>
 <body>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$("#f_jobInst").datagrid({
-			url:'./try_e_catch/pay/epay/jobInst'
-
+	 $(document).ready(function(){
+		$("#btn_Inst").click(function(){
+			$.ajax({
+				url:'./try_e_catch/pay/epay/jobInst.jsp'
+				,method:"GET"
+				,success:function(data){
+					alert("아작스 성공");
+					$("#empjobtable").html(data);
+				}
+				,error:function(Object){
+					alert("error:"+Object.responseText);
+				}
+			});
+			return false;
 		});
-	});
+	}); 
+		
+	/* function jobInstForm() {
+		$("#f_jobInst").attr("method","post");
+		$("#f_jobInst").attr("action","./jobInst");
+		$("#f_jobInst").submit();
+	} */	
+	 
 </script>	
 	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
 	<div class="container">
@@ -74,7 +95,7 @@
 						분류 <span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu" id="optionum" onclick="listoption()">
-						<li><a href="#f_jobInst">작업지시서</a></li>
+						<li><a href="#" id="btn_Inst" onClick="jobInstForm()">작업지시서</a></li>
 						<li><a href="#">기안 문서</a></li>
 						<li class="divider"></li>
 						<li><a href="#">Separated link</a></li>
@@ -164,7 +185,7 @@
 			</div>
 		</div>
 	
-		<div class="form-group" id="emptable"></div>
+		<div class="form-group" id="empjobtable"></div>
 		</form>
 		<hr>
 	</div>

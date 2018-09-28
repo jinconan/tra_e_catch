@@ -6,8 +6,8 @@ public class PaymentVO {
 	private String content;
 	private int doc_no;
 	private String up_date;
-	
 	private int emp_no;
+	
 	public int getEmp_no() {
 		return emp_no;
 	}
