@@ -342,4 +342,60 @@ public class SqlPlanDao {
 		}
 		return result;
 	}
+
+	public int insertArticle(Map<String, Object> pMap) {
+		logger.info("insertArticle()");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.insert("mybatis-mapper.planMapper.insertArticle", pMap);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+
+	public int hitArticle(int articleNo) {
+		logger.info("hitArticle()");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("mybatis-mapper.planMapper.hitArticle", articleNo);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+
+	public Map<String, Object> getArticleDetail(int articleNo) {
+		logger.info("getArticleDetail() »£√‚");
+		Map<String, Object> result = null;
+		try {
+			result = sqlSessionTemplate.selectOne("mybatis-mapper.planMapper.getArticleDetail",articleNo);
+		} catch (Exception e) {
+			logger.error(e.toString());
+			result = new HashMap<String,Object>();
+		}
+		return result;
+	}
+
+	public int deleteArticle(int articleNo) {
+		logger.info("deleteArticle");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.delete("mybatis-mapper.planMapper.deleteArticle", articleNo);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+
+	public int updateArticle(Map<String, Object> pMap) {
+		logger.info("updateArticle()");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("mybatis-mapper.planMapper.updateArticle", pMap);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
 }

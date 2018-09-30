@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.tra_e_catch.plan.PlanLogic;
@@ -426,22 +427,24 @@ public class PlanController {
 	 * @param projNo
 	 * @param boardNo
 	 * @param pageNo
+	 * @param searchColumn
+	 * @param searchValue
 	 * @return
 	 */
 	@RequestMapping(value="/plan/view/diyBoardList")
-	public String viewBoardList(Model mod
+	public String viewArticleList(Model mod
 			, @RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo
-			, @RequestParam("pageNo") int pageNo
+			, @RequestParam(name="pageNo", defaultValue="1") int pageNo
 			, @RequestParam(name="searchColumn", required=false) String searchColumn
 			, @RequestParam(name="searchValue", required=false) String searchValue
 			) {
 		
-		logger.info("viewBoardList()");
+		logger.info("viewArticleList()");
 		logger.info("[projNo:"+projNo+", boardNo:"+boardNo+",pageNo:"+pageNo+",searchColumn:"+searchColumn+",searchValue:"+searchValue+"]");
 		
 		Map<String, Object> pMap = new HashMap<String, Object>();
-		pMap.put("page_no", pageNo);
+		pMap.put("pageNo", pageNo);
 		pMap.put("board_no", boardNo);
 		pMap.put("proj_no", projNo);
 		mod.addAttribute("pageNo", pageNo);
@@ -470,10 +473,18 @@ public class PlanController {
 	 * @return
 	 */
 	@RequestMapping(value="/plan/view/diyBoardDetail")
-	public String viewBoardDetail(Model mod
+	public String viewArticleDetail(Model mod
 			, @RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo
-			, @RequestParam("articleNo") int articleNo) {
+			, @RequestParam("articleNo") int articleNo
+			) {
+		logger.info("viewArticleDetail : " + articleNo);
+		mod.addAttribute("projNo",projNo);
+		mod.addAttribute("boardNo",boardNo);
+		mod.addAttribute("articleNo",articleNo);
+		
+		Map<String,Object> articleDetail = planLogic.getArticleDetail(articleNo);
+		mod.addAttribute("articleDetail",articleDetail);
 		
 		return "plan/proj/diy/diyBoardDetail";
 	}
@@ -486,10 +497,13 @@ public class PlanController {
 	 * @return
 	 */
 	@RequestMapping(value="/plan/view/diyBoardInsert")
-	public String viewBoardInsert(Model mod
+	public String viewArticleInsert(Model mod
 			, @RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo) {
+		logger.info("viewBoardInsert : projNo="+projNo+", boardNo="+boardNo);
 		
+		mod.addAttribute("projNo",projNo);
+		mod.addAttribute("boardNo",boardNo);
 		return "plan/proj/diy/diyBoardInsert";
 	}
 	
@@ -501,12 +515,134 @@ public class PlanController {
 	 * @return
 	 */
 	@RequestMapping(value="/plan/view/diyBoardUpdate")
-	public String viewBoardUpdate(Model mod
+	public String viewArticleUpdate(Model mod
 			, @RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo
 			, @RequestParam("articleNo") int articleNo) {
+		logger.info("viewArticleUpdate");
+		
+		Map<String,Object> articleDetail = planLogic.getArticleDetail(articleNo);
+		
+		mod.addAttribute("projNo", projNo);
+		mod.addAttribute("boardNo", boardNo);
+		mod.addAttribute("articleNo", articleNo);
+		mod.addAttribute("articleDetail", articleDetail);
 		
 		return "plan/proj/diy/diyBoardUpdate";
 	}
 	
+	/**
+	 * 
+	 * @param pMap
+	 * @return
+	 */
+	@RequestMapping(value="/plan/articleInsert", method=RequestMethod.POST)
+	public String articleInsert(HttpServletRequest req
+			, @RequestParam("projNo") int projNo
+			, @RequestParam("boardNo") int boardNo
+			, @RequestParam("articleTitle") String articleTitle
+			, @RequestParam("articleContent") String articleContent
+			, @RequestParam(value="articleFile", required=false) MultipartFile articleFile
+	) {
+		logger.info("articleInsert");
+		////////////////////
+		String fileRepo = "D:\\files\\article\\";
+		HttpSession session = req.getSession();
+		Object article_writer = session.getAttribute("emp_name");
+		// 아직 세션 구현 안했으니 테스트용으로 강희복
+		if (article_writer == null)
+			article_writer = "강희복";
+
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		pMap.put("article_writer", article_writer);
+		pMap.put("article_title", articleTitle);
+		pMap.put("article_content", articleContent);
+		pMap.put("article_path", articleFile.getOriginalFilename());
+		pMap.put("proj_no", projNo);
+		pMap.put("board_no", boardNo);
+
+		int result = planLogic.insertArticle(pMap);
+		int article_no = (Integer) pMap.get("article_no");
+		if (articleFile.isEmpty() == false) {
+			String filename = articleFile.getOriginalFilename();
+			File directory = new File(fileRepo + article_no);
+			File file = new File(fileRepo + article_no + "\\" + filename);
+			directory.mkdirs();
+
+			try {
+				articleFile.transferTo(file);
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		////////////////////
+		return "redirect:/plan/view/diyBoardList?projNo="+projNo+"&boardNo="+boardNo;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/plan/articleDownload")
+	public ResponseEntity<byte[]> articleDownload(HttpServletResponse res
+			,@RequestParam("articleNo") int articleNo
+	) {
+		ResponseEntity<byte[]> entity = null;
+		String fileRepo = "D:\\files\\article\\";
+		
+		//제안서 번호로부터 문서 테이블에서의 문서 번호리턴.
+		Map<String,Object> pMap = new HashMap<String, Object>();
+		Map<String,Object> rMap = planLogic.getArticleDetail(articleNo);
+		
+		if(rMap.containsKey("ARTICLE_NO")) { 
+			String articlePath = (String)rMap.get("ARTICLE_PATH");
+			
+			try(InputStream in = new FileInputStream(fileRepo+articleNo+"\\"+articlePath);) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				headers.add("Content-Disposition", "attatchment; filename=\"" + 
+	                    new String(articlePath.getBytes("UTF-8"), "ISO-8859-1") + 
+	                    "\"");
+				entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+			} catch(Exception e) {
+				logger.error(e.toString());
+			}
+		}
+		
+        return entity;
+	}
+	
+	@RequestMapping(value="/plan/articleDelete", method=RequestMethod.POST)
+	public String articleDelete(
+			@RequestParam("projNo") int projNo
+			, @RequestParam("boardNo") int boardNo
+			, @RequestParam("articleNo") int articleNo) {
+		logger.info("articleDelete");
+		int result = planLogic.deleteArticle(articleNo);
+		return "redirect:/plan/view/diyBoardList?projNo="+projNo+"&boardNo="+boardNo;
+	}
+	
+	@RequestMapping(value="/plan/articleUpdate", method=RequestMethod.POST)
+	public String articleUpdate(
+			@RequestParam("projNo") int projNo
+			, @RequestParam("boardNo") int boardNo
+			, @RequestParam("articleNo") int articleNo
+			, @RequestParam("articleTitle") String articleTitle
+			, @RequestParam("articleContent") String articleContent
+			) {
+		logger.info("articleUpdate");
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		pMap.put("article_title", articleTitle);
+		pMap.put("article_content", articleContent);
+		//pMap.put("article_path", articleFile.getOriginalFilename());
+		pMap.put("proj_no", projNo);
+		pMap.put("board_no", boardNo);
+		pMap.put("article_no", articleNo);
+		int result = planLogic.updateArticle(pMap);
+		return "redirect:/plan/view/diyBoardDetail?projNo="+projNo+"&boardNo="+boardNo+"&articleNo="+articleNo;
+	}
 }
+

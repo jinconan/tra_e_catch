@@ -296,6 +296,32 @@ public class PlanLogic {
 		return result;
 	}
 
+	public int insertArticle(Map<String, Object> pMap) {
+		logger.info("insertArticle");
+		int result = sqlPlanDao.insertArticle(pMap);
+		return result;
+	}
+
+	public Map<String, Object> getArticleDetail(int articleNo) {
+		logger.info("getArticleDetail");
+		int hit = sqlPlanDao.hitArticle(articleNo);
+		Map<String,Object> result = sqlPlanDao.getArticleDetail(articleNo);
+		
+		return result;
+	}
+
+	public int deleteArticle(int articleNo) {
+		logger.info("deleteArticle");
+		int result = sqlPlanDao.deleteArticle(articleNo);
+		return result;
+	}
+
+	public int updateArticle(Map<String, Object> pMap) {
+		logger.info("updateArticle");
+		int result = sqlPlanDao.updateArticle(pMap);
+		return result;
+	}
+
 
 	
 

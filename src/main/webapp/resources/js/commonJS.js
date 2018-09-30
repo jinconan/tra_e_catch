@@ -24,7 +24,7 @@ function dateToString(pdate) {
  */
 function fileCheck(file){
     // 사이즈체크
-    var maxSize  = 20 * 1024 * 1024    //30MB
+    var maxSize  = 20 * 1024 * 1024    //20MB
     var fileSize = 0;
 
 	// 브라우저 확인

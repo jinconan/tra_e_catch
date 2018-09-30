@@ -46,7 +46,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-4">
 							<div class="checkbox">
-								<input type="checkbox" id="cb_remember_id" name="cb_remember_id" value="1">아이디 기억
+								<input type="checkbox" id="remember_id" name="remember_id" value="true">아이디 기억
 							</div>
 						</div>
 					</div>

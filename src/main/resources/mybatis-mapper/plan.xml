@@ -72,8 +72,11 @@
 	
 	<!-- 기획서 추가 -->
 	<insert id="insertProp" parameterType="map">
+		<selectKey keyProperty="doc_no" order="BEFORE" resultType="int">
+			SELECT seq_doc_no.nextval FROM dual
+		</selectKey>
 		INSERT INTO docs(emp_no, dtype_no, path, content, doc_no, up_date)
-			VALUES(#{emp_no}, 310,#{propFile},#{propTitle},seq_doc_no.nextval,TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+			VALUES(#{emp_no}, 310,#{propFile},#{propTitle},#{doc_no},TO_CHAR(SYSDATE,'YYYY-MM-DD'))
 	</insert>
 	
 	
@@ -377,9 +380,12 @@
 	
 	<!-- 프로젝트 게시물 추가 -->
 	<insert id="insertArticle" parameterType="map">
+		<selectKey keyProperty="article_no" resultType="int" order="BEFORE">
+			select seq_article_no.nextval from dual
+		</selectKey>        
 		INSERT INTO board_article(article_no,proj_no,board_no,article_title,article_content
 		,article_path, article_writer, article_date, article_hit)
-		    VALUES(seq_article_no.nextval, #{proj_no},#{board_no},#{article_title},#{article_content}
+		    VALUES(#{article_no}, #{proj_no},#{board_no},#{article_title},#{article_content}
 		        ,#{article_path},#{article_writer},TO_CHAR(SYSDATE,'YYYY-MM-DD'), 0)
 	</insert>
 	
@@ -416,6 +422,15 @@
 		SELECT CEIL(count(*)/10)
 		FROM board_article
 		WHERE proj_no=#{proj_no} AND board_no=#{board_no}
+		<choose>
+			<when test="searchColumn != null and searchColumn.equals('articleTitle')">
+				AND article_title LIKE '%' || #{searchValue} || '%'
+			</when>
+			<when test="searchColumn != null and searchColumn.equals('articleWriter')">
+				AND article_writer LIKE '%' || #{searchValue} || '%'
+			</when>
+			<otherwise></otherwise>
+		</choose>
 	</select>
 	
 	<select id="getBoardName" parameterType="map" resultType="string">
@@ -446,6 +461,10 @@
                         INNER JOIN proj_board pb ON a.board_no = pb.board_no
                     ORDER BY article_no asc
                 )
+                <where>
+                	<if test="proj_no != null">proj_no=#{proj_no}</if>
+					<if test="board_no != null">AND board_no=#{board_no}</if>
+                </where>
                 ORDER BY ano desc
             )
         )            
@@ -453,8 +472,6 @@
 			<if test="pageNo != null">
 				rno between (#{pageNo}-1)*10+1 and (#{pageNo})*10  
 			</if> 
-			<if test="proj_no != null">AND proj_no=#{proj_no}</if>
-			<if test="board_no != null">AND board_no=#{board_no}</if>
 			<choose>
 				<when test="searchColumn != null and searchColumn.equals('articleTitle')">
 					AND article_title LIKE '%' || #{searchValue} || '%'
@@ -467,5 +484,11 @@
 		</where>	
 	</select>
 	
-	
+	<select id="getArticleDetail" parameterType="int" resultType="map">
+		SELECT article_no, proj_no, board_no
+			,article_title, article_content, article_writer
+			,article_date, article_hit, article_path
+		FROM board_article
+		WHERE article_no=#{1}
+	</select>
 </mapper>

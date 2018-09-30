@@ -1,11 +1,18 @@
 package com.team.tra_e_catch.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team.tra_e_catch.scv.ScvLogic;
 
@@ -23,9 +30,30 @@ public class ScvController {
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/login", method = RequestMethod.POST)
-	public String login(Model mod) {
+	public String login(Model mod
+			, HttpServletRequest req
+			, HttpServletResponse res
+			, @RequestParam("emp_id") String emp_id
+			, @RequestParam("emp_pw") String emp_pw
+			, @RequestParam("remember_id") boolean remember_id
+	) {
 		logger.info("login");
-		return "home";
+		logger.info("emp_id:"+emp_id+", emp_pw:"+emp_pw+", remember_id:"+remember_id);
+		
+		if(remember_id == true) {
+			Cookie cookie = new Cookie("emp_id", emp_id);
+			res.addCookie(cookie);
+		}
+		
+		int result = scvLogic.login(emp_id, emp_pw);
+		if(result == 0)
+			return "scv/login";
+		else {
+			HttpSession session = req.getSession();
+//			session.setMaxInactiveInterval(interval);
+			session.setAttribute("emp_no", result);
+			return "home";
+		}
 	}
 
 	/**
@@ -34,8 +62,11 @@ public class ScvController {
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/view/login", method = RequestMethod.GET)
-	public String viewLogin(Model mod) {
+	public String viewLogin(Model mod
+			,@CookieValue(value="emp_id", required=false)Cookie cookie) {
 		logger.info("viewLogin");
+		if(cookie != null)
+			mod.addAttribute("emp_id",cookie.getValue());
 		return "scv/login";
 	}
 

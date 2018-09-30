@@ -71,7 +71,6 @@
 		,dataType:"json"
 		,success:function(data) {
 			//string으로 받아온 날짜를 자바스크립트의 Date타입으로 변환.
-			console.log(data);
 			for(var i=0;i<data.rows.length;i++) {
 				data.rows[i].c[1].v = new Date(data.rows[i].c[1].v);
 				data.rows[i].c[2].v = new Date(data.rows[i].c[2].v);

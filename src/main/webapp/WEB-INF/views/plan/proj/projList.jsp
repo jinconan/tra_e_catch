@@ -128,7 +128,7 @@ $(document).ready(function() {
 						} else {
 					%>
 						<li>
-							<a href="<%=pstatus_name %>?pageNo=<%=(pageGroup-1)*5 %>" aria-label="Previous"> 
+							<a href="<%=pstatus_name %>?pageNo=<%=(pageGroup-1)*5 %><%=searchParams%>" aria-label="Previous"> 
 							<span aria-hidden='true'>&laquo;</span></a>
 						</li>
 					<%
@@ -158,7 +158,7 @@ $(document).ready(function() {
 						} else {
 					%>
 						<li>
-							<a href="<%=pstatus_name %>?pageNo=<%=pageGroup*5 +1%>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+							<a href="<%=pstatus_name %>?pageNo=<%=pageGroup*5 +1%><%=searchParams%>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 							</a>
 						</li>
 					<%

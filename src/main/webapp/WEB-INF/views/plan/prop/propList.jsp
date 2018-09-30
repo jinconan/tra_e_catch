@@ -120,7 +120,7 @@ $(function() {
 						} else {
 					%>
 						<li>
-							<a href="propList?pageNo=<%=(pageGroup-1)*5 %>" aria-label="Previous"> 
+							<a href="propList?pageNo=<%=(pageGroup-1)*5 %><%=searchParams%>" aria-label="Previous"> 
 							<span aria-hidden='true'>&laquo;</span></a>
 						</li>
 					<%
@@ -150,7 +150,7 @@ $(function() {
 						} else {
 					%>
 						<li>
-							<a href="propList?pageNo=<%=pageGroup*5 +1%>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+							<a href="propList?pageNo=<%=pageGroup*5 +1%><%=searchParams%>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 							</a>
 						</li>
 					<%
@@ -160,7 +160,7 @@ $(function() {
 				</nav>
 	
 				<!-- 검색창 -->
-				<form class="form-inline text-center">
+				<form action="propList" class="form-inline text-center">
 					<div class="form-group">
 						<select class="form-control" id="searchColumn">
 							<option value="propTitle">제목</option>

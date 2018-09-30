@@ -1,4 +1,12 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	Map<String,Object> articleDetail = (Map<String,Object>) request.getAttribute("articleDetail");
+	
+	int projNo = (Integer)request.getAttribute("projNo");
+	int boardNo = (Integer)request.getAttribute("boardNo");
+	int articleNo = (Integer)request.getAttribute("articleNo");
+ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,42 +26,54 @@
 		<!-- 기획서 작성 폼 -->
 		<div class="col-sm-10">
 			<div class="well">
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="propWriter" class="col-sm-2">작성자</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control" id="propWriter" placeholder="작성자" readonly="readonly">
-						</div>
-						<label for="propDate" class="col-sm-2">작성일</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control" id="propDate" placeholder="작성일" readonly="readonly">
-						</div>
+				<div class="row" style="margin-bottom: 10px;">
+					<label class="col-sm-2">작성자</label>
+					<div class="col-sm-4">
+						<span><%=articleDetail.get("ARTICLE_WRITER") %></span>
 					</div>
-					<div class="form-group">
-						<label for="propTitle" class="col-sm-2">제목</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="propTitle" placeholder="제목" readonly="readonly">
-						</div>
+					<label class="col-sm-2">작성일</label>
+					<div class="col-sm-4">
+						<span><%=articleDetail.get("ARTICLE_DATE") %></span>
 					</div>
-					<div class="form-group">
-						<label for="propFile" class="col-sm-2">파일</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="propFile" placeholder="파일" readonly="readonly">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="propContent" class="col-sm-2">내용</label>
-						<div class="col-sm-10">
-							<textarea class="form-control" name="propContent" id="propContent" rows="3" readonly="readonly"></textarea>
-						</div>
-					</div>	
-				</form>
-				<div class="btn-group">
-					<button type="button" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/plan/proj/board/view/${projNo}/${boardNo}'">목록</button>
-					<button type="button" class="btn btn-warning" onclick="location.href='<%=request.getContextPath()%>/plan/proj/board/view/update/${projNo}/${boardNo}/${articleNo}'">수정</button>
-					<button type="button" class="btn btn-danger" onclick="">삭제</button>
 				</div>
-				<div class="row"></div>
+				<div class="row" style="margin-bottom: 10px;">
+					<label class="col-sm-2">제목</label>
+					<div class="col-sm-10">
+						<span><%=articleDetail.get("ARTICLE_TITLE") %></span>
+					</div>
+				</div>
+				<div class="row" style="margin-bottom: 10px;">
+					<label class="col-sm-2">파일</label>
+					<div class="col-sm-10">
+					<%
+					if(articleDetail.containsKey("ARTICLE_PATH")) {
+					%>
+						<form id="f_download" action="<%=request.getContextPath() %>/plan/articleDownload" method="post">
+							<input type="hidden" name="articleNo" value="<%=articleNo%>">
+							<a href="javascript:document.getElementById('f_download').submit()"><%=articleDetail.get("ARTICLE_PATH")  %></a>
+						</form>
+						
+					<%	
+					} 
+					%>
+					</div>
+				</div>
+				<div class="row" style="margin-bottom: 10px;">
+					<label class="col-sm-2">내용</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="12" style="resize: vertical;" readonly="readonly" ><%=articleDetail.get("ARTICLE_CONTENT")  %></textarea>
+					</div>
+				</div>	
+				<form action="<%=request.getContextPath() %>/plan/articleDelete" method="post">
+					<input type="hidden" name="articleNo" value="<%=articleNo %>"/>
+					<input type="hidden" name="projNo" value="<%=projNo %>"/>
+					<input type="hidden" name="boardNo" value="<%=boardNo %>"/>
+					<div class="btn-group" style="margin-bottom: 10px;">
+						<a class="btn btn-primary" href="diyBoardList?projNo=<%=projNo%>&boardNo=<%=boardNo%>">목록</a>
+						<a class="btn btn-warning" href="diyBoardUpdate?projNo=<%=projNo%>&boardNo=<%=boardNo%>&articleNo=<%=articleNo%>">수정</a>
+						<button class="btn btn-danger">삭제</button>
+					</div>
+				</form>
 			</div>
 
 		</div>
