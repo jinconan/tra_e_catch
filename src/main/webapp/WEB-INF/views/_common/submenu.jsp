@@ -18,18 +18,14 @@
 %>
 
 <nav id="submenu" class="col-sm-2 nav nav-pills nav-stacked nav-pills-stacked-example">
-	<%
-		for (int i = 0; i < sizeOfSubMenu; i++) {
-			Map<String,Object> subMenuItem = subMenuList.get(i);
-	%>
+<%for (int i = 0; i < sizeOfSubMenu; i++) {%>
+	<% Map<String,Object> subMenuItem = subMenuList.get(i);%>
 	<li role="presentation">
 		<a href="<%=request.getContextPath() %><%= subMenuItem.get("sm_url")%>">
 			<%=subMenuItem.get("sm_name") %>
 		</a>
 	</li>
-	<%
-		}
-	%>
+<%}%>
 </nav>
 <!-- 현재 선택된 서브메뉴를 활성화 시키는 스크립트 -->
 <script>

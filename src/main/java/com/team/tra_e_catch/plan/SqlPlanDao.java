@@ -93,6 +93,24 @@ public class SqlPlanDao {
 	}
 
 	/**
+	 * 프로젝트의 리더인지를 판별
+	 * @param empNo
+	 * @param projNo 
+	 * @return boolean : true - 팀장, false - 나머지
+	 */
+	public boolean getProjLeader(int empNo, int projNo) {
+		logger.info("getProjLeader()");
+		boolean result = false;
+		try {
+			int rvalue = sqlSessionTemplate.selectOne("mybatis-mapper.planMapper.getProjLeader", projNo);
+			result = (rvalue == empNo);
+		} catch (Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+	
+	/**
 	 * 특정 프로젝트의 상세 정보를 리턴
 	 * @param pMap
 	 * @return
@@ -398,4 +416,6 @@ public class SqlPlanDao {
 		}
 		return result;
 	}
+
+	
 }

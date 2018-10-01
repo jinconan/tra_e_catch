@@ -55,6 +55,14 @@
 			VALUES(#{emp_no}, 310,#{propFile},#{propTitle},#{doc_no},TO_CHAR(SYSDATE,'YYYY-MM-DD'))
 	</insert>
 	
+	<!-- 프로젝트의 팀장 번호를 구함. -->
+	<select id="getProjLeader" parameterType="int" resultType="int">
+		SELECT NVL((
+			SELECT emp_no FROM proj_member
+			WHERE rtype_no = 101 
+				AND proj_no = #{1}),0) emp_no
+		FROM dual
+	</select>
 	
 	<!-- 특정 조건에 대한 프로젝트 리스트를 구함. -->
 	<select id="getProjList" resultType="map" parameterType="map">
@@ -160,7 +168,7 @@
 		inner join role_type r on r.rtype_no=pm.rtype_no
 		inner join ctlevel lev on lev.lev_no=e.lev_no
 		inner join department d on d.dept_no=e.dept_no
-		inner join team t on t.team_no=e.team_no
+		LEFT OUTER join team t on t.team_no=e.team_no
 		WHERE p.proj_no=#{1}
 		ORDER BY
 		r.rtype_no ASC, lev.lev_no ASC
@@ -208,9 +216,12 @@
 
 	<!-- 프로젝트 추가 -->
 	<insert id="insertProj" parameterType="map">
+		<selectKey keyProperty="proj_no" resultType="int" order="BEFORE">
+			select seq_proj_no.nextval from dual
+		</selectKey>        
 		INSERT INTO
 		project(proj_no, name, start_date, end_sched_date, pstatus_no)
-		VALUES(seq_proj_no.nextval, #{proj_name},
+		VALUES(#{proj_no}, #{proj_name},
 		#{start_date},#{end_sched_date},1)
 	</insert>
 	
@@ -267,13 +278,18 @@
 	<insert id="insertMember" parameterType="map">
 		INSERT INTO
 		proj_member(proj_no, emp_no, rtype_no)
-		VALUES(#{proj_no}, #{emp_no},102)
+		VALUES(#{proj_no}, #{emp_no},
+		<if test="rtype_no != null">
+			#{rtype_no})
+		</if>
+		<if test="rtype_no == null">
+			102)
+		</if>
 	</insert>
 
 	<!-- 멤버 삭제 -->
-	<delete id="deleteMember" parameterType="map">
-		DELETE FROM proj_member
-		WHERE proj_no = #{proj_no} AND emp_no = #{emp_no}
+	<delete id="deleteMember" parameterType="map" statementType="CALLABLE">
+		{ call proc_delete_proj_member(#{proj_no},#{emp_no})}
 	</delete>
 
 	<!-- 멤버 역할 변경 -->

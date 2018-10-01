@@ -34,11 +34,6 @@ $(document).ready(function() {
 	else if(pstatus_name=="stop")
 		$pstatus_list.eq(3).addClass("active");
 	
-	$(".tr_proj").click(function(event){
-		var projNo = $(this).find("td")[0].innerText;
-		location.href="<%=request.getContextPath()%>/plan/view/projDetail?projNo="+projNo;
-	})
-	
 	//검색 폼 입력 여부 체크
 	$("#form_search").submit(function() {
 		if($("#searchValue").val().trim() == "") {
@@ -53,6 +48,11 @@ $(document).ready(function() {
 })
 
 </script>
+<style>
+	table a:link { color: black; text-decoration: none;}
+	table a:visited { color: black; text-decoration: none;}
+	table a:hover { color: black; text-decoration: underline;}
+</style>
 </head>
 <body>
 	<!-- 헤더 -->
@@ -85,86 +85,59 @@ $(document).ready(function() {
 						</tr>
 					</thead>
 					<tbody>
-					<%
-						if(projList.size() == 0) {
-					%>
-							<tr><td colspan="5" align="center">프로젝트가 존재하지 않습니다</td></tr>
-					<%		
-						} else {
-							for(Map<String, Object> proj : projList) {
-					%>
-								<tr class="tr_proj">
-									<td><%=proj.get("proj_no")%></td>
-									<td><%=proj.get("pstatus_name")%></td>
-									<td><%=proj.get("proj_name")%></td>
-									<td><%=proj.get("emp_name")%></td>
-									<!-- 중단, 종료는 종료일자, 진행중은 예정일자 -->
-					<%
-								if("진행중".equals(proj.get("pstatus_name"))) {
-					%>
-									<td><%=proj.get("start_date")%> ~ <%=proj.get("end_sched_date")%></td></tr>
-					<%
-								} else {
-					%>
-									<td><%=proj.get("start_date")%> ~ <%=proj.get("end_date")%></td></tr>
-					<% 
-								} 
-							}						
-						}
-					%>
+					<%if(projList.size() == 0) {%>
+						<tr><td colspan="5" align="center">프로젝트가 존재하지 않습니다</td></tr>
+					<%} else {%>
+						<%for(Map<String, Object> proj : projList) {%>
+						<tr>
+							<td><%=proj.get("proj_no")%></td>
+							<td><%=proj.get("pstatus_name")%></td>
+							<td><a href="<%=request.getContextPath()%>/plan/view/projDetail?projNo=<%=proj.get("proj_no")%>"><%=proj.get("proj_name")%></a></td>
+							<td><%=proj.get("emp_name")%></td>
+							<!-- 중단, 종료는 종료일자, 진행중은 예정일자 -->
+							<%if("진행중".equals(proj.get("pstatus_name"))) {%>
+							<td><%=proj.get("start_date")%> ~ <%=proj.get("end_sched_date")%></td></tr>
+							<%} else {%>
+							<td><%=proj.get("start_date")%> ~ <%=proj.get("end_date")%></td></tr>
+							<%}%> 
+						<%}%>						
+					<%}%>
 					</tbody>
 				</table>
 	
 				<!-- 페이지네이션 -->
 				<nav class="text-center">
 					<ul class="pagination">
-					<%
-						if(pageGroup <=1) {
-					%>
+						<%if(pageGroup <=1) {%>
 						<li class="disabled">
 							<a href='#' aria-label='Previous'> <span aria-hidden='true'>&laquo;</span></a>
 						</li>
-					<%		
-						} else {
-					%>
+						<%} else {%>
 						<li>
 							<a href="<%=pstatus_name %>?pageNo=<%=(pageGroup-1)*5 %><%=searchParams%>" aria-label="Previous"> 
 							<span aria-hidden='true'>&laquo;</span></a>
 						</li>
-					<%
-						}
+						<%}%>
 							
-						for(int i = (pageGroup-1)*5 + 1 ;i<=Math.min(pageGroup*5,numOfProjPage);i++) {
-							if(pageNo == i) {
-					%>
+						<%for(int i = (pageGroup-1)*5 + 1 ;i<=Math.min(pageGroup*5,numOfProjPage);i++) {%>	
+							<%if(pageNo == i) {%>
 							<li class="active">
-					<%
-							} else {
-					%>
+							<%} else {%>
 							<li>
-					<%
-							}
-							
-					%>
+							<%}%>
 							<a href="<%=pstatus_name %>?pageNo=<%=i %><%=searchParams%>"><%=i %></a></li>
-					<%
-						}						
-						if(pageGroup >= maxPageGroup) {
-					%>
+						<%}%>
+												
+						<%if(pageGroup >= maxPageGroup) {%>
 						<li class="disabled">
 							<a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 							</a></li>
-					<%		
-						} else {
-					%>
+						<%} else {%>
 						<li>
 							<a href="<%=pstatus_name %>?pageNo=<%=pageGroup*5 +1%><%=searchParams%>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 							</a>
 						</li>
-					<%
-						}
-					%>
-						
+						<%}%>
 					</ul>
 				</nav>
 	                    
