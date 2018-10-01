@@ -45,17 +45,12 @@
 				<div class="row" style="margin-bottom: 10px;">
 					<label class="col-sm-2">파일</label>
 					<div class="col-sm-10">
-					<%
-					if(articleDetail.containsKey("ARTICLE_PATH")) {
-					%>
+					<%if(articleDetail.containsKey("ARTICLE_PATH")) {%>
 						<form id="f_download" action="<%=request.getContextPath() %>/plan/articleDownload" method="post">
 							<input type="hidden" name="articleNo" value="<%=articleNo%>">
 							<a href="javascript:document.getElementById('f_download').submit()"><%=articleDetail.get("ARTICLE_PATH")  %></a>
 						</form>
-						
-					<%	
-					} 
-					%>
+					<%}%>
 					</div>
 				</div>
 				<div class="row" style="margin-bottom: 10px;">
@@ -64,6 +59,7 @@
 						<textarea class="form-control" rows="12" style="resize: vertical;" readonly="readonly" ><%=articleDetail.get("ARTICLE_CONTENT")  %></textarea>
 					</div>
 				</div>	
+				
 				<form action="<%=request.getContextPath() %>/plan/articleDelete" method="post">
 					<input type="hidden" name="articleNo" value="<%=articleNo %>"/>
 					<input type="hidden" name="projNo" value="<%=projNo %>"/>
@@ -75,7 +71,6 @@
 					</div>
 				</form>
 			</div>
-
 		</div>
 	</div>
 	<!-- 푸터 -->
