@@ -1,3 +1,5 @@
+<%@page import="org.springframework.web.bind.annotation.SessionAttribute"%>
+<%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,13 +13,20 @@
 	int counts = (Integer)request.getAttribute("counts");
 	int list = (((counts-1)/10)*10)+1;
 	int num = (counts%10);
+/* 	Cookie[] cs = request.getCookies();
+	for(int i=0;i<cs.length;i++){
+	System.out.print("쿠키값 : "+cs[i].getValue());
+	System.out.print("쿠키ID : "+cs[i].getName());
+	} */
+	
 %>
 <body>
 	<script type="text/javascript">
 /* 		var $table = $('#p_table');
 		 */
+		 
 		 $(function() {
-/* 			$("#f_empinfo").attr("action","./1");
+			 /*	$("#f_empinfo").attr("action","./1");
 			$("#f_empinfo").submit();  */
 			$('#p_table').bootstrapTable({
 				url:'<%=request.getContextPath()%>/perR/attd/<%=counts%>'

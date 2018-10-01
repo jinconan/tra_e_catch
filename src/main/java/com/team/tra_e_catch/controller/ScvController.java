@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -35,7 +36,7 @@ public class ScvController {
 			, HttpServletResponse res
 			, @RequestParam("emp_id") String emp_id
 			, @RequestParam("emp_pw") String emp_pw
-			, @RequestParam("remember_id") boolean remember_id
+			, @RequestParam(name="remember_id", required=false) boolean remember_id
 	) {
 		logger.info("login");
 		logger.info("emp_id:"+emp_id+", emp_pw:"+emp_pw+", remember_id:"+remember_id);

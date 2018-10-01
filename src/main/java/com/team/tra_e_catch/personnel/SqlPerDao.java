@@ -23,16 +23,16 @@ public class SqlPerDao {
 	 * @return
 	 */
 	//출퇴근 내역 데이터 요청 DB
-	public List<Map<String, Object>> getAttdList(int counts) {
+	public List<Map<String, Object>> getAttdList(Map<String, Object> pMap) {
 		List<Map<String,Object>> attdList = null;
-		attdList = sqlSessionTemplate.selectList("getAttdList",counts);
+		attdList = sqlSessionTemplate.selectList("getAttdList",pMap);
 		return attdList;
 	}
 	//급여내역 데이터 요청 DB
-	public List<Map<String, Object>> getSalList(int counts) {
+	public List<Map<String, Object>> getSalList(Map<String, Object> pMap) {
 		// TODO Auto-generated method stub
 		List<Map<String,Object>> salList = null;//널포인터 의심
-		salList = sqlSessionTemplate.selectList("getSalList",counts);
+		salList = sqlSessionTemplate.selectList("getSalList",pMap);
 		return salList;
 	}
 	public List<Map<String, Object>> getTeamList(Map<String, Object> pMap) {

@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import com.team.tra_e_catch.personnel.PersonnelLogic;
 @Controller
 @RequestMapping(value = "/per")
 public class PersonnelController {
+
 	@Autowired
 	private PersonnelLogic personnelLogic = null;
 	/*
@@ -36,12 +39,17 @@ public class PersonnelController {
 	////////////////////////////////김훈태 작성///////////////////////////////////////
 	// 급여관리
 	@RequestMapping(value = "/salary/{counts}", method = RequestMethod.GET)
-	public String viewSalary(@RequestParam Map<String, Object> pMap, Model mod, @PathVariable int counts) {
+	public String viewSalary(@RequestParam Map<String, Object> pMap, Model mod, @PathVariable int counts, HttpServletRequest req) {
 		logger.info("salary호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-submenu");
 		mod.addAttribute("curSubMenu", "급여관리");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("counts", counts);
+		HttpSession session= req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		System.out.println("들어오는 사번 : "+emp_no);
+		System.out.println("pMap에 담기는것들?: "+pMap);
+		System.out.println("counts?: "+counts);
 		return "per/salary/salary";
 	}
 
@@ -50,8 +58,7 @@ public class PersonnelController {
 	public String viewAttd(@RequestParam Map<String, Object> pMap, Model mod, @PathVariable int counts) {
 		logger.info("viewAttd호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-attsub");// 근태 관련 서브메뉴
-																											// 호출
-		System.out.println("사번은 : "+pMap.get("empno"));
+
 		mod.addAttribute("curSubMenu", "출퇴근관리");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/attd/attd_attenList";
@@ -164,13 +171,16 @@ public class PersonnelController {
 
 	// 평정 데이터 입력
 	@RequestMapping(value = "/rating/servrating")
-	public String sendRating(@RequestParam Map<String, Object> pMap, Model mod) {
+	public String sendRating(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
 
 		logger.info("sendRating호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-submenu");
 		mod.addAttribute("curSubMenu", "인사고과");
 		mod.addAttribute("subMenuList", subMenuList);
 		List<Map<String, Object>> servList = null;
+		HttpSession session = req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		pMap.put("emp_no", emp_no);
 		servList = personnelLogic.setServrating(pMap);
 		
 		return "per/rating/perrating";
@@ -178,9 +188,12 @@ public class PersonnelController {
 
 	
 	@RequestMapping(value = "/attdinsert")
-	public String attdInsert(@RequestParam Map<String, Object> pMap, Model mod) {
+	public String attdInsert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
 		logger.info("attdInsert호출");
 		List<Map<String, Object>> attdinfo = null;
+		HttpSession session= req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		pMap.put("emp_no", emp_no);
 		attdinfo = personnelLogic.setAttdInsert(pMap);
 		
 		return "home";

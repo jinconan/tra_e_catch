@@ -2,29 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.personnelMapper">
 <select id="getCertList" parameterType="map" resultType="map">
-select * from certlist where emp_no = 84
+select * from certlist where emp_no = #{emp_no}
 </select>
-<select id="getAttdList" parameterType="int" resultType="map">
+<select id="getAttdList" parameterType="map" resultType="map">
 	<!-- select * from comchk where emp_no = 1 and rownum<50 -->
 	<!-- emp_no={사원번호} -->
 	<![CDATA[
 	    select * from
     (select emp_no, a_date,a_time,l_time,time_chk,time_etc, rownum as rno
-     from comchk where emp_no = 84 order by rno)
+     from comchk where emp_no = #{emp_no} order by rno)
      where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno
 	 ]]>
 </select>
 <!-- 개인신상정보 -->
 <select id="getIndivList" parameterType="map" resultType="map">
 
-select * from v_emp where emp_no = 84 <!-- 로그인했을때 들어있는정보. -->
+select * from v_emp where emp_no = #{emp_no} <!-- 로그인했을때 들어있는정보. -->
 
 
 </select>
 
 <select id="setAttdInsert" statementType="CALLABLE" parameterType="hashmap">
 
-  {CALL proc_comchk(84,#{attSelect, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR})}
+  {CALL proc_comchk(#{emp_no},#{attSelect, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR})}
 
 
 </select>
@@ -33,23 +33,23 @@ select * from v_emp where emp_no = 84 <!-- 로그인했을때 들어있는정보
 
 <select id="setSerList" statementType="CALLABLE" parameterType="hashmap">
 
-  {CALL proc_serv_write(273,#{e_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{w_content, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{e_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{pm_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{cos_type1, mode=OUT, jdbcType=VARCHAR, javaType=java.sql.ResultSet, resultMap=cos_type1})}
+  {CALL proc_serv_write(#{emp_no, mode=IN, javaType=java.lang.Integer, jdbcType=NUMERIC},#{e_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{w_content, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{e_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{pm_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{cos_type1, mode=OUT, jdbcType=VARCHAR, javaType=java.sql.ResultSet, resultMap=cos_type1})}
 
 
 </select>
 
-<select id="getSalList" parameterType="int" resultType="map">
+<select id="getSalList" parameterType="map" resultType="map">
 
 <![CDATA[
 	select * from (
-	select GIVE_DATE, NOTE, SAL, rownum as rno from sal_list where emp_no = 84 order by GIVE_DATE desc)
+	select GIVE_DATE, NOTE, SAL, rownum as rno from sal_list where emp_no = #{emp_no} order by GIVE_DATE desc)
 	where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno 
 	 
 ]]>
 </select>
 <select id="getTeamList" parameterType="map" resultType="map">
 
-select * from v_emp where team_no = 4
+select * from v_emp where team_no = (select team_no from v_emp where emp_no = #{emp_no})
 
 
 </select>
