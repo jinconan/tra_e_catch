@@ -12,15 +12,12 @@
 <div class="container">
 <%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
 <div class="col-md-10">
- <form class="form-horizontal">
     <table class="table table-striped">
               <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                <tr><!-- 김훈태 작업중  -->
+                  <th>사원번호</th>
+                  <th>계약서 종류</th>
+                  <th>등록일자</th>
                 </tr>
               </thead>
               <tbody>
@@ -28,16 +25,13 @@
                   <td>1,001</td>
                   <td>Lorem</td>
                   <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
+                  
                 </tr>
                 <tr>
                   <td>1,002</td>
                   <td>amet</td>
                   <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
+                                  </tr>
                 </tbody>
                 </table>
                 <nav>
@@ -62,7 +56,6 @@
    
    </div>
 </nav>
-</form>
                 </div>
                 </div>
 <jsp:include page="/WEB-INF/views/_common/footer.jsp" />                

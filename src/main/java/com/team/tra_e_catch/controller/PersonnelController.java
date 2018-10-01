@@ -285,9 +285,11 @@ public class PersonnelController {
 	}
 
 	// 근로계약서 검색 테이블
-	@RequestMapping(value = "/labtable", method = RequestMethod.GET)
-	public String labtable(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is");
+	@RequestMapping(value = "/labtable", method = RequestMethod.POST)
+	public String labtable(@RequestParam Map<String, Object> pMap) {
+		logger.info("labtable호출");
+		System.out.print(pMap);
+		
 		return "per/onlyauthper/lablist";
 	}
 
