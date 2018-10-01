@@ -2,6 +2,9 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%
 	String contextPath = request.getContextPath();
+	Object emp_no = session.getAttribute("emp_no");
+	
+	
 %>
 <!-- 맨 위 메뉴 -->
 <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
@@ -73,6 +76,8 @@
 					</ul>
 				</li>
 			</ul>
+			
+			<%if(emp_no != null) {%>
 			<!-- 우측에 정렬된 메뉴 -->
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 개인 정보 메뉴 -->
@@ -82,9 +87,11 @@
 					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<%=contextPath%>/scv/view/modify">정보수정</a></li>
+						<li><a href="<%=contextPath%>/scv/logout">로그아웃</a></li>
 					</ul>
 				</li>
 			</ul>
+			<%}%>
 		</div>
 		<!-- 상단 바 업무별 메뉴 끝 -->
 	</div>

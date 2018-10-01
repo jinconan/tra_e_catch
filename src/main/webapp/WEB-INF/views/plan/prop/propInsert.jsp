@@ -34,7 +34,7 @@
 					</div>
 					<div class="form-group">
 						<div class="pull-right" style="padding-right: 15px;">
-							<button type="button" class="btn btn-primary" onclick="fileCheck( this.form.propFile )">등록</button>
+							<button type="button" class="btn btn-primary" onclick="fileCheck(this.form,this.form.propFile)">등록</button>
 						</div>
 					</div>
 				</form>

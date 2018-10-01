@@ -39,14 +39,19 @@ public class PlanController {
 	
 	private static final	Logger				logger	= Logger.getLogger(PlanController.class);
 	private final 			ApplicationContext	context = new ClassPathXmlApplicationContext("submenu/plan-submenu.xml");
+	
+	private final String FILE_REPO = "E:\\files\\";
+	
 	@Autowired
 	private PlanLogic planLogic;
+	
 	///////////////////////////////////////////////기획서////////////////////////////////////////
-
 	/**
 	 * 기획서 리스트 페이지 요청
-	 * @param mod
-	 * @param pageNo 페이지 번호
+	 * @param mod : 모델객체
+	 * @param pageNo : 기획서 게시판 페이지번호.(디폴트 1)
+	 * @param searchColumn : 검색시 검색조건.
+	 * @param searchValue : 검색시 입력한 값.
 	 * @return plan/prop/propList
 	 */
 	@RequestMapping(value="/plan/view/propList", method=RequestMethod.GET)
@@ -54,7 +59,8 @@ public class PlanController {
 			, @RequestParam(name="pageNo", defaultValue="1") int pageNo
 			, @RequestParam(name="searchColumn", required=false) String searchColumn
 			, @RequestParam(name="searchValue", required=false) String searchValue) {
-		logger.info("viewPropList() : pageNo : " + pageNo);
+		logger.info("viewPropList");
+		logger.info("pageNo = " + pageNo + ", searchColumn = " + searchColumn +", searchValue = " + searchValue);
 		
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
@@ -66,6 +72,8 @@ public class PlanController {
 		if(searchColumn!=null) {
 			pMap.put("searchColumn", searchColumn);
 			pMap.put("searchValue", searchValue);
+			mod.addAttribute("searchColumn", searchColumn);
+			mod.addAttribute("searchValue", searchValue);
 		}
 		Map<String, Object> logicResult = planLogic.getPropList(pMap);
 		
@@ -77,11 +85,12 @@ public class PlanController {
 	
 	/**
 	 * 기획서 추가 페이지 요청
-	 * @param mod
+	 * @param mod : 모델객체
 	 * @return plan/prop/propInsert
 	 */
 	@RequestMapping(value="/plan/view/propInsert")
 	public String viewPropInsert(Model mod) {
+		logger.info("viewPropInsert");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "기획서 작성");
 		mod.addAttribute("subMenuList", subMenuList);
@@ -90,13 +99,12 @@ public class PlanController {
 	
 	/**
 	 * 기획서 수정 페이지 요청
-	 * @param mod
-	 * @param propNo
+	 * @param mod : 모델객체
+	 * @param propNo : 기획서 번호
 	 * @return plan/prop/propUpdate
 	 */
 	@RequestMapping(value="/plan/view/propUpdate")
-	public String viewPropUpdate(Model mod
-			, @RequestParam(name="propNo", required=true) int propNo) {
+	public String viewPropUpdate(Model mod, @RequestParam("propNo") int propNo) {
 		logger.info("viewPropUpdate");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
@@ -105,41 +113,45 @@ public class PlanController {
 		return "plan/prop/propUpdate";
 	}
 	
+	/**
+	 * 기획서 입력 처리 메소드
+	 * @param req - 요청객체
+	 * @param propTitle - 기획서 제목
+	 * @param propFile - 기획서 첨부파일.(선택)
+	 * @return redirect:/plan/view/propList
+	 */
 	@RequestMapping(value="/plan/propInsert", method=RequestMethod.POST,headers = ("content-type=multipart/*"))
 	public String propInsert(HttpServletRequest req
-			 ,@RequestParam("propTitle") String propTitle
+			,@RequestParam("propTitle") String propTitle
 			,@RequestParam(value="propFile", required=false) MultipartFile propFile) {
+		logger.info("propInsert");
+		logger.info("propTitle : " + propTitle + ", propFile : " + propFile);
 		
-		String fileRepo = "E:\\files\\";
-		logger.info("propInsert : " + propFile);
+		String doc_repo = FILE_REPO+"doc\\";
+		
 		HttpSession session = req.getSession();
 		Object emp_no = session.getAttribute("emp_no");
-		//아직 세션 구현 안했으니 테스트용으로 강희복
-		if(emp_no == null)
-			emp_no = 1;
 		
 		Map<String, Object> pMap = new HashMap<String,Object>();
 		pMap.put("emp_no",emp_no);
 		pMap.put("propTitle", propTitle);
 		pMap.put("propFile", propFile.getOriginalFilename());
 
-		//result : 인서트된 문서의 PK값
 		int result = planLogic.insertProp(pMap);
+		int doc_no = (Integer)pMap.get("doc_no");
 		
 		if(propFile.isEmpty() == false) {
 			logger.debug("파일 업로드 수행");
 			String filename = propFile.getOriginalFilename();
-			File directory = new File(fileRepo+result);
-			File file = new File(fileRepo+result+"\\"+filename);
-			directory.mkdir();
+			File directory = new File(doc_repo+doc_no);
+			File file = new File(directory+"\\"+filename);
+			directory.mkdirs();
 			
 			try {
 				propFile.transferTo(file);
 			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -149,20 +161,21 @@ public class PlanController {
 	
 	/**
 	 * 기획서 다운로드 요청
-	 * @param res
-	 * @param propNo
-	 * @param propFile
-	 * @return
+	 * @param res - 요청객체
+	 * @param propNo - 기획서번호
+	 * @param propFile - 기획서파일명
+	 * @return ResponseEntity<byte[]>
 	 */
 	@ResponseBody
 	@RequestMapping(value="/plan/propDownload")
 	public ResponseEntity<byte[]> propDownload(HttpServletResponse res
 			, @RequestParam("propNo") int propNo
 			, @RequestParam("propFile") String propFile) {
-		logger.info("propDownload(): propNo : "+ propNo + ", propFile : " + propFile);
+		logger.info("propDownload()");
+		logger.info("propNo : "+ propNo + ", propFile : " + propFile);
 		ResponseEntity<byte[]> entity = null;
 		
-		String fileRepo = "E:\\files\\";
+		String docRepo = FILE_REPO+"doc\\";
 		String docNo = null;
 		
 		//제안서 번호로부터 문서 테이블에서의 문서 번호리턴.
@@ -174,12 +187,11 @@ public class PlanController {
 		if(propList.size() != 0) 
 			docNo = ((BigDecimal)propList.get(0).get("doc_no")).toString();
 
-		try(InputStream in = new FileInputStream(fileRepo+docNo+"\\"+propFile);) {
+		try(InputStream in = new FileInputStream(docRepo+docNo+"\\"+propFile);) {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-			headers.add("Content-Disposition", "attatchment; filename=\"" + 
-                    new String(propFile.getBytes("UTF-8"), "ISO-8859-1") + 
-                    "\"");
+			headers.add("Content-Disposition", 
+					"attatchment; filename=\"" + new String(propFile.getBytes("UTF-8"), "ISO-8859-1") +"\"");
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		} catch(Exception e) {
 			logger.error(e.toString());
@@ -192,7 +204,7 @@ public class PlanController {
 	
 	/**
 	 * 프로젝트 추가 페이지 요청
-	 * @param mod
+	 * @param mod - 모델객체
 	 * @return plan/proj/projInsert
 	 */
 	@RequestMapping("/plan/view/projInsert")
@@ -205,12 +217,13 @@ public class PlanController {
 	
 	/**
 	 * 프로젝트 수정 페이지 요청
-	 * @param mod
+	 * @param mod - 모델객체
+	 * @param projNo - 프로젝트 번호
 	 * @return plan/proj/projUpdate
 	 */
 	@RequestMapping("/plan/view/projUpdate")
 	public String viewProjUpdate(Model mod
-			, @RequestParam(name="projNo", required=true) int projNo) {
+			, @RequestParam("projNo") int projNo) {
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
 		mod.addAttribute("curSubMenu", "프로젝트 정보");
 		mod.addAttribute("subMenuList", subMenuList);
@@ -223,12 +236,16 @@ public class PlanController {
 	
 	/**
 	 * 프로젝트 전체 리스트 페이지 요청 (all, ing,end,stop)
-	 * @param mod
-	 * @return
+	 * @param mod - 모델객체
+	 * @param pstatus_name - 프로젝트 현황(all, ing, end, stop)
+	 * @param pageNo - 프로젝트 리스트 페이지 번호(디폴트 1)
+	 * @param searchColumn - 리스트 검색 조건
+	 * @param searchValue - 리스트 검색 값
+	 * @return plan/proj/projList
 	 */
 	@RequestMapping(value="/plan/view/projList/{pstatus_name}")
 	public String viewProjList(Model mod
-			, @PathVariable(name="pstatus_name",required=true) String pstatus_name
+			, @PathVariable("pstatus_name") String pstatus_name
 			, @RequestParam(name="pageNo", defaultValue="1") int pageNo
 			, @RequestParam(name="searchColumn", required=false) String searchColumn
 			, @RequestParam(name="searchValue", required=false) String searchValue) {
@@ -244,7 +261,6 @@ public class PlanController {
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("pageNo", pageNo);
 		pMap.put("pstatus_name", pstatus_name);
-//		pMap.put("emp_no", 1);
 		if(searchColumn != null) {
 			pMap.put("searchColumn",  searchColumn);
 			pMap.put("searchValue", searchValue);
@@ -267,7 +283,7 @@ public class PlanController {
 	 */
 	@RequestMapping(value="/plan/view/projDetail")
 	public String viewProjDetail(Model mod
-			, @RequestParam(value="projNo", required=true) int projNo) {
+			, @RequestParam("projNo") int projNo) {
 		logger.info("viewProjDetail()");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
 		mod.addAttribute("curSubMenu", "프로젝트 정보");
@@ -420,7 +436,9 @@ public class PlanController {
 		int result = planLogic.updateProjBoard(pMap);
 		return "redirect:/planR/json/projBoardList?projNo="+pMap.get("proj_no");
 	}
-	//////////////////////////////////////DIY게시판 ////////////////////////////////////////////
+	
+	
+	//////////////////////////////////////프로젝트 내부 게시판 ////////////////////////////////////////////
 	/**
 	 * DIY게시판 리스트 페이지 요청
 	 * @param mod
@@ -584,14 +602,19 @@ public class PlanController {
 		return "redirect:/plan/view/diyBoardList?projNo="+projNo+"&boardNo="+boardNo;
 	}
 	
-	
+	/**
+	 * 
+	 * @param res
+	 * @param articleNo
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/plan/articleDownload")
 	public ResponseEntity<byte[]> articleDownload(HttpServletResponse res
 			,@RequestParam("articleNo") int articleNo
 	) {
 		ResponseEntity<byte[]> entity = null;
-		String fileRepo = "D:\\files\\article\\";
+		String articleRepo = FILE_REPO+"article\\";
 		
 		//제안서 번호로부터 문서 테이블에서의 문서 번호리턴.
 		Map<String,Object> pMap = new HashMap<String, Object>();
@@ -600,7 +623,7 @@ public class PlanController {
 		if(rMap.containsKey("ARTICLE_NO")) { 
 			String articlePath = (String)rMap.get("ARTICLE_PATH");
 			
-			try(InputStream in = new FileInputStream(fileRepo+articleNo+"\\"+articlePath);) {
+			try(InputStream in = new FileInputStream(articleRepo+articleNo+"\\"+articlePath);) {
 				HttpHeaders headers = new HttpHeaders();
 				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 				headers.add("Content-Disposition", "attatchment; filename=\"" + 

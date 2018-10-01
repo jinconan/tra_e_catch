@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.team.tra_e_catch.scv.ScvLogic;
 
@@ -77,9 +78,10 @@ public class ScvController {
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/logout", method = RequestMethod.GET)
-	public String logout(Model mod) {
+	public String logout(Model mod, SessionStatus sessionStatus) {
 		logger.info("logout");
-		return "home";
+		sessionStatus.setComplete();
+		return "redirect:/";
 	}
 
 	/**

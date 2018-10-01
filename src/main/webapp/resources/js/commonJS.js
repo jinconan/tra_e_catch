@@ -20,9 +20,9 @@ function dateToString(pdate) {
 }
 
 /**
- *  업로드 체크 
+ *  업로드 체크. 최대 20MB
  */
-function fileCheck(file){
+function fileCheck(form,file){
     // 사이즈체크
     var maxSize  = 20 * 1024 * 1024    //20MB
     var fileSize = 0;
@@ -30,6 +30,9 @@ function fileCheck(file){
 	// 브라우저 확인
 	var browser=navigator.appName;
 	
+	//파일 첨부를 안한 경우에는 바로 폼 전송
+	if(file.value=="")
+		  form.submit();
 	// 익스플로러일 경우
 	if (browser=="Microsoft Internet Explorer")	{
 		var oas = new ActiveXObject("Scripting.FileSystemObject");
@@ -41,9 +44,9 @@ function fileCheck(file){
 	}
 
     if(fileSize > maxSize){
-        alert("첨부파일 사이즈는 5MB 이내로 등록 가능합니다.    ");
+        alert("첨부파일 사이즈는 20MB 이내로 등록 가능합니다.    ");
         return;
     }
 
-    document.forms[0].submit();
+    form.submit();
 }

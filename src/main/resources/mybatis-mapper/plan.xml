@@ -4,32 +4,8 @@
 
 	<!-- 특정 페이지에 있는 기획서 리스트 출력 -->
 	<select id="getPropList" resultType="map" parameterType="map">
-	SELECT *
-	FROM (
-		 SELECT rownum rno
-		    ,prop_no
-		    ,doc_no as "doc_no"
-		    ,content as "title"
-		    ,name as "emp_name"
-		    ,up_date as "up_date"
-		    ,path as "path"
-		    FROM (
-		        SELECT rownum prop_no
-		        ,doc_no,content,name,up_date,path
-		        FROM (
-		        SELECT doc_no
-		            ,content
-		            ,e.name
-		            ,up_date
-		            ,path 
-		            FROM docs 
-		                INNER JOIN employee e ON docs.emp_no=e.emp_no
-		            WHERE DOCS.DTYPE_NO = 310
-		            ORDER BY doc_no asc
-		        )
-		        ORDER BY prop_no desc
-		    )
-	    )
+	SELECT rno, prop_no, doc_no as "doc_no", title as "title", emp_name as "emp_name", up_date as "up_date", path as "path"
+	FROM v_proplist
 	    <where>
 	    	<if test="pageNo != null">
 	    		rno between (#{pageNo}-1)*10+1 and (#{pageNo})*10	
@@ -54,20 +30,20 @@
 	<!-- 기획서 리스트의 페이지 갯수 -->
 	<select id="getNumOfPropPage" resultType="int">
 		SELECT CEIL(count(*)/10)
-		    FROM docs 
-		        INNER JOIN employee e ON docs.emp_no=e.emp_no
-		    WHERE DOCS.DTYPE_NO = 310
-		    <choose>
-				<when
-					test="searchColumn != null and searchColumn.equals('propTitle')">
-					AND title LIKE '%' || #{searchValue} || '%'
-				</when>
-				<when
-					test="searchColumn != null and searchColumn.equals('propWriter')">
-					AND emp_name LIKE '%' || #{searchValue} || '%'
-				</when>
-				<otherwise></otherwise>
-			</choose>
+	    FROM docs 
+	        INNER JOIN employee e ON docs.emp_no=e.emp_no
+	    WHERE DOCS.DTYPE_NO = 310
+	    <choose>
+			<when
+				test="searchColumn != null and searchColumn.equals('propTitle')">
+				AND title LIKE '%' || #{searchValue} || '%'
+			</when>
+			<when
+				test="searchColumn != null and searchColumn.equals('propWriter')">
+				AND emp_name LIKE '%' || #{searchValue} || '%'
+			</when>
+			<otherwise></otherwise>
+		</choose>
 	</select>
 	
 	<!-- 기획서 추가 -->
@@ -82,37 +58,12 @@
 	
 	<!-- 특정 조건에 대한 프로젝트 리스트를 구함. -->
 	<select id="getProjList" resultType="map" parameterType="map">
-		SELECT *
-		FROM(
-			SELECT rownum rno
-				,proj_no as "proj_no"
-				,pstatus_no as "pstatus_no"
-				,pstatus_name as "pstatus_name"
-				,proj_name as "proj_name"
-				,emp_name as "emp_name"
-				,start_date as "start_date"
-				,end_sched_date	as "end_sched_date"
-				,end_date as "end_date"
-			FROM (
-				SELECT project.proj_no AS proj_no,
-					proj_status.pstatus_no AS pstatus_no,
-					proj_status.name AS pstatus_name,
-					project.name AS proj_name,
-					proj_member.name AS emp_name,
-					project.start_date AS start_date,
-					project.end_sched_date AS end_sched_date,
-					project.end_date AS end_date
-				FROM (
-					SELECT proj_no, role_type.rtype_no, employee.name
-					FROM employee, role_type, proj_member
-					WHERE proj_member.rtype_no = role_type.rtype_no
-						AND proj_member.emp_no = employee.emp_no
-						AND role_type.rtype_no = 101
-					) proj_member,project, proj_status
-				WHERE project.pstatus_no = proj_status.pstatus_no
-					AND proj_member.proj_no(+) = project.proj_no
-				ORDER BY project.proj_no DESC
-			)
+		SELECT rno, proj_no as "proj_no", pstatus_no as "pstatus_no"
+			,pstatus_name as "pstatus_name", proj_name as "proj_name",emp_name as "emp_name"
+			,start_date as "start_date", end_sched_date	as "end_sched_date", end_date as "end_date"
+		FROM (
+			SELECT * FROM
+			v_projlist
 			<where>
 				<choose>
 					<when test="pstatus_name!=null and pstatus_name.equals('진행중')">
@@ -134,7 +85,7 @@
 					<when
 						test="searchColumn != null and searchColumn.equals('leader_name')">
 						AND emp_name LIKE '%' || #{searchValue} || '%'
-					</when>
+					</when> 
 					<otherwise></otherwise>
 				</choose>
 				<if test="emp_no != null">
@@ -148,27 +99,7 @@
 	<!-- 특정 조건에 대해서 조회된 프로젝트 리스트의 총 페이지 개수를 구함. -->
 	<select id="getNumOfProjPage" resultType="int"
 		parameterType="map">
-		SELECT CEIL(count(*)/10)
-		FROM (
-			SELECT project.proj_no AS proj_no,
-				proj_status.pstatus_no AS pstatus_no,
-				proj_status.name AS pstatus_name,
-				project.name AS proj_name,
-				proj_member.name AS emp_name,
-				project.start_date AS start_date,
-				project.end_sched_date AS end_sched_date,
-				project.end_date AS end_date
-			FROM (
-				SELECT proj_no, role_type.rtype_no, employee.name
-				FROM employee, role_type, proj_member
-				WHERE proj_member.rtype_no = role_type.rtype_no
-					AND proj_member.emp_no = employee.emp_no
-					AND role_type.rtype_no = 101
-				) proj_member,project, proj_status
-			WHERE project.pstatus_no = proj_status.pstatus_no
-				AND proj_member.proj_no(+) = project.proj_no
-			ORDER BY project.proj_no DESC
-		)
+		SELECT CEIL(count(*)/10) FROM v_projlist
 		<where>
 			<choose>
 				<when test="pstatus_name!=null and pstatus_name.equals('진행중')">
