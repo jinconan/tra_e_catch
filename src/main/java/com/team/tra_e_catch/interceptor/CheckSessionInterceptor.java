@@ -4,13 +4,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class CheckSessionInterceptor extends HandlerInterceptorAdapter{
+	Logger logger = Logger.getLogger(CheckSessionInterceptor.class);
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		System.out.println("!!@@##");
+		logger.info("preHandle");
 		HttpSession session = request.getSession(false);
 		if(session == null || session.getAttribute("emp_no") == null) {
 			response.sendRedirect(request.getContextPath()+"/scv/view/login");

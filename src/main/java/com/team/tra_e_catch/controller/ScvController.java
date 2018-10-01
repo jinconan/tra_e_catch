@@ -20,7 +20,7 @@ import com.team.tra_e_catch.scv.ScvLogic;
 public class ScvController {
 
 	private static final Logger logger = Logger.getLogger(ScvController.class);
-
+	private final int MAX_INACTIVE_INTERVAL = 60 * 60; //1시간
 	@Autowired
 	private ScvLogic scvLogic;
 	
@@ -35,11 +35,12 @@ public class ScvController {
 			, HttpServletResponse res
 			, @RequestParam("emp_id") String emp_id
 			, @RequestParam("emp_pw") String emp_pw
-			, @RequestParam("remember_id") boolean remember_id
+			, @RequestParam(name="remember_id",required=false) boolean remember_id
 	) {
 		logger.info("login");
 		logger.info("emp_id:"+emp_id+", emp_pw:"+emp_pw+", remember_id:"+remember_id);
 		
+		//아이디 기억 체크박스 선택시 쿠키에 입력한 아이디 저장.
 		if(remember_id == true) {
 			Cookie cookie = new Cookie("emp_id", emp_id);
 			res.addCookie(cookie);
@@ -50,7 +51,7 @@ public class ScvController {
 			return "scv/login";
 		else {
 			HttpSession session = req.getSession();
-//			session.setMaxInactiveInterval(interval);
+			session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
 			session.setAttribute("emp_no", result);
 			return "home";
 		}

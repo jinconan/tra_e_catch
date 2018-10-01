@@ -1,4 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String emp_id = null;
+	try {
+		emp_id = (String)request.getAttribute("emp_id");
+	}catch(Exception e) {
+		emp_id = "";
+	}
+	
+
+
+%>
 <%--
 	ERP 시스템은 무조건 로그인이 선행되어야 함.
 	로그인이 안되어있을 경우에는 어떠한 링크를 타더라도 로그인페이지로 이동함.
@@ -21,6 +32,17 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<script>
+$(function() {
+	$emp_id = $("#emp_id");
+	$remember_id = $("#remember_id");
+	
+	if($emp_id.val() != "") {
+		$remember_id.attr("checked","checked");
+	}
+})
+	
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
@@ -34,13 +56,13 @@
 					<div class="form-group">
 						<label for="emp_id" class="sr-only control-label">ID</label>
 						<div class="col-sm-offset-4 col-sm-4">
-							<input type="text" id="emp_id" name="emp_id" class="form-control" placeholder="ID" required="required" autofocus="autofocus"> 
+							<input type="text" id="emp_id" name="emp_id" class="form-control" placeholder="ID" value="<%= emp_id%>" required="required" autofocus="autofocus"> 
 						</div> 
 					</div>
 					<div class="form-group">
 						<label for="emp_pw" class="sr-only control-label">Password</label> 
 						<div class="col-sm-offset-4 col-sm-4 ">
-							<input type="password" id="emp_pw" name="emp_pw" class="form-control" placeholder="Password" required="required">
+							<input type="password" id="emp_pw" name="emp_pw" class="form-control" placeholder="Password" required="required" c>
 						</div> 
 					</div>
 					<div class="form-group">
@@ -52,7 +74,7 @@
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-4">
-							<button class="btn btn-primary btn-block" type="submit">로그인</button>
+							<button class="btn btn-primary btn-block">로그인</button>
 						</div>
 					</div>
 				</form>
