@@ -1,4 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
+ <%
+	String emp_id = null;
+ 	String emp_pw = null;
+ 	String emp_new_pw =null;
+ 	String emp_new_pw_check =null;
+ 	String emp_email =null;
+	try {
+		emp_id = (String)request.getAttribute("emp_id");
+	}catch(Exception e) {
+		emp_id = "";
+	}
+
+%> 
+
 <%-- 
 	form정보
 	action : 미정
@@ -27,7 +43,39 @@
 			format : 'yyyy-mm-dd',
 			minView : 2
 		});
+		$("#f_modify").click(function(){
+			$("#f_modify1")
+			
+		});
 	})
+	function isok(){
+/* 	alert("저장되었습니다."); */
+	
+	//alert($("#e_list option:selected").val());
+	
+	$("#f_modify").attr("action","<%= request.getContextPath() %>/scv/modify");
+	$("#f_modify").submit(); 
+}
+	
+ /* $(function() {
+	$emp_pw = $("#emp_pw");
+	$emp_cur_pw = $("#emp_cur_pw");
+	$emp_new_pw = $("#emp_new_pw");
+	$emp_new_pw_check = $("#emp_new_pw_check");
+	
+	if($emp_pw.val() != "") {
+		$emp_pw.attr("checked","checked");
+	}
+})	  */
+$(function() {
+	$emp_id = $("#emp_id");
+	$remember_id = $("#remember_id");
+	
+	if($emp_id.val() != "") {
+		$remember_id.attr("checked","checked");
+	}
+})
+	
 </script>
 </head>
 <body>
@@ -40,7 +88,7 @@
 			<div class="well">
 				<h2><strong>내 정보 수정</strong></h2>
 			
-				<form action="" class="form-horizontal" method="post">
+				<form class="form-horizontal" method="post" >
 					<div class="form-group">
 						<label for="emp_name" class="col-sm-3 control-label">이름</label>
 						<div class="col-sm-3">
@@ -56,26 +104,26 @@
 					<div class="form-group">
 						<label for="emp_cur_pw" class="col-sm-3 control-label">현재 비밀번호</label>
 						<div class="col-sm-3">
-							<input type="password" class="form-control" id="emp_cur_pw" name="emp_cur_pw" required />
+							<input type="password" class="form-control" id="emp_cur_pw" name="emp_cur_pw" value="<%=emp_pw%>" required />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="emp_cur_pw" class="col-sm-3 control-label">새 비밀번호</label>
 						<div class="col-sm-3">
-							<input type="password" class="form-control" id="emp_new_pw" name="emp_new_pw" required />
+							<input type="password" class="form-control" id="emp_new_pw" name="emp_new_pw" value="<%=emp_new_pw%>" required />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="emp_cur_pw" class="col-sm-3 control-label">새 비밀번호 확인</label>
 						<div class="col-sm-3">
-							<input type="password" class="form-control" id="emp_new_pw_check" name="emp_new_pw_check" required />
+							<input type="password" class="form-control" id="emp_new_pw_check" name="emp_new_pw_check" value="<%=emp_new_pw_check%>" required />
 						</div>
 					</div>
 	
 					<div class="form-group">
 						<label for="emp_email" class="col-sm-3 control-label">이메일</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" id="emp_email" name="emp_email" placeholder="xxxx@xxxXX.xxx" required />
+							<input type="text" class="form-control" id="emp_email" name="emp_email" placeholder="xxxx@xxxXX.xxx" value="<%=emp_email%>" required />
 						</div>
 					</div>
 					<div class="form-group">
@@ -101,7 +149,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-offset-3 col-sm-3">
+						<div class="col-sm-offset-3 col-sm-3" onclick=javascript:isok()>
 							<button class="btn btn-primary">수정</button>
 						</div>
 					</div>

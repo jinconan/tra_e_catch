@@ -38,8 +38,8 @@ public class ScvController {
 			, HttpServletResponse res
 			, @RequestParam("emp_id") String emp_id
 			, @RequestParam("emp_pw") String emp_pw
-			, @RequestParam(name="remember_id",required=false) boolean remember_id
-	) {
+			, @RequestParam(name="remember_id",required=false) boolean remember_id) 
+	   {
 		logger.info("login");
 		logger.info("emp_id:"+emp_id+", emp_pw:"+emp_pw+", remember_id:"+remember_id);
 		
@@ -98,9 +98,34 @@ public class ScvController {
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/modify", method = RequestMethod.POST)
-	public String modify(Model mod) {
+	public String modify(Model mod
+			, HttpServletRequest req
+			, HttpServletResponse res
+			, @RequestParam("emp_id") String emp_id
+			, @RequestParam("emp_pw") String emp_pw
+			, @RequestParam("emp_new_pw") String emp_new_pw
+			, @RequestParam("emp_new_pw_check") String emp_new_pw_check
+			, @RequestParam("emp_email") String emp_email
+			, @RequestParam(name="remember_id",required=false) boolean remember_id)
+	{
 		logger.info("modify");
-		return "redirect:/";
+		logger.info("emp_id");
+		
+		if(remember_id == true) {
+			Cookie cookie = new Cookie("emp_id", emp_id);
+			res.addCookie(cookie);
+		}
+		int result = scvLogic.modify(emp_pw, emp_new_pw, emp_new_pw_check, emp_email);
+		if(result == 0)
+			return "scv/modify";
+		else {
+			HttpSession session = req.getSession();
+			session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
+			session.setAttribute("emp_no", result);
+			return "home";
+		}
+		//return "scv/modify";
+		
 	}
 
 	/**
@@ -109,8 +134,12 @@ public class ScvController {
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/view/modify", method = RequestMethod.GET)
-	public String viewModify(Model mod) {
+	public String viewModify(Model mod
+			,@CookieValue(value="emp_id", required=false)Cookie cookie) 
+	{
 		logger.info("viewModify");
+		if(cookie != null)
+			mod.addAttribute("emp_id",cookie.getValue());
 		return "scv/modify";
 	}
 

@@ -8,4 +8,16 @@
 				WHERE id=#{emp_id} AND pw=#{emp_pw}),0) as emp_no
 	FROM dual
 	</select>
+	
+	<update id="modify"  parameterType="map">
+	UPDATE employee
+		SET 
+		 ,pw    = #{emp_pw}
+		 ,email = #{emp_email}
+		 ,email_yn = #{email_yn}
+		 WHERE emp_no = #{emp_no}
+	
+	</update>
+	
+	
 </mapper>

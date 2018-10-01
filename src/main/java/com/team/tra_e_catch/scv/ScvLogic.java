@@ -22,4 +22,17 @@ public class ScvLogic {
 		
 		return sqlScvDao.login(pMap);
 	}
+	public int modify(String emp_pw, String emp_new_pw, String emp_new_pw_check,String emp_email)
+	{
+		logger.info("modify");
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		pMap.put("emp_pw", emp_pw);
+		pMap.put("emp_new_pw", emp_new_pw);
+		pMap.put("emp_new_pw_check", emp_new_pw_check);
+		pMap.put("emp_email", emp_email);
+		
+		return sqlScvDao.modify(pMap);
+		
+	}
+	
 }
