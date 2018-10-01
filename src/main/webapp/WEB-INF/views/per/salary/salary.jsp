@@ -11,12 +11,14 @@
 	int counts = (Integer)request.getAttribute("counts");
 	int list = (((counts-1)/10)*10)+1;
 	int num = (counts%10);
+	int emp_no = (int)session.getAttribute("emp_no"); //사원정보 받는 곳
 %>
 <body>
 <script type="text/javascript">
 $(function() {
 	$('#p_table').bootstrapTable({
-		url:'<%=request.getContextPath()%>/perR/salary/<%=counts%>'				
+		url:'<%=request.getContextPath()%>/perR/salary/<%=counts%>'
+		
 	});
 	var base = $('#liid'+<%=num%>);
 	base.addClass('active');
@@ -39,7 +41,7 @@ $(function() {
 
 		<!-- 무죄 -->
 		<div class="table-responsive col-xs-9">
-			<table id="p_table" class="table table-striped table-hover">
+				<table id="p_table" class="table table-striped table-hover">
 				<thead>
 					<tr>
 					<!-- data-field에는 json포멧으로 데이터를 담을예정  -->

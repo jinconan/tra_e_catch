@@ -1,9 +1,12 @@
 package com.team.tra_e_catch.REST;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,36 +51,56 @@ public class PersonnelREST {
 		List<Map<String, Object>> as = accountingLogic.teamR_Logic();
 		return as;
 	}*/
-	
+	//페이지네이션 처리 동적쿼리로 변경(기존 > emp_no 상수)
+	//(변경 > 로그인에 따른 세션 값=emp_no로 변경)
 	@RequestMapping("salary/{counts}")
-	private List<Map<String, Object>> viewSalaryjson(@PathVariable int counts){
+	private List<Map<String, Object>> viewSalaryjson(@PathVariable int counts, HttpServletRequest req){
 		logger.info("viewSalary요청");
 		List<Map<String, Object>> salList = null;
-		salList = personnelLogic.getSalList(counts);
+		HttpSession session = req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		Map<String, Object> pMap = new HashMap<>();
+		pMap.put("counts", counts);
+		pMap.put("emp_no", emp_no);
+		salList = personnelLogic.getSalList(pMap);
+	
 		return salList;
 	}
+
+	
+	
 	
 	@RequestMapping("attd/{counts}")
-	private List<Map<String, Object>> viewAttdjson(@PathVariable int counts){
+	private List<Map<String, Object>> viewAttdjson(@PathVariable int counts, HttpServletRequest req){
 		logger.info("viewAttdjson요청");
 		List<Map<String, Object>> attdList = null;
-		attdList = personnelLogic.getAttdList(counts);
+		HttpSession session = req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		Map<String, Object> pMap = new HashMap<>();
+		pMap.put("counts", counts);
+		pMap.put("emp_no", emp_no);
+		attdList = personnelLogic.getAttdList(pMap);
 		return attdList;
 	}
 	
 	@RequestMapping("rating/list")
-	private List<Map<String, Object>> viewTeamjson(@RequestParam Map<String, Object> pMap){
+	private List<Map<String, Object>> viewTeamjson(@RequestParam Map<String, Object> pMap, HttpServletRequest req){
 		logger.info("viewTeamjson요청");
 		List<Map<String, Object>> teamList = null;
+		HttpSession session = req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		pMap.put("emp_no", emp_no);		
 		teamList = personnelLogic.getTeamList(pMap);
 		logger.info(teamList);
 		return teamList;
 	}
 	//증명서 발급 내역
 	@RequestMapping(value = "certlist")
-	public List<Map<String, Object>> certlist(@RequestParam Map<String, Object> pMap) {
-		logger.info(pMap);
+	public List<Map<String, Object>> certlist(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
 		List<Map<String, Object>> getCertlist = null;
+		HttpSession session = req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		pMap.put("emp_no", emp_no);		
 		getCertlist = personnelLogic.getCertlist(pMap);
 		logger.info(getCertlist);
 		return getCertlist;
@@ -95,8 +118,12 @@ public class PersonnelREST {
 	
 	//개인신상정보
 	@RequestMapping(value = "indivemp")
-	public List<Map<String, Object>> indivEmpList(@RequestParam Map<String, Object> pMap) {
+	public List<Map<String, Object>> indivEmpList(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
 		List<Map<String, Object>> indivList = null;
+		System.out.println(pMap);
+		HttpSession session = req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		pMap.put("emp_no", emp_no);
 		indivList = personnelLogic.getindivList(pMap);
 		
 		return indivList;

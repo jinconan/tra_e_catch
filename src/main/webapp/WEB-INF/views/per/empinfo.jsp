@@ -91,7 +91,8 @@
 <script type="text/javascript">
 
 $(function() {
-
+	var sessemp_no = <%=session.getAttribute("emp_no")%> //사원번호 저장.
+	
 		$(".btn-pref .btn").click(function () {
 		    $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
 		    // $(".tab").addClass("active"); // instead of this do the below 
@@ -101,7 +102,7 @@ $(function() {
 		url:'<%=request.getContextPath()%>/perR/indivemp',
 		type: "json",
 		success: function(data){
-			$("#empno").append(" "+data[0].EMP_NO);//사원이름
+			$("#empno").append(" "+data[0].EMP_NO);//사원번호
 			$("#ename").append(data[0].ENAME);//사원이름
 			$("#bday").append(" "+data[0].BDAY);//사원생년월일
 			$("#tname").append(" "+data[0].TNAME);//팀이름
