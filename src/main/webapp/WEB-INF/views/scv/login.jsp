@@ -6,26 +6,8 @@
 	}catch(Exception e) {
 		emp_id = "";
 	}
-	
-
 
 %>
-<%--
-	ERP 시스템은 무조건 로그인이 선행되어야 함.
-	로그인이 안되어있을 경우에는 어떠한 링크를 타더라도 로그인페이지로 이동함.
-	
-	<form>
-	로그인 양식
-	-----------------------------------------------
-	action = /scv/login(컨텍스트경로는 제외)
-	method = post
-	------------------------------------------------
-	params[name,설명]
-	
-	[emp_id,아이디]
-	[emp_pw,패스워드]
-	[cb_remember_id,아이디 기억]
- --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +15,7 @@
 <title>로그인</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
+//체크박스 체크
 $(function() {
 	$emp_id = $("#emp_id");
 	$remember_id = $("#remember_id");

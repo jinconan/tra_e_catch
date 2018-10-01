@@ -2,6 +2,8 @@
 <%
 	//프로젝트 번호
 	int projNo = (Integer) request.getAttribute("projNo");
+	boolean isLeader = (Boolean) request.getAttribute("isLeader");
+	int empNo = (Integer) session.getAttribute("emp_no");
 %>
 <!DOCTYPE html>
 <html>
@@ -60,6 +62,9 @@ function btnDelClick() {
 					alert(emp[0].empName+" "+emp[0].levName+"이(가) 삭제되었습니다.");
 					$table.bootstrapTable("refresh");
 					$notMemberTable.bootstrapTable("refresh");
+					
+					if(emp[0].empNo == <%=empNo%>)
+						$("#btnGroupProjMember").hide();
 				}
 				,error:function(xhr) {
 					console.log("error");
@@ -169,12 +174,14 @@ function btnAddClick() {
 				<div class="row">
 					<h2>
 						<strong>참여자 리스트</strong>
+						<%if(isLeader == true) { %>
 						<span id="btnGroupProjMember" class="btn-group">
 							<a class="btn btn-primary" href="javascript:btnModGroupClick()">편집시작</a>
 							<a class="btn btn-success" data-toggle="modal" data-target="#modalInsertMember" style="display: none;">추가</a>
 							<a class="btn btn-warning" href="javascript:btnModClick()" style="display: none;">변경</a>
 							<a class="btn btn-danger" href="javascript:btnDelClick()" style="display: none;">삭제</a>
 						</span>
+						<%} %>
 					</h2>
 				</div>
 
@@ -207,6 +214,7 @@ function btnAddClick() {
 		</div>
 	</div>
 	
+	<% if(isLeader == true) { %>
 	<!-- 멤버 추가 모달 -->
 	<div class="modal fade" id="modalInsertMember" tabindex="-1" role="dialog" aria-labelledby="mLabelInsertMember" aria-hidden="true">
 		<div class="modal-dialog">
@@ -240,6 +248,7 @@ function btnAddClick() {
 			</div>
 		</div>
 	</div>
+	<%} %>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 	<script>
 	var $a = $("#submenu>li>a");

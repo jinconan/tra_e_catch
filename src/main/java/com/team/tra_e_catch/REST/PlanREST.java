@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.REST;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,5 +50,24 @@ public class PlanREST {
 	@RequestMapping("/json/projBoardList")
 	public List<Map<String,Object>> getProjBoardListJson(@RequestParam("projNo") int projNo) {
 		return planLogic.getProjBoardList(projNo);
+	}
+	
+	@RequestMapping("/json/propList")
+	public Map<String, Object> getPropList(
+			@RequestParam(name="pageNo", defaultValue="1") int pageNo
+			, @RequestParam(name="searchColumn", required=false) String searchColumn
+			, @RequestParam(name="searchValue", required=false) String searchValue) {
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		pMap.put("pageNo", pageNo);
+		if(searchColumn != null) {
+			pMap.put("searchColumn", searchColumn);
+			pMap.put("searchValue", searchValue);
+		}
+		Map<String, Object> logicResult = planLogic.getPropList(pMap);
+		
+		Map<String,Object> rMap = new HashMap<String,Object>();
+		rMap.put("rows",logicResult.get("propList"));
+		rMap.put("total", logicResult.get("numOfPropPage"));
+		return rMap;
 	}
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.team.tra_e_catch.scv.ScvLogic;
@@ -33,7 +34,7 @@ public class ScvController {
 	 */
 	@RequestMapping(value = "/scv/login", method = RequestMethod.POST)
 	public String login(Model mod
-			, HttpServletRequest req
+			, HttpSession session
 			, HttpServletResponse res
 			, @RequestParam("emp_id") String emp_id
 			, @RequestParam("emp_pw") String emp_pw
@@ -41,6 +42,9 @@ public class ScvController {
 	) {
 		logger.info("login");
 		logger.info("emp_id:"+emp_id+", emp_pw:"+emp_pw+", remember_id:"+remember_id);
+		
+		if(session != null && session.getAttribute("emp_no") != null)
+			return "redirect:/";
 		
 		//아이디 기억 체크박스 선택시 쿠키에 입력한 아이디 저장.
 		if(remember_id == true) {
@@ -50,12 +54,11 @@ public class ScvController {
 		
 		int result = scvLogic.login(emp_id, emp_pw);
 		if(result == 0)
-			return "scv/login";
+			return "redirect:/scv/view/login";
 		else {
-			HttpSession session = req.getSession();
 			session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
 			session.setAttribute("emp_no", result);
-			return "home";
+			return "redirect:/";
 		}
 	}
 
@@ -65,9 +68,13 @@ public class ScvController {
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/view/login", method = RequestMethod.GET)
-	public String viewLogin(Model mod
+	public String viewLogin(Model mod, HttpSession session
 			,@CookieValue(value="emp_id", required=false)Cookie cookie) {
 		logger.info("viewLogin");
+		logger.info("cookie : " + cookie);
+		
+		if(session != null && session.getAttribute("emp_no") != null)
+			return "redirect:/";
 		if(cookie != null)
 			mod.addAttribute("emp_id",cookie.getValue());
 		return "scv/login";
@@ -79,9 +86,9 @@ public class ScvController {
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/logout", method = RequestMethod.GET)
-	public String logout(Model mod, SessionStatus sessionStatus) {
+	public String logout(Model mod, HttpSession session) { 
 		logger.info("logout");
-		sessionStatus.setComplete();
+		session.invalidate();
 		return "redirect:/";
 	}
 
@@ -93,7 +100,7 @@ public class ScvController {
 	@RequestMapping(value = "/scv/modify", method = RequestMethod.POST)
 	public String modify(Model mod) {
 		logger.info("modify");
-		return "scv/modify";
+		return "redirect:/";
 	}
 
 	/**

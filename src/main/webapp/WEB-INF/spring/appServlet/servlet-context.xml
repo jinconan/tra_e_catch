@@ -16,6 +16,10 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/**"/>
+			<exclude-mapping path="/css/**"/>
+			<exclude-mapping path="/js/**"/>
+			<exclude-mapping path="/fonts/**"/>
+			<exclude-mapping path="/resources/**"/>
 			<exclude-mapping path="/scv/view/login"/>	
 			<exclude-mapping path="/scv/login"/>	
 			<beans:bean id="checkSessionInterceptor" class="com.team.tra_e_catch.interceptor.CheckSessionInterceptor"/>

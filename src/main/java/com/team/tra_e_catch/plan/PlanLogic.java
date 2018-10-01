@@ -58,6 +58,13 @@ public class PlanLogic {
 		return result;
 	}
 	
+	public boolean getProjLeader(int empNo, int projNo) {
+		logger.info("getProjLeader() 호출");
+		return sqlPlanDao.getProjLeader(empNo,projNo);
+	}
+
+
+	
 	/**
 	 * 프로젝트 상세 페이지에서 나타나는 프로젝트 상세정보를 구하는 메소드
 	 * @param projNo
@@ -133,20 +140,26 @@ public class PlanLogic {
 
 	/**
 	 * 프로젝트 테이블에 프로젝트 추가. 멤버는 여기서 추가X
+	 * @param empNo 
 	 * @param projName
 	 * @param startDate
 	 * @param endSchedDate
 	 * @return
 	 */
-	public int insertProj(String projName, String startDate, String endSchedDate) {
+	public int insertProj(int empNo, String projName, String startDate, String endSchedDate) {
 		logger.info("insertProj");
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		
+		pMap.put("emp_no", empNo);
 		pMap.put("proj_name", projName);
 		pMap.put("start_date", startDate);
 		pMap.put("end_sched_date", endSchedDate);
 		
 		int result = sqlPlanDao.insertProj(pMap);
+		if(result != 0) {
+			pMap.put("rtype_no", 101);
+			result = sqlPlanDao.insertMember(pMap);
+		}
 		return result;
 	}
 
@@ -322,7 +335,7 @@ public class PlanLogic {
 		return result;
 	}
 
-
+	
 	
 
 	

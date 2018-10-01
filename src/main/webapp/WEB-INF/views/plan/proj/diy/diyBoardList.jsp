@@ -67,20 +67,14 @@ $(function() {
 						boardName = bName;
 			%>
 			<li role="presentation" class="active">
-			<%
-					} else {
-			%>
+			<%} else {%>
 			<li role="presentation">		
-			<%			
-					}
-			%>
+			<%}%>
 			
 				<a href="<%=request.getContextPath() %>/plan/view/diyBoardList?projNo=<%=projNo %>&boardNo=<%=bBoardNo%>&pageNo=1"><%=bName %></a>
 			</li>
-			<%	
-				}
-			}
-			%>
+				<%}%>
+			<%}%>
 		</nav>
 
 		<div class="col-sm-10">
@@ -124,9 +118,7 @@ $(function() {
 								<td><%=articleList.get(i).get("ARTICLE_WRITER") %></td>
 								<td><%=articleList.get(i).get("ARTICLE_DATE") %></td>
 								<td><%=articleList.get(i).get("ARTICLE_HIT") %></td>
-							<%
-							if(articleList.get(i).containsKey("ARTICLE_PATH")) {
-							%>
+							<%if(articleList.get(i).containsKey("ARTICLE_PATH")) {%>
 								<td style="display:none;"><%=articleList.get(i).get("ARTICLE_PATH") %></td>
 								<td>
 									<i class="articleFile glyphicon glyphicon-download-alt"></i>
@@ -148,52 +140,35 @@ $(function() {
 					<!-- 페이지네이션 -->
 					<nav class="text-center">
 						<ul class="pagination">
-						<%
-							if(pageGroup <=1) {
-						%>
+						<%if(pageGroup <=1) {%>
 							<li class="disabled">
 								<a href='#' aria-label='Previous'> <span aria-hidden='true'>&laquo;</span></a>
 							</li>
-						<%		
-							} else {
-						%>
+						<%} else {%>
 							<li>
 								<a href="diyBoardList?pageNo=<%=(pageGroup-1)*5 %>" aria-label="Previous"> 
 								<span aria-hidden='true'>&laquo;</span></a>
 							</li>
-						<%
-							}
+						<%}%>
 								
-							for(int i = (pageGroup-1)*5 + 1 ;i<=Math.min(pageGroup*5,numOfArticlePage);i++) {
-								if(pageNo == i) {
-						%>
+						<%for(int i = (pageGroup-1)*5 + 1 ;i<=Math.min(pageGroup*5,numOfArticlePage);i++) {%>
+							<%if(pageNo == i) {%>
 								<li class="active">
-						<%
-								} else {
-						%>
+							<%} else {%>
 								<li>
-						<%
-								}
-								
-						%>
-								<a href="diyBoardList?pageNo=<%=i %>&projNo=<%=projNo %>&boardNo=<%=boardNo %><%=searchParams%>"><%=i %></a></li>
-						<%
-							}						
-							if(pageGroup >= maxPageGroup) {
-						%>
+							<%}%>
+							<a href="diyBoardList?pageNo=<%=i %>&projNo=<%=projNo %>&boardNo=<%=boardNo %><%=searchParams%>"><%=i %></a></li>
+						<%}%>						
+						<%if(pageGroup >= maxPageGroup) {%>
 							<li class="disabled">
 								<a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a></li>
-						<%		
-							} else {
-						%>
+						<%} else {%>
 							<li>
 								<a href="diyBoardList?pageNo=<%=pageGroup*5 +1%>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 								</a>
 							</li>
-						<%
-							}
-						%>
+						<%}%>
 					</nav>
 
 					<!-- 검색창 -->

@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	boolean isLeader = (Boolean) request.getAttribute("isLeader");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -209,11 +212,13 @@ $(document).ready(function() {
 				<div class="row">
 					<h2>
 						<strong>프로젝트 일정</strong>
+						<%if(isLeader == true) {%>
 						<div class="btn-group">
 							<button type="button" id="btn_add_timeline" class="btn btn-primary">추가</button>
 							<button type="button" id="btn_mod_timeline" class="btn btn-warning">변경</button>
 							<button type="button" id="btn_del_timeline" class="btn btn-danger">삭제</button>
 						</div>
+						<%} %>
 					</h2>
 
 				</div>
@@ -224,7 +229,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-
+	<% if(isLeader == true) { %>
 	<div id="modalTimeline" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalTimelineLabel" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -255,7 +260,7 @@ $(document).ready(function() {
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-
+	<% } %>
 
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </body>

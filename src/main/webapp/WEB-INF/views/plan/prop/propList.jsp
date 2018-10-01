@@ -1,18 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	List<Map<String,Object>> propList = (request.getAttribute("propList")!= null)?
-			(List<Map<String,Object>>)request.getAttribute("propList"):null;
-	int numOfPropPage = (request.getAttribute("numOfPropPage")!=null)?
-			(Integer)request.getAttribute("numOfPropPage"):null;
+	List<Map<String,Object>> propList = (List<Map<String,Object>>)request.getAttribute("propList");
+	int numOfPropPage = (Integer)request.getAttribute("numOfPropPage");
 			
 	int							pageNo			= (Integer) request.getAttribute("pageNo");
+	int 						pageGroup 		= (int)Math.ceil(pageNo/5.0);
+	int 						maxPageGroup 	= (int)Math.ceil(numOfPropPage/5.0);
+	
 	String 						searchColumn 	= (request.getAttribute("searchColumn") != null) ? (String)request.getAttribute("searchColumn") : null;
 	String 						searchValue 	= (request.getAttribute("searchValue")!=null) ? (String)request.getAttribute("searchValue") : null;
 	String 						searchParams 	= (searchColumn!=null) ? "&searchColumn="+searchColumn+"&searchValue="+searchValue : "";
-			
-	int 						pageGroup 		= (int)Math.ceil(pageNo/5.0);
-	int 						maxPageGroup 	= (int)Math.ceil(numOfPropPage/5.0);
-			
 %>
 <!DOCTYPE html>
 <html>
@@ -36,8 +33,6 @@ $(function() {
 		
 		$formDownload.submit();
 	});
-	
-	
 })
 </script>
 </head>
@@ -51,14 +46,15 @@ $(function() {
 		<%@ include file="/WEB-INF/views/_common/submenu.jsp" %>
 		
 		<!-- 중앙 게시판 -->
-		<!-- 테이블 + 페이지네이션 + 검색창 -->
 		<div class="col-sm-10">
 			<div class="well">
 				<h2><strong>기획서 리스트</strong></h2>
+				<!-- 파일 다운로드할 파라미터 폼 -->
 				<form id="f_req_download" action="<%=request.getContextPath() %>/plan/propDownload" method="post">
 					<input type="hidden" name="propNo">
 					<input type="hidden" name="propFile">
 				</form>
+				
 				<table class="table table-condensed">
 					<thead>
 						<tr>
@@ -71,91 +67,61 @@ $(function() {
 						</tr>
 					</thead>
 					<tbody>
-						<%
-						if(propList == null || propList.size() == 0) {
-						%>
+						<%if(propList == null || propList.size() == 0) {%>
 						<tr>
 							<td colspan="6" align="center">불러오는데 실패했습니다.</td>
 						</tr>
-						<%	
-						} else {
-							for(Map<String,Object> prop:propList) {
-						%>
-						<tr>
-							<td class="propNo"><%=prop.get("PROP_NO") %></td>
-							<td class="propTitle"><%=prop.get("title") %></td>
-							<td class="propWriter"><%=prop.get("emp_name") %></td>
-							<td class="propDate"><%=prop.get("up_date") %></td>
-							<%
-								if(prop.get("path") != null){
-							%>
-							<td class="propFile" style="display:none;"><%=prop.get("path") %></td>
-							<td><i class="propFile glyphicon glyphicon-download-alt"></i></td>	
-							<%									
-								} else {
-							%>
-							<td style="display:none;"></td>
-							<td></td>
-							<%
-								}
-							%>
-						</tr>
-						<%
-							}
-						}
-						%>
+						<%} else {%>
+							<%for(Map<String,Object> prop:propList) {%>
+							<tr>
+								<td class="propNo"><%=prop.get("PROP_NO") %></td>
+								<td class="propTitle"><%=prop.get("title") %></td>
+								<td class="propWriter"><%=prop.get("emp_name") %></td>
+								<td class="propDate"><%=prop.get("up_date") %></td>
+								<%if(prop.get("path") != null){%>
+									<td class="propFile" style="display:none;"><%=prop.get("path") %></td>
+									<td><i class="propFile glyphicon glyphicon-download-alt"></i></td>	
+								<%} else {%>
+									<td style="display:none;"></td>
+									<td></td>
+								<%}%>
+							</tr>
+							<%}%>
+						<%}%>
 					</tbody>
 				</table>
 	
 				<!-- 페이지네이션 -->
 				<nav class="text-center">
 					<ul class="pagination">
-					<%
-						if(pageGroup <=1) {
-					%>
+					<%if(pageGroup <=1) {%>
 						<li class="disabled">
 							<a href='#' aria-label='Previous'> <span aria-hidden='true'>&laquo;</span></a>
 						</li>
-					<%		
-						} else {
-					%>
+					<%} else {%>
 						<li>
 							<a href="propList?pageNo=<%=(pageGroup-1)*5 %><%=searchParams%>" aria-label="Previous"> 
 							<span aria-hidden='true'>&laquo;</span></a>
 						</li>
-					<%
-						}
-							
-						for(int i = (pageGroup-1)*5 + 1 ;i<=Math.min(pageGroup*5,numOfPropPage);i++) {
-							if(pageNo == i) {
-					%>
+					<%}%>
+					<%for(int i = (pageGroup-1)*5 + 1 ;i<=Math.min(pageGroup*5,numOfPropPage);i++) {%>
+						<%if(pageNo == i) {%>
 							<li class="active">
-					<%
-							} else {
-					%>
+						<%} else {%>
 							<li>
-					<%
-							}
-							
-					%>
-							<a href="propList?pageNo=<%=i %><%=searchParams%>"><%=i %></a></li>
-					<%
-						}						
-						if(pageGroup >= maxPageGroup) {
-					%>
+						<%}%>
+						<a href="propList?pageNo=<%=i %><%=searchParams%>"><%=i %></a></li>
+					<%}%>						
+					<%if(pageGroup >= maxPageGroup) {%>
 						<li class="disabled">
 							<a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 							</a></li>
-					<%		
-						} else {
-					%>
+					<%} else {%>
 						<li>
 							<a href="propList?pageNo=<%=pageGroup*5 +1%><%=searchParams%>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 							</a>
 						</li>
-					<%
-						}
-					%>
+					<%}%>
 					</ul>
 				</nav>
 	

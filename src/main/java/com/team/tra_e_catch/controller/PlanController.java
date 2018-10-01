@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -279,20 +280,26 @@ public class PlanController {
 	 * 프로젝트 상세 페이지 요청
 	 * @param mod
 	 * @param projNo
+	 * @param empNo :세션에서 받은 회원번호
 	 * @return
 	 */
 	@RequestMapping(value="/plan/view/projDetail")
 	public String viewProjDetail(Model mod
-			, @RequestParam("projNo") int projNo) {
-		logger.info("viewProjDetail()");
+			, @RequestParam("projNo") int projNo
+			, @SessionAttribute("emp_no") int empNo) {
+		logger.info("viewProjDetail");
+		logger.info("projNo : " + projNo + ", emp_no : "+empNo);
+		
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
 		mod.addAttribute("curSubMenu", "프로젝트 정보");
 		mod.addAttribute("subMenuList", subMenuList);
 		
 		Map<String, Object> projDetail = planLogic.getProjDetail(projNo);
 		List<Map<String,Object>> projBoardList = planLogic.getProjBoardList(projNo);
+		boolean isLeader = planLogic.getProjLeader(empNo,projNo);
 		mod.addAttribute("projDetail", projDetail);
 		mod.addAttribute("projBoardList", projBoardList);
+		mod.addAttribute("isLeader", isLeader);
 		return "plan/proj/projDetail";
 	}
 	
@@ -304,11 +311,14 @@ public class PlanController {
 	 */
 	@RequestMapping(value="/plan/view/projMemberList")
 	public String viewProjMemList(Model mod
-			, @RequestParam("projNo") int projNo) {
+			, @RequestParam("projNo") int projNo
+			, @SessionAttribute("emp_no") int empNo) {
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
 		mod.addAttribute("curSubMenu", "참여자 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("projNo", projNo);
+		boolean isLeader = planLogic.getProjLeader(empNo,projNo);
+		mod.addAttribute("isLeader", isLeader);
 		return "plan/proj/projMemberList";
 	}
 	
@@ -320,11 +330,14 @@ public class PlanController {
 	 */
 	@RequestMapping(value="/plan/view/projTimeline")
 	public String viewProjTimeline(Model mod
-			, @RequestParam("projNo") int projNo) {
+			, @RequestParam("projNo") int projNo
+			, @SessionAttribute("emp_no") int empNo) {
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
 		mod.addAttribute("curSubMenu", "타임라인");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("projNo", projNo);
+		boolean isLeader = planLogic.getProjLeader(empNo,projNo);
+		mod.addAttribute("isLeader", isLeader);
 		return "plan/proj/projTimeline";
 	}
 	
@@ -336,24 +349,32 @@ public class PlanController {
 	 */
 	@RequestMapping(value="/plan/view/projBoardConfig")
 	public String viewBoardConfig(Model mod
-			, @RequestParam("projNo") int projNo) {
+			, @RequestParam("projNo") int projNo
+			, @SessionAttribute("emp_no") int empNo) {
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("proj-submenu");
 		mod.addAttribute("curSubMenu", "게시판 관리");
 		mod.addAttribute("subMenuList", subMenuList);
+		
+		boolean isLeader = planLogic.getProjLeader(empNo,projNo);
+		if(isLeader == false) {
+			return "redirect:/plan/view/projDetail?projNo="+projNo;
+		}
 		mod.addAttribute("projNo", projNo);
 		List<Map<String,Object>> projBoardList = planLogic.getProjBoardList(projNo);
 		mod.addAttribute("projBoardList", projBoardList);
+		
 		return "plan/proj/projBoardConfig";
 	}
 	
 	
 	@RequestMapping(value="/plan/projInsert", method=RequestMethod.POST)
-	public String projInsert(@RequestParam("projName") String projName
+	public String projInsert(@SessionAttribute("emp_no") int empNo
+			, @RequestParam("projName") String projName
 			, @RequestParam("startDate") String startDate
 			, @RequestParam("endSchedDate") String endSchedDate) {
 		logger.info("projInsert("+projName+", "+startDate+", "+endSchedDate+")");
 		
-		int result = planLogic.insertProj(projName,startDate,endSchedDate);
+		int result = planLogic.insertProj(empNo, projName,startDate,endSchedDate);
 		
 		return "redirect:/plan/view/projList/all";
 	}

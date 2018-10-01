@@ -4,6 +4,7 @@
 	List<Map<String, Object>> projBoardList = 
 	(List<Map<String,Object>>) request.getAttribute("projBoardList");
 
+	boolean 			isLeader 		= (Boolean)request.getAttribute("isLeader");
 	Map<String,Object>	projDetail		= (Map<String,Object>) request.getAttribute("projDetail");
 	int					projNo			= ((BigDecimal)projDetail.get("proj_no")).intValue();
 	String				proj_name		= (String)projDetail.get("proj_name");
@@ -129,40 +130,33 @@
 					</form>
 					<h2>
 						<strong><%=proj_name %></strong>
+						<%if(isLeader == true) {%>
 						<span class="btn-group">
 							<a class="btn btn-warning" id="btn_mod_project" href="<%=request.getContextPath() %>/plan/view/projUpdate?projNo=<%=projNo %>">
 									변경
 							</a>
 							<button type="button" id="btn_del_project" class="btn btn-danger">삭제</button>
 						</span>
+						<%} %>
 					</h2>
 					<p>
 						<strong>상태: </strong>
-						<%
-						if("종료".equals(pstatus_name)) {
-						%>
+						<%if("종료".equals(pstatus_name)) {%>
 						<%=pstatus_name %>(<%=start_date %> ~ <%=end_date %>)
-						<%
-						} else {
-						%>
+						<%} else {%>
 						<%=pstatus_name %>(<%=start_date %> ~ <%=end_sched_date %>)
+						
+						<%if(isLeader == true) {%>
 						<span class="btn-group">
-							<%
-							if("진행중".equals(pstatus_name)) {
-							%>
+							<%if("진행중".equals(pstatus_name)) {%>
 							<a id="btn_stop" class="btn btn-info">중단</a>
-							<%
-							} else {
-							%>
+							<%} else {%>
 							<a id="btn_restart" class="btn btn-info">재개</a>
-							<%
-							}
-							%>
+							<%}%>
 							<a id="btn_end" class="btn btn-danger">종료</a>
 						</span>
-						<%
-						}
-						%>
+						<% 	} %>
+						<%}%>
 					</p>
 				</div> 
 
@@ -190,7 +184,7 @@
 								href="<%=request.getContextPath() %>/plan/view/diyBoardList?projNo=<%= projNo%>&boardNo=<%=board_no%>&pageNo=1">들어가기</a>
 						</div>
 					</div>	
-					<%		
+					<%
 						}
 					}
 					%>
