@@ -25,4 +25,15 @@ public class SqlScvDao {
 		}
 		return result;
 	}
+	
+	public int modify(Map<String, Object> pMap) {
+		int result = 0;
+		
+		try {
+			result = sqlSessionTemplate.update("com.mybatis.mapper.scvMapper.modify", pMap);
+		} catch (Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
 }

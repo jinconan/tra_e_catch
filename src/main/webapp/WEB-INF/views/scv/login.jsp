@@ -6,9 +6,6 @@
 	}catch(Exception e) {
 		emp_id = "";
 	}
-	
-
-
 %>
 <%--
 	ERP 시스템은 무조건 로그인이 선행되어야 함.
