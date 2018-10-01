@@ -20,6 +20,9 @@
 <script type="text/javascript">
 
 
+
+
+
 $('#p_table').bootstrapTable({
 	url:'<%=request.getContextPath()%>/perR/certlist'
 });

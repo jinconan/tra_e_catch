@@ -14,18 +14,18 @@
 
 function listoption(){
 	var optnum = $("#optionnum").val();
-	//alert(optnum);
-	
-	if(optnum=="1"){
+	var certdata = $("#f_certinsert").serialize();
+	if(optnum=="재직증명서"){
 		$.ajax({
 	        method:"POST"
 	        ,url:"/tra_e_catch/per/cert/certform"
-	        ,data:"",
+	        ,data:certdata,
 	        success : function(log){
 	        	
 	        	console.log(log);
 	        	$("#d_formprint").html(log);
 	        	$("#d_usepoint").text($("#useinput").val());
+	        	
 	        	listform();
 	        	
 	        }
@@ -40,11 +40,11 @@ function listoption(){
 		
 	}
 	/* 경력증명서 */
-	else if(optnum==2){
+	else if(optnum=="경력증명서"){
 		$.ajax({
 	        method:"POST"
 	        ,url:"/tra_e_catch/per/cert/careercert"
-	        ,data:"",
+	        ,data:certdata,
 	        success : function(log){
 	        	
 	        	console.log(log);
@@ -58,11 +58,11 @@ function listoption(){
         });
 	}
 	/* 사직서 양식 */
-	else if(optnum==3){
+	else if(optnum=="사직서"){
 		$.ajax({
 	        method:"POST"
 	        ,url:"/tra_e_catch/per/cert/retireform"
-	        ,data:"",
+	        ,data:certdata,
 	        success : function(log){
 	        	
 	        	console.log(log);
@@ -75,11 +75,11 @@ function listoption(){
         });
 	}
 	/* 시말서 양식 */
-	else if(optnum==4){
+	else if(optnum=="시말서"){
 		$.ajax({
 	        method:"POST"
 	        ,url:"/tra_e_catch/per/cert/reasonform"
-	        ,data:"",
+	        ,data:certdata,
 	        success : function(log){
 	        	
 	        	console.log(log);
@@ -90,13 +90,14 @@ function listoption(){
 				console.log("땡");
 			}
         });
+		
 	}
-
-
-
+	/* $("#f_certinsert").attr("action","./certlist");
+	$("#f_certinsert").submit(); */
 }
 
 function listform(){
+	
 	$.ajax({
         method:"POST"
         ,url:"/tra_e_catch/per/cert/certprint"
@@ -104,6 +105,7 @@ function listform(){
         	$("#d_printlist").html(log);
           }
            });
+	
 }
 
 
@@ -115,23 +117,24 @@ function listform(){
 		<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 		<div class="col-sm-10">
 			<!-- 메인화면 -->
+			<form id="f_certinsert" method="post">
 			<div class="panel panel-primary col-xs-10">
 				<table>
 					<tr>
 						<td>증명서 종류 :&nbsp;&nbsp;&nbsp;</td>
 						<td>
-						<select class="form-control" id="optionnum">
-							<option value="0">증명서 선택</option>
-							<option value="1">재직증명서</option>
-							<option value="2">경력증명서</option>
-							<option value="3">사직서</option>
-							<option value="4">시말서</option>
+						<select class="form-control" id="optionnum" name="p_c_name">
+							<option val="0">증명서 선택</option>
+							<option val="1">재직증명서</option>
+							<option val="2">경력증명서</option>
+							<option val="3">사직서</option>
+							<option val="4">시말서</option>
 						</select>
 						</td>
 						<td>&nbsp;&nbsp;&nbsp;</td>
 						<td>사용 용도 : &nbsp;&nbsp;&nbsp;</td>
 
-						<td><input type="text" id="useinput" class="form-control" placeholder="ex)은행제출용"></div></td>
+						<td><input type="text" id="useinput" class="form-control" placeholder="ex)은행제출용"name="p_c_type"></div></td>
 						<td>&nbsp;&nbsp;
 							<button type="button" class="btn btn-primary" onclick="listoption()">
 								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>OK
@@ -141,6 +144,7 @@ function listform(){
 				</table>
 
 			</div>
+			</form>
 			<div class="col-xs-10">
 				<div id="d_formprint"></div>
 			</div>

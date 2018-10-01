@@ -125,7 +125,6 @@ public class PersonnelController {
 	public String certPrint(@RequestParam Map<String, Object> pMap, Model mod) {
 		logger.info("certList호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-certsub");// 증명서 관리
-																											// 서브메뉴
 		mod.addAttribute("curSubMenu", "증명서발급");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/cert/cert_printList";
@@ -135,36 +134,60 @@ public class PersonnelController {
 
 	// 재직증명서 양식 페이지
 	@RequestMapping(value = "/cert/certform", method = RequestMethod.POST)
-	public String serform(@RequestParam Map<String, Object> pMap, Model mod) {
+	public String serform(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
 		logger.info("certPrintList호출");
+		List<Map<String, Object>> certinsert = null;
+		HttpSession session = req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		pMap.put("emp_no", emp_no);
+		System.out.println(pMap);
+		certinsert = personnelLogic.certInsert(pMap);
 		return "per/cert/certform";
 	}
 
 	// 경력증명서 양식 페이지
 	@RequestMapping(value = "/cert/careercert", method = RequestMethod.POST)
-	public String careercert(@RequestParam Map<String, Object> pMap, Model mod) {
+	public String careercert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
 		logger.info("certPrintList호출");
+		List<Map<String, Object>> certinsert = null;
+		HttpSession session = req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		pMap.put("emp_no", emp_no);
+		System.out.println(pMap);
+		certinsert = personnelLogic.certInsert(pMap);
 		return "per/cert/careercert";
 	}
 
 	// 사직서 양식 페이지
 	@RequestMapping(value = "/cert/retireform", method = RequestMethod.POST)
-	public String retirecert(@RequestParam Map<String, Object> pMap, Model mod) {
+	public String retirecert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
 		// 컨트롤러로 부터 넘겨받는 속성
 		// subMenuList : List<Map<String, Object>>
 		// [{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
 		// curSubMenu : String
+		List<Map<String, Object>> certinsert = null;
+		HttpSession session = req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		pMap.put("emp_no", emp_no);
+		System.out.println(pMap);
+		certinsert = personnelLogic.certInsert(pMap);
 		logger.info("certPrintList호출");
 		return "per/cert/retireform";
 	}
 
 	// 시말서 양식 페이지
 	@RequestMapping(value = "/cert/reasonform", method = RequestMethod.POST)
-	public String reasoncert(@RequestParam Map<String, Object> pMap, Model mod) {
+	public String reasoncert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
 		// 컨트롤러로 부터 넘겨받는 속성
 		// subMenuList : List<Map<String, Object>>
 		// [{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
 		// curSubMenu : String
+		List<Map<String, Object>> certinsert = null;
+		HttpSession session = req.getSession();
+		int emp_no = (int)session.getAttribute("emp_no");
+		pMap.put("emp_no", emp_no);
+		System.out.println(pMap);
+		certinsert = personnelLogic.certInsert(pMap);
 		logger.info("certPrintList호출");
 		return "per/cert/reasonform";
 	}

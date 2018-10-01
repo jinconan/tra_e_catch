@@ -105,5 +105,11 @@ public class SqlPerDao {
 		attdInsert = sqlSessionTemplate.selectOne("EmpInsert",pMap);
 		return null;
 	}
+	public List<Map<String, Object>> CertInsert(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		System.out.println("최종적으로 들어가는 것들 : "+pMap);
+		sqlSessionTemplate.insert("certinsert", pMap);
+		return null;
+	}
 	
 }

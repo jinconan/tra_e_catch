@@ -5,7 +5,11 @@
 select * from certlist where emp_no = #{emp_no}
 </select>
 
+<insert id="certinsert" parameterType="map">
 
+insert into certlist
+     values(seq_cert_no.nextval, #{p_c_name}, #{p_c_type}, #{emp_no}, to_char(sysdate,'YYYY-MM-DD'))
+</insert>
 
 <select id="viewDeptList" parameterType="map" resultType="map">
 select * from department

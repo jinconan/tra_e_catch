@@ -123,5 +123,13 @@ public class PersonnelLogic {
 	}
 
 
+	public List<Map<String, Object>> certInsert(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> certInsert = null;
+		certInsert = sqlPerDao.CertInsert(pMap);
+		return null;
+	}
+
+
 
 }
