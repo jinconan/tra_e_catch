@@ -9,21 +9,24 @@
 	List<Map<String,Object>> getEmpList = (List<Map<String,Object>>)request.getAttribute("getEmpList");
 %>
 <script type="text/javascript">
+function accept(){
+	$('#p_table').bootstrapTable({
+		method: "post",
+		contentType: 'application/x-www-form-urlencoded',
+		queryParams: function(p){
+            return{
+            	lev_no : $("#lev-no").val(),
+            	name : $("#per-name").val(),
+            	dept_no : $("#dept-no").val(),
+            };
+		}
+		,url:'<%=request.getContextPath()%>/perR/empList'
+	});
+}
 $(function() {
-		$("#btn_emp").click(function(){
+	
+	
 			
-			$('#p_table').bootstrapTable({
-				method: "post",
-				contentType: 'application/x-www-form-urlencoded',
-				queryParams: function(p){
-                    return{
-                    	lev_no : $("#lev-no").val(),
-                    	name : $("#per-name").val(),
-                    	dept_no : $("#dept-no").val(),
-                    };
-				}
-				,url:'<%=request.getContextPath()%>/perR/empList'
-			});
 			/* var lev_no = $("#lev-no").val();
 			var name = $("#name").val();
 			var dept_no = $("#dept-no").val();
@@ -62,7 +65,6 @@ $(function() {
 		     }
 			});
 			return false; */
-		});
 	});
 </script>
 	<!-- <script type="text/javascript">
@@ -78,12 +80,15 @@ $(function() {
 	<%-- <jsp:include page="/WEB-INF/views/_common/header.jsp" /> --%>
 <div class="container">
 	<%@ include file="/WEB-INF/views/_common/submenu.jsp" %>
-	<div class="col-md-10">
-		<form class="form-horizontal">
+	<div class="col-md-9">
+		<form class="form-horizontal col-xs-11">
 		  <div class="page-header">
           <h1>사원명부 <small>basic form</small></h1>
          </div>
          <form id="f_info">
+			<div class="form-group">
+	
+			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="per-name">이름</label>
 				<div class="col-sm-3">
@@ -173,7 +178,7 @@ $(function() {
 			</div>
 			<div class="form-group">
 				<div class="col-sm-12 text-center">
-					<button id="btn_emp"class="btn btn-primary">
+					<button id="btn_emp"class="btn btn-primary" onclick="javascript:accept()">
 						검색<i class="fa fa-check spaceLeft"></i>
 					</button>
 					
@@ -182,7 +187,7 @@ $(function() {
 			<!-- <div class="form-group" id="emptable">
 				
 			</div>   -->
-			<div class="table-responsive col-xs-9">
+			<div class="table-responsive col-xs-9 col-xs-offset-2">
 				<table id="p_table" class="table table-striped table-hover">
 					<thead>
 						<tr>
@@ -190,13 +195,13 @@ $(function() {
 							<!-- data-field에는 json포멧으로 데이터를 담을예정  -->
 							<!-- <th width="15%" data-field="EMP_NO">사원번호</th> -->
 							<th width="10%" data-field="NAME">이름</th>
-							<th width="20%" data-field="HIRE_DATE">입사일자</th>
-							<th width="20%" data-field="LEV_NO">직급코드</th>
-							<th width="20%" data-field="DEPT_NO">부서코드</th>
-							<th width="10%" data-field="LOC_NO">지역코드</th>
-							<th width="20%" data-field="BIRTHDAY">생일</th>
-							<th width="20%" data-field="EMAIL">이메일</th>
-							<th width="15%" data-field="TEAM_NO">팀코드</th>
+							<th width="11%" data-field="HIRE_DATE">입사일자</th>
+							<th width="11%" data-field="LEV_NO">직급코드</th>
+							<th width="11%" data-field="DEPT_NO">부서코드</th>
+							<th width="11%" data-field="LOC_NO">지역코드</th>
+							<th width="11%" data-field="BIRTHDAY">생일</th>
+							<th width="11%" data-field="EMAIL">이메일</th>
+							<th width="11%" data-field="TEAM_NO">팀코드</th>
 							
 
 						</tr>

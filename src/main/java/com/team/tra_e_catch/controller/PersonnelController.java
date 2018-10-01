@@ -200,7 +200,17 @@ public class PersonnelController {
 	}
 
 ////////////////////////////////김훈태 작성 끝 ///////////////////////////////////////		
-
+	
+	
+	@RequestMapping(value = "/empinsert")
+		public String empInsert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
+		logger.info("empInsert호출");
+		List<Map<String, Object>> empinsert = null;
+		System.out.println("사원정보 : "+pMap);
+		/*attdinfo = personnelLogic.setAttdInsert(pMap);*/
+		empinsert = personnelLogic.EmpInsert(pMap);
+		return "per/onlyauthper/empRegist";
+	}
 	// 사원명부
 	@RequestMapping(value = "/empList")
 	public String per(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {

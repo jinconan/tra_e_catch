@@ -4,6 +4,22 @@
 <select id="getCertList" parameterType="map" resultType="map">
 select * from certlist where emp_no = #{emp_no}
 </select>
+
+
+
+<select id="viewDeptList" parameterType="map" resultType="map">
+select * from department
+</select>
+<select id="viewLevList" parameterType="map" resultType="map">
+select * from ctlevel
+</select>
+
+<select id="viewLocList" parameterType="map" resultType="map">
+select * from location
+</select>
+
+
+
 <select id="getAttdList" parameterType="map" resultType="map">
 	<!-- select * from comchk where emp_no = 1 and rownum<50 -->
 	<!-- emp_no={사원번호} -->
@@ -26,10 +42,23 @@ select * from v_emp where emp_no = #{emp_no} <!-- 로그인했을때 들어있�
 
   {CALL proc_comchk(#{emp_no},#{attSelect, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR})}
 
-
 </select>
 
  <resultMap id="cos_type1" type="java.util.HashMap"></resultMap>
+<select id="EmpInsert" statementType="CALLABLE" parameterType="hashmap">
+
+  {CALL proc_empinsert(#{emp_name, mode=IN, javaType=java.lang.String,
+			jdbcType=VARCHAR},#{emp_id, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+			#{lev_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+			#{loc_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+			#{dept_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+			#{emp_email, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+			#{emp_bdate, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+			#{emp_gen, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR})}
+
+
+</select>
+
 
 <select id="setSerList" statementType="CALLABLE" parameterType="hashmap">
 

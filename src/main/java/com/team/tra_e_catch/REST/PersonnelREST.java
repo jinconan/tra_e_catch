@@ -94,6 +94,34 @@ public class PersonnelREST {
 		logger.info(teamList);
 		return teamList;
 	}
+	
+	
+	@RequestMapping("lev/list")
+	private List<Map<String, Object>> viewLevList(@RequestParam Map<String, Object> pMap){
+		logger.info("viewLevList요청");
+		List<Map<String, Object>> levList = null;
+		levList = personnelLogic.getlevlist(pMap);
+	
+		return levList;
+	}
+	@RequestMapping("loc/list")
+	private List<Map<String, Object>> viewLocList(@RequestParam Map<String, Object> pMap){
+		logger.info("viewLocList요청");
+		List<Map<String, Object>> locList = null;
+		locList = personnelLogic.getLocList(pMap);
+	
+		return locList;
+	}
+	@RequestMapping("dept/list")
+	private List<Map<String, Object>> viewDeptList(@RequestParam Map<String, Object> pMap){
+		logger.info("viewDeptList요청");
+		List<Map<String, Object>> deptList = null;
+		deptList = personnelLogic.getDeptList(pMap);
+	
+		return deptList;
+	}
+	
+	
 	//증명서 발급 내역
 	@RequestMapping(value = "certlist")
 	public List<Map<String, Object>> certlist(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {

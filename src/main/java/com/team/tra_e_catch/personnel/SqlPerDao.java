@@ -80,5 +80,30 @@ public class SqlPerDao {
 		attdInsert = sqlSessionTemplate.selectOne("setAttdInsert",pMap);
 		return null;
 	}
+	public List<Map<String, Object>> viewLevList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> levList = null;
+		levList = sqlSessionTemplate.selectList("viewLevList",pMap);
+		return levList;
+	}
+	public List<Map<String, Object>> viewLocList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> locList = null;
+		locList = sqlSessionTemplate.selectList("viewLocList",pMap);
+		return locList;
+
+	}
+	public List<Map<String, Object>> viewDeptList(Map<String, Object> pMap) {
+		List<Map<String, Object>> deptList = null;
+		deptList = sqlSessionTemplate.selectList("viewDeptList",pMap);
+		return deptList;
+
+	}
+	public List<Map<String, Object>> EmpInsert(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> attdInsert = null;
+		attdInsert = sqlSessionTemplate.selectOne("EmpInsert",pMap);
+		return null;
+	}
 	
 }

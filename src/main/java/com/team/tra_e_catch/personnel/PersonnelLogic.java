@@ -92,5 +92,36 @@ public class PersonnelLogic {
 	}
 
 
+	public List<Map<String, Object>> getlevlist(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> levList = null;
+		levList = sqlPerDao.viewLevList(pMap);
+		return levList;
+	}
+
+
+	public List<Map<String, Object>> getLocList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> locList = null;
+		locList = sqlPerDao.viewLocList(pMap);
+		return locList;
+	}
+
+
+	public List<Map<String, Object>> getDeptList(Map<String, Object> pMap) {
+		List<Map<String, Object>> deptList = null;
+		deptList = sqlPerDao.viewDeptList(pMap);
+		return deptList;
+	}
+
+
+	public List<Map<String, Object>> EmpInsert(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> empInsert = null;
+		empInsert = sqlPerDao.EmpInsert(pMap);
+		return null;
+	}
+
+
 
 }
