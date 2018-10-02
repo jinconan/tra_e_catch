@@ -8,7 +8,36 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <script type="text/javascript">
+<style>
+#loading {
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	position: fixed;
+	display: block;
+	opacity: 0.7;
+	background-color: #fff;
+	z-index: 99;
+	text-align: center;
+}
+
+#loading-image {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 100;
+}
+</style>
+
+<script type="text/javascript">
+$(window).load(function() {    
+     $('#loading').hide();  
+    });
+</script>
+
+<script type="text/javascript">
+
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawVisualization);
 
@@ -21,18 +50,18 @@
         	async:false
         }).responseText;
         
-    var data = new google.visualization.DataTable(jsonData);
-    var options = {
-      title : '월별 총 판매량 및 판매금액',	//제목
-      vAxis: {title: '금액(만원),거래량(개)'},							//로우
-      hAxis: {title: '월'},							//컬럼
-      seriesType: 'bars',								
-      series: {0: {type: 'line'}}
-    };
-
-    var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
-  }
+	    var data = new google.visualization.DataTable(jsonData);
+	    var options = {
+	      title : '전체 총 판매량 및 판매금액',	//제목
+	      vAxis: {title: '금액(만원),거래량(개)'},							//로우
+	      hAxis: {title: '월'},							//컬럼
+	      seriesType: 'bars',								
+	      series: {0: {type: 'line'}}
+	    };
+	
+	    var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+	    chart.draw(data, options);
+	  }
     </script>
 
 	
@@ -59,12 +88,14 @@
     <li><a href="<%=request.getContextPath()%>/prod/view/prodStat">연도별 전체 판매량</a></li>
     <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_moon/2008">월별 전체 판매량</a></li>
     <li class="divider"></li>
-    <li><a href="#">제조사별 전체 판매량</a></li>
+    <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/2008">제조사별 전체 판매량</a></li>
     <li><a href="#">상품별 전체 판매량</a></li>
   </ul>
 </div>
 <!----------------------------- 그래프 차트 ------------------------------------>
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
+<div id="chart_div" style="width: 900px; height: 500px;">
+	<div id="loading"><img id="loading-image" src="/resources/imgs/ajax-loader.gif" alt="Loading..." /></div>
+</div>
 <!--------------------------- 페이지 네이션 처리 --------------------------------->
 </div>
 

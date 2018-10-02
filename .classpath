@@ -26,5 +26,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/google-cloud-dialogflow-0.63.0-alpha.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

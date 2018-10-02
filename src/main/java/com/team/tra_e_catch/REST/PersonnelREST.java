@@ -92,26 +92,7 @@ public class PersonnelREST {
 		workList = personnelLogic.getWorkList(pMap);
 		return workList;
 	}
-	@RequestMapping("only/sourcinglist")//고용계약서 데이터
-	private List<Map<String, Object>> viewsourcinglist(@RequestParam Map<String, Object> pMap){
-		logger.info("viewsourcinglist요청");
-		List<Map<String, Object>> sourcingList = null;
-		/*		pMap.put("emp_no", req.getParameter("emp_no").toString());*/
-		System.out.println("viewsourcinglist에 들어가는 : "+pMap);
-		sourcingList = personnelLogic.getSourcingList(pMap);
-		logger.info(sourcingList);
-		return sourcingList;
-	}
-	@RequestMapping("only/emplist")//사원명부 데이터
-	private List<Map<String, Object>> emplist(@RequestParam Map<String, Object> pMap){
-		logger.info("emplist요청");
-		List<Map<String, Object>>empList = null;
-		/*		pMap.put("emp_no", req.getParameter("emp_no").toString());*/
-		System.out.println("empList에 들어가는 : "+pMap);
-		empList = personnelLogic.getEmpList(pMap);
-		logger.info(empList);
-		return empList;
-	}
+	
 	
 	@RequestMapping("rating/list")
 	private List<Map<String, Object>> viewTeamjson(@RequestParam Map<String, Object> pMap, HttpServletRequest req){
@@ -163,7 +144,16 @@ public class PersonnelREST {
 		logger.info(getCertlist);
 		return getCertlist;
 	}
-	
+	@RequestMapping(value = "empList")
+	public List<Map<String, Object>> per(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
+		logger.info("Welcome home! The client locale is1");
+		logger.info(pMap);
+		logger.info(pMap.get("name")+"\t"+pMap.get("lev_no")+"\t"+pMap.get("dept_no"));
+		List<Map<String, Object>> getEmpList = null;
+		getEmpList = personnelLogic.getEmpList(pMap,res);
+		mod.addAttribute("getEmpList", getEmpList);
+		return getEmpList;
+	}
 	
 	//개인신상정보
 	@RequestMapping(value = "indivemp")
