@@ -7,13 +7,23 @@
     WHERE id=#{emp_id} AND pw=#{emp_pw}
 	</select>
 	
+	<select id="getScvList" parameterType="int" resultType="map">
+		SELECT
+		     emp_no, name, hire_date, lev_no
+		     , dept_no, resign_yn, last_date, loc_no
+		     , birthday, id, pw, sal, authority, email, gender
+		     , team_no, email_yn
+		  FROM employee 
+		  	 WHERE emp_no=#{1}
+		
+	</select>
+	
 	<update id="modify"  parameterType="map">
 	UPDATE employee
 		SET 
-		 ,pw    = #{emp_pw}
+		  pw    = #{emp_cur_pw}
 		 ,email = #{emp_email}
-		 ,email_yn = #{email_yn}
+		 ,email_yn = #{cb_recv_email}
 		 WHERE emp_no = #{emp_no}
-	
 	</update>
 </mapper>
