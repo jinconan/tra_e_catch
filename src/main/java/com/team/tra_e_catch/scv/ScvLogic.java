@@ -14,7 +14,7 @@ public class ScvLogic {
 	@Autowired
 	private SqlScvDao sqlScvDao;
 
-	public int login(String emp_id, String emp_pw) {
+	public Map<String,Object> login(String emp_id, String emp_pw) {
 		logger.info("login");
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("emp_id",  emp_id);

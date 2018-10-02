@@ -5,6 +5,7 @@
 	(List<Map<String,Object>>) request.getAttribute("projBoardList");
 
 	boolean 			isLeader 		= (Boolean)request.getAttribute("isLeader");
+	boolean 			isMember		= (Boolean)request.getAttribute("isMember");
 	Map<String,Object>	projDetail		= (Map<String,Object>) request.getAttribute("projDetail");
 	int					projNo			= ((BigDecimal)projDetail.get("proj_no")).intValue();
 	String				proj_name		= (String)projDetail.get("proj_name");
@@ -167,6 +168,7 @@
 					<div id="timeline" style="height: 180px;"></div>
 				</div>
 
+				<%if(isMember == true) {%>
 				<div class="row">
 					<p>
 						<strong>게시판 목록</strong>
@@ -189,6 +191,7 @@
 					}
 					%>
 				</div>
+				<%} %>
 			</div>
 		</div>
 	</div>

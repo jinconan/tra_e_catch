@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.scvMapper">
-	<select id="login" resultType="int" parameterType="map">
-	SELECT  
-	    NVL((SELECT emp_no 
-	    		FROM employee
-				WHERE id=#{emp_id} AND pw=#{emp_pw}),0) as emp_no
-	FROM dual
+	<select id="login" resultType="map" parameterType="map">
+	    SELECT emp_no,name as emp_name 
+    FROM employee
+    WHERE id=#{emp_id} AND pw=#{emp_pw}
 	</select>
 	
 	<update id="modify"  parameterType="map">
@@ -18,6 +16,4 @@
 		 WHERE emp_no = #{emp_no}
 	
 	</update>
-	
-	
 </mapper>

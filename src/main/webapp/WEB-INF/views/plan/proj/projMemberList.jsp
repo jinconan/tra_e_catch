@@ -1,9 +1,10 @@
+<%@page import="java.math.BigDecimal"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	//프로젝트 번호
 	int projNo = (Integer) request.getAttribute("projNo");
 	boolean isLeader = (Boolean) request.getAttribute("isLeader");
-	int empNo = (Integer) session.getAttribute("emp_no");
+	BigDecimal empNo = (BigDecimal) session.getAttribute("emp_no");
 %>
 <!DOCTYPE html>
 <html>

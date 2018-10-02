@@ -1,5 +1,7 @@
 package com.team.tra_e_catch.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,12 +54,13 @@ public class ScvController {
 			res.addCookie(cookie);
 		}
 		
-		int result = scvLogic.login(emp_id, emp_pw);
-		if(result == 0)
+		Map<String,Object> result = scvLogic.login(emp_id, emp_pw);
+		if(result == null)
 			return "redirect:/scv/view/login";
 		else {
 			session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
-			session.setAttribute("emp_no", result);
+			session.setAttribute("emp_no", result.get("EMP_NO"));
+			session.setAttribute("emp_name", result.get("EMP_NAME"));
 			return "redirect:/";
 		}
 	}
@@ -77,6 +80,8 @@ public class ScvController {
 			return "redirect:/";
 		if(cookie != null)
 			mod.addAttribute("emp_id",cookie.getValue());
+		else
+			mod.addAttribute("emp_id","");
 		return "scv/login";
 	}
 

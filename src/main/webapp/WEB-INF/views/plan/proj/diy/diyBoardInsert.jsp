@@ -45,7 +45,7 @@
 						</div>
 					</div>
 					<div class="btn-group">
-						<button class="btn btn-primary" >등록</button>
+						<button type="button" class="btn btn-primary" onclick="fileCheck(this.form,this.form.articleFile)">등록</button>
 						<a class="btn btn-danger" href="<%=request.getContextPath()%>/plan/view/diyBoardList?projNo=<%=projNo %>&boardNo=<%=boardNo%>">취소</a>
 					</div>
 				</form>

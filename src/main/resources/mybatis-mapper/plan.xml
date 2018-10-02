@@ -64,6 +64,13 @@
 		FROM dual
 	</select>
 	
+	<!-- 특정 프로젝트의 소속 멤버인지 판별 0:소속X, 그외 : 소속-->
+	<select id="isMember" parameterType="map" resultType="int">
+		SELECT count(*) FROM proj_member
+			WHERE proj_no = #{proj_no} AND emp_no = #{emp_no}
+	</select>
+	
+	
 	<!-- 특정 조건에 대한 프로젝트 리스트를 구함. -->
 	<select id="getProjList" resultType="map" parameterType="map">
 		SELECT rno, proj_no as "proj_no", pstatus_no as "pstatus_no"

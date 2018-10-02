@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.HttpHeaders;
@@ -41,7 +42,9 @@ public class PlanController {
 	private static final	Logger				logger	= Logger.getLogger(PlanController.class);
 	private final 			ApplicationContext	context = new ClassPathXmlApplicationContext("submenu/plan-submenu.xml");
 	
-	private final String FILE_REPO = "E:\\files\\";
+	@Autowired
+	@Qualifier(value="fileRepository")
+	private String FILE_REPO;
 	
 	@Autowired
 	private PlanLogic planLogic;
@@ -297,9 +300,12 @@ public class PlanController {
 		Map<String, Object> projDetail = planLogic.getProjDetail(projNo);
 		List<Map<String,Object>> projBoardList = planLogic.getProjBoardList(projNo);
 		boolean isLeader = planLogic.getProjLeader(empNo,projNo);
+		boolean isMember = planLogic.isMember(projNo, empNo);
+		
 		mod.addAttribute("projDetail", projDetail);
 		mod.addAttribute("projBoardList", projBoardList);
 		mod.addAttribute("isLeader", isLeader);
+		mod.addAttribute("isMember", isMember);
 		return "plan/proj/projDetail";
 	}
 	
@@ -472,6 +478,7 @@ public class PlanController {
 	 */
 	@RequestMapping(value="/plan/view/diyBoardList")
 	public String viewArticleList(Model mod
+			, @SessionAttribute("emp_no") int empNo
 			, @RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo
 			, @RequestParam(name="pageNo", defaultValue="1") int pageNo
@@ -482,6 +489,10 @@ public class PlanController {
 		logger.info("viewArticleList()");
 		logger.info("[projNo:"+projNo+", boardNo:"+boardNo+",pageNo:"+pageNo+",searchColumn:"+searchColumn+",searchValue:"+searchValue+"]");
 		
+		boolean isMember = planLogic.isMember(projNo, empNo);
+		if(isMember == false) {
+			return "redirect:/plan/view/projDetail?projNo="+projNo;
+		}
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("pageNo", pageNo);
 		pMap.put("board_no", boardNo);
@@ -513,11 +524,18 @@ public class PlanController {
 	 */
 	@RequestMapping(value="/plan/view/diyBoardDetail")
 	public String viewArticleDetail(Model mod
+			, @SessionAttribute("emp_no") int empNo
 			, @RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo
 			, @RequestParam("articleNo") int articleNo
 			) {
 		logger.info("viewArticleDetail : " + articleNo);
+		
+		boolean isMember = planLogic.isMember(projNo, empNo);
+		if(isMember == false) {
+			return "redirect:/plan/view/projDetail?projNo="+projNo;
+		}
+		
 		mod.addAttribute("projNo",projNo);
 		mod.addAttribute("boardNo",boardNo);
 		mod.addAttribute("articleNo",articleNo);
@@ -537,9 +555,15 @@ public class PlanController {
 	 */
 	@RequestMapping(value="/plan/view/diyBoardInsert")
 	public String viewArticleInsert(Model mod
+			, @SessionAttribute("emp_no") int empNo
 			, @RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo) {
 		logger.info("viewBoardInsert : projNo="+projNo+", boardNo="+boardNo);
+		
+		boolean isMember = planLogic.isMember(projNo, empNo);
+		if(isMember == false) {
+			return "redirect:/plan/view/projDetail?projNo="+projNo;
+		}
 		
 		mod.addAttribute("projNo",projNo);
 		mod.addAttribute("boardNo",boardNo);
@@ -555,10 +579,16 @@ public class PlanController {
 	 */
 	@RequestMapping(value="/plan/view/diyBoardUpdate")
 	public String viewArticleUpdate(Model mod
+			, @SessionAttribute("emp_no") int empNo
 			, @RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo
 			, @RequestParam("articleNo") int articleNo) {
 		logger.info("viewArticleUpdate");
+		
+		boolean isMember = planLogic.isMember(projNo, empNo);
+		if(isMember == false) {
+			return "redirect:/plan/view/projDetail?projNo="+projNo;
+		}
 		
 		Map<String,Object> articleDetail = planLogic.getArticleDetail(articleNo);
 		
@@ -576,7 +606,7 @@ public class PlanController {
 	 * @return
 	 */
 	@RequestMapping(value="/plan/articleInsert", method=RequestMethod.POST)
-	public String articleInsert(HttpServletRequest req
+	public String articleInsert(HttpSession session
 			, @RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo
 			, @RequestParam("articleTitle") String articleTitle
@@ -585,12 +615,8 @@ public class PlanController {
 	) {
 		logger.info("articleInsert");
 		////////////////////
-		String fileRepo = "D:\\files\\article\\";
-		HttpSession session = req.getSession();
+		String articleRepo = FILE_REPO+"article\\";
 		Object article_writer = session.getAttribute("emp_name");
-		// 아직 세션 구현 안했으니 테스트용으로 강희복
-		if (article_writer == null)
-			article_writer = "강희복";
 
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("article_writer", article_writer);
@@ -604,8 +630,8 @@ public class PlanController {
 		int article_no = (Integer) pMap.get("article_no");
 		if (articleFile.isEmpty() == false) {
 			String filename = articleFile.getOriginalFilename();
-			File directory = new File(fileRepo + article_no);
-			File file = new File(fileRepo + article_no + "\\" + filename);
+			File directory = new File(articleRepo + article_no);
+			File file = new File(articleRepo + article_no + "\\" + filename);
 			directory.mkdirs();
 
 			try {
@@ -669,23 +695,45 @@ public class PlanController {
 		return "redirect:/plan/view/diyBoardList?projNo="+projNo+"&boardNo="+boardNo;
 	}
 	
-	@RequestMapping(value="/plan/articleUpdate", method=RequestMethod.POST)
+	@RequestMapping(value="/plan/articleUpdate", method=RequestMethod.POST, headers=("content-type=multipart/*"))
 	public String articleUpdate(
 			@RequestParam("projNo") int projNo
 			, @RequestParam("boardNo") int boardNo
 			, @RequestParam("articleNo") int articleNo
 			, @RequestParam("articleTitle") String articleTitle
 			, @RequestParam("articleContent") String articleContent
+			, @RequestParam("isDelete") boolean isDelete
+			, @RequestParam(value="articleFile", required=false) MultipartFile articleFile
 			) {
 		logger.info("articleUpdate");
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("article_title", articleTitle);
 		pMap.put("article_content", articleContent);
-		//pMap.put("article_path", articleFile.getOriginalFilename());
-		pMap.put("proj_no", projNo);
-		pMap.put("board_no", boardNo);
 		pMap.put("article_no", articleNo);
+		if(isDelete == true && articleFile != null)
+			pMap.put("article_path", articleFile.getOriginalFilename());
+
 		int result = planLogic.updateArticle(pMap);
+		if (articleFile.isEmpty() == false) {
+			String articleRepo = FILE_REPO+"article\\";
+			String filename = articleFile.getOriginalFilename();
+			File directory = new File(articleRepo + articleNo);
+			File file = new File(articleRepo + articleNo + "\\" + filename);
+			directory.mkdirs();
+
+			try {
+				articleFile.transferTo(file);
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		
+		
 		return "redirect:/plan/view/diyBoardDetail?projNo="+projNo+"&boardNo="+boardNo+"&articleNo="+articleNo;
 	}
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	String emp_id = null;
+	String emp_id = "";
 	try {
 		emp_id = (String)request.getAttribute("emp_id");
 	}catch(Exception e) {

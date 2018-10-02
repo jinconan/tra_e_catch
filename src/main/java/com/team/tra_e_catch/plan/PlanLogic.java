@@ -63,7 +63,10 @@ public class PlanLogic {
 		return sqlPlanDao.getProjLeader(empNo,projNo);
 	}
 
-
+	public boolean isMember(int projNo, int empNo) {
+		logger.info("isLeader() 호출");
+		return sqlPlanDao.isMember(projNo,empNo);
+	}
 	
 	/**
 	 * 프로젝트 상세 페이지에서 나타나는 프로젝트 상세정보를 구하는 메소드
@@ -334,6 +337,8 @@ public class PlanLogic {
 		int result = sqlPlanDao.updateArticle(pMap);
 		return result;
 	}
+
+	
 
 	
 	

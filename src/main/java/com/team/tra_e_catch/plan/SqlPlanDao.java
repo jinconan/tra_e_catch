@@ -110,6 +110,22 @@ public class SqlPlanDao {
 		return result;
 	}
 	
+	
+	public boolean isMember(int projNo, int empNo) {
+		logger.info("isLeader()");
+		boolean result = false;
+		Map<String,Object> pMap = new HashMap<String,Object>();
+		pMap.put("proj_no", projNo);
+		pMap.put("emp_no", empNo);
+		try {
+			int rvalue = sqlSessionTemplate.selectOne("mybatis-mapper.planMapper.isMember", pMap);
+			result = (rvalue != 0);
+		} catch (Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
+	
 	/**
 	 * 특정 프로젝트의 상세 정보를 리턴
 	 * @param pMap
@@ -416,6 +432,8 @@ public class SqlPlanDao {
 		}
 		return result;
 	}
+
+	
 
 	
 }
