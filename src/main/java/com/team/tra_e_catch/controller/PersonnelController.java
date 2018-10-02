@@ -128,13 +128,14 @@ public class PersonnelController {
 	// 재직증명서 양식 페이지
 	@RequestMapping(value = "/cert/certform", method = RequestMethod.POST)
 	public String serform(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
-		logger.info("certPrintList호출");
+		logger.info("serform호출");
 		List<Map<String, Object>> certinsert = null;
 		HttpSession session = req.getSession();
 		int emp_no = (int)session.getAttribute("emp_no");
 		pMap.put("emp_no", emp_no);
 		System.out.println(pMap);
 		certinsert = personnelLogic.certInsert(pMap);
+		
 		return "per/cert/certform";
 	}
 
@@ -272,6 +273,8 @@ public class PersonnelController {
 	public String labcont(Locale locale, Model mod) {
 		logger.info("labcont호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+		mod.addAttribute("curSubMenu", "근로계약서 관리");
+		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/labcont";
 	}
 	//근로계약서

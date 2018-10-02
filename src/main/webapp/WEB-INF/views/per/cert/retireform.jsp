@@ -37,7 +37,7 @@ $('.c_form').click(function(){
 
 		<tr>
 			<td align="center">담당업무</td>
-			<td colspan="3" align="center">화장실청소</td>
+			<td colspan="3" align="center"><div id="d_userwork"></div></td>
 		</tr>
 
 		<tr>
