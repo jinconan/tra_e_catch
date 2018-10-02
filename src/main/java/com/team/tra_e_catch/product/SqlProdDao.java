@@ -46,4 +46,18 @@ public class SqlProdDao {
 		return list;
 	}
 
+	public List<Map<String, Object>> moon_List_Deo() {
+		logger.info("moon_Deo진입");
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		list = sqlSessionTemplate.selectList("moon_list");
+		return list;
+	}
+
+	public List<Map<String, Object>> ct_List_Deo() {
+		logger.info("ct_Deo진입");
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		list = sqlSessionTemplate.selectList("ct_list");
+		return list;
+	}
+
 }

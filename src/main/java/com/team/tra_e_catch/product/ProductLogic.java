@@ -1,7 +1,6 @@
 package com.team.tra_e_catch.product;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +41,18 @@ public class ProductLogic {
 		Chart_Make cm = new Chart_Make();
 		cm.C_Make(sqlProdDao.chartsR_moon_Dao(counts));
 		return cm.map;
+	}
+
+	public List<Map<String, Object>> moon_List_Logic() {
+		logger.info("chartsR_moon_Logic진입");
+		List<Map<String, Object>> s = sqlProdDao.moon_List_Deo();
+		return s;
+	}
+	
+	public List<Map<String, Object>> ct_List_Logic() {
+		logger.info("chartsR_ct_Logic진입");
+		List<Map<String, Object>> s = sqlProdDao.ct_List_Deo();
+		return s;
 	}
 	
 }
