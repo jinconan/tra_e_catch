@@ -41,13 +41,7 @@ public class PersonnelLogic {
 		salList = sqlPerDao.getSalList(pMap);
 		return salList;
 	}
-	//사원명부 데이터 요청
-	public List<Map<String, Object>> getEmpList(Map<String, Object> pMap, HttpServletResponse res) {
-		logger.info("getEmpList 호출 성공");
-		List<Map<String, Object>> getEmpList = null;
-		getEmpList = sqlPerDao.getEmpList(pMap);
-		return getEmpList;
-	}
+	
 
 
 	public List<Map<String, Object>> getTeamList(Map<String, Object> pMap) {
@@ -143,6 +137,30 @@ public class PersonnelLogic {
 		List<Map<String, Object>> labInsert = null;
 		labInsert = sqlPerDao.LabInsert(pMap);
 		return labInsert;
+	}
+
+//고용계약서 조회
+	public List<Map<String, Object>> getSourcingList(Map<String, Object> pMap) {
+		logger.info("perLogic sourcingList  호출");
+		List<Map<String,Object>> sourcingList = null;
+		sourcingList = sqlPerDao.viewSourcingList(pMap);
+		return sourcingList;
+	}
+
+//고용계약서 등록
+	public List<Map<String, Object>> empsourcingInsert(Map<String, Object> pMap) {
+		logger.info("perLogic empsourcingInsert  호출");
+		List<Map<String,Object>> sourcinginsert = null;
+		sourcinginsert = sqlPerDao.SourcingInsert(pMap);
+		return sourcinginsert;
+	}
+
+//사원명부
+	public List<Map<String, Object>> getEmpList(Map<String, Object> pMap) {
+		logger.info("perLogic  getEmpList 호출");
+		List<Map<String,Object>> empList = null;
+		 empList = sqlPerDao.getEmpList(pMap);
+		return empList;
 	}
 
 
