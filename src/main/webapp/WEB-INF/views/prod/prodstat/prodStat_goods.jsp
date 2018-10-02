@@ -11,7 +11,7 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <%
 	int counts = (Integer)request.getAttribute("counts");
-	List<Map<String,Object>> list = (List<Map<String,Object>>)request.getAttribute("moon_List");
+	List<Map<String,Object>> list = (List<Map<String,Object>>)request.getAttribute("ct_List");
 %>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -28,7 +28,7 @@
         
     var data = new google.visualization.DataTable(jsonData);
     var options = {
-      title : '연도별 총 판매량 및 판매금액',	//제목
+      title : '제조사별 총 판매량 및 판매금액',	//제목
       vAxis: {title: '금액(만원),거래량(개)'},							//로우
       hAxis: {title: '연도'},							//컬럼
       seriesType: 'bars',								
@@ -78,9 +78,10 @@
   <%
   	if(list!=null){
   		for(Map map : list){
-  			String dr = (String)map.get("DAY");
+  			String dr = (String)map.get("C_NO");
+  			String name = (String)map.get("NAME");
   			%>
-  			<li><a href="<%=request.getContextPath()%>/prod/view/prodStat_moon/<%=dr%>"><%=dr%>년 전체판매량</a></li>
+  			<li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/<%=dr%>"><%=name%>년 전체판매량</a></li>
   			<%
   		}
   	}

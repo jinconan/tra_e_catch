@@ -83,13 +83,18 @@
 			<scope>runtime</scope>
 		</dependency>
 
+	    <dependency>
+		  <groupId>com.google.cloud</groupId>
+		  <artifactId>google-cloud-dialogflow</artifactId>
+		  <version>0.64.0-alpha</version>
+		</dependency>
+
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
-		</dependency>
-				
+		</dependency>			
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -115,7 +120,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
-		</dependency>        
+		</dependency>
 	</dependencies>
     <build>
         <plugins>

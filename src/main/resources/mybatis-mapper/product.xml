@@ -9,6 +9,19 @@
 		where 번호 between 1 and 10
 		]]>
 	</select>
+	
+	<select id="moon_list" parameterType="int"  resultType="Map">
+		<![CDATA[
+			select distinct(substr(hire_date, 1, 4)) as day from employee
+            order by substr(hire_date, 1, 4)
+		]]>
+	</select>
+	
+	<select id="ct_list" parameterType="int"  resultType="Map">	
+		select C_no,name from CLIENT
+	</select>
+	
+	
 	<resultMap id="chart_Plan1" type="java.util.TreeMap"></resultMap>
 	<select id="Pro_Stat_Chart" statementType="CALLABLE" parameterType="Map"  resultType="java.util.TreeMap">
 	    CALL Pro_Stat_Chart(0,0,#{chart_Plan1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=chart_Plan1})

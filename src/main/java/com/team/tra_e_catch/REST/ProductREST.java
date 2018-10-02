@@ -51,7 +51,11 @@ public class ProductREST {
 	@RequestMapping("prodStat_moon/{counts}")
 	private Map<String, Object> proStatR_moon(@PathVariable int counts) {
 		Map<String, Object> as = productLogic.chartsR_moon_Logic(counts);
-		
+		return as;
+	}
+	@RequestMapping("prodStat_ct/{counts}")
+	private Map<String, Object> proStatR_ct(@PathVariable int counts) {
+		Map<String, Object> as = productLogic.chartsR_moon_Logic(counts);
 		return as;
 	}
 }
