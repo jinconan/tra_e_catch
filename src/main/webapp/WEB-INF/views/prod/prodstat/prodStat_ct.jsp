@@ -11,7 +11,20 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <%
 	int counts = (Integer)request.getAttribute("counts");
-	List<Map<String,Object>> list = (List<Map<String,Object>>)request.getAttribute("moon_List");
+	int day = (Integer)request.getAttribute("day");
+	int yn = (Integer)request.getAttribute("yn");
+	List<Map<String,Object>> list = (List<Map<String,Object>>)request.getAttribute("ct_List");
+	List<Map<String,Object>> lists = (List<Map<String,Object>>)request.getAttribute("moon_List");
+	System.out.print(list);
+	String tit = "";
+	String tet = "";
+	if(yn == 0){
+		 tit = "제조사별 총 판매금액";
+		 tet = "금액(만원)";
+	}else{
+		 tit = "제조사별 총 판매량";
+		 tet = "거래량(개)";
+	}
 %>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -21,18 +34,18 @@
         // Some raw data (not necessarily accurate)
         
         var jsonData = $.ajax({
-        	url:"<%=request.getContextPath()%>/proR/prodStat_moon/<%=counts%>",
+        	url:"<%=request.getContextPath()%>/proR/prodStat_ct/<%=counts%>/<%=day%>/<%=yn%>",
         	dateType:"json",
         	async:false
         }).responseText;
         
     var data = new google.visualization.DataTable(jsonData);
     var options = {
-      title : '연도별 총 판매량 및 판매금액',	//제목
-      vAxis: {title: '금액(만원),거래량(개)'},							//로우
+      title : '<%=tit%>',	//제목
+      vAxis: {title: '<%=tet%>'},							//로우
       hAxis: {title: '월별'},							//컬럼
       seriesType: 'bars',								
-      series: {0: {type: 'line'}}
+      series: {20: {type: 'line'}}
     };
 
     var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
@@ -69,6 +82,25 @@
   </ul>
 </div>
 
+<!--------------- 버튼 드롭다운 : 상품별  판매 금액 --------------->
+<div class="btn-group">
+  	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    	제조사별 <span class="caret"></span>
+  	</button>
+  <ul class="dropdown-menu" role="menu">
+  <%
+  	if(list!=null){
+  		for(Map map : list){
+  			String dr = String.valueOf(map.get("C_NO"));
+  			String name = (String)map.get("NAME");
+  			%>
+  			<li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/<%=dr%>/2018/0"><%=name%> 전체판매금액</a></li>
+  			<%
+  		}
+  	}
+  %>
+  </ul>
+</div>
 <!--------------- 버튼 드롭다운 : 월별  판매량 월별  판매 금액 --------------->
 <div class="btn-group">
   	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -77,16 +109,27 @@
   <ul class="dropdown-menu" role="menu">
   <%
   	if(list!=null){
-  		for(Map map : list){
+  		for(Map map : lists){
   			String dr = (String)map.get("DAY");
   			%>
-  			<li><a href="<%=request.getContextPath()%>/prod/view/prodStat_moon/<%=dr%>"><%=dr%>년 전체판매량</a></li>
+  			<li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/<%=counts%>/<%=dr%>/0"><%=dr%>년 전체판매금액</a></li>
   			<%
   		}
   	}
   %>
   </ul>
 </div>
+<!--------------- 버튼 드롭다운 : 상품별 판매량/판매액 --------------->
+<div class="btn-group">
+  	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    	판매량 <span class="caret"></span>
+  	</button>
+  <ul class="dropdown-menu" role="menu">
+  <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/<%=counts%>/<%=day%>/0"><%=day%>년 전체판매금액</a></li>
+  <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/<%=counts%>/<%=day%>/1"><%=day%>년 전체거래량</a></li>
+  </ul>
+</div>
+
 <!----------------------------- 그래프 차트 ------------------------------------>
 <div id="chart_div" style="width: 900px; height: 500px;">
 

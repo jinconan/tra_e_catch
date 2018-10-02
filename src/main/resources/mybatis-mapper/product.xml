@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.productMapper">
+
+	<resultMap id="chart_Plan1" type="java.util.TreeMap"></resultMap>
 	<select id="orTranlist" parameterType="int"  resultType="Map">
 		<![CDATA[
 		select 번호, 등록코드,거래처코드,결제방식,결제일자,결제코드,거래량 from
@@ -9,7 +11,22 @@
 		where 번호 between 1 and 10
 		]]>
 	</select>
-	<resultMap id="chart_Plan1" type="java.util.TreeMap"></resultMap>
+	
+	<select id="moon_list" parameterType="int"  resultType="Map">
+		<![CDATA[
+			select distinct(substr(hire_date, 1, 4)) as day from employee
+            order by substr(hire_date, 1, 4)
+		]]>
+	</select>
+	
+	<select id="ct_list" parameterType="int"  resultType="Map">	
+		select C_no,name from CLIENT
+	</select>
+	
+	<select id="Pro_ct_Chart" statementType="CALLABLE" parameterType="Map"  resultType="java.util.TreeMap">	
+		CALL pro_CLIENT_PROD_list(#{counst},#{day},#{yn},#{chart_Plan1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=chart_Plan1})
+	</select>
+	
 	<select id="Pro_Stat_Chart" statementType="CALLABLE" parameterType="Map"  resultType="java.util.TreeMap">
 	    CALL Pro_Stat_Chart(0,0,#{chart_Plan1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=chart_Plan1})
 	</select>

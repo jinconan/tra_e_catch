@@ -87,10 +87,35 @@ public class ProductController {
 		//curSubMenu : String
 		
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
+		List<Map<String,Object>> moon_List = productLogic.moon_List_Logic();
 		mod.addAttribute("curSubMenu", "상품 통계");
 		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("moon_List", moon_List);
 		mod.addAttribute("counts", counts);	
 		return "prod/prodstat/prodStat_moon";
+	}	
+	
+	@RequestMapping(value="/prod/view/prodStat_ct/{counts}/{day}/{yn}", method = RequestMethod.GET)
+	public String viewProdstat_ct(Model mod,@PathVariable int counts,@PathVariable int day,@PathVariable int yn) {
+		logger.info("viewProdstat()"+counts+day);
+		
+		//컨트롤러로 부터 넘겨받는 속성
+		//subMenuList : List<Map<String, Object>>
+		//				[{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+		//curSubMenu : String
+		
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
+		List<Map<String,Object>> moon_List = productLogic.moon_List_Logic();
+		List<Map<String,Object>> ct_List = productLogic.ct_List_Logic();
+		mod.addAttribute("curSubMenu", "상품 통계");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("ct_List", ct_List);
+		logger.info(ct_List);
+		mod.addAttribute("moon_List", moon_List);
+		mod.addAttribute("counts", counts);	
+		mod.addAttribute("day", day);	
+		mod.addAttribute("yn", yn);	
+		return "prod/prodstat/prodStat_ct";
 	}	
 	
 	@RequestMapping(value="/prod/view/prodTran")
