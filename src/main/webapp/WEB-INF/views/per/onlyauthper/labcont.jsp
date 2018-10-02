@@ -7,13 +7,12 @@
 <title></title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script type="text/javascript">
-
 	function accept(){
-		var empno = $("#f_emp_no").serialize();
+		var emp_no = $("#f_emp_no").serialize();
 		$.ajax({
 			url:"/tra_e_catch/per/labtable"
 			,method:"POST"
-			,data:empno,
+			,data:emp_no,
 			success:function(log){
 			$("#labtable").html(log);
 			}
@@ -21,6 +20,12 @@
 	    	 alert("error : "+Object.responseText);
 	     }
 		});
+	}
+	function workinsert(){
+		 $("#f_emp_no").attr("action","./labcont/insert");
+		$("#f_emp_no").submit(); 
+		alert("등록되었습니다.");
+		
 	}
 </script>
 </head>
@@ -38,9 +43,9 @@
 				<label class="col-sm-3 control-label" for="inputEmail">사원코드</label>
 				<div class="col-sm-3">
 				<form id="f_emp_no" method="post">
-					<input class="form-control" id="emp_no" name="emp_no" placeholder="사원코드">
+				<input class="form-control" id="emp_no" name="emp_no" placeholder="사원코드">
 				</form>
-				</div>
+						</div>
 				
 				<div class="col-sm-1 text-center" style="padding-left: 1px;">
 					<button id="btn_labsearch"class="btn btn-primary" style="margin-left:10px;" onclick="javascript:accept()">
@@ -48,7 +53,7 @@
 					</button>
 				</div>
 				<div class="col-sm-1 text-center" style="padding-left: 1px;">
-					<button id="btn_labinsert"class="btn btn-primary" style="margin-right:10px;">
+					<button id="btn_labinsert"class="btn btn-primary" style="margin-right:10px;" onclick="javascript:workinsert()">
 						등록<i class="fa fa-check spaceLeft"></i>
 					</button>
 					</div>

@@ -5,6 +5,17 @@
 select * from certlist where emp_no = #{emp_no} order by c_no desc
 </select>
 
+<select id="viewWorkList" parameterType="map" resultType="map">
+<!-- select * from docs where emp_no = #{emp_no} -->
+select * from docs where emp_no = #{emp_no} and dtype_no = 910
+	 
+</select>
+
+
+<insert id="labInsert" parameterType="map">
+insert into docs
+values(#{emp_no},910,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'))
+</insert>
 <insert id="certinsert" parameterType="map">
 
 insert into certlist

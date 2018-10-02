@@ -47,9 +47,6 @@ public class PersonnelController {
 		mod.addAttribute("counts", counts);
 		HttpSession session= req.getSession();
 		int emp_no = (int)session.getAttribute("emp_no");
-		System.out.println("들어오는 사번 : "+emp_no);
-		System.out.println("pMap에 담기는것들?: "+pMap);
-		System.out.println("counts?: "+counts);
 		return "per/salary/salary";
 	}
 
@@ -97,10 +94,6 @@ public class PersonnelController {
 	// 연차관리
 	@RequestMapping(value = "/attd/leave", method = RequestMethod.GET)
 	public String attLeave(@RequestParam Map<String, Object> pMap, Model mod) {
-		// 컨트롤러로 부터 넘겨받는 속성
-		// subMenuList : List<Map<String, Object>>
-		// [{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
-		// curSubMenu : String
 		logger.info("attLeave호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-attsub");// 근태 관련 서브메뉴
 																											// 호출
@@ -275,22 +268,28 @@ public class PersonnelController {
 	}
 
 	// 근로계약서 관리
-	@RequestMapping(value = "/labcont", method = RequestMethod.GET)
+	@RequestMapping(value = "/labcont")
 	public String labcont(Locale locale, Model mod) {
-		logger.info("Welcome home! The client locale is");
+		logger.info("labcont호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
-		mod.addAttribute("curSubMenu", "기획서 리스트");
-		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/labcont";
 	}
-
-	// 근로계약서 검색 테이블
-	@RequestMapping(value = "/labtable", method = RequestMethod.POST)
+	//근로계약서
+	@RequestMapping(value = "/labtable")
 	public String labtable(@RequestParam Map<String, Object> pMap) {
 		logger.info("labtable호출");
-		System.out.print(pMap);
-		
+		System.out.println(pMap);//정상적으로 emp_no가 들어있음.
 		return "per/onlyauthper/lablist";
+	}
+	//근로계약서 등록
+	@RequestMapping(value = "/labcont/insert")
+	public String labcontinsert(@RequestParam Map<String, Object> pMap) {
+		logger.info("labcontinsert호출");
+		System.out.println(pMap);//정상적으로 emp_no가 들어있음.
+		List<Map<String, Object>> labinsert = null;
+		System.out.println(pMap);
+		labinsert = personnelLogic.labInsert(pMap);
+		return "per/onlyauthper/labcont";
 	}
 
 	// 고용계약서 조회

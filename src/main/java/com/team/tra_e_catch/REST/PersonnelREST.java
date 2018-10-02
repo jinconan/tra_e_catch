@@ -82,6 +82,17 @@ public class PersonnelREST {
 		attdList = personnelLogic.getAttdList(pMap);
 		return attdList;
 	}
+
+	@RequestMapping("only/worklist")//근로계약서 데이터
+	private List<Map<String, Object>> viewWorklist(@RequestParam Map<String, Object> pMap){
+		logger.info("viewWorklist요청");
+		List<Map<String, Object>> workList = null;
+/*		pMap.put("emp_no", req.getParameter("emp_no").toString());*/
+		System.out.println("viewWorklist에 들어가는 : "+pMap);
+		workList = personnelLogic.getWorkList(pMap);
+		return workList;
+	}
+	
 	
 	@RequestMapping("rating/list")
 	private List<Map<String, Object>> viewTeamjson(@RequestParam Map<String, Object> pMap, HttpServletRequest req){
