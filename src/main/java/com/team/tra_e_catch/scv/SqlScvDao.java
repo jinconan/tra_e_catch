@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.scv;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -35,5 +36,12 @@ public class SqlScvDao {
 			logger.error(e.toString());
 		}
 		return result;
+	}
+
+	public List<Map<String, Object>> getScvList(int emp_no) {
+		logger.info("getScvList 호출 성공");
+		List<Map<String, Object>> getScvList = null;
+		getScvList = sqlSessionTemplate.selectList("getScvList", emp_no);
+		return getScvList;//NullPointerException
 	}
 }

@@ -1,5 +1,8 @@
 package com.team.tra_e_catch.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +61,7 @@ public class ScvController {
 		else {
 			session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
 			session.setAttribute("emp_no", result);
+			
 			return "redirect:/";
 		}
 	}
@@ -92,6 +96,7 @@ public class ScvController {
 		return "redirect:/";
 	}
 
+	
 	/**
 	 * 정보 수정 처리 요청 메소드
 	 * @param mod
@@ -99,32 +104,18 @@ public class ScvController {
 	 */
 	@RequestMapping(value = "/scv/modify", method = RequestMethod.POST)
 	public String modify(Model mod
-			, HttpServletRequest req
-			, HttpServletResponse res
-			, @RequestParam("emp_id") String emp_id
-			, @RequestParam("emp_pw") String emp_pw
-			, @RequestParam("emp_new_pw") String emp_new_pw
-			, @RequestParam("emp_new_pw_check") String emp_new_pw_check
-			, @RequestParam("emp_email") String emp_email
-			, @RequestParam(name="remember_id",required=false) boolean remember_id)
+			, @RequestParam Map<String,Object> pMap
+			, @SessionAttribute("emp_no") int emp_no)
 	{
 		logger.info("modify");
-		logger.info("emp_id");
+		logger.info(pMap);
+		pMap.put("emp_no", emp_no);
 		
-		if(remember_id == true) {
-			Cookie cookie = new Cookie("emp_id", emp_id);
-			res.addCookie(cookie);
-		}
-		int result = scvLogic.modify(emp_pw, emp_new_pw, emp_new_pw_check, emp_email);
-		if(result == 0)
-			return "scv/modify";
-		else {
-			HttpSession session = req.getSession();
-			session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
-			session.setAttribute("emp_no", result);
-			return "home";
-		}
-		//return "scv/modify";
+	    scvLogic.modify(pMap);
+		 
+		
+		
+		return "redirect:/scv/view/modify";
 		
 	}
 
@@ -135,11 +126,15 @@ public class ScvController {
 	 */
 	@RequestMapping(value = "/scv/view/modify", method = RequestMethod.GET)
 	public String viewModify(Model mod
-			,@CookieValue(value="emp_id", required=false)Cookie cookie) 
+			,@SessionAttribute("emp_no") int emp_no) 
 	{
-		logger.info("viewModify");
-		if(cookie != null)
-			mod.addAttribute("emp_id",cookie.getValue());
+		logger.info(emp_no);
+		
+		List<Map<String,Object>> getScvList = scvLogic.getScvList(emp_no);	
+		logger.info(getScvList);
+		
+		mod.addAttribute("getScvList", getScvList);
+	
 		return "scv/modify";
 	}
 
