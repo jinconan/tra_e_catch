@@ -25,7 +25,7 @@ function listoption(){
 	        	console.log(log);
 	        	$("#d_formprint").html(log);
 	        	$("#d_usepoint").text($("#useinput").val());
-	        	
+	        	$("#d_userwork").text($("#workinfo").val());
 	        	listform();
 	        	
 	        }
@@ -50,6 +50,7 @@ function listoption(){
 	        	console.log(log);
 	        	$("#d_formprint").html(log);
 	        	$("#d_usepoint").text($("#useinput").val());
+	        	$("#d_userwork").text($("#workinfo").val());
 	        	listform();
 	        }
 			,error : function(xhr) {
@@ -67,6 +68,7 @@ function listoption(){
 	        	
 	        	console.log(log);
 	        	$("#d_formprint").html(log);
+	        	$("#d_userwork").text($("#workinfo").val());
 	        	listform();
 	        }
 			,error : function(xhr) {
@@ -84,6 +86,7 @@ function listoption(){
 	        	
 	        	console.log(log);
 	        	$("#d_formprint").html(log);
+	        	$("#d_userwork").text($("#workinfo").val());
 	        	listform();
 	        }
 			,error : function(xhr) {
@@ -118,7 +121,7 @@ function listform(){
 		<div class="col-sm-10">
 			<!-- 메인화면 -->
 			<form id="f_certinsert" method="post">
-			<div class="panel panel-primary col-xs-10">
+			<div class="panel panel-primary col-xs-11">
 				<table>
 					<tr>
 						<td>증명서 종류 :&nbsp;&nbsp;&nbsp;</td>
@@ -134,7 +137,9 @@ function listform(){
 						<td>&nbsp;&nbsp;&nbsp;</td>
 						<td>사용 용도 : &nbsp;&nbsp;&nbsp;</td>
 
-						<td><input type="text" id="useinput" class="form-control" placeholder="ex)은행제출용"name="p_c_type"></div></td>
+						<td><input type="text" id="useinput" class="form-control" placeholder="ex)은행제출용" name="p_c_type" style="width: 156px;"></td>
+					<td>&nbsp;&nbsp;담당 업무 : &nbsp;&nbsp;&nbsp;</td>
+						<td><input type="text" id="workinfo" class="form-control" placeholder="ex)캐릭터디자인" name="p_c_work" style="width: 156px;"></td>
 						<td>&nbsp;&nbsp;
 							<button type="button" class="btn btn-primary" onclick="listoption()">
 								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>OK

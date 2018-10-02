@@ -12,6 +12,7 @@ $(function() {
 			$("#clev").append(data[0].CLEV);//직급
 			$("#hday").append(data[0].HDAY);//입사일자
 			$("#sdate").append(data[0].SDATE);//현재일자
+			
 		}
 	})
 	 
@@ -44,7 +45,9 @@ $('.c_form').click(function(){
 
 		<tr>
 			<td align="center">담당업무</td>
-			<td colspan="3" align="center">화장실청소</td>
+			<td colspan="3" align="center">
+			<div id="d_userwork"></div>
+			</td>
 		</tr>
 
 		<tr>

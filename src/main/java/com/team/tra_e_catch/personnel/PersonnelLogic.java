@@ -131,5 +131,20 @@ public class PersonnelLogic {
 	}
 
 
+	public List<Map<String, Object>> getWorkList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> workList = null;
+		workList = sqlPerDao.viewWorkList(pMap);
+		return workList;
+	}
+
+
+	public List<Map<String, Object>> labInsert(Map<String, Object> pMap) {
+		List<Map<String, Object>> labInsert = null;
+		labInsert = sqlPerDao.LabInsert(pMap);
+		return labInsert;
+	}
+
+
 
 }

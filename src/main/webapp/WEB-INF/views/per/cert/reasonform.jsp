@@ -31,13 +31,13 @@ $('.c_form').click(function(){
 		</tr>
 
 		<tr>
-			<td align="center">현주소</td>
+			<td align="center">근무지</td>
 			<td colspan="3" align="center">경기도 과천시 과천동 513-13호</td>
 		</tr>
 
 		<tr>
 			<td align="center">담당업무</td>
-			<td colspan="3" align="center">화장실청소</td>
+			<td colspan="3" align="center"><div id="d_userwork"></div></td>
 		</tr>
 
 		<tr>

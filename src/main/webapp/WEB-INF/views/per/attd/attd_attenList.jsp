@@ -13,12 +13,6 @@
 	int counts = (Integer)request.getAttribute("counts");
 	int list = (((counts-1)/10)*10)+1;
 	int num = (counts%10);
-/* 	Cookie[] cs = request.getCookies();
-	for(int i=0;i<cs.length;i++){
-	System.out.print("쿠키값 : "+cs[i].getValue());
-	System.out.print("쿠키ID : "+cs[i].getName());
-	} */
-	
 %>
 <body>
 	<script type="text/javascript">

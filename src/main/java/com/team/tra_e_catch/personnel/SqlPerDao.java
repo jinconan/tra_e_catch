@@ -111,5 +111,16 @@ public class SqlPerDao {
 		sqlSessionTemplate.insert("certinsert", pMap);
 		return null;
 	}
+	public List<Map<String, Object>> viewWorkList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		List<Map<String, Object>> workList = null;
+		workList = sqlSessionTemplate.selectList("viewWorkList",pMap);
+		return workList;
+	}
+	public List<Map<String, Object>> LabInsert(Map<String, Object> pMap) {
+		System.out.println("최종적으로 들어가는 것들 : "+pMap);
+		sqlSessionTemplate.insert("labInsert", pMap);
+		return null;
+	}
 	
 }
