@@ -4,10 +4,16 @@
 <select id="getCertList" parameterType="map" resultType="map">
 select * from certlist where emp_no = #{emp_no} order by c_no desc
 </select>
-
+<!-- 근로계약서 -->
 <select id="viewWorkList" parameterType="map" resultType="map">
 <!-- select * from docs where emp_no = #{emp_no} -->
 select * from docs where emp_no = #{emp_no} and dtype_no = 910
+	 
+</select>
+<!-- 고용계약서 -->
+<select id="viewSourcingList" parameterType="map" resultType="map">
+<!-- select * from docs where emp_no = #{emp_no} -->
+select * from docs where emp_no = #{emp_no} and dtype_no = 920
 	 
 </select>
 
@@ -15,6 +21,11 @@ select * from docs where emp_no = #{emp_no} and dtype_no = 910
 <insert id="labInsert" parameterType="map">
 insert into docs
 values(#{emp_no},910,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'))
+</insert>
+<!--고용계약서 등록  -->
+<insert id="sourcingInsert" parameterType="map">
+insert into docs
+values(#{emp_no},920,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'))
 </insert>
 <insert id="certinsert" parameterType="map">
 
@@ -95,7 +106,7 @@ select * from v_emp where emp_no = #{emp_no} <!-- 로그인했을때 들어있�
 
 select * from v_emp where team_no = (select team_no from v_emp where emp_no = #{emp_no})
 
-
+<!-- 사원명부 -->
 </select>
 <select id="getEmpList" parameterType="map" resultType="map">
 

@@ -229,32 +229,19 @@ public class PersonnelController {
 	}
 	// 사원명부
 	@RequestMapping(value = "/empList")
-	public String per(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
-		logger.info("Welcome home! The client locale is1");
-
-		logger.info(pMap);
-		logger.info(pMap.get("name") + "\t" + pMap.get("lev-no") + "\t" + pMap.get("dept-no"));
-		System.out.print(pMap.get("name"));
-		String a = (String) pMap.get("lev-no");
-		System.out.println(a);
-		try {
-			List<Map<String, Object>> getEmpList = null;
-			getEmpList = personnelLogic.getEmpList(pMap, res);
-			mod.addAttribute("getEmpList", getEmpList);
-			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
-			mod.addAttribute("curSubMenu", "기획서 리스트");
-			mod.addAttribute("subMenuList", subMenuList);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public String perEmpList(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
+		logger.info("emplist호출");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/emplist";
 	}
 
 	// 사원명부 검색 테이블
 	@RequestMapping(value = "/emptable", method = RequestMethod.GET)
-	public String pertable(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is");
+	public String pertable(@RequestParam Map<String, Object> pMap, Model mod) {
+		logger.info("사원명부 검색 테이블");
+		System.out.println(pMap);
 		return "per/onlyauthper/emptable";
 	}
 
@@ -272,41 +259,65 @@ public class PersonnelController {
 	public String labcont(Locale locale, Model mod) {
 		logger.info("labcont호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/labcont";
 	}
-	//근로계약서
+	//근로계약서 조회
 	@RequestMapping(value = "/labtable")
-	public String labtable(@RequestParam Map<String, Object> pMap) {
+	public String labtable(@RequestParam Map<String, Object> pMap,Model mod) {
 		logger.info("labtable호출");
 		System.out.println(pMap);//정상적으로 emp_no가 들어있음.
+		mod.addAttribute("curSubMenu", "기획서 리스트");
+		
 		return "per/onlyauthper/lablist";
 	}
 	//근로계약서 등록
 	@RequestMapping(value = "/labcont/insert")
-	public String labcontinsert(@RequestParam Map<String, Object> pMap) {
+	public String labcontinsert(@RequestParam Map<String, Object> pMap,Model mod) {
 		logger.info("labcontinsert호출");
 		System.out.println(pMap);//정상적으로 emp_no가 들어있음.
 		List<Map<String, Object>> labinsert = null;
 		System.out.println(pMap);
 		labinsert = personnelLogic.labInsert(pMap);
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/labcont";
 	}
-
-	// 고용계약서 조회
-	@RequestMapping(value = "/empcont", method = RequestMethod.GET)
-	public String empcont(Locale locale, Model mod) {
-		logger.info("Welcome home! The client locale is");
+	//고용계약서 등록
+	@RequestMapping(value = "/sourcing/insert")
+	public String empsourcinginsert(@RequestParam Map<String, Object> pMap,Model mod) {
+		logger.info("empsourcinginsert호출");
+		System.out.println(pMap);//정상적으로 emp_no가 들어있음.
+		List<Map<String, Object>> sourcinginsert = null;
+		System.out.println(pMap);
+		sourcinginsert = personnelLogic.empsourcingInsert(pMap);
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/empcont";
 	}
 
-	// 근로계약서 조회 테이블
-	@RequestMapping(value = "/empconttable", method = RequestMethod.GET)
-	public String empconttable(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is");
-		return "per/onlyauthper/empconttable";
+	// 고용계약서 관리화면
+	@RequestMapping(value = "/empcont")
+	public String empcont(@RequestParam Map<String, Object> pMap, Model mod) {
+		logger.info("고용계약서 조회");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "per/onlyauthper/empcont";
 	}
 
+	// 고용계약서 조회 테이블
+	@RequestMapping(value = "/empconttable")
+	public String empconttable(@RequestParam Map<String, Object> pMap, Model mod) {
+		logger.info("고용계약서 조회 테이블");
+		System.out.println(pMap);
+		return "per/onlyauthper/empconttable";
+	}
+	
 }
+	
+		
+		

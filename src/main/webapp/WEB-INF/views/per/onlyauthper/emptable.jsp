@@ -1,129 +1,56 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
- <div style="min-height='.01%'">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%
+String lev_no = request.getParameter("lev_no").toString();
+String name = request.getParameter("name").toString();
+String dept_no = request.getParameter("dept_no").toString();
+%>
+
+	<script type="text/javascript">
+$(function() {
+
+	$('#p_table').bootstrapTable({
+		
+		url:'<%=request.getContextPath()%>/perR/only/emplist',
+		queryParams: function(p){
+            return{
+            	lev_no : '<%=lev_no%>',
+            	name : '<%=name%>',
+            	dept_no : '<%=dept_no%>'
+            
+            };
+		}
+
+	});
+});
+
+</script>
+	<div class="container">
+		<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
+		<div class="col-md-10">
+			<table class="table table-striped" id="p_table">
+				<thead>
+					<tr>
+						<!-- 김훈태 작업중  -->
+						    <th width="10%" data-field="NAME">이름</th>
+							<th width="11%" data-field="HIRE_DATE">입사일자</th>
+							<th width="11%" data-field="LEV_NO">직급코드</th>
+							<th width="11%" data-field="DEPT_NO">부서코드</th>
+							<th width="11%" data-field="LOC_NO">지역코드</th>
+							<th width="11%" data-field="BIRTHDAY">생일</th>
+							<th width="11%" data-field="EMAIL">이메일</th>
+							<th width="11%" data-field="TEAM_NO">팀코드</th>
+							
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<nav>
+				<div class="text-center">
+	
+				</div>
+			</nav>
+		</div>
+	</div>
