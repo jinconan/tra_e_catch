@@ -240,7 +240,7 @@ public class PersonnelController {
 		System.out.println(a);
 		try {
 			List<Map<String, Object>> getEmpList = null;
-			getEmpList = personnelLogic.getEmpList(pMap, res);
+			getEmpList = personnelLogic.getEmpList(pMap);
 			mod.addAttribute("getEmpList", getEmpList);
 			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 			mod.addAttribute("curSubMenu", "기획서 리스트");

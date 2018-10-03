@@ -150,7 +150,7 @@ public class PersonnelREST {
 		logger.info(pMap);
 		logger.info(pMap.get("name")+"\t"+pMap.get("lev_no")+"\t"+pMap.get("dept_no"));
 		List<Map<String, Object>> getEmpList = null;
-		getEmpList = personnelLogic.getEmpList(pMap,res);
+		getEmpList = personnelLogic.getEmpList(pMap);
 		mod.addAttribute("getEmpList", getEmpList);
 		return getEmpList;
 	}
