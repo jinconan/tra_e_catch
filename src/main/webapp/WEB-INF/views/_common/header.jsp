@@ -7,7 +7,7 @@
 	
 %>
 <!-- 맨 위 메뉴 -->
-<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+<header class="navbar bs-docs-nav" id="top" role="banner">
 	<div class="container">
 		<!-- 트라2캐치 홈 화면 링크 -->
 		<div class="navbar-header">

@@ -26,4 +26,12 @@
 		 ,email_yn = #{cb_recv_email}
 		 WHERE emp_no = #{emp_no}
 	</update>
+	
+	<select id="getOnlineList" parameterType="map" resultType="map">
+		SELECT * FROM v_emp
+		WHERE emp_no IN
+		<foreach item="entry" index="key" collection="_parameter.keySet()" open="(" separator="," close=")">  
+		#{entry}
+  		</foreach>
+	</select>
 </mapper>

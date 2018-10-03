@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 	
 	<bean id="message-source" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="messages_ko_KR"/>
 	</bean>
+	
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- AOP -->
@@ -34,7 +43,7 @@
 	<!-- JDBC원시적 방법 대상 설정 -->
 	<bean id="data-source-target" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="url" ref="server-address"/>
+		<property name="url" ref="test-address"/>
 		<property name="username" value="tra_e_catch" />
 		<property name="password" value="ex1234" />
 	</bean>
@@ -72,4 +81,21 @@
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 		
+		
+	<!-- 웹소켓 -->
+	<util:map id="onlineEmp" map-class="java.util.HashMap" key-type="java.lang.String" value-type="org.springframework.web.socket.handler.WebSocketSessionDecorator"></util:map>
+	
+	<bean id="echoHandler" class="com.team.tra_e_catch.handler.EchoHandler">
+		<property name="onlineEmp" ref="onlineEmp"></property>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	
+	
+	<websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/echo-ws" />
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		<websocket:sockjs/>
+	</websocket:handlers>	
 </beans>
