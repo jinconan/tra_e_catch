@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,8 +103,9 @@ public class PaymentController {
 	//////////////////////////// 결재 //////////////////////////////////
 	// 결재 대기 문서
 	@RequestMapping(value = "/epay/epaywait", method = RequestMethod.GET)
-	public String epaywait(Model mod) {
-		logger.info("Welcome home! The client locale is");
+	public String epaywait(Model mod,@RequestParam(name="pageNO",defaultValue="1")int pageNo,HttpServletResponse res) {
+		logger.info("epaywait");
+		logger.info("pageNo : "+pageNo);
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-submenu");
 		mod.addAttribute("curSubMenu", "결재 대기 문서");
 		mod.addAttribute("subMenuList", subMenuList);

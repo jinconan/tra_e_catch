@@ -139,29 +139,30 @@ public class PersonnelLogic {
 		return labInsert;
 	}
 
-//고용계약서 조회
-	public List<Map<String, Object>> getSourcingList(Map<String, Object> pMap) {
-		logger.info("perLogic sourcingList  호출");
-		List<Map<String,Object>> sourcingList = null;
-		sourcingList = sqlPerDao.viewSourcingList(pMap);
-		return sourcingList;
-	}
+	//고용계약서 조회
+		public List<Map<String, Object>> getSourcingList(Map<String, Object> pMap) {
+			logger.info("perLogic sourcingList  호출");
+			List<Map<String,Object>> sourcingList = null;
+			sourcingList = sqlPerDao.viewSourcingList(pMap);
+			return sourcingList;
+		}
 
-//고용계약서 등록
-	public List<Map<String, Object>> empsourcingInsert(Map<String, Object> pMap) {
-		logger.info("perLogic empsourcingInsert  호출");
-		List<Map<String,Object>> sourcinginsert = null;
-		sourcinginsert = sqlPerDao.SourcingInsert(pMap);
-		return sourcinginsert;
-	}
+	//고용계약서 등록
+		public List<Map<String, Object>> empsourcingInsert(Map<String, Object> pMap) {
+			logger.info("perLogic empsourcingInsert  호출");
+			List<Map<String,Object>> sourcinginsert = null;
+			sourcinginsert = sqlPerDao.SourcingInsert(pMap);
+			return sourcinginsert;
+		}
 
-//사원명부
-	public List<Map<String, Object>> getEmpList(Map<String, Object> pMap) {
-		logger.info("perLogic  getEmpList 호출");
-		List<Map<String,Object>> empList = null;
-		 empList = sqlPerDao.getEmpList(pMap);
-		return empList;
-	}
+	//사원명부
+		public List<Map<String, Object>> getEmpList(Map<String, Object> pMap) {
+			logger.info("perLogic  getEmpList 호출");
+			List<Map<String,Object>> empList = null;
+			 empList = sqlPerDao.getEmpList(pMap);
+			return empList;
+		}
+
 
 
 

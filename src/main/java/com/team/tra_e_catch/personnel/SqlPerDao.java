@@ -124,18 +124,18 @@ public class SqlPerDao {
 		return null;
 	}
 	//고용계약서 조회
-	public List<Map<String, Object>> viewSourcingList(Map<String, Object> pMap) {
-		List<Map<String,Object>> sourcingList = null;
-		System.out.println("최종적으로 들어가는 것들 :" +pMap);
-		sourcingList = sqlSessionTemplate.selectList("viewSourcingList", pMap);
-		return sourcingList;
-	}
-	//고용계약서 등록
-	public List<Map<String, Object>> SourcingInsert(Map<String, Object> pMap) {
-		System.out.println("최종적으로 들어가는 것들 :" +pMap);
-		sqlSessionTemplate.insert("sourcingInsert", pMap);
-		return null;
-	}
+		public List<Map<String, Object>> viewSourcingList(Map<String, Object> pMap) {
+			List<Map<String,Object>> sourcingList = null;
+			System.out.println("최종적으로 들어가는 것들 :" +pMap);
+			sourcingList = sqlSessionTemplate.selectList("viewSourcingList", pMap);
+			return sourcingList;
+		}
+		//고용계약서 등록
+		public List<Map<String, Object>> SourcingInsert(Map<String, Object> pMap) {
+			System.out.println("최종적으로 들어가는 것들 :" +pMap);
+			sqlSessionTemplate.insert("sourcingInsert", pMap);
+			return null;
+		}
 
 	
 }

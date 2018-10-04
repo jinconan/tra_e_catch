@@ -37,7 +37,19 @@
 	<![CDATA[
 	select * from DOCS where rownum < 11 
 	 ]]>
-	</select>
+	<!-- <where>
+	
+		<if test='doc_no!= null and doc_no !="" '>
+			and doc_no = #{doc_no}
+		</if>
+		<if test='content!= null and !content.equals("")'>
+			and content = #{content}
+		</if>
+		<if test='up_date!= null and up_date != ""'>
+			and up_date = #{up_date}
+		</if>
+	</where> -->
+</select>
 	
 	<insert id="epayInsert" parameterMap="pDVO">
 		INSERT INTO DOCS(emp_no,dtype_no,path,content,doc_no
@@ -45,6 +57,14 @@
 						VALUES(#{emp_no},#{dtype_no},#{path},#{content}
 						#{doc_no},to_char(sysdate, 'YYYY-MM-DD'))
 	</insert>
-	
+	<select id="EpayWaitList" parameterType="map" resultType="map">
+		select b.emp_no,b.dtype_no,b.title,b.doc_no,b.path,a.sign_yn from sign a,docs b
+     <!-- where a.doc_no = b.doc_no and sign_yn = 0 -->
+     <where>
+     	<if test="a.doc_no = b.doc_no">
+     	and sign_yn = 0 
+     	</if>
+     </where>
+	</select>
 	
 </mapper>
