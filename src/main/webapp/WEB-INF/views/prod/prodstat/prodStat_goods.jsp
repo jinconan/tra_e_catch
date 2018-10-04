@@ -64,12 +64,12 @@
     <li><a href="<%=request.getContextPath()%>/prod/view/prodStat">연도별 전체 판매량</a></li>
     <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_moon/2008">월별 전체 판매량</a></li>
     <li class="divider"></li>
-    <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/2008">제조사별 전체 판매량</a></li>
+    <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/110/2008">제조사별 전체 판매량</a></li>
     <li><a href="#">상품별 전체 판매량</a></li>
   </ul>
 </div>
 
-<!--------------- 버튼 드롭다운 : 월별  판매량 월별  판매 금액 --------------->
+<!--------------- 버튼 드롭다운 : 상품별 판매량 --------------->
 <div class="btn-group">
   	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     	월별 <span class="caret"></span>
@@ -88,6 +88,8 @@
   %>
   </ul>
 </div>
+
+
 <!----------------------------- 그래프 차트 ------------------------------------>
 <div id="chart_div" style="width: 900px; height: 500px;">
 
