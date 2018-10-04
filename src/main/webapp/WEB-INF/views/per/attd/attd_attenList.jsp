@@ -16,6 +16,9 @@
 %>
 <body>
 	<script type="text/javascript">
+	function hovertest(){
+		alert("테스트");
+	}
 /* 		var $table = $('#p_table');
 		 */
 		 
@@ -59,7 +62,7 @@
 				
 			</div>
 				<div class="table-responsive col-xs-9">
-				<table id="p_table" class="table table-striped table-hover">
+				<table id="p_table" class="table table-striped table-hover" onclick="javascript:hovertest()">
 					<thead>
 						<tr>
 							<!-- data-field에는 json포멧으로 데이터를 담을예정  -->

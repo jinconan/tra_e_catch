@@ -11,19 +11,69 @@ String emp_no = request.getParameter("emp_no").toString();
 %>
 <body>
 	<script type="text/javascript">
-$(function() {
 
+	function test(){
+		var inputdata = $("#f_modalselect").serialize();
+	 	$.ajax({
+	        method:"POST"
+	        ,url:"/tra_e_catch/per/onlyauthper/wordprint"
+	        ,data:inputdata,
+	        success : function(log){
+	        	
+	        	console.log(log);
+	        	$("#d_viewwork").html(log);
+
+	        	
+	        }
+			,error : function(xhr) {
+				console.log("땡");
+			}
+        }); 
+	}
+
+
+$(function() {
+	var selectword =null;
+	
 	$('#p_table').bootstrapTable({
 		
 		url:'<%=request.getContextPath()%>/perR/only/worklist',
 		queryParams: function(p){
             return{
             	emp_no : '<%=emp_no%>'
-            
             };
+		},
+		onClickRow : function(row,$element, field) {
+			console.log(row.UP_DATE);
+			$("#selectdate").val(row.UP_DATE);
+			alert($("#selectdate").val());
+			
+			$("#exampleModal").modal('show');
+			test();/* test메소드에 아작스 처리하면 됨 쀼쀼 */
 		}
 
 	});
+	
+	/* 
+
+	$('#p_tabledata tr').click(function(){
+		var tr = $(this);
+        var td = tr.children();
+        /* console.log(td.eq(1).text()); 
+        //alert(td.eq(1).text());
+        alert(tr.length);
+        selectword = td.eq(1).text();
+        $("#selectdate").val(selectword);
+        
+        console.log($("#selectdate").val());
+        
+        
+	});  */
+	
+	$('#printinp').click(function(){
+		$('#printtable').printThis(); <!-- print 할 부분에 설정 -->
+	});
+
 });
 
 </script>
@@ -35,11 +85,11 @@ $(function() {
 					<tr>
 						<!-- 김훈태 작업중  -->
 						<th width="10%" data-field="EMP_NO">사원번호</th>
-						<th width="20%" data-field="UP_DATE">작성일자</th>
+						<th width="20%" data-field="UP_DATE" id="testid">작성일자</th>
 						<th width="15%" data-field="CONTENT">내용</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="p_tabledata">
 				</tbody>
 			</table>
 			<nav>
@@ -48,6 +98,33 @@ $(function() {
 				</div>
 			</nav>
 		</div>
+		<form id="f_modalselect" method="post">
+		<input type="hidden" id="selectdate" name="hday">
+		<input type="hidden" id="selectemp_no" name="emp_no" value="<%=emp_no%>">
+		</form>
+		
+		<!-- 상세내역 모달 페이지 -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width: 635px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">고용계약서 상세페이지</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div id="d_viewwork"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="printinp">Print</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+		<!-- 상세내역 모달 끝 -->
 	</div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </body>

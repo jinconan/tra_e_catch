@@ -8,10 +8,11 @@
 <%-- <jsp:include page="/WEB-INF/views/_common/header.jsp" /> --%>
 </head>
 <%
-	int counts = (Integer)request.getAttribute("counts");
+	
+	int counts = Integer.parseInt(String.valueOf(request.getAttribute("counts"))); 
 	int list = (((counts-1)/10)*10)+1;
 	int num = (counts%10);
-	int emp_no = (int)session.getAttribute("emp_no"); //사원정보 받는 곳
+	int emp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no"))); //사원정보 받는 곳
 %>
 <body>
 <script type="text/javascript">
