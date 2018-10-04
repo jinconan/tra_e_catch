@@ -26,7 +26,7 @@ import com.team.tra_e_catch.scv.ScvLogic;
 public class ScvController {
 
 	private static final Logger logger = Logger.getLogger(ScvController.class);
-	private final int MAX_INACTIVE_INTERVAL = 60 * 60; //1½Ã°£
+	private final int MAX_INACTIVE_INTERVAL = -1;
 	@Autowired
 	private ScvLogic scvLogic;
 	
@@ -62,6 +62,8 @@ public class ScvController {
 			session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
 			session.setAttribute("emp_no", result.get("EMP_NO"));
 			session.setAttribute("emp_name", result.get("EMP_NAME"));
+			session.setAttribute("emp_level", result.get("EMP_LEVEL"));
+			session.setAttribute("emp_dept", result.get("EMP_DEPT"));
 			return "redirect:/";
 		}
 	}

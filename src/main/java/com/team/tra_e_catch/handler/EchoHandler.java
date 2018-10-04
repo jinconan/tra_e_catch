@@ -29,39 +29,47 @@ public class EchoHandler extends TextWebSocketHandler{
 	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
-
+	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		//접속한 사원번호에 대해서 이미 접속중인 사원들에게 알림
-		//그 다음에 맵 객체에 새로 접속한 사원을 put
+		logger.info(session.getRemoteAddress()+" 접속");
+		
 		Map<String,Object> sessionAttr = session.getAttributes();
-		
 		Map<String,Object> resultMap = new HashMap<String,Object>();
-		String jsonResult = null;
-		if(onlineEmp.size()!=0) {
-			List<Map<String,Object>> onlineList = sqlSessionTemplate.selectList("getOnlineList",onlineEmp);
-			resultMap.put("onlineList", onlineList);
-		}
-		//DB조회해서 접속자의 번호, 이름, 아이디, 직책 가져옴.
-		resultMap.put("mtype", "open");
-		resultMap.put("emp_id", sessionAttr.get("emp_id"));
+		
+		//DB조회해서 접속자의 번호, 이름, 직책, 부서 가져옴.
+		resultMap.put("mtype", "open_other");
+		resultMap.put("emp_no", sessionAttr.get("emp_no"));
 		resultMap.put("emp_name", sessionAttr.get("emp_name"));
+		resultMap.put("emp_level", sessionAttr.get("emp_level"));
+		resultMap.put("emp_dept", sessionAttr.get("emp_dept"));
 		
-		
+		//resultMap을 json 문자열로 변환.
 		ObjectMapper mapper = new ObjectMapper();
-		jsonResult = mapper.writeValueAsString(resultMap);
+		String jsonResult = mapper.writeValueAsString(resultMap);
 		
-		String emp_no = sessionAttr.get("emp_no").toString();
+		//이미 연결된 소켓들에게 새로 접속한 사람에 대해 전송.
 		Iterator<String> iter = onlineEmp.keySet().iterator();
 		while(iter.hasNext()) {
 			WebSocketSession empSession = onlineEmp.get(iter.next());
 			empSession.sendMessage(new TextMessage(jsonResult));
 		}
 		
-		//다른 사람들에겐 현재 접속한 사람에 대해 알리고, 접속한 사람에게는 접속중인 사람들의 리스트를 전달한다.
+		//접속중인 사람이 있을 때 db에서 그 사람들에 대한 정보를 리스트로 얻고 json문자열을 갱신한다.
+		resultMap.put("mtype", "open_self");
+		if(onlineEmp.size()!=0) {
+			List<Map<String,Object>> onlineList = sqlSessionTemplate.selectList("getOnlineList",onlineEmp);
+			resultMap.put("onlineList", onlineList);
+			
+		}
+		jsonResult = mapper.writeValueAsString(resultMap);
+		//현재 접속한 사람에게 메시지를 전달한다.
+		session.sendMessage(new TextMessage(jsonResult));
+		
+		//메시지 전달 후 접속자리스트에 접속자를 추가한다.
+		String emp_no = sessionAttr.get("emp_no").toString();
 		onlineEmp.put(emp_no, session);
-		System.out.println(session.getId()+" 연결됨");
-		System.out.println("현재 온라인 : " + onlineEmp);
+		logger.info("접속자 리스트 : " + onlineEmp);
 	}
 	
 	@Override
@@ -124,17 +132,22 @@ public class EchoHandler extends TextWebSocketHandler{
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		// TODO Auto-generated method stub
+		//접속 종료시 접속자 리스트에서 제거한다.
 		Map<String,Object> sessionAttr = session.getAttributes();
 		String emp_no = sessionAttr.get("emp_no").toString();
 		onlineEmp.remove(emp_no);
 		
+		//메시지 만들기
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		resultMap.put("mtype", "close");
+		resultMap.put("emp_no", sessionAttr.get("emp_no"));
+		String jsonResult = new ObjectMapper().writeValueAsString(resultMap);
+		//메시지 전송
 		Iterator<String> iter = onlineEmp.keySet().iterator();
 		while(iter.hasNext()) {
 			WebSocketSession empSession = onlineEmp.get(iter.next());
-			empSession.sendMessage(new TextMessage(emp_no+"가 퇴장했습니다"));
+			empSession.sendMessage(new TextMessage(jsonResult));
 		}
-		
-		System.out.println(session.getId()+" 연결끊김");
+		logger.info(session.getRemoteAddress() + "접속 종료");
 	}
 }

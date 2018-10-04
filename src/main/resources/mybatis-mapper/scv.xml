@@ -2,9 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.scvMapper">
 	<select id="login" resultType="map" parameterType="map">
-	    SELECT emp_no,name as emp_name 
-    FROM employee
-    WHERE id=#{emp_id} AND pw=#{emp_pw}
+	    SELECT emp_no, e.name emp_name, lev.name emp_level, d.name emp_dept 
+		FROM employee e
+		    INNER JOIN ctlevel lev ON e.lev_no = lev.lev_no
+		    INNER JOIN department d ON e.dept_no = d.dept_no
+		WHERE id=#{emp_id} AND pw=#{emp_pw}
 	</select>
 	
 	<select id="getScvList" parameterType="int" resultType="map">
@@ -28,7 +30,7 @@
 	</update>
 	
 	<select id="getOnlineList" parameterType="map" resultType="map">
-		SELECT * FROM v_emp
+		SELECT emp_no as "emp_no", ename as "emp_name", clev as "emp_level", dname as "emp_dept" FROM v_emp
 		WHERE emp_no IN
 		<foreach item="entry" index="key" collection="_parameter.keySet()" open="(" separator="," close=")">  
 		#{entry}
