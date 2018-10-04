@@ -62,6 +62,6 @@
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/_common/footer.jsp"/>
-<%-- <jsp:include page="/WEB-INF/views/_common/messenger.jsp"/> --%>
+<jsp:include page="/WEB-INF/views/_common/messenger.jsp"/>
 </body>
 </html>

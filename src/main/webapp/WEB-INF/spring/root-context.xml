@@ -43,7 +43,7 @@
 	<!-- JDBC원시적 방법 대상 설정 -->
 	<bean id="data-source-target" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="url" ref="test-address"/>
+		<property name="url" ref="server-address"/>
 		<property name="username" value="tra_e_catch" />
 		<property name="password" value="ex1234" />
 	</bean>
