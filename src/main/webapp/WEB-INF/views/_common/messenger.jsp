@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!-- 접속 중 리스트 -->
 <div id="d_messenger" class="panel panel-info"" style="position: fixed; width: 300px; height: 100%; top: 0px; right: 0px;">
 	<div class="panel-heading">
@@ -14,17 +13,21 @@
 </div>
 
 <!-- 채팅창 -->
-<div id="d_chat" class="panel panel-info" style="position: fixed; width: 350px; height: 50%; bottom: 0px; right: 300px;">
+<div id="d_chat" class="panel panel-info" style="display:none;position: fixed; width: 350px; height: 50%; bottom: 0px; right: 300px;">
 	<input type="hidden" class="emp_no"/>
 	<input type="hidden" class="emp_level"/> 
 	<input type="hidden" class="emp_name"/> 
 	<input type="hidden" class="emp_dept"/> 
 	
-	<div class="panel-heading"></div>
+	<div class="panel-heading">
+		<span id="panel-heading-title"></span>
+		<a class="btn pull-right" aria-hidden="true" href="javascript:$('#d_chat').hide()">
+			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		</a>
+	</div>
 	<div class="panel-body">
 		<div style="overflow:auto; height: 250px; top: 0px; right: 0px;">
-			<ul class="list-grouplist-group">
-			</ul>
+			<ul class="list-grouplist-group"></ul>
 		</div>
 	</div>
 	<!-- 내부 입력창 -->
@@ -36,8 +39,7 @@
 		</span>
 	</div>
 </div>
-<!-- 메신저창 온오프 버튼 -->
-<a href="javascript:$('#d_messenger').toggle()" class="btn btn-primary" style="position:fixed; bottom:55px;">메신저창</a>
+
 
 <!-- 메신저 스크립트 부분 -->
 <script src=" <%=request.getContextPath()%>/resources/js/sockjs.min.js"></script>
@@ -180,7 +182,7 @@
 		$("#d_chat").find(".emp_name").val($obj.find(".emp_name").text());
 		$("#d_chat").find(".emp_dept").val($obj.find(".emp_dept").text());
 		
-		$("#d_chat .panel-heading").html($("#d_chat").find(".emp_name").val()+$("#d_chat").find(".emp_dept").val());
+		$("#panel-heading-title").html($("#d_chat").find(".emp_name").val()+$("#d_chat").find(".emp_dept").val());
 		var msg= { 
 			mtype:"clog"
 			,from: ${sessionScope.emp_no}
