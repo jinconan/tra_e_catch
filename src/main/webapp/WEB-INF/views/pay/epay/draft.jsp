@@ -6,16 +6,28 @@
 <meta charset="UTF-8">
 <title>기안 문서</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
-
-
 </head>
+<%	
+
+	int counts = (Integer)request.getAttribute("counts");
+	int list = (((counts-1)/10)*10)+1;
+	int num = (counts%10);
+	
+
+%>
+
+
 <body>
 <script type="text/javascript">
 $(function(){
-	$('#p1_table').bootstrapTable({
-		url:'<%=request.getContextPath()%>/pay/epay/epayjson'
-		,singleSelect:true
+	//데이터 그리드
+	$('#p_table').bootstrapTable({
+		url:'<%=request.getContextPath()%>/payR/epay/<%=counts%>'
+		
 	});
+	var base = $('#liid'+<%=num%>);
+	base.addClass('active');
+
 });
 </script>
 	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
@@ -63,7 +75,7 @@ $(function(){
 				</div>
 			
 
-				<table class="table table-striped" id="p1_table">
+				<table class="table table-striped" id="p_table">
 					<thead>
 						<tr>
 							<!-- data-field에는 json포멧으로 데이터를 담을예정  -->
@@ -88,25 +100,28 @@ $(function(){
 				
 			</div>
 		</div>
-			
-				<nav>
+<!--------------------- 페이지 네이션 영역 ----------------------------->
+				
+				 <nav>
 					<div class="text-center">
-						<ul class="pagination">
-							<li><a href="#" aria-label="Previous"> <span
-									aria-hidden="true">&laquo;</span>
-							</a></li>
-							
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#" aria-label="Next"> <span
-									aria-hidden="true">&raquo;</span>
-							</a></li>
+						<ul class="pagination" id="pagination">
+								<li><a href="<%=request.getContextPath()%>/pay/epay/draft/1" aria-label="Previous"> <span aria-hidden="true"> << </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list-1%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
+								<li id="liid1"><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list%>"><%=list%><span class="sr-only">(current)</span></a></li>
+								<li id="liid2"><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list+1%>"><%=list+1%><span class="sr-only">(current)</span></a></li>
+								<li id="liid3"><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list+2%>"><%=list+2%><span class="sr-only">(current)</span></a></li>
+								<li id="liid4"><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list+3%>"><%=list+3%><span class="sr-only">(current)</span></a></li>
+								<li id="liid5"><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list+4%>"><%=list+4%><span class="sr-only">(current)</span></a></li>
+								<li id="liid6"><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list+5%>"><%=list+5%><span class="sr-only">(current)</span></a></li>
+								<li id="liid7"><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list+6%>"><%=list+6%><span class="sr-only">(current)</span></a></li>
+								<li id="liid8"><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list+7%>"><%=list+7%><span class="sr-only">(current)</span></a></li>
+								<li id="liid9"><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list+8%>"><%=list+8%><span class="sr-only">(current)</span></a></li>
+								<li id="liid0"><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list+9%>"><%=list+9%> <span class="sr-only">(current)</span></a></li>
+								<li><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list+10%>" aria-label="Next"><span aria-hidden="true"> > </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/pay/epay/draft/<%=list+100%>" aria-label="Next"><span aria-hidden="true"> >> </span></a></li>
 						</ul>
 					</div>
-				</nav>
+				</nav> 
 			</form>
 		</div>
 	</div>

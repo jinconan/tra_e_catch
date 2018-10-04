@@ -10,14 +10,13 @@
 	String email = (String)getScvList.get(0).get("EMAIL");
 	String id    = (String)getScvList.get(0).get("ID");
 	String pw    = (String)getScvList.get(0).get("PW");
-	String birthday  = (String)getScvList.get(0).get("BIRTHDAY");
+	String birthday    = (String)getScvList.get(0).get("BIRTHDAY");
 	int gender = ((BigDecimal)getScvList.get(0).get("GENDER")).intValue();
 	int email_yn = ((BigDecimal)getScvList.get(0).get("EMAIL_YN")).intValue();
 	
 	if(email == null) {
 		email = "";
 	}
-	
 	
 %> 
 
@@ -60,30 +59,27 @@
 		
 		if(email_yn == 1)
 			$("#cb_recv_email").attr("checked","checked");
+		else
+			$("#cb_recv_email").attr("unchecked","unchecked");
 		
 	})
 	
 	function isok(){
 		
-		if(emp_new_pw==emp_new_pw_check)
+	alert("수정되었습니다.")
+	$("#f_modify").attr("action","<%= request.getContextPath() %>/scv/modify");
+	$("#f_modify").submit(); 
+		/* if(emp_new_pw==emp_new_pw_check)
 			alert("저장되었습니다.");
 		if(emp_new_pw!=emp_new_pw_check)
 			alert("비번이 일치하지 않습니다.")
 		if(emp_cur_pw==emp_new_pw)
 			alert("현재 비번과 일치합니다.")
 		if(emp_new_pw==null)
-			alert("비번을 입력하지 않았습니다.")
-	
-	$("#f_modify").attr("action","<%= request.getContextPath() %>/scv/modify");
-	$("#f_modify").submit();
-	
+			alert("비번을 입력하지 않았습니다.") */
 }
 	
-	
-	
-	
-	
- 	
+ 
 $(function() {
 	$emp_id = $("#emp_id");
 	$remember_id = $("#remember_id");
@@ -169,7 +165,7 @@ $(function() {
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-offset-3 col-sm-3" onclick="javascript:isok()">
+						<div class="col-sm-offset-3 col-sm-3" onclick=javascript:isok()>
 							<button class="btn btn-primary">수정</button>
 						</div>
 					</div>
