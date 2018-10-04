@@ -61,17 +61,4 @@ public class ProductLogic {
 		cm.C_Make(sqlProdDao.chartsR_ct_Dao(counts,day,yn));
 		return cm.map;
 	}
-
-	public List<Map<String, Object>> moon_List_Logic() {
-		logger.info("chartsR_moon_Logic진입");
-		List<Map<String, Object>> s = sqlProdDao.moon_List_Deo();
-		return s;
-	}
-	
-	public List<Map<String, Object>> ct_List_Logic() {
-		logger.info("chartsR_ct_Logic진입");
-		List<Map<String, Object>> s = sqlProdDao.ct_List_Deo();
-		return s;
-	}
-	
 }
