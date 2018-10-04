@@ -1,25 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
-</head>
+
 <%
-String emp_no = request.getParameter("emp_no").toString();
+String lev_no = request.getParameter("lev_no").toString();
+String name = request.getParameter("name").toString();
+String dept_no = request.getParameter("dept_no").toString();
 %>
-<body>
+
 	<script type="text/javascript">
 $(function() {
 
 	$('#p_table').bootstrapTable({
 		
-		url:'<%=request.getContextPath()%>/perR/only/sourcinglist',
+		url:'<%=request.getContextPath()%>/perR/only/emplist',
 		queryParams: function(p){
             return{
-            	emp_no : '<%=emp_no%>'
+            	lev_no : '<%=lev_no%>',
+            	name : '<%=name%>',
+            	dept_no : '<%=dept_no%>'
             
             };
 		}
@@ -34,11 +32,13 @@ $(function() {
 			<table class="table table-striped" id="p_table">
 				<thead>
 					<tr>
-						<!-- 최운철 작업중  -->
-						<th width="10%" data-field="EMP_NO">사원번호</th>
-						<th width="20%" data-field="UP_DATE">작성일자</th>
-						<th width="15%" data-field="CONTENT">내용</th>
-					</tr>
+							<th width="10%">사원번호</th>
+							<th width="10%">서류분류</th>
+							<th width="30%">내용</th>
+							<th width="10%">서류번호</th>
+							<th width="10%">등록일자</th>
+							<th width="10%">승인여부</th>
+				     </tr>
 				</thead>
 				<tbody>
 				</tbody>
@@ -50,6 +50,3 @@ $(function() {
 			</nav>
 		</div>
 	</div>
-	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
-</body>
-</html>

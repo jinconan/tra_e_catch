@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.payment;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,5 +44,12 @@ public class PaymentLogic {
 			throw de;
 		}
 		return result;
+	}
+
+	public List<Map<String, Object>> getEpayWaitList(Map<String, Object> pMap) {
+		logger.info("getEpayWaitList 호출성공");
+		List<Map<String,Object>> epaywaitList = null; 
+		epaywaitList = sqlPayDao.getEpayWaitList(pMap);
+		return epaywaitList;
 	}
 }
