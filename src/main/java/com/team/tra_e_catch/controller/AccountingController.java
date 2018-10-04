@@ -1,10 +1,14 @@
 package com.team.tra_e_catch.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.team.tra_e_catch.accounting.AccountingLogic;
 import com.team.tra_e_catch.accounting.Arrrtd;
@@ -194,6 +201,37 @@ public class AccountingController {
 		mod.addAttribute("curSubMenu", "기획서 리스트");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "acc/slip/slip_init";
+	}
+	
+	@RequestMapping(value = "slip/init", method=RequestMethod.POST )
+	public String slip_init_date(Model mod
+			,HttpServletRequest req
+			,@RequestParam Map<String, Object> slipTitle) {
+		logger.info("slip/init진입");
+		HttpSession session = req.getSession();
+		String emp_no = String.valueOf(session.getAttribute("emp_no"));
+		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)req;
+	    Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+	    MultipartFile multipartFile = null;
+	    multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+        File file = new File("C:\\Users\\510\\Desktop\\새 폴더 (3)\\"+multipartFile.getOriginalFilename());
+        file.mkdirs();
+        if(multipartFile.isEmpty() == false){
+			try {
+				multipartFile.transferTo(file);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        }
+	    slipTitle.put("file",multipartFile.getOriginalFilename());
+	    slipTitle.put("emp_no", emp_no);
+	    accountingLogic.fileupdate(slipTitle);
+		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("counts", 1);
+		return "acc/slip/slip_main";
 	}
 	
 	

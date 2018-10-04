@@ -30,7 +30,7 @@
     var options = {
       title : '연도별 총 판매량 및 판매금액',	//제목
       vAxis: {title: '금액(만원),거래량(개)'},							//로우
-      hAxis: {title: '연도'},							//컬럼
+      hAxis: {title: '월별'},							//컬럼
       seriesType: 'bars',								
       series: {0: {type: 'line'}}
     };
@@ -64,8 +64,7 @@
     <li><a href="<%=request.getContextPath()%>/prod/view/prodStat">연도별 전체 판매량</a></li>
     <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_moon/2008">월별 전체 판매량</a></li>
     <li class="divider"></li>
-    <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/2008">제조사별 전체 판매량</a></li>
-    <li><a href="#">상품별 전체 판매량</a></li>
+    <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/110/2008/0">제조사별 전체 판매량</a></li>
   </ul>
 </div>
 

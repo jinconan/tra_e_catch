@@ -19,8 +19,6 @@ public class Chart_Make {
 	public void C_Make(List<Map<String,Object>> exe) {
 		int i = 0;
 		//값 넣는곳 하나당 하나씩		
-		System.err.println(exe.get(0).keySet());
-		System.err.println(exe);
 		for(String s : exe.get(0).keySet()) {
 			map1 = new HashMap<String, Object>();
 			map1.put("id", "");

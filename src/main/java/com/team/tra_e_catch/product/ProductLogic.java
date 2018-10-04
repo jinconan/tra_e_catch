@@ -55,4 +55,11 @@ public class ProductLogic {
 		return s;
 	}
 	
+	public Map<String, Object> chartsR_ct_Logic(int counts,int day,int yn) {
+		logger.info("chartsR_ct_LogicÁøÀÔ");
+		Chart_Make cm = new Chart_Make();
+		cm.C_Make(sqlProdDao.chartsR_ct_Dao(counts,day,yn));
+		return cm.map;
+	}
+	
 }

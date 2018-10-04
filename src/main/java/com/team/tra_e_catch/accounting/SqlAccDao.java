@@ -21,10 +21,11 @@ public class SqlAccDao {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
 	
-	public List<Map<String, Object>> Team_Dao(int counst) {
+	public List<Map<String, Object>> Team_Dao(int counst,String emp_no) {
 		logger.info("Team_Dao진입");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("counst", counst);
+		map.put("emp_no", emp_no);
 		logger.info(map);
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		sqlSessionTemplate.selectList("timecell",map);
@@ -53,6 +54,12 @@ public class SqlAccDao {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		list = sqlSessionTemplate.selectList("t_timecell",map);
 		return list;
+	}
+
+	public void flieupdate_Dao(Map<String, Object> slipTitle) {
+		logger.info("fukeupdate_DaoDao진입");
+		logger.info(slipTitle);
+		sqlSessionTemplate.update("flieupdate_Dao",slipTitle);
 	}
 	
 }

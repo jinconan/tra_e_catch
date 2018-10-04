@@ -44,7 +44,7 @@
 	<div class="container">
 			<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 		<div class="col-sm-10">
-			<form class="form-signin" action="<%=request.getContextPath()%>/acc/wel_list" method="POST">
+			<form class="form-signin" action="<%=request.getContextPath()%>/acc/wel_list" method="POST" >
 				<h2 class="form-signin-heading">팀 운영비</h2>
 				<div class="row" Style="margin-bottom: 5px">
 					<div class="col-xs-1">

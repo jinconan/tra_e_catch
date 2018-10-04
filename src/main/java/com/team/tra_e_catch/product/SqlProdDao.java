@@ -60,4 +60,17 @@ public class SqlProdDao {
 		return list;
 	}
 
+	public List<Map<String, Object>> chartsR_ct_Dao(int counts, int day, int yn) {
+		// TODO Auto-generated method stub
+		logger.info("charts_ct_DaoÁøÀÔ"+counts+day);
+		Map<String, Object> map = new TreeMap<String, Object>();
+		map.put("counst", counts);
+		map.put("day", day);
+		map.put("yn", yn);
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		sqlSessionTemplate.selectList("Pro_ct_Chart",map);
+		list = (ArrayList)map.get("chart_Plan1");
+		logger.info(list);
+		return list;
+	}
 }
