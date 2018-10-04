@@ -14,7 +14,7 @@
 </div>
 
 <!-- 채팅창 -->
-<div id="d_chat" class="panel panel-info" style="position: fixed; width: 300px; height: 50%; bottom: 0px; right: 300px;">
+<div id="d_chat" class="panel panel-info" style="position: fixed; width: 350px; height: 50%; bottom: 0px; right: 300px;">
 	<input type="hidden" class="emp_no"/>
 	<input type="hidden" class="emp_level"/> 
 	<input type="hidden" class="emp_name"/> 
@@ -24,12 +24,10 @@
 	<div class="panel-body">
 		<div style="overflow:auto; height: 250px; top: 0px; right: 0px;">
 			<ul class="list-grouplist-group">
-				
 			</ul>
 		</div>
-		
-		<!-- /input-group -->
 	</div>
+	<!-- 내부 입력창 -->
 	<div class="input-group">
 		<label for="chat_content" class="sr-only control-label">입력창</label>
 		<input type="text" id="chat_content" class="form-control"> 
@@ -38,6 +36,7 @@
 		</span>
 	</div>
 </div>
+<!-- 메신저창 온오프 버튼 -->
 <a href="javascript:$('#d_messenger').toggle()" class="btn btn-primary" style="position:fixed; bottom:55px;">메신저창</a>
 
 <!-- 메신저 스크립트 부분 -->
@@ -67,12 +66,7 @@
         	$("#d_chat .list-grouplist-group").text("");
         	break;
         case "chat":
-        	//현재 열린 창에서의 대화인 경우 출력. 아닌경우 출력X.
-        	var another = $("#d_chat").find(".emp_no").val();
-        	if(another == data.from || another == data.to) {
-        		var c = "<li class='list-group-item' onclick='selectEmp($(this))'><span>"+$("#d_chat").find(".emp_name").val()+"</span>&gt;<span>"+data.content+"</span>&nbsp;<span>"+data.timestamp+"</span></li>"
-        		$("#d_chat .list-grouplist-group").append(c);
-        	}
+        	chatMsg(data);
         	break;
         }
         
@@ -81,8 +75,20 @@
         console.log("연결끊김");
     }
 	
-	//채팅 전송
+	//채팅 전송 버튼 클릭 이벤트
 	$("#btn_sendchat").click(function() {
+		sendChat();
+	})
+	//채팅 입력창 엔터키 입력 이벤트
+	$("#chat_content").keydown(function(e){
+		if(e.key == "Enter")
+			sendChat();
+		else
+			return;
+	})
+	
+	//채팅 전송
+	function sendChat() {
 		var content = $("#chat_content").val();
 		var msg = {
 			mtype:"chat" 
@@ -91,9 +97,10 @@
 			,content:content
 		}
 		wsocket.send(JSON.stringify(msg));
-	})
+		$("#chat_content").val("");
+	}
 	
-	//현재 호스트가 접속했다는 메시지를 받았을때 메소드
+	//현재 호스트가 접속했다는 메시지를 받았을때 함수
 	function openSelfMsg(data) {
 		var emp_no = data.emp_no;
 		var emp_name = data.emp_name;
@@ -114,7 +121,7 @@
 			}
 		}
 	}
-	//새 접속자가 있음을 알리는 메시지를 받았을 때 메소드
+	//새 접속자가 있음을 알리는 메시지를 받았을 때 함수
 	function openOtherMsg(data) {
 		var emp_no = data.emp_no;
 		var emp_name = data.emp_name;
@@ -128,7 +135,7 @@
 				+"<span class='emp_dept'>("+emp_dept+")</span></li>");
 	}
 	
-	//타 호스트의 소켓 연결 해제 메시지를 받았을때 메소드
+	//타 호스트의 소켓 연결 해제 메시지를 받았을때 함수
 	function closeMsg(data) {
 		var emp_no = data.emp_no;
 		var $onlineEmp = $("#online_list .emp_no");
@@ -141,13 +148,28 @@
 		})
 	}
 	
+	//채팅로그 요청에 대한 응답메시지를 받았을때 함수
 	function clogMsg(data) {
 		
 	}
 	
+	//서버로부터 받은 채팅메시지 처리에 대한 함수
 	function chatMsg(data) {
-		/* <li class="list-group-item"><span>홍길동</span>&gt;<span>hi</span><span>2018-10-04 11:11:11</span> 
-		</li> */
+		//현재 열린 창에서의 대화인 경우 출력. 아닌경우 출력X.
+    	var another = $("#d_chat").find(".emp_no").val();
+		//another ==data.to : 보낸것
+    	//another ==data.from : 받은것.
+    	if(another == data.from || another == data.to) {
+    		var newchat = "<li class='list-group-item'>";
+    		if(another == data.from)
+    			newchat = newchat +"&lt;"+$("#d_chat").find(".emp_name").val()+"&gt;";
+   			else
+   				newchat = newchat +"&lt;${sessionScope.emp_name}&gt;";	
+			newchat+="<span>["+data.timestamp+"]</span>";
+    		newchat+="<div>"+data.content+"</div></li>";
+    		$("#d_chat .list-grouplist-group").append(newchat);
+    		$("#d_chat .panel-body>div").scrollTop($("#d_chat .list-grouplist-group")[0].scrollHeight);
+    	}
 	}
 	
 	//사람 선택

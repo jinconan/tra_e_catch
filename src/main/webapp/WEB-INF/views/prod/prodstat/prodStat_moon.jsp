@@ -118,7 +118,7 @@ $(window).load(function() {
     });
 </script>
 
-	<div id="loading"><img id="loading-image" src="/resources/imgs/ajax-loader.gif" alt="Loading..." /></div>
+	<div id="loading"><img id="loading-image" src="<%=request.getContextPath() %>/resources/imgs/ajax-loader.gif" alt="Loading..." /></div>
 
 </div>
 <!--------------------------- 페이지 네이션 처리 --------------------------------->

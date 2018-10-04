@@ -94,7 +94,7 @@ $(window).load(function() {
 </div>
 <!----------------------------- 그래프 차트 ------------------------------------>
 <div id="chart_div" style="width: 900px; height: 500px;">
-	<div id="loading"><img id="loading-image" src="/resources/imgs/ajax-loader.gif" alt="Loading..." /></div>
+	<div id="loading"><img id="loading-image" src="<%=request.getContextPath() %>/resources/imgs/ajax-loader.gif" alt="Loading..." /></div>
 </div>
 <!--------------------------- 페이지 네이션 처리 --------------------------------->
 </div>
