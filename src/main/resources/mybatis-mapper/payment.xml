@@ -9,13 +9,7 @@
 		<parameter property="doc_no" javaType="int" mode="IN"/>
 		<parameter property="up_date" javaType="java.lang.String" mode="IN"/>
 	</parameterMap>
-	<!-- <parameterMap id="pPVO" type="com.vo.BoardSubVO">
-		<parameter property="b_no" javaType="int" mode="IN"/>
-		<parameter property="b_seq" javaType="int" mode="IN"/>
-		<parameter property="b_img" javaType="java.lang.String" mode="IN"/>
-		<parameter property="b_file" javaType="java.lang.String" mode="IN"/>
-		<parameter property="b_size" javaType="double" mode="IN"/>
-	</parameterMap> -->
+	
 	
 	<resultMap id="pDVO" type="com.team.tra_e_catch.payment.PaymentVO">
 		<id property="emp_no" column="emp_no" />
@@ -26,30 +20,19 @@
 		<result property="up_date" column="up_date" />
 		<association property="bsVO" resultMap="rBSVO" /> 
 	</resultMap>
-	<!-- <resultMap id="rBSVO" type="com.vo.BoardSubVO">
-		<id property="b_no" column="b_no" />
-		<id property="b_seq" column="b_seq" />
-		<result property="b_img" column="b_img" />
-		<result property="b_file" column="b_file" />
-	</resultMap> -->
+	
+	
+	
 	
 	<select id="getPaymentList" resultType="map" parameterType="map">
+
 	<![CDATA[
-	select * from DOCS where rownum < 11 
-	 ]]>
-	<!-- <where>
-	
-		<if test='doc_no!= null and doc_no !="" '>
-			and doc_no = #{doc_no}
-		</if>
-		<if test='content!= null and !content.equals("")'>
-			and content = #{content}
-		</if>
-		<if test='up_date!= null and up_date != ""'>
-			and up_date = #{up_date}
-		</if>
-	</where> -->
-</select>
+	    select * from
+    (select emp_no, dtype_no, path, content, doc_no, up_date, rownum as rno
+     from docs where doc_no = #{doc_no} order by rno)
+     where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno
+	 ]]> 
+	</select>
 	
 	<insert id="epayInsert" parameterMap="pDVO">
 		INSERT INTO DOCS(emp_no,dtype_no,path,content,doc_no

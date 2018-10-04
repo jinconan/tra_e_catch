@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
@@ -19,10 +20,9 @@ public class PaymentLogic {
 	private SqlPayDao sqlPayDao = null;
 	
 	//기안 문서 JSON데이터 요청
-	public List<Map<String, Object>> getPaymentList(Map<String, Object> pMap, HttpServletResponse res) {
+	public List<Map<String, Object>> getPaymentList(Map<String, Object> pMap) {
 		logger.info("getPaymentList 호출");
 		List<Map<String,Object>> paymentList = null;
-		
 		paymentList = sqlPayDao.getPaymentList(pMap);
 		return paymentList;
 	}
@@ -52,4 +52,5 @@ public class PaymentLogic {
 		epaywaitList = sqlPayDao.getEpayWaitList(pMap);
 		return epaywaitList;
 	}
+
 }

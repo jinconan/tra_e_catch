@@ -1,5 +1,7 @@
 package com.team.tra_e_catch.payment;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,11 +27,13 @@ public class SqlPayDao {
 	//기안 문서 데이터 요청 DB
 	public List<Map<String, Object>> getPaymentList(Map<String, Object> pMap) {
 		logger.info("getPaymentList 호출");
+		logger.info(pMap);
 		List<Map<String,Object>> paymentList = null;
 		paymentList = sqlSessionTemplate.selectList("getPaymentList",pMap);
 		
 		return paymentList;
 	}
+	//문서 번호 채번할 때
 	public int getDoc() {
 		int doc_no = 0;//전체 레코드 수를 담을 변수
 		doc_no = sqlSessionTemplate.selectOne("getDoc");
@@ -45,10 +49,12 @@ public class SqlPayDao {
 		result = sqlSessionTemplate.insert("epayInsert", pVO);
 		return result;
 	}
+
 	public List<Map<String, Object>> getEpayWaitList(Map<String, Object> pMap) {
 		logger.info("Dao EpaywaitList 호출성공");
 		List<Map<String,Object>> EpayWaitList = null;
 		EpayWaitList = sqlSessionTemplate.selectList("getEpaywaitList", pMap);
 		return EpayWaitList;
 	}
+
 }

@@ -57,11 +57,12 @@
 	 $(document).ready(function(){
 		$("#btn_Inst").click(function(){
 			$.ajax({
-				url:'./try_e_catch/pay/epay/jobInst.jsp'
-				,method:"GET"
+				url:'/try_e_catch/pay/epay/jobInst'
+				,method:"POST"
+				,data:""
 				,success:function(data){
 					alert("아작스 성공");
-					$("#empjobtable").html(data);
+					$("#empjobtable").attr(data);
 				}
 				,error:function(Object){
 					alert("error:"+Object.responseText);
@@ -81,9 +82,9 @@
 	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
 	<div class="container">
 		<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
-		<div class="col-md-10">
-			
 			<form class="form-horizontal" id="f_insert" method="post">
+				<div class="col-md-10">
+			
 				<div class="page-header">
 					<h1>기안 문서작성</h1>
 				</div>

@@ -3,8 +3,7 @@
 <%
 	String contextPath = request.getContextPath();
 	Object emp_no = session.getAttribute("emp_no");
-	
-	
+
 %>
 <!-- 맨 위 메뉴 -->
 <header class="navbar bs-docs-nav" id="top" role="banner">
@@ -86,12 +85,16 @@
 						My<span class="glyphicon glyphicon-cog"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="<%=contextPath%>/scv/view/modify">정보수정</a></li>
+			
+					    <li><a href="<%=contextPath%>/scv/view/modify">정보수정</a></li> 
 						<li><a href="<%=contextPath%>/scv/logout">로그아웃</a></li>
 					</ul>
 				</li>
 			</ul>
 			<%}%>
+			<form id = "Test">
+			<input id = "emp_no" type = "hidden" value = '<%=emp_no%>'>
+			</form>
 		</div>
 		<!-- 상단 바 업무별 메뉴 끝 -->
 	</div>

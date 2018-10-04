@@ -1,7 +1,12 @@
 package com.team.tra_e_catch.REST;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +57,16 @@ public class PaymentREST {
 		epaywaitList = paymentLogic.getEpayWaitList(pMap);
 		logger.info(epaywaitList);
 		return epaywaitList;
+	}
+	
+	@RequestMapping("epay/{counts}")
+	private List<Map<String, Object>> team(@PathVariable int counts,Model mod,HttpServletResponse res){
+		logger.info(counts+"¹ø payRÁøÀÔ");
+		List<Map<String, Object>> paymentList = null;	
+		Map<String,Object> pMap = new HashMap<>();
+		pMap.put("counts",counts);
+		paymentList = paymentLogic.getPaymentList(pMap);
+		//mod.addAttribute("paymentList", paymentList);
+		return paymentList;
 	}
 }
