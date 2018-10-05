@@ -53,4 +53,23 @@ public class PaymentLogic {
 		return epaywaitList;
 	}
 
+	
+	public List<Map<String, Object>> jobList(Map<String, Object> pMap) {
+		List<Map<String, Object>> joblist = null;
+		joblist = sqlPayDao.jobList(pMap);
+		return joblist;
+	}
+
+	public List<Map<String, Object>> setJobInsert(Map<String, Object> pMap) {
+		List<Map<String, Object>> setJobInsert = null;
+		setJobInsert = sqlPayDao.SetJobInsert(pMap);
+		return setJobInsert;
+	}
+
+	public List<Map<String, Object>> restInsert(Map<String, Object> pMap) {
+		List<Map<String,Object>> restInsert = null;
+		restInsert = sqlPayDao.RestInsert(pMap);
+		return null;
+	}
+
 }
