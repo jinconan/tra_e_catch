@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- 접속 중 리스트 -->
-<div id="d_messenger" class="panel panel-info"" style="position: fixed; width: 300px; height: 100%; top: 0px; right: 0px;">
+<div id="d_messenger" class="panel panel-info panel-chatlist">
 	<div class="panel-heading">
 		<span>${sessionScope.emp_level}</span>
 		<span>${sessionScope.emp_name}</span>
@@ -13,7 +13,7 @@
 </div>
 
 <!-- 채팅창 -->
-<div id="d_chat" class="panel panel-info" style="display:none;position: fixed; width: 350px; height: 50%; bottom: 0px; right: 300px;">
+<div id="d_chat" class="panel panel-info panel-chat">
 	<input type="hidden" class="emp_no"/>
 	<input type="hidden" class="emp_level"/> 
 	<input type="hidden" class="emp_name"/> 
@@ -21,7 +21,7 @@
 	
 	<div class="panel-heading">
 		<span id="panel-heading-title"></span>
-		<a class="btn pull-right" aria-hidden="true" href="javascript:$('#d_chat').hide()">
+		<a class="btn pull-right" aria-hidden="true" href="javascript:closeChat()">
 			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 		</a>
 	</div>
@@ -117,7 +117,7 @@
 			for(var i=0;i<onlineList.length;i++) {
 				$("#online_list").append("<li class='list-group-item' onclick='selectEmp($(this))'>"
 						+"<span class='emp_no' style='display:none;'>"+onlineList[i].emp_no+"</span>"
-						+"<span class='emp_level'>"+onlineList[i].emp_level+"</span>"
+						+"<span class='emp_level'>"+onlineList[i].emp_level+"</span>&nbsp;"
 						+"<span class='emp_name'>"+onlineList[i].emp_name+"</span>"
 						+"<span class='emp_dept'>("+onlineList[i].emp_dept+")</span></li>");
 			}
@@ -132,7 +132,7 @@
 		
 		$("#online_list").append("<li class='list-group-item' onclick='selectEmp($(this))'>"
 				+"<span class='emp_no' style='display:none;'>"+emp_no+"</span>"
-				+"<span class='emp_level'>"+emp_level+"</span>"
+				+"<span class='emp_level'>"+emp_level+"</span>&nbsp;"
 				+"<span class='emp_name'>"+emp_name+"</span>"
 				+"<span class='emp_dept'>("+emp_dept+")</span></li>");
 	}
@@ -189,5 +189,21 @@
 			,to : Number($("#d_chat").find(".emp_no").val())
 		}
 		wsocket.send(JSON.stringify(msg));
+	}
+	
+	//메신저 온오프 함수
+	function toggleMessenger() {
+		$("#d_messenger").toggle();
+		if($("#d_chat").is(":visible")) {
+			closeChat();
+		}
+	}
+	
+	//메신저 닫을때 채팅창 초기화
+	function closeChat() {
+		$("#d_chat").hide();
+		$("#d_chat input").val("");
+		$("#panel-heading-title").text("");
+		$("#d_chat .list-grouplist-group").html("");
 	}
 </script>

@@ -21,5 +21,20 @@
 <!-- 프로젝트에서 직접 작성한 공통 자바스크립트 -->
 <script src="<%=path.toString()%>/js/commonJS.js"></script>
 <style>
-	body { padding-bottom: 70px; }
+	html,body { height:100%; }
+	.panel-chatlist {
+		min-height: 100%;
+		position:fixed;
+		width: 300px; top: 0px; right: 0px ; 
+		padding-bottom: 52px; }
+	.panel-chat {
+		display:none;
+		position: fixed; 
+		width: 350px; 
+		height: 600px; 
+		bottom: 60px;
+		right: 300px;}
+	footer { position: absolute; bottom: 0; left: 0; right: 0; 
+		background-color: #333333;
+		color: #fffff0;}
 </style>
