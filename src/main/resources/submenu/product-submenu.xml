@@ -25,7 +25,7 @@
 		</map>
 		 <map>
 			<entry key="sm_name" value="거래 내역서" />
-			<entry key="sm_url" value="/prod/view/prodTran" />
+			<entry key="sm_url" value="/prod/view/prodTran/1" />
 		</map>
     </util:list> 
     

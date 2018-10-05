@@ -100,4 +100,10 @@ public class AccountingLogic {
 		
 	}
 
+	public List<Map<String, Object>> getSlipList(Map<String, Object> pMap) {
+		logger.info("getSlipListÁøÀÔ");
+		// TODO Auto-generated method stub
+		return sqlAccDao.getSlipList_Dao(pMap);
+	}
+
 }

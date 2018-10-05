@@ -61,5 +61,10 @@ public class SqlAccDao {
 		logger.info(slipTitle);
 		sqlSessionTemplate.update("flieupdate_Dao",slipTitle);
 	}
+
+	public List<Map<String, Object>> getSlipList_Dao(Map<String, Object> pMap) {
+		logger.info("getSlipList_Dao¡¯¿‘");
+		return 	sqlSessionTemplate.selectList("getSlipcell",pMap);
+	}
 	
 }

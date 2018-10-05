@@ -118,8 +118,8 @@ public class ProductController {
 		return "prod/prodstat/prodStat_ct";
 	}	
 	
-	@RequestMapping(value="/prod/view/prodTran")
-	public String viewProdTran(Model mod, @RequestParam Map<String,Object> pMap) {
+	@RequestMapping(value="/prod/view/prodTran/{counts}")
+	public String viewProdTran(Model mod, @RequestParam Map<String,Object> pMap,@PathVariable int counts) {
 		logger.info("viewProdTran()");
 		
 		//컨트롤러로 부터 넘겨받는 속성
@@ -130,11 +130,42 @@ public class ProductController {
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		mod.addAttribute("curSubMenu", "거래 내역서");
 		mod.addAttribute("subMenuList", subMenuList);
-		
+		mod.addAttribute("counts", counts);	
 		return "prod/prodtran/prodTran";
 	}
 	
-	
+	@RequestMapping(value = "/Tran_list", method = RequestMethod.POST)
+	public String wel_list(Model mod,@RequestParam Map<String, Object> pMap,@RequestParam Map<String,String> map) {
+		logger.info("Tran_list진입");
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
+		logger.info(map);
+		String s = "?y=0";
+		if (map.get("std").length()>1) {
+			s += "&std="+map.get("std").substring(0, 11);
+		}
+		if (map.get("dtd").length()>1) {
+			s += "&dtd=" + map.get("dtd").substring(0, 11);	
+		}	
+		if (map.get("spay").length()>1) {
+			s += "&spay=" + map.get("spay");
+		}
+		if (map.get("dpay").length()>1) {
+			s += "&dpay=" + map.get("dpay");
+		} 
+		if (map.get("opt").length()==2) {
+			s += "&opt=" + map.get("opt");
+		} 
+		if (map.get("intxt").length()>1) {
+			s += "&intxt=" + map.get("intxt");
+		}		
+		s = s.replaceAll(" ", "");
+		mod.addAttribute("curSubMenu", "거래 내역서");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("counts",1);
+		mod.addAttribute("datas",s);
+		System.out.println(s);
+		return "acc/welfare/wel_main";
+	}
 	
 	
 	

@@ -40,7 +40,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<%=contextPath%>/prod/view/prodInven">재고관리</a></li>
 						<li><a href="<%=contextPath%>/prod/view/prodStat">상품통계</a></li>
-						<li><a href="<%=contextPath%>/prod/view/prodTran">상품관리</a></li>
+						<li><a href="<%=contextPath%>/prod/view/prodTran/1">상품관리</a></li>
 					</ul>
 				</li>
 				<!-- 기획 업무 메뉴 -->

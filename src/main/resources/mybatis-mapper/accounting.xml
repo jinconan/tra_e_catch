@@ -15,6 +15,9 @@
 		VALUES (#{emp_no}, #{ptype_no},SEQ_COMP_SLIP_NO.nextval,TO_CHAR(sysdate,'YYYY-MM-DD HH24:MI'),#{intxt},#{inpay},#{file},#{SLIP_TYPE_NO},#{TEAM_YN})	
 		]]>
 	</update>
+	<select id="getSlipcell"  parameterType="hashmap"  resultType="Map">
+		<![CDATA[select * from T_VIEW_slipList where 번호 = #{hday}]]>
+	</select>
 	<select id="b_timecell"  parameterType="hashmap"  resultType="Map">
 	<![CDATA[
 	select 순번,번호,일자,거래처,구분,금액,증빙,첨부자료 from

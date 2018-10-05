@@ -6,6 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<%
+	int counts = (Integer)request.getAttribute("counts");
+	int list = (((counts-1)/10)*10)+1;
+	int num = (counts%10);
+%>
 <script type="text/javascript">
 	$(function() {
 		$('#datetimepicker1').datetimepicker({
@@ -20,12 +25,11 @@
 
 	$(function() {
 		$('#p_table').bootstrapTable({
-			url : '<%=request.getContextPath()%>/proR/tran'
+			url : '<%=request.getContextPath()%>/proR/tran/<%=counts%>'
 		});
 	});
 </script>
 </head>
-
 <body>
 	<!---------------------- 헤더 --------------------------->
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
@@ -38,7 +42,7 @@
 
 			<!----------------------- 제목 -------------------------->
 			<div class="col-md-10">
-				<form class="form-horizontal">
+				<form class="form-horizontal" action="<%=request.getContextPath()%>/acc/wel_list" method="POST">
 					<div class="page-header">
 						<h1>거래내역서</h1>
 					</div>
@@ -47,41 +51,20 @@
 
 						<label class="col-sm-3 control-label" for="inputEmail">등록코드</label>
 						<div class="col-sm-3">
-							<input class="form-control" id="inputgubun" type="email"
+							<input class="form-control" id="incode" name="incode" type="email"
 								placeholder="등록코드">
 						</div>
-						<div class="btn-group">
-
-							<!-- 버튼태그 -->
-
-							<button class="btn btn-default dropdown-toggle" type="button"
-								data-toggle="dropdown">
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu">
-								<li><a href="#">메뉴1</a></li>
-								<li><a href="#">메뉴2</a></li>
-							</ul>
-						</div>
-						<label class="col-sm-2 control-label" for="inputEmail">거래처코드</label>
+						<label class="col-sm-2 control-label" for="inputEmail">거래처</label>
 						<div class="col-sm-3">
-							<input class="form-control" id="inputDeal" type="email"
-								placeholder="거래처코드">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label" for="inputPassword">결제방식</label>
-						<div class="col-sm-3">
-							<input class="form-control" id="inputPassword" type="password"
-								placeholder="결제방식">
+							<input class="form-control" id="opt" name="opt" type="email"
+								placeholder="등록코드">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="inputNumber">결제시작</label>
 						<div class="col-sm-3" style="padding-right: 0px;">
-
 							<div class='input-group date' id='datetimepicker1'>
-								<input type='text' class="form-control" /> <span
+								<input type='text' class="form-control" id="std" name="std" /> <span
 									class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -89,9 +72,8 @@
 						</div>
 						<label class="col-sm-2 control-label" for="inputNumber">결제종료</label>
 						<div class="col-sm-3" style="padding-right: 0px;">
-
 							<div class='input-group date' id='datetimepicker2'>
-								<input type='text' class="form-control" /> <span
+								<input type='text' class="form-control" id="dtd" name="dtd" /> <span
 									class="input-group-addon"> <span
 									class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -101,10 +83,14 @@
 
 
 					<div class="form-group">
-						<label class="col-sm-3 control-label" for="inputEmail">결제코드</label>
-						<div class="col-sm-3">
-							<input class="form-control" id="inputEmail" type="email"
-								placeholder="결제코드">
+						<label class="col-sm-3 control-label" for="inputEmail">결제타입</label>
+						<div class="col-sm-3" style="padding-right: 0px;">
+						<select class="form-control" name="opt" id="dtd" name="dtd">
+							<option>결제타입</option>
+							<option>현영</option>
+							<option>카드</option>
+							<option>세계</option>
+						</select>
 						</div>
 						<label class="col-sm-2 control-label" for="inputEmail">거래량</label>
 						<div class="col-sm-2">
@@ -135,17 +121,29 @@
 				<tbody>
 				</tbody>
 			</table>
-			<!-- <div class="form-group">
-			<div class="col-sm-12 text-right">
-				<button id="btn_pay" class="btn btn-primary">
-					저장<i class="fa fa-check spaceLeft"></i>
-				</button>
-				<button id="btn_pay" class="btn btn-primary">
-					취소<i class="fa fa-check spaceLeft"></i>
-				</button>
-
-			</div>
-		</div> -->
+			<div class="row">
+					<div class="col-xs-10 .col-md-10">
+						<nav>
+							<ul class="pagination">
+								<li><a href="<%=request.getContextPath()%>/prod/view/prodTran/1" aria-label="Previous"><span
+										aria-hidden="true"> << </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list-1%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
+								<li id="liid1"><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list%>"><%=list%><span class="sr-only">(current)</span></a></li>
+								<li id="liid2"><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list+1%>"><%=list+1%><span class="sr-only">(current)</span></a></li>
+								<li id="liid3"><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list+2%>"><%=list+2%><span class="sr-only">(current)</span></a></li>
+								<li id="liid4"><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list+3%>"><%=list+3%><span class="sr-only">(current)</span></a></li>
+								<li id="liid5"><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list+4%>"><%=list+4%><span class="sr-only">(current)</span></a></li>
+								<li id="liid6"><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list+5%>"><%=list+5%><span class="sr-only">(current)</span></a></li>
+								<li id="liid7"><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list+6%>"><%=list+6%><span class="sr-only">(current)</span></a></li>
+								<li id="liid8"><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list+7%>"><%=list+7%><span class="sr-only">(current)</span></a></li>
+								<li id="liid9"><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list+8%>"><%=list+8%><span class="sr-only">(current)</span></a></li>
+								<li id="liid0"><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list+9%>"><%=list+9%> <span class="sr-only">(current)</span></a></li>
+								<li><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list+10%>" aria-label="Previous"><span aria-hidden="true"> > </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/prod/view/prodTran/<%=list+100%>" aria-label="Previous"><span aria-hidden="true"> >> </span></a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
