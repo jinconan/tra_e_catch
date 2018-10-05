@@ -18,10 +18,10 @@ public class SqlProdDao {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
 	
-	public List<Map<String, Object>> tranR_Dao() {
-		logger.info("tran_Dao진입");
+	public List<Map<String, Object>> tranR_Dao(Map<String, Object> map) {
+		logger.info("tran_Dao진입"+map);
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		list = sqlSessionTemplate.selectList("orTranlist");
+		list = sqlSessionTemplate.selectList("orTranlist",map);
 		return list;
 	}
 	

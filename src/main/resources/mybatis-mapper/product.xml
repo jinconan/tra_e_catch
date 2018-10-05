@@ -5,12 +5,37 @@
 	<resultMap id="chart_Plan1" type="java.util.TreeMap"></resultMap>
 	<select id="orTranlist" parameterType="int"  resultType="Map">
 		<![CDATA[
-		select 번호, 등록코드,거래처코드,결제방식,결제일자,결제코드,거래량 from
-			(select ROWNUM as 번호, 등록코드,거래처코드,결제방식,결제일자,결제코드,거래량 from T_VIEW_PROD_HISTORY
-			where ROWNUM <1000)
-		where 번호 between 1 and 10
+        select ROWNUM as 번호, 등록코드,거래처코드,결제방식,결제일자,결제코드,거래량 from
+            (select 등록코드,거래처코드,결제방식,결제일자,결제코드,거래량 from T_VIEW_PROD_HISTORY
+            where 0=0
 		]]>
+	<if test='std != null'>
+		<![CDATA[and 결제일자 >#{std}]]>
+	</if>
+	<if test='dtd != null'>
+		<![CDATA[and 결제일자 <#{dtd}]]>
+	</if>
+	<if test='spay != null'>
+		<![CDATA[and 거래량 >#{spay}]]>
+	</if>
+	<if test='dpay != null'>
+		<![CDATA[and 거래량 <#{dpay}]]>
+	</if>
+	<if test='opt != null'>
+		<![CDATA[and 거래처코드 = #{opt}]]>
+	</if>
+	<if test='intxt != null'>
+		<![CDATA[and 적요 like '%'||#{intxt}||'%']]>
+	</if>
+	<if test='incode != null'>
+		<![CDATA[and 등록코드 = #{incode}]]>
+	</if>
+	<![CDATA[
+	            )where ROWNUM >  #{counts}*10-10 and ROWNUM <#{counts}*10+1 
+    ]]>
 	</select>
+	
+	
 	
 	<select id="moon_list" parameterType="int"  resultType="Map">
 		<![CDATA[

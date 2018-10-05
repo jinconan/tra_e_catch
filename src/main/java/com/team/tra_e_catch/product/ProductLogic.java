@@ -1,6 +1,7 @@
 package com.team.tra_e_catch.product;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,11 @@ public class ProductLogic {
 	 * 용도 : 거래내역 전표 출력용 REST 
 	 * 비고 : x
 	 */
-	public List<Map<String, Object>> teamR_Logic() {
+	public List<Map<String, Object>> teamR_Logic(int counts) {
 		logger.info("TeamR_Logic진입");
-		List<Map<String, Object>> s = sqlProdDao.tranR_Dao();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("counts", counts);
+		List<Map<String, Object>> s = sqlProdDao.tranR_Dao(map);
 		return s;
 	}
 	

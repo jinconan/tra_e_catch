@@ -33,10 +33,10 @@ public class ProductREST {
 	 * 용도 : 거래내역 리스트를 출력하는 메서드의 REST
 	 * 비고 : 
 	 */
-	@RequestMapping("/tran")
-	private List<Map<String, Object>> team() {
+	@RequestMapping("/tran/{counts}")
+	private List<Map<String, Object>> team(@PathVariable int counts) {
 		logger.info("진입");
-		List<Map<String, Object>> as = productLogic.teamR_Logic();
+		List<Map<String, Object>> as = productLogic.teamR_Logic(counts);
 		return as;
 	}
 	

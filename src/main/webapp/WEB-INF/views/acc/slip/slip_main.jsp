@@ -27,10 +27,42 @@
 %>
 </head>
 	<script type="text/javascript">
+		function test(){
+			var inputdata = $("#f_modalselect").serialize();
+		 	$.ajax({
+		        method:"POST"
+		        ,url:"<%=request.getContextPath()%>/acc/slip/wordprint"
+		        ,data:inputdata,
+		        success : function(log){
+		        	
+		        	console.log(log);
+		        	$("#d_viewwork").html(log);
+	
+		        	
+		        }
+				,error : function(xhr) {
+					console.log("땡");
+				}
+	        }); 
+		}
+
+	
+	
 		$(function() {
 			$('#p_table').bootstrapTable({
-				url:'<%=request.getContextPath()%>/accR/slip/<%=counts%>'				
+				url:'<%=request.getContextPath()%>/accR/slip/<%=counts%>',			
+				onClickRow : function(row,$element, field) {
+					console.log(row.번호);
+					$("#selectdate").val(row.번호);	
+					$("#exampleModal").modal('show');
+					test();/* test메소드에 아작스 처리하면 됨 쀼쀼 */
+				}
 			});		
+			
+			$('#printinp').click(function(){
+				$('#printtable').printThis(); <!-- print 할 부분에 설정 -->
+			});
+			
 			var base = $('#liid'+<%=num%>);
 			base.addClass('active');
 		});
@@ -48,7 +80,7 @@
 					<table class="table table-striped" id="p_table">
 						<thead>
 							<tr>
-								<th data-field="순번">번호</th>
+								<th data-field="번호">번호</th>
 								<th data-field="일자">일자</th>
 								<th data-field="분류">분류</th>
 								<th data-field="구분">구분</th>
@@ -91,6 +123,33 @@
 			</form>
 		</div>
 	</div>
+	
+	<form id="f_modalselect" method="post">
+		<input type="hidden" id="selectdate" name="hday">
+	</form>
+	
+			<!-- 상세내역 모달 페이지 -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document" style="width: 635px">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">고용계약서 상세페이지</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<div id="d_viewwork"></div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" id="printinp">Print</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	
 	<script type="text/javascript">
 		$('#fromDate').datetimepicker({
 			language : 'ko', // 화면에 출력될 언어를 한국어로 설정한다.
