@@ -97,7 +97,6 @@ public class PersonnelREST {
 		return teamList;
 	}
 	
-	
 	@RequestMapping("only/ctlev")//직급 리스트
 	private List<Map<String, Object>> levList(@RequestParam Map<String, Object> pMap){
 		logger.info("levList요청");

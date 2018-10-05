@@ -19,31 +19,15 @@
 	function hovertest(){
 		alert("테스트");
 	}
-/* 		var $table = $('#p_table');
-		 */
 		 
 		 $(function() {
-			 /*	$("#f_empinfo").attr("action","./1");
-			$("#f_empinfo").submit();  */
+
 			$('#p_table').bootstrapTable({
 				url:'<%=request.getContextPath()%>/perR/attd/<%=counts%>'
 			});
 			var base = $('#liid'+<%=num%>);
 			base.addClass('active');
-			
-			<%-- $.ajax({
-				url:'<%=request.getContextPath()%>/perR/indivemp',
-				type: "json",
-				success: function(data){
-					$("#empno").append(" "+data[0].EMP_NO);//사원이름
-					$("#ename").append(" "+data[0].ENAME);//사원이름
-					$("#bday").append(" "+data[0].BDAY);//사원생년월일
-					$("#tname").append(" "+data[0].TNAME);//팀이름
-					$("#clev").append(" "+data[0].CLEV);//직급
-					$("#hday").append(" "+data[0].HDAY);//입사일자
-					$("#sdate").append(" "+data[0].SDATE);//현재일자
-				}
-			}) --%>
+		
 	}); 
 		 
 	</script>
@@ -102,7 +86,7 @@
 		</div>
 		<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 	</div>
-<body>
+
 
 </body>
 </html>

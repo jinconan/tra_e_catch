@@ -204,6 +204,22 @@ public class PersonnelLogic {
 
 		}
 
+		//부서추가
+		public List<Map<String, Object>> deptInsert(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String,Object>> deptinsert = null;
+			deptinsert = sqlPerDao.deptInsert(pMap);
+			return null;
+		}
+
+		//부서 수정
+		public List<Map<String, Object>> deptUpdate(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String,Object>> deptupdate = null;
+			deptupdate = sqlPerDao.deptUpdate(pMap);
+			return null;
+		}
+
 
 
 

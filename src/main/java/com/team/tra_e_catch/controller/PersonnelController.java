@@ -80,8 +80,8 @@ public class PersonnelController {
 	@RequestMapping(value = "/onlyauthper/empupdate")
 	public String empUpdate(@RequestParam Map<String, Object> pMap, Model mod) {
 		logger.info("empUpdate호출");
-		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-submenu");
-		mod.addAttribute("curSubMenu", "인사메뉴");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+		mod.addAttribute("curSubMenu", "인사정보 수정");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/empupdate";
 	}
@@ -221,8 +221,8 @@ public class PersonnelController {
 		@RequestMapping(value = "/onlyauthper/empupdateaccept")
 		public String empupdateaccept(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
 			logger.info("sendRating호출");
-			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-submenu");
-			mod.addAttribute("curSubMenu", "인사고과");
+			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+			mod.addAttribute("curSubMenu", "인사정보 수정");
 			mod.addAttribute("subMenuList", subMenuList);
 			List<Map<String, Object>> empupdateList = null;
 			System.out.println("인사발령 수정정보 : "+pMap);
@@ -232,6 +232,42 @@ public class PersonnelController {
 			
 			return "per/onlyauthper/empupdate";
 		}
+		
+		// 부서정보 수정
+				@RequestMapping(value = "/onlyauthper/deptupdatelist")
+				public String deptupdatelist(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
+					logger.info("deptupdatelist호출");
+					List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+					mod.addAttribute("curSubMenu", "부서관리");
+					mod.addAttribute("subMenuList", subMenuList);
+				
+					return "per/onlyauthper/deptinsert";
+				}
+				
+				// 부서정보 수정실행
+				@RequestMapping(value = "/onlyauthper/deptupdate")
+				public String deptUpdate(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
+					logger.info("deptUpdate호출");
+					List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+					mod.addAttribute("curSubMenu", "부서관리");
+					mod.addAttribute("subMenuList", subMenuList);
+					List<Map<String, Object>> deptupdateinfo = null;
+					deptupdateinfo = personnelLogic.deptUpdate(pMap);
+					return "per/onlyauthper/deptinsert";
+				}
+				
+				
+				// 부서정보 인서트
+				@RequestMapping(value = "/onlyauthper/deptinsert")
+				public String deptinsert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
+					logger.info("deptinsert호출");
+					List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+					mod.addAttribute("curSubMenu", "부서관리");
+					mod.addAttribute("subMenuList", subMenuList);
+					List<Map<String, Object>> deptinsertinfo = null;
+					deptinsertinfo = personnelLogic.deptInsert(pMap);
+					return "per/onlyauthper/deptinsert";
+				}
 	
 	@RequestMapping(value = "/attdinsert")
 	public String attdInsert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {

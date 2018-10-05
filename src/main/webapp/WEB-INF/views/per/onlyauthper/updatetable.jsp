@@ -209,6 +209,6 @@ $(function() {
 		<!-- 업데이트 모달끝 -->	
 		</div>
 	</div>
-	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
+<%-- 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" /> --%>
 </body>
 </html>
