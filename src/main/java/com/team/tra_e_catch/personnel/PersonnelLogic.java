@@ -163,6 +163,47 @@ public class PersonnelLogic {
 			return empList;
 		}
 
+		//직급리스트
+		public List<Map<String, Object>> getlevList(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String,Object>> levList = null;
+			levList = sqlPerDao.getLevList(pMap);
+			return levList;
+		}
+
+		//근무지 리스트
+		public List<Map<String, Object>> getlocList(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String,Object>> locList = null;
+			locList = sqlPerDao.getLocList(pMap);
+			return locList;
+		}
+
+		//부서 리스트
+		public List<Map<String, Object>> getdeptList(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String,Object>> deptList = null;
+			deptList = sqlPerDao.getDeptList(pMap);
+			return deptList;
+		}
+
+		//인사발령 수정
+		public List<Map<String, Object>> updateEmployee(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String,Object>> empupdatelist = null;
+			empupdatelist = sqlPerDao.updateEmployee(pMap);
+			return empupdatelist;
+		}
+
+		//전체팀 리스트
+		public List<Map<String, Object>> getTeamListView(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String,Object>> teamList = null;
+			teamList = sqlPerDao.getTeamListView(pMap);
+			return teamList;
+
+		}
+
 
 
 

@@ -67,7 +67,47 @@ public class PersonnelREST {
 	
 		return salList;
 	}
-
+	
+	@RequestMapping("only/loclist")//근무지 리스트
+	private List<Map<String, Object>> locList(@RequestParam Map<String, Object> pMap){
+		logger.info("locList요청");
+		List<Map<String, Object>>locList = null;
+		System.out.println("locList에 들어가는 : "+pMap);
+		locList = personnelLogic.getlocList(pMap);
+		logger.info(locList);
+		return locList;
+	}
+	
+	@RequestMapping("only/deptlist")//부서 리스트
+	private List<Map<String, Object>> deptList(@RequestParam Map<String, Object> pMap){
+		logger.info("deptList요청");
+		List<Map<String, Object>>deptList = null;
+		System.out.println("deptList에 들어가는 : "+pMap);
+		deptList = personnelLogic.getdeptList(pMap);
+		logger.info(deptList);
+		return deptList;
+	}
+	@RequestMapping("only/teamlist")//팀 리스트
+	private List<Map<String, Object>> teamList(@RequestParam Map<String, Object> pMap){
+		logger.info("deptList요청");
+		List<Map<String, Object>>teamList = null;
+		System.out.println("teamList에 들어가는 : "+pMap);
+		teamList = personnelLogic.getTeamListView(pMap);
+		logger.info(teamList);
+		return teamList;
+	}
+	
+	
+	@RequestMapping("only/ctlev")//직급 리스트
+	private List<Map<String, Object>> levList(@RequestParam Map<String, Object> pMap){
+		logger.info("levList요청");
+		List<Map<String, Object>>levList = null;
+		/*		pMap.put("emp_no", req.getParameter("emp_no").toString());*/
+		System.out.println("levList에 들어가는 : "+pMap);
+		levList = personnelLogic.getlevList(pMap);
+		logger.info(levList);
+		return levList;
+	}
 	
 	
 	@RequestMapping("only/emplist")//사원명부 데이터
