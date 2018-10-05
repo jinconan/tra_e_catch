@@ -53,23 +53,7 @@ $(function() {
 		}
 
 	});
-	
-	/* 
 
-	$('#p_tabledata tr').click(function(){
-		var tr = $(this);
-        var td = tr.children();
-        /* console.log(td.eq(1).text()); 
-        //alert(td.eq(1).text());
-        alert(tr.length);
-        selectword = td.eq(1).text();
-        $("#selectdate").val(selectword);
-        
-        console.log($("#selectdate").val());
-        
-        
-	});  */
-	
 	$('#printinp').click(function(){
 		$('#printtable').printThis(); <!-- print 할 부분에 설정 -->
 	});

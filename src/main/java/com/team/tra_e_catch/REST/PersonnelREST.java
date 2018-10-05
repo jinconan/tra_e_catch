@@ -176,7 +176,7 @@ public class PersonnelREST {
 	@RequestMapping(value = "indivemplist")
 	public List<Map<String, Object>> indivEmplist2(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
 		List<Map<String, Object>> indivList = null;
-		System.out.println("고용계약서에 들어오는"+pMap);
+		System.out.println("고용계약서에 들어오는 and 인사발령에 들어오는"+pMap);
 		
 		indivList = personnelLogic.getindivList(pMap);
 		System.out.println("고용계약서에 들어오는"+indivList);

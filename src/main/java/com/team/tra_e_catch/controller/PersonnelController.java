@@ -76,7 +76,12 @@ public class PersonnelController {
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/rating/perrating";
 	}
-
+	//인사발령 메인
+	@RequestMapping(value = "/onlyauthper/empupdate")
+	public String empUpdate(@RequestParam Map<String, Object> pMap, Model mod) {
+		logger.info("empUpdate호출");
+		return "per/onlyauthper/empupdate";
+	}
 	// 기안서폼 임시저장
 	@RequestMapping(value = "/rating/testform", method = RequestMethod.GET)
 	public String formTest(@RequestParam Map<String, Object> pMap, Model mod) {
@@ -329,5 +334,13 @@ public class PersonnelController {
 		logger.info("Welcome home! The client locale is");
 		return "per/onlyauthper/empconttable";
 	}
+	
+	// 인사정보수정테이블
+		@RequestMapping(value = "/empupdatetable")
+		public String empupdatetable(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
+			req.setAttribute("emp_no", pMap.get("emp_no"));
+			System.out.println(pMap.get("emp_no"));
+			return "per/onlyauthper/updatetable";
+		}
 
 }
