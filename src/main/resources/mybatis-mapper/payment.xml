@@ -40,14 +40,19 @@
 						VALUES(#{emp_no},#{dtype_no},#{path},#{content}
 						#{doc_no},to_char(sysdate, 'YYYY-MM-DD'))
 	</insert>
-	<select id="EpayWaitList" parameterType="map" resultType="map">
-		select b.emp_no,b.dtype_no,b.title,b.doc_no,b.path,a.sign_yn from sign a,docs b
-     <!-- where a.doc_no = b.doc_no and sign_yn = 0 -->
-     <where>
-     	<if test="a.doc_no = b.doc_no">
-     	and sign_yn = 0 
-     	</if>
-     </where>
+	<select id="getEpayWaitList" parameterType="map" resultType="map">
+	SELECT *
+       FROM(
+    SELECT rownum rno, confirm_emp_no, accept_emp_no,  sign_yn, confirm_date, accept_date, e.emp_no,e.name ename, dt.name dtname, content, up_date, title
+    FROM (
+        SELECT confirm_emp_no, accept_emp_no, doc_no, sign_yn, confirm_date, accept_date 
+            FROM sign
+        WHERE confirm_emp_no = #{emp_no} OR accept_emp_no= #{emp_no}) sign, docs, employee e, doc_type dt
+    WHERE sign.doc_no=docs.doc_no
+        AND e.emp_no = docs.emp_no
+        and docs.dtype_no = dt.dtype_no
+    ORDER BY sign.doc_no desc
+)
 	</select>
 	
 </mapper>

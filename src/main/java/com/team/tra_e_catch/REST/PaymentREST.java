@@ -52,11 +52,16 @@ public class PaymentREST {
 		return as;
 	}*/
 	@RequestMapping("epay/epaywait")
-	private List<Map<String,Object>> epaywaitlist(@RequestParam Map<String,Object>pMap){
+	private List<Map<String,Object>> epaywaitlist(@RequestParam Map<String,Object>pMap,HttpServletRequest req){
 		logger.info("epaywaitlist 호출 성공");
 		List<Map<String,Object>> epaywaitList = null;
 		System.out.println("epaywaitList에 들어가는 : " +pMap);
+		HttpSession session = req.getSession();
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		epaywaitList = paymentLogic.getEpayWaitList(pMap);
+		pMap.put("emp_no", emp_no);
+		logger.info("REST emp_no :" +emp_no);
 		logger.info(epaywaitList);
 		return epaywaitList;
 	}
