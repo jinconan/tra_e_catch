@@ -136,6 +136,38 @@ public class SqlPerDao {
 			sqlSessionTemplate.insert("sourcingInsert", pMap);
 			return null;
 		}
+		//직급리스트 
+		public List<Map<String, Object>> getLevList(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String, Object>> levList = null;
+			levList = sqlSessionTemplate.selectList("getLevList",pMap);
+			return levList;
+		}
+		//근무지 리스트
+		public List<Map<String, Object>> getLocList(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String, Object>> locList = null;
+			locList = sqlSessionTemplate.selectList("getLocList",pMap);
+			return locList;
+		}
+		//부서리스트
+		public List<Map<String, Object>> getDeptList(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String, Object>> deptList = null;
+			deptList = sqlSessionTemplate.selectList("getDeptList",pMap);
+			return deptList;
+		}
+		public List<Map<String, Object>> updateEmployee(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String, Object>> updateList = null;
+			updateList = sqlSessionTemplate.selectOne("updateEmployee",pMap);
+			return updateList;
+		}
+		public List<Map<String, Object>> getTeamListView(Map<String, Object> pMap) {
+			List<Map<String, Object>> teamList = null;
+			teamList = sqlSessionTemplate.selectList("getTeamListView",pMap);
+			return teamList;
+		}
 
 	
 }

@@ -80,6 +80,9 @@ public class PersonnelController {
 	@RequestMapping(value = "/onlyauthper/empupdate")
 	public String empUpdate(@RequestParam Map<String, Object> pMap, Model mod) {
 		logger.info("empUpdate호출");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-submenu");
+		mod.addAttribute("curSubMenu", "인사메뉴");
+		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/empupdate";
 	}
 	// 기안서폼 임시저장
@@ -213,7 +216,22 @@ public class PersonnelController {
 		
 		return "per/rating/perrating";
 	}
-
+	
+	// 인사발령정보 수정
+		@RequestMapping(value = "/onlyauthper/empupdateaccept")
+		public String empupdateaccept(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
+			logger.info("sendRating호출");
+			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-submenu");
+			mod.addAttribute("curSubMenu", "인사고과");
+			mod.addAttribute("subMenuList", subMenuList);
+			List<Map<String, Object>> empupdateList = null;
+			System.out.println("인사발령 수정정보 : "+pMap);
+			empupdateList = personnelLogic.updateEmployee(pMap);
+			
+			
+			
+			return "per/onlyauthper/empupdate";
+		}
 	
 	@RequestMapping(value = "/attdinsert")
 	public String attdInsert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {

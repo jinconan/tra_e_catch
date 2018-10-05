@@ -7,7 +7,7 @@
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 
 <script type="text/javascript">
-function accept(){
+function acceptlist(){
 	var emp_no = $("#f_emp_no").serialize();
 	$.ajax({
 		url:"/tra_e_catch/per/empupdatetable"
@@ -28,6 +28,7 @@ function accept(){
 
 </head>
 <body>
+<%@ include file="/WEB-INF/views/_common/header.jsp"%>
 <div class="container">
 	<%@ include file="/WEB-INF/views/_common/submenu.jsp" %>
 	<div class="col-md-10">
@@ -43,7 +44,7 @@ function accept(){
 				</form>		</div>
 				
 				<div class="col-sm-1 text-center" style="padding-left: 1px;">
-					<button id="btn_labsearch"class="btn btn-primary" style="margin-left:10px;" onclick="javascript:accept()">
+					<button id="btn_labsearch"class="btn btn-primary" style="margin-left:10px;" onclick="javascript:acceptlist()">
 						조회<i class="fa fa-check spaceLeft"></i>
 					</button>
 				</div>

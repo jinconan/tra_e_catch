@@ -4,6 +4,40 @@
 <select id="getCertList" parameterType="map" resultType="map">
 select * from certlist where emp_no = #{emp_no} order by c_no desc
 </select>
+
+
+<!-- 전체 팀리스트 -->
+<select id="getTeamListView" parameterType="map" resultType="map">
+select * from team
+</select>
+<!-- 인사발령 프로시저 -->
+
+<select id="updateEmployee" statementType="CALLABLE" parameterType="hashmap">
+
+  {CALL proc_updateemp(#{emp_no},
+  					   #{emp_name, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+  					   #{af_dept, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+  					   #{af_ctlev, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+  					   #{af_loc, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+  					   #{af_team, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR})}
+</select>
+
+<!-- 부서리스트 -->
+<select id="getDeptList" parameterType="map" resultType="map">
+select * from department
+</select>
+
+<!-- 근무지리스트 -->
+<select id="getLocList" parameterType="map" resultType="map">
+select * from location 
+</select>
+
+
+<!-- 직급리스트 -->
+<select id="getLevList" parameterType="map" resultType="map">
+select * from ctlevel 
+</select>
+
 <!-- 근로계약서 -->
 <select id="viewWorkList" parameterType="map" resultType="map">
 <!-- select * from docs where emp_no = #{emp_no} -->
