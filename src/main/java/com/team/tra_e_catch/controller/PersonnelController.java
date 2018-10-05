@@ -46,7 +46,8 @@ public class PersonnelController {
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("counts", counts);
 		HttpSession session= req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		return "per/salary/salary";
 	}
 
@@ -75,7 +76,12 @@ public class PersonnelController {
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/rating/perrating";
 	}
-
+	//인사발령 메인
+	@RequestMapping(value = "/onlyauthper/empupdate")
+	public String empUpdate(@RequestParam Map<String, Object> pMap, Model mod) {
+		logger.info("empUpdate호출");
+		return "per/onlyauthper/empupdate";
+	}
 	// 기안서폼 임시저장
 	@RequestMapping(value = "/rating/testform", method = RequestMethod.GET)
 	public String formTest(@RequestParam Map<String, Object> pMap, Model mod) {
@@ -131,7 +137,8 @@ public class PersonnelController {
 		logger.info("serform호출");
 		List<Map<String, Object>> certinsert = null;
 		HttpSession session = req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		pMap.put("emp_no", emp_no);
 		System.out.println(pMap);
 		certinsert = personnelLogic.certInsert(pMap);
@@ -145,7 +152,8 @@ public class PersonnelController {
 		logger.info("certPrintList호출");
 		List<Map<String, Object>> certinsert = null;
 		HttpSession session = req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		pMap.put("emp_no", emp_no);
 		System.out.println(pMap);
 		certinsert = personnelLogic.certInsert(pMap);
@@ -161,7 +169,8 @@ public class PersonnelController {
 		// curSubMenu : String
 		List<Map<String, Object>> certinsert = null;
 		HttpSession session = req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		pMap.put("emp_no", emp_no);
 		System.out.println(pMap);
 		certinsert = personnelLogic.certInsert(pMap);
@@ -178,7 +187,8 @@ public class PersonnelController {
 		// curSubMenu : String
 		List<Map<String, Object>> certinsert = null;
 		HttpSession session = req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		pMap.put("emp_no", emp_no);
 		System.out.println(pMap);
 		certinsert = personnelLogic.certInsert(pMap);
@@ -196,7 +206,8 @@ public class PersonnelController {
 		mod.addAttribute("subMenuList", subMenuList);
 		List<Map<String, Object>> servList = null;
 		HttpSession session = req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		pMap.put("emp_no", emp_no);
 		servList = personnelLogic.setServrating(pMap);
 		
@@ -209,7 +220,8 @@ public class PersonnelController {
 		logger.info("attdInsert호출");
 		List<Map<String, Object>> attdinfo = null;
 		HttpSession session= req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		pMap.put("emp_no", emp_no);
 		attdinfo = personnelLogic.setAttdInsert(pMap);
 		
@@ -264,6 +276,17 @@ public class PersonnelController {
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/labcont";
 	}
+	//고용계약서 뷰
+	@RequestMapping(value = "/onlyauthper/wordprint")
+	public String wordprint(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
+		logger.info("wordprint호출");
+		System.out.print("고용계약 뷰"+pMap);
+		List<Map<String, Object>> getEmpList = null;
+		getEmpList = personnelLogic.getindivList(pMap);
+		System.out.println("고용계약서 인포 : "+getEmpList);
+		req.setAttribute("emp_no", getEmpList.get(0).get("EMP_NO"));
+		return "per/onlyauthper/printform";
+	}
 	//근로계약서
 	@RequestMapping(value = "/labtable")
 	public String labtable(@RequestParam Map<String, Object> pMap) {
@@ -305,14 +328,19 @@ public class PersonnelController {
 			mod.addAttribute("subMenuList", subMenuList);
 			return "per/onlyauthper/empcont";
 		}
-
-		// 고용계약서 조회 테이블
-		@RequestMapping(value = "/empconttable")
-		public String empconttable(@RequestParam Map<String, Object> pMap, Model mod) {
-			logger.info("고용계약서 조회 테이블");
-			System.out.println(pMap);
-			return "per/onlyauthper/empconttable";
-		}
 		
-
+	// 근로계약서 조회 테이블
+	@RequestMapping(value = "/empconttable", method = RequestMethod.GET)
+	public String empconttable(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is");
+		return "per/onlyauthper/empconttable";
+	}
+	
+	// 인사정보수정테이블
+		@RequestMapping(value = "/empupdatetable")
+		public String empupdatetable(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
+			req.setAttribute("emp_no", pMap.get("emp_no"));
+			System.out.println(pMap.get("emp_no"));
+			return "per/onlyauthper/updatetable";
+		}
 }

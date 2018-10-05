@@ -58,8 +58,9 @@ public class PersonnelREST {
 		logger.info("viewSalary요청");
 		List<Map<String, Object>> salList = null;
 		HttpSession session = req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
-		Map<String, Object> pMap = new HashMap<>();
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
+				Map<String, Object> pMap = new HashMap<>();
 		pMap.put("counts", counts);
 		pMap.put("emp_no", emp_no);
 		salList = personnelLogic.getSalList(pMap);
@@ -84,7 +85,8 @@ public class PersonnelREST {
 		logger.info("viewAttdjson요청");
 		List<Map<String, Object>> attdList = null;
 		HttpSession session = req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		Map<String, Object> pMap = new HashMap<>();
 		pMap.put("counts", counts);
 		pMap.put("emp_no", emp_no);
@@ -117,8 +119,9 @@ public class PersonnelREST {
 		logger.info("viewTeamjson요청");
 		List<Map<String, Object>> teamList = null;
 		HttpSession session = req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
-		pMap.put("emp_no", emp_no);		
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
+						pMap.put("emp_no", emp_no);		
 		teamList = personnelLogic.getTeamList(pMap);
 		logger.info(teamList);
 		return teamList;
@@ -156,7 +159,8 @@ public class PersonnelREST {
 	public List<Map<String, Object>> certlist(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
 		List<Map<String, Object>> getCertlist = null;
 		HttpSession session = req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		pMap.put("emp_no", emp_no);		
 		getCertlist = personnelLogic.getCertlist(pMap);
 		logger.info(getCertlist);
@@ -179,10 +183,21 @@ public class PersonnelREST {
 		List<Map<String, Object>> indivList = null;
 		System.out.println(pMap);
 		HttpSession session = req.getSession();
-		int emp_no = (int)session.getAttribute("emp_no");
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		pMap.put("emp_no", emp_no);
 		indivList = personnelLogic.getindivList(pMap);
 		
+		return indivList;
+	}
+	//고용계약서개인신상정보
+	@RequestMapping(value = "indivemplist")
+	public List<Map<String, Object>> indivEmplist2(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
+		List<Map<String, Object>> indivList = null;
+		System.out.println("고용계약서에 들어오는 and 인사발령에 들어오는"+pMap);
+		
+		indivList = personnelLogic.getindivList(pMap);
+		System.out.println("고용계약서에 들어오는"+indivList);
 		return indivList;
 	}
 }
