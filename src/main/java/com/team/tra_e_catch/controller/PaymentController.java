@@ -107,22 +107,29 @@ public class PaymentController {
 	//////////////////////////// 결재 //////////////////////////////////
 	// 결재 대기 문서
 	@RequestMapping(value = "/epay/epaywait", method = RequestMethod.GET)
-	public String epaywait(Model mod,@RequestParam(name="pageNO",defaultValue="1")int pageNo,HttpServletResponse res) {
+	public String epaywait(@RequestParam Map<String, Object> pMap, Model mod, HttpSession session) {
 		logger.info("epaywait");
-		logger.info("pageNo : "+pageNo);
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-submenu");
 		mod.addAttribute("curSubMenu", "결재 대기 문서");
 		mod.addAttribute("subMenuList", subMenuList);
+		List<Map<String,Object>> epaywaitList = null;
+		pMap.put("emp_no", session.getAttribute("emp_no"));
+		System.out.println("epaywaitList에 들어가는 : " +pMap);
+		
+		epaywaitList = paymentLogic.getEpayWaitList(pMap);
+		logger.info("epaywaitList :"+epaywaitList);
+		mod.addAttribute("epaywaitList", epaywaitList);
 		return "pay/epay/epaywait";
 	}
 
 	// 결재 완료 문서
 	@RequestMapping(value = "/epay/epayend", method = RequestMethod.GET)
-	public String epayend(Model mod) {
+	public String epayend(@RequestParam Map<String, Object> pMap,Model mod) {
 		logger.info("Welcome home! The client locale is");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-submenu");
 		mod.addAttribute("curSubMenu", "결재 완료 문서");
 		mod.addAttribute("subMenuList", subMenuList);
+		
 		return "pay/epay/epayend";
 	}
 
