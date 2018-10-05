@@ -31,14 +31,44 @@
 %>
 </head>
 <script type="text/javascript">
+		function test(){
+			var inputdata = $("#f_modalselect").serialize();
+		 	$.ajax({
+		        method:"POST"
+		        ,url:"<%=request.getContextPath()%>/acc/slip/wordprint"
+		        ,data:inputdata,
+		        success : function(log){	        	
+		        	console.log(log);
+		        	$("#d_viewwork").html(log);	        	
+		        }
+				,error : function(xhr) {
+					console.log("땡");
+				}
+	        }); 
+		}
+
+	
+	
 		$(function() {
 			$('#p_table').bootstrapTable({
-				url:'<%=request.getContextPath()%>/accR/slip/b/<%=counts%><%=datas%>'				
+				url:'<%=request.getContextPath()%>/accR/slip/b/<%=counts%><%=datas%>',			
+				onClickRow : function(row,$element, field) {
+					console.log(row.번호);
+					$("#selectdate").val(row.번호);	
+					$("#exampleModal").modal('show');
+					test();/* test메소드에 아작스 처리하면 됨 쀼쀼 */
+				}
+			});		
+			
+			$('#printinp').click(function(){
+				$('#printtable').printThis(); <!-- print 할 부분에 설정 -->
 			});
+			
 			var base = $('#liid'+<%=num%>);
 			base.addClass('active');
 		});
-</script>
+	</script>
+
 <body>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 	<div class="container">
@@ -105,7 +135,7 @@
 					<div class="col-xs-10 .col-md-10">
 						<nav>
 							<ul class="pagination">
-								<li><a href="<%=request.getContextPath()%>/acc/wel/1" aria-label="Previous"><span
+								<li><a href="<%=request.getContextPath()%>/acc/wel/1<%=datas%>" aria-label="Previous"><span
 										aria-hidden="true"> << </span></a></li>
 								<li><a href="<%=request.getContextPath()%>/acc/wel/<%=list-1%><%=datas%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
 								<li id="liid1"><a href="<%=request.getContextPath()%>/acc/wel/<%=list%><%=datas%>"><%=list%><span class="sr-only">(current)</span></a></li>
@@ -127,6 +157,33 @@
 			</form>
 		</div>
 	</div>
+	
+		<form id="f_modalselect" method="post">
+		<input type="hidden" id="selectdate" name="hday">
+	</form>
+	
+			<!-- 상세내역 모달 페이지 -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document" style="width: 635px">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">고용계약서 상세페이지</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<div id="d_viewwork"></div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" id="printinp">Print</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	
 	<script type="text/javascript">
 		$('#fromDate').datetimepicker({
 			language : 'ko', // 화면에 출력될 언어를 한국어로 설정한다.

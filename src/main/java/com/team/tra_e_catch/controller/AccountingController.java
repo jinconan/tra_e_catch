@@ -249,4 +249,14 @@ public class AccountingController {
 		return "/acc/tax/tax_init";
 	}
 
+	
+	//사내전산 전표뷰
+	@RequestMapping(value = "/slip/wordprint")
+	public String slipprint(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
+		logger.info("slipprint호출");
+		List<Map<String, Object>> getList = null;
+		getList = accountingLogic.getSlipList(pMap);
+		req.setAttribute("getList", getList.get(0));
+		return "acc/slip/printform";
+	}
 }

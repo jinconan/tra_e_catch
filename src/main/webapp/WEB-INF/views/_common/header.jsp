@@ -40,7 +40,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<%=contextPath%>/prod/view/prodInven">재고관리</a></li>
 						<li><a href="<%=contextPath%>/prod/view/prodStat">상품통계</a></li>
-						<li><a href="<%=contextPath%>/prod/view/prodTran">상품관리</a></li>
+						<li><a href="<%=contextPath%>/prod/view/prodTran/1">상품관리</a></li>
 					</ul>
 				</li>
 				<!-- 기획 업무 메뉴 -->
@@ -99,3 +99,33 @@
 		<!-- 상단 바 업무별 메뉴 끝 -->
 	</div>
 </header>
+
+<style>
+#loading {
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	position: fixed;
+	display: block;
+	opacity: 0.7;
+	background-color: #fff;
+	z-index: 99;
+	text-align: center;
+}
+
+#loading-image {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 100;
+}
+</style>
+
+<script type="text/javascript">
+$(window).load(function() {    
+     $('#loading').hide();  
+    });
+</script>
+	<div id="loading"><img id="loading-image" src="<%=request.getContextPath() %>/imgs/ajax-loader.gif" alt="Loading..." /></div>
+</div>
