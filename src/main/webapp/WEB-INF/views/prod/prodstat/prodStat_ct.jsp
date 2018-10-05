@@ -78,7 +78,6 @@
     <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_moon/2008">월별 전체 판매량</a></li>
     <li class="divider"></li>
     <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/110/2008/0">제조사별 전체 판매량</a></li>
-    <li><a href="#">상품별 전체 판매량</a></li>
   </ul>
 </div>
 

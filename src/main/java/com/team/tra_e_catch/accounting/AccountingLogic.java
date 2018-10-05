@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,18 +39,21 @@ public class AccountingLogic {
 	 * 비고 : x
 	 */
 	
-	public List<Map<String, Object>> teamR_Logic(int counst) {
+	public List<Map<String, Object>> teamR_Logic(int counst,String emp_no) {
 		logger.info("TeamR_Logic진입");
 		List<Map<String, Object>> s = null;
-		s = sqlAccDao.Team_Dao(counst);
+		s = sqlAccDao.Team_Dao(counst,emp_no);
 		return s;
 	}
 	
 	public List<Map<String, Object>> t_teamR_Logic(int counst,HttpServletRequest res) {
 		logger.info("t_TeamR_Logic진입");
+		HttpSession session = res.getSession();
+		String emp_no = String.valueOf(session.getAttribute("emp_no"));
 		List<Map<String, Object>> s = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("counst", counst);
+		map.put("emp_no", emp_no);
 		Arrrtd arr = new Arrrtd();
 		arr.initDate(res,map);
 		s = sqlAccDao.t_Team_Dao(map);
@@ -59,9 +63,12 @@ public class AccountingLogic {
 	
 	public List<Map<String, Object>> b_teamR_Logic(int counst,HttpServletRequest res) {
 		logger.info("b_TeamR_Logic진입");
+		HttpSession session = res.getSession();
+		String emp_no = String.valueOf(session.getAttribute("emp_no"));
 		List<Map<String, Object>> s = null;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("counst", counst);
+		map.put("emp_no", emp_no);
 		Arrrtd arr = new Arrrtd();
 		arr.initDate(res,map);
 		s = sqlAccDao.b_Team_Dao(map);
@@ -85,6 +92,12 @@ public class AccountingLogic {
 				map.put("수입",map.get("금액"));
 			}
 		}
+	}
+
+	public void fileupdate(Map<String, Object> slipTitle) {
+		logger.info("fileupdate진입");
+		sqlAccDao.flieupdate_Dao(slipTitle);
+		
 	}
 
 }

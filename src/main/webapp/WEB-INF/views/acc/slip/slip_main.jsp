@@ -91,12 +91,6 @@
 			</form>
 		</div>
 	</div>
-	<iframe
-	    allow="microphone;"
-	    width="350"
-	    height="430"
-	    src="https://console.dialogflow.com/api-client/demo/embedded/67aabadd-e68f-4210-8c0a-cb1c4c969fa5">
-	</iframe>	
 	<script type="text/javascript">
 		$('#fromDate').datetimepicker({
 			language : 'ko', // 화면에 출력될 언어를 한국어로 설정한다.
