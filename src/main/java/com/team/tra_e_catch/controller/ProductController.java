@@ -134,40 +134,69 @@ public class ProductController {
 		return "prod/prodtran/prodTran";
 	}
 	
-	@RequestMapping(value = "/Tran_list", method = RequestMethod.POST)
+	@RequestMapping(value ="/Tran_list/{counts}", method = RequestMethod.POST)
 	public String wel_list(Model mod,@RequestParam Map<String, Object> pMap,@RequestParam Map<String,String> map) {
 		logger.info("Tran_list진입");
 		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
 		logger.info(map);
 		String s = "?y=0";
-		if (map.get("std").length()>1) {
-			s += "&std="+map.get("std").substring(0, 11);
+		if (map.get("std").length()>4) {
+			s += "&std="+map.get("std");
 		}
-		if (map.get("dtd").length()>1) {
-			s += "&dtd=" + map.get("dtd").substring(0, 11);	
+		if (map.get("dtd").length()>4) {
+			s += "&dtd="+ map.get("dtd");	
 		}	
-		if (map.get("spay").length()>1) {
-			s += "&spay=" + map.get("spay");
+		if (map.get("incode").length()>0) {
+			s += "&incode="+ map.get("incode");
 		}
-		if (map.get("dpay").length()>1) {
-			s += "&dpay=" + map.get("dpay");
-		} 
 		if (map.get("opt").length()==2) {
-			s += "&opt=" + map.get("opt");
+			s += "&opt="+ map.get("opt");
 		} 
-		if (map.get("intxt").length()>1) {
-			s += "&intxt=" + map.get("intxt");
+		if (map.get("sums").length()>0) {
+			s += "&sums="+ map.get("sums");
+		}		
+		if (map.get("cata").length()>0) {
+			s += "&cata="+ map.get("cata");
 		}		
 		s = s.replaceAll(" ", "");
 		mod.addAttribute("curSubMenu", "거래 내역서");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("counts",1);
 		mod.addAttribute("datas",s);
-		System.out.println(s);
-		return "acc/welfare/wel_main";
+		return "prod/prodtran/prodTran";
+	}
+	@RequestMapping(value ="/Tran_init", method = RequestMethod.POST)
+	public String wel_init(Model mod,@RequestParam Map<String, Object> pMap,@RequestParam Map<String,String> map) {
+		logger.info("Tran_init진입");
+		productLogic.Tran_init_Logic(map);
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
+		mod.addAttribute("curSubMenu", "거래 내역서");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("counts",1);
+		return "prod/prodtran/prodTran";
 	}
 	
+	//사내전산 전표뷰
+	@RequestMapping(value = "/TRAN/wordprint")
+	public String TRANprint(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
+		logger.info("TRANprint호출"+pMap);
+		List<Map<String, Object>> getList = null;
+		getList = productLogic.TRANprint_logic(pMap);
+		req.setAttribute("getList", getList.get(0));
+		return "prod/prodtran/printform";
+	}
 	
+	@RequestMapping(value = "/TRAN/update")
+	public String TRANupdate(Model mod,@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
+		logger.info("TRANupdate호출"+pMap);
+		List<Map<String, Object>> getList = null;
+		List<Map<String,Object>> subMenuList = (List<Map<String,Object>>)context.getBean("prod-submenu");
+		getList = productLogic.TRANupdate_logic(pMap);
+		mod.addAttribute("curSubMenu", "거래 내역서");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("counts",1);
+		return "prod/prodtran/prodTran";
+	}
 	
 
 }

@@ -9,6 +9,8 @@ import java.util.TreeMap;
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
 
+import io.grpc.netty.shaded.io.netty.channel.local.LocalEventLoopGroup;
+
 
 public class SqlProdDao {
 	Logger logger = Logger.getLogger(SqlProdDao.class);
@@ -19,7 +21,7 @@ public class SqlProdDao {
 	}
 	
 	public List<Map<String, Object>> tranR_Dao(Map<String, Object> map) {
-		logger.info("tran_Dao진입"+map);
+		logger.info("tran_Dao진입");
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		list = sqlSessionTemplate.selectList("orTranlist",map);
 		return list;
@@ -72,5 +74,27 @@ public class SqlProdDao {
 		list = (ArrayList)map.get("chart_Plan1");
 		logger.info(list);
 		return list;
+	}
+
+	public List<Map<String, Object>> trancli_Dao() {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		list = sqlSessionTemplate.selectList("client_goods");
+		return list;
+	}
+
+	public void Tran_init_Dao(Map<String, String> map) {
+		logger.info("Tran_init_Dao 도착"+map);
+		sqlSessionTemplate.insert("Tran_init",map);
+	}
+
+	public List<Map<String, Object>> getTRANList_Dao(Map<String, Object> pMap) {
+		logger.info("getTRANList_Dao진입");
+		return 	sqlSessionTemplate.selectList("getTRANcell",pMap);
+	}
+
+	public void getTRANupdate_Dao(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		logger.info("getTRANupdate_Dao진입");
+		sqlSessionTemplate.selectList("tran_update",pMap);
 	}
 }

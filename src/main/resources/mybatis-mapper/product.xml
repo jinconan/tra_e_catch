@@ -15,17 +15,14 @@
 	<if test='dtd != null'>
 		<![CDATA[and 결제일자 <#{dtd}]]>
 	</if>
-	<if test='spay != null'>
-		<![CDATA[and 거래량 >#{spay}]]>
-	</if>
-	<if test='dpay != null'>
-		<![CDATA[and 거래량 <#{dpay}]]>
+	<if test='sums != null'>
+		<![CDATA[and 거래량 =#{sums}]]>
 	</if>
 	<if test='opt != null'>
-		<![CDATA[and 거래처코드 = #{opt}]]>
+		<![CDATA[and 결제방식 like #{opt}||'%']]>
 	</if>
-	<if test='intxt != null'>
-		<![CDATA[and 적요 like '%'||#{intxt}||'%']]>
+	<if test='cata != null'>
+		<![CDATA[and 거래처코드 like '%'||#{cata}||'%']]>
 	</if>
 	<if test='incode != null'>
 		<![CDATA[and 등록코드 = #{incode}]]>
@@ -44,9 +41,42 @@
 		]]>
 	</select>
 	
+	<insert id="Tran_init" parameterType="Map">	
+		<![CDATA[
+		insert into PROD_HISTORY (VOLUME,PAY_DATE,PTYPE_NO,PHIST_NO,CPROD_NO) values(#{new_dept_note},TO_CHAR(sysdate,'YYYY-MM-DD HH24:MI'),#{opt},SEQ_PHIST_NO.nextval,#{goods})
+		 ]]> 
+	</insert>
+
 	<select id="ct_list" parameterType="int"  resultType="Map">	
 		select C_no,name from CLIENT
 	</select>
+	<select id="getTRANcell" parameterType="Map"  resultType="Map">	
+	<![CDATA[
+		    select A.VOLUME as 개수, C.name as 회사, D.NAME as 상품명,A.PHIST_NO as 등록번호,PAY_DATE as 등록일, TPIC_CONTACT as 담당자전화번호,
+            COST as 가격   from 
+            (select VOLUME,PAY_DATE,PTYPE_NO,PHIST_NO,CPROD_NO from PROD_HISTORY where PHIST_NO = #{hday}) A
+            inner join CLIENT_PROD B on A.CPROD_NO = B.CPROD_NO
+            inner join CLIENT C on B.C_NO = C.C_NO
+            inner join product D    on B.PROD_NO = D.PROD_NO
+    ]]>
+	</select>
+	
+	<select id="client_goods" parameterType="int"  resultType="Map">	
+	<![CDATA[
+        select CPROD_NO as 번호,A.NAME as 회사명,C.NAME as 상품이름 from CLIENT A inner join CLIENT_PROD B
+        on A.C_NO = B.C_NO
+        inner join product C
+        on C.PROD_NO = B.PROD_NO
+        order by A.C_NO
+	    ]]>
+	</select>
+	
+	<update id="tran_update" parameterType="Map">
+		<![CDATA[
+		update PROD_HISTORY set VOLUME = #{거래량} where PHIST_NO = #{결제코드}
+			    ]]>
+	</update>
+	
 	
 	<select id="Pro_ct_Chart" statementType="CALLABLE" parameterType="Map"  resultType="java.util.TreeMap">	
 		CALL pro_CLIENT_PROD_list(#{counst},#{day},#{yn},#{chart_Plan1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=chart_Plan1})

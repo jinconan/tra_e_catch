@@ -36,13 +36,10 @@
 		 	$.ajax({
 		        method:"POST"
 		        ,url:"<%=request.getContextPath()%>/acc/slip/wordprint"
-		        ,data:inputdata,
-		        success : function(log){
-		        	
+		        ,data:inputdata
+		        ,success : function(log){	        	
 		        	console.log(log);
-		        	$("#d_viewwork").html(log);
-	
-		        	
+		        	$("#d_viewwork").html(log);	        	
 		        }
 				,error : function(xhr) {
 					console.log("땡");
@@ -138,7 +135,7 @@
 					<div class="col-xs-10 .col-md-10">
 						<nav>
 							<ul class="pagination">
-								<li><a href="<%=request.getContextPath()%>/acc/wel/1" aria-label="Previous"><span
+								<li><a href="<%=request.getContextPath()%>/acc/wel/1<%=datas%>" aria-label="Previous"><span
 										aria-hidden="true"> << </span></a></li>
 								<li><a href="<%=request.getContextPath()%>/acc/wel/<%=list-1%><%=datas%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
 								<li id="liid1"><a href="<%=request.getContextPath()%>/acc/wel/<%=list%><%=datas%>"><%=list%><span class="sr-only">(current)</span></a></li>

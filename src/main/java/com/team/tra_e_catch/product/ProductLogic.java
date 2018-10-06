@@ -1,9 +1,12 @@
 package com.team.tra_e_catch.product;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +26,12 @@ public class ProductLogic {
 	 * 용도 : 거래내역 전표 출력용 REST 
 	 * 비고 : x
 	 */
-	public List<Map<String, Object>> teamR_Logic(int counts) {
+	public List<Map<String, Object>> teamR_Logic(int counts,HttpServletRequest res) {
 		logger.info("TeamR_Logic진입");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("counts", counts);
+		Arrrtd arr = new Arrrtd();
+		arr.initDate(res, map);
 		List<Map<String, Object>> s = sqlProdDao.tranR_Dao(map);
 		return s;
 	}
@@ -35,7 +40,6 @@ public class ProductLogic {
 		logger.info("chartsR_Logic진입");
 		Chart_Make cm = new Chart_Make();
 		cm.C_Make(sqlProdDao.chartsR_Dao());
-
 		return cm.map;
 	}
 
@@ -63,5 +67,46 @@ public class ProductLogic {
 		Chart_Make cm = new Chart_Make();
 		cm.C_Make(sqlProdDao.chartsR_ct_Dao(counts,day,yn));
 		return cm.map;
+	}
+
+	public List<Map<String, Object>> teancli_Logic() {
+		List<Map<String, Object>> s = sqlProdDao.trancli_Dao();
+		String name = (String)s.get(0).get("회사명");
+		List<Map<String, Object>> list= new ArrayList<Map<String, Object>>();
+		Map<String, Object> inmap = new HashMap<String,Object>();
+		Map<String, Object> map = new HashMap<String,Object>();
+		for(Map<String,Object>san: s) {
+			inmap = new HashMap<String,Object>();
+			if(!name.equals(san.get("회사명"))) {
+				map.put(name, list);
+				list= new ArrayList<Map<String, Object>>();
+				name = san.get("회사명").toString();
+			}
+			inmap.put("번호", san.get("번호"));
+			inmap.put("상품이름", san.get("상품이름"));
+			list.add(inmap);
+		}
+		map.put(name, list);
+		s = new ArrayList<Map<String, Object>>();
+		s.add(map);
+		logger.info(s);
+		return s;
+	}
+
+	public void Tran_init_Logic(Map<String, String> map) {
+		logger.info("Tran_init_Logic진입");
+		sqlProdDao.Tran_init_Dao(map);
+	}
+
+	public List<Map<String, Object>> TRANprint_logic(Map<String, Object> pMap) {
+		logger.info("TRANprint_logic진입");
+		// TODO Auto-generated method stub
+		return sqlProdDao.getTRANList_Dao(pMap);
+	}
+
+	public List<Map<String, Object>> TRANupdate_logic(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		sqlProdDao.getTRANupdate_Dao(pMap);
+		return null;
 	}
 }

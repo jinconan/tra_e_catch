@@ -2,6 +2,8 @@ package com.team.tra_e_catch.REST;
 
 import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,12 +36,18 @@ public class ProductREST {
 	 * 비고 : 
 	 */
 	@RequestMapping("/tran/{counts}")
-	private List<Map<String, Object>> team(@PathVariable int counts) {
+	private List<Map<String, Object>> team(@PathVariable int counts,HttpServletRequest req) {
 		logger.info("진입");
-		List<Map<String, Object>> as = productLogic.teamR_Logic(counts);
+		List<Map<String, Object>> as = productLogic.teamR_Logic(counts,req);
+		logger.info(as);
 		return as;
 	}
-	
+	@RequestMapping("/trancli")
+	private List<Map<String, Object>> teamcli() {
+		logger.info("teamcli 진입");
+		List<Map<String, Object>> as = productLogic.teancli_Logic();
+		return as;
+	}
 	
 	@RequestMapping("prodStat")
 	private Map<String, Object> proStatR() {
