@@ -22,7 +22,7 @@
 $(function(){
 	//데이터 그리드
 	$('#p_table').bootstrapTable({
-		url:'<%=request.getContextPath()%>/payR/epay/<%=counts%>'
+		url:'<%=request.getContextPath()%>/payR/epay/draft/<%=counts%>'
 		
 	});
 	var base = $('#liid'+<%=num%>);

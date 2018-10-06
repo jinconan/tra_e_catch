@@ -23,8 +23,11 @@
 		});
 	});
 	
+	
 
-	/* function listoption(){
+
+
+	/*  function listoption(){
 		var optnum = $("#optionnum").val();
 		//alert(optnum);
 		if(optnum=="0"){
@@ -43,12 +46,8 @@
 	        });
 		}
 	
-	}
-	function insertForm(){
-		//$("#f_insert").attr("method","post");
-		$("#f_insert").attr("action","./boardinsert.bo2");
-		$("#f_insert").submit();
 	} */
+	
 	
 	</script>
 </head>
@@ -56,38 +55,31 @@
 <script type="text/javascript">
 	 $(document).ready(function(){
 		$("#btn_Inst").click(function(){
-			$.ajax({
-				url:'/try_e_catch/pay/epay/jobInst'
-				,method:"POST"
-				,data:""
-				,success:function(data){
-					alert("아작스 성공");
-					$("#empjobtable").attr(data);
-				}
-				,error:function(Object){
-					alert("error:"+Object.responseText);
-				}
-			});
-			return false;
+			$("#f_jobInst").attr("method","post");
+			$("#f_jobInst").attr("action","jobInst.jsp");
+			$("#f_jobInst").sumbit();
+			$("#f_jobInst").attr("method","post");
+			$("#f_jobInst").attr("action","restForm.jsp");
+			$("#f_jobInst").sumbit();
 		});
 	}); 
+	 
+	 function insert() {
+		 $("#f_insert").attr("method","post");
+		 $("#f_insert").attr("action","draft.jsp");
+		 $("#f_insert").submit();
+		 
+	 }
+	 
+	
 		
-	/* function jobInstForm() {
-		$("#f_jobInst").attr("method","post");
-		$("#f_jobInst").attr("action","./jobInst");
-		$("#f_jobInst").submit();
-	} */	
 	 
 </script>	
 	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
 	<div class="container">
 		<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
-			<form class="form-horizontal" id="f_insert" method="post">
+			<form class="form-horizontal" id="f_insert">
 				<div class="col-md-10">
-			
-				<div class="page-header">
-					<h1>기안 문서작성</h1>
-				</div>
 				
 				<!-- 분류 버튼 -->
 				<div class="btn-group">
@@ -95,13 +87,32 @@
 						data-toggle="dropdown" aria-expanded="false">
 						분류 <span class="caret"></span>
 					</button>
-					<ul class="dropdown-menu" role="menu" id="optionum" onclick="listoption()">
-						<li><a href="#" id="btn_Inst" onClick="jobInstForm()">작업지시서</a></li>
-						<li><a href="#">기안 문서</a></li>
+					<ul class="dropdown-menu" role="menu" id="optionum" >
+						<li><a href="#" id="" onClick="">기획서</a></li>
+						<li><a href="#" id="" onClick="">계약서</a></li>
+						<li><a href="#" id="" onClick="">근로계약서</a></li>
+						<li><a href="#" id="" onClick="">고용계약서</a></li>
+						<li><a href="<%=request.getContextPath()%>/pay/epay/jobInst" id="btn_Inst" >작업지시서</a></li>
+						<li><a href="#" id="" onClick="">사직서</a></li>
+						<li><a href="<%=request.getContextPath()%>/pay/epay/restForm" id="btn_Inst" >휴가</a></li>
+						<li><a href="#" id="" onClick="">외근</a></li>
+						<li><a href="#" id="" onClick="">프로젝트보고서</a></li>
+						<li><a href="#" id="" onClick="">협찬보고서</a></li>
+						<li><a href="#" id="" onClick="">협업승인서</a></li>
+						<li><a href="#" id="" onClick="">공간대여</a></li>
+						<li><a href="#" id="" onClick="">공용장비대여</a></li>
+						<li><a href="#" id="" onClick="">주말근무보고서</a></li>
+						<li><a href="#" id="" onClick="">회식보고서</a></li>
 						<li class="divider"></li>
 						<li><a href="#">Separated link</a></li>
 					</ul>
 				</div>
+				
+				<center>
+				<div class="page-header">
+					<h1></h1>
+				</div>
+				</center>
 				
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="inputEmail">담당부서</label>
@@ -118,8 +129,13 @@
 							<span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu">
-							<li><a href="#">부서명</a></li>
-							<li><a href="#">부서명</a></li>
+							<li><a href="#">경영팀</a></li>
+							<li><a href="#">관리팀</a></li>
+							<li><a href="#">cs팀</a></li>
+							<li><a href="#">인사팀</a></li>
+							<li><a href="#">외부지원팀</a></li>
+							<li><a href="#">개발팀</a></li>
+							<li><a href="#">사운드팀</a></li>
 						</ul>
 					</div>
 				</div>
@@ -177,8 +193,8 @@
 	
 		<div class="form-group">
 			<div class="col-sm-12 text-center">
-				<button id="btn_pay" class="btn btn-primary">
-					저장<i class="fa fa-check spaceLeft"></i>
+				<button id="btn_pay" class="btn btn-primary" onclick="insert()">
+					입력<i class="fa fa-check spaceLeft"></i>
 				</button>
 				<button id="btn_pay" class="btn btn-primary">
 					취소<i class="fa fa-check spaceLeft"></i>
@@ -186,7 +202,7 @@
 			</div>
 		</div>
 	
-		<div class="form-group" id="empjobtable"></div>
+		<div class="form-group" id=""></div>
 		</form>
 		<hr>
 	</div>

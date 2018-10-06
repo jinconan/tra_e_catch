@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team.tra_e_catch.payment.PaymentLogic;
+import com.team.tra_e_catch.personnel.PersonnelLogic;
 
 
 /*
@@ -34,7 +35,7 @@ public class PaymentREST {
 	Logger logger = Logger.getLogger(AccountingREST.class);
 	@Autowired
 	private PaymentLogic paymentLogic;
-	
+	private PersonnelLogic personnelLogic;
 	
 		/*
 		 * init메서드 : 
@@ -65,15 +66,36 @@ public class PaymentREST {
 		logger.info(epaywaitList);
 		return epaywaitList;
 	}
-	
-	@RequestMapping("epay/{counts}")
-	private List<Map<String, Object>> team(@PathVariable int counts,Model mod,HttpServletResponse res){
+		
+	@RequestMapping("epay/draft/{counts}")
+	private List<Map<String, Object>> getEpayList(@RequestParam Map<String,Object> pMap, @PathVariable int counts
+			,Model mod,HttpServletResponse res)
+	{
 		logger.info(counts+"번 payR진입");
 		List<Map<String, Object>> paymentList = null;	
-		Map<String,Object> pMap = new HashMap<>();
 		pMap.put("counts",counts);
 		paymentList = paymentLogic.getPaymentList(pMap);
-		//mod.addAttribute("paymentList", paymentList);
+		mod.addAttribute("paymentList", paymentList);
 		return paymentList;
+	}
+	@RequestMapping("epay/jobInst/insert")
+	private String jobinsert(@RequestParam Map<String, Object> pMap) {
+		logger.info("jobInst호출");
+		System.out.println(pMap);
+		List<Map<String, Object>> jobinsert = null;
+		System.out.println(pMap);
+		jobinsert = paymentLogic.setJobInsert(pMap);
+		return "pay/epay/draft";
+		
+	}
+	@RequestMapping("only/emplist")//사원명부 데이터
+	private List<Map<String, Object>> emplist(@RequestParam Map<String, Object> pMap){
+		logger.info("emplist요청");
+		List<Map<String, Object>>empList = null;
+		/*		pMap.put("emp_no", req.getParameter("emp_no").toString());*/
+		System.out.println("empList에 들어가는 : "+pMap);
+		empList = personnelLogic.getEmpList(pMap);
+		logger.info(empList);
+		return empList;
 	}
 }

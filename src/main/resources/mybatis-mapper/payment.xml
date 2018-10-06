@@ -9,6 +9,13 @@
 		<parameter property="doc_no" javaType="int" mode="IN"/>
 		<parameter property="up_date" javaType="java.lang.String" mode="IN"/>
 	</parameterMap>
+	<!-- <parameterMap id="pBSVO" type="com.vo.BoardSubVO">
+		<parameter property="b_no" javaType="int" mode="IN"/>
+		<parameter property="b_seq" javaType="int" mode="IN"/>
+		<parameter property="b_img" javaType="java.lang.String" mode="IN"/>
+		<parameter property="b_file" javaType="java.lang.String" mode="IN"/>
+		<parameter property="b_size" javaType="double" mode="IN"/>
+	</parameterMap> -->
 	
 	
 	<resultMap id="pDVO" type="com.team.tra_e_catch.payment.PaymentVO">
@@ -20,26 +27,60 @@
 		<result property="up_date" column="up_date" />
 		<association property="bsVO" resultMap="rBSVO" /> 
 	</resultMap>
-	
-	
-	
-	
-	<select id="getPaymentList" resultType="map" parameterType="map">
-
-	<![CDATA[
-	    select * from
+	<!-- <resultMap id="rBSVO" type="com.vo.BoardSubVO">
+		<id property="b_no" column="b_no" />
+		<id property="b_seq" column="b_seq" />
+		<result property="b_img" column="b_img" />
+		<result property="b_file" column="b_file" />
+	</resultMap>	 -->
+ 	
+	<!-- 서류 리스트  -->	
+ 	<select id="getPaymentList" resultType="map" parameterType="map">
+    select * from
     (select emp_no, dtype_no, path, content, doc_no, up_date, rownum as rno
-     from docs where doc_no = #{doc_no} order by rno)
+     from docs order by rno)
      where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno
-	 ]]> 
+	<if test='emp_no != null and emp_no != "" '>
+		and emp_no = #{emp_no}
+	</if>
+ 	<if test='dtype_no != null and dtype_no != ""'>
+		and dtype_no = #{dtype_no}
+	</if>
+	<if test='path != null and !path.equals("")'>
+		and path = #{path}
+	</if>
+	<if test='content != null and !content.equals("")'>
+		and content = #{content}
+	</if>
 	</select>
 	
+	
+	<!-- 검색 조건 -->
+	<select id = "searchPaymentList" resultType="map" parameterType="map">
+	select * from docs where doc_no like '%{doc_no}%' and dtype_no like '%{dtype_no}%' 
+	and title like '%{title}%' and up_date like '%{up_date}%' and emp_no like '%{emp_no}%' and content like '%{content}%'
+	
+	</select>
+		
+	<!-- 작업지시서 등록 -->
+ 	 <insert id="jobInsert" parameterType="map">
+		insert into docs
+			values(#{emp_no},510,null,'작업지시서',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'작업지시서')
+	
+	</insert>  
+
 	<insert id="epayInsert" parameterMap="pDVO">
 		INSERT INTO DOCS(emp_no,dtype_no,path,content,doc_no
 									up_date)
 						VALUES(#{emp_no},#{dtype_no},#{path},#{content}
 						#{doc_no},to_char(sysdate, 'YYYY-MM-DD'))
 	</insert>
+	
+	<!-- 휴가 신청서 -->
+	<insert id="restInsert" parameterType="map">
+		insert into docs values(#{emp_no},100,null,'휴가',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'휴가')
+	</insert>
+
 	<select id="getEpayWaitList" parameterType="map" resultType="map">
 	SELECT *
        FROM(
@@ -54,5 +95,5 @@
     ORDER BY sign.doc_no desc
 )
 	</select>
-	
+	 
 </mapper>

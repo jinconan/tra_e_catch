@@ -45,7 +45,7 @@ public class PaymentController {
 
 	}*/
 	
-	/*@RequestMapping("epayInsert")
+	@RequestMapping("epayInsert")
 	public String epayInsert(@ModelAttribute PaymentVO pVO)
 	{	
 		//DB 연동 처리
@@ -57,8 +57,8 @@ public class PaymentController {
 		pVO.setDoc_no(pVO.getDoc_no());
 		pVO.setUp_date(pVO.getUp_date());
 		result = paymentLogic.epayInsert(pVO);
-		return "forward:draft.jsp";
-	}*/
+		return "pay/epay/draft";
+	}
 
 	//////////////////////////// 기안 ///////////////////////////////
 	// 기안 문서 작성
@@ -71,18 +71,49 @@ public class PaymentController {
 		return "pay/epay/epayview";
 	}
 	
+	
 
-	// 작업지시서 작성
-	/*@RequestMapping(value = "/epay/jobInst", method = RequestMethod.GET)
-	public String certList(Model mod) {
+	// 작업지시서 페이지
+	@RequestMapping(value = "/epay/jobInst", method = RequestMethod.GET)
+	public String jobtable(@RequestParam Map<String, Object> pMap,Model mod) {
+		logger.info("jobtable호출");
+		System.out.println(pMap);
 		// 컨트롤러로 부터 넘겨받는 속성
 		// subMenuList : List<Map<String, Object>>
 		// [{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
 		// curSubMenu : String
-		logger.info("jobInst호출");
+		/*List<Map<String,Object>> jobinsert = null;
+		jobinsert = paymentLogic.setJobInsert(pMap);*/
 		return "pay/epay/jobInst";
 
+	}
+	// 작업지시서 입력
+	/*@RequestMapping(value = "/jobInst/insert", method = RequestMethod.GET)
+	public String jobInsert(@RequestParam Map<String, Object> pMap) 
+	{	
+		logger.info("jobInsert호출");
+		System.out.println(pMap);
+		List<Map<String,Object>> jobinsert = null;
+		jobinsert = paymentLogic.setJobInsert(pMap);
+		
+		return "pay/epay";
 	}*/
+	//휴가 페이지
+	@RequestMapping(value = "/epay/restForm", method = RequestMethod.POST) 
+		public String restcert(@RequestParam Map<String, Object> pMap, Model mod) {
+			// 컨트롤러로 부터 넘겨받는 속성
+			// subMenuList : List<Map<String, Object>>
+			// [{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
+			// curSubMenu : String
+			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-draft-submenu");
+			mod.addAttribute("curSubMenu", "기안문서 작성");
+			mod.addAttribute("subMenuList", subMenuList);
+			/*List<Map<String, Object>> restinsert = null;
+			System.out.println(pMap);
+			restinsert = paymentLogic.restInsert(pMap);*/
+			logger.info("restForm호출");
+			return "pay/epay/restForm";
+	}
 
 	// 기안 문서
 	@RequestMapping(value = "/epay/draft/{counts}", method = RequestMethod.GET)
