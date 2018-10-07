@@ -124,7 +124,7 @@
 			 
 		 }
 	 }
-	/*  
+	 
 	 function reset() {
 		 
 		 $.ajax({
@@ -132,15 +132,15 @@
 			,url:"/tra_e_catch/pay/epay/epayview"
 		 })
 		 
-	 } */
-	/*  
+	 } 
+	 
 	 function insert() {
 		
 		 $("#f_insert").attr("action","./epayInsert");
 		 $("#f_insert").submit();
 		 alert("저장되었습니다.");
 	 }
-	  */
+	 
 	
 		
 	 
