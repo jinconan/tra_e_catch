@@ -7,7 +7,14 @@ public class PaymentVO {
 	private int doc_no;
 	private String up_date;
 	private int emp_no;
+	private String title;
 	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public int getEmp_no() {
 		return emp_no;
 	}

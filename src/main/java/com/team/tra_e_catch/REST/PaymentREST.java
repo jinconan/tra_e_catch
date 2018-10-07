@@ -88,14 +88,14 @@ public class PaymentREST {
 		return "pay/epay/draft";
 		
 	}
-	@RequestMapping("only/emplist")//사원명부 데이터
+	/*@RequestMapping("only/emplist")//사원명부 데이터
 	private List<Map<String, Object>> emplist(@RequestParam Map<String, Object> pMap){
 		logger.info("emplist요청");
 		List<Map<String, Object>>empList = null;
-		/*		pMap.put("emp_no", req.getParameter("emp_no").toString());*/
+				pMap.put("emp_no", req.getParameter("emp_no").toString());
 		System.out.println("empList에 들어가는 : "+pMap);
 		empList = personnelLogic.getEmpList(pMap);
 		logger.info(empList);
 		return empList;
-	}
+	}*/
 }

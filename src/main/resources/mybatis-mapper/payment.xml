@@ -37,7 +37,7 @@
 	<!-- 서류 리스트  -->	
  	<select id="getPaymentList" resultType="map" parameterType="map">
     select * from
-    (select emp_no, dtype_no, path, content, doc_no, up_date, rownum as rno
+    (select emp_no, dtype_no, path, content, doc_no, up_date, title rownum as rno
      from docs order by rno)
      where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno
 	<if test='emp_no != null and emp_no != "" '>
@@ -68,7 +68,7 @@
 			values(#{emp_no},510,null,'작업지시서',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'작업지시서')
 	
 	</insert>  
-
+		
 	<insert id="epayInsert" parameterMap="pDVO">
 		INSERT INTO DOCS(emp_no,dtype_no,path,content,doc_no
 									up_date)
@@ -80,6 +80,25 @@
 	<insert id="restInsert" parameterType="map">
 		insert into docs values(#{emp_no},100,null,'휴가',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'휴가')
 	</insert>
+	
+	 <!-- 근로계약서 -->
+	 <insert id="" parameterType="map">
+	 
+	 
+	 </insert>
+	 
+	 <!-- 고용계약서 -->
+	 <insert id="" parameterType="map">
+	 
+	 
+	 </insert>
+	 
+	 <!-- 프로젝트 기안서 -->
+	 <insert id="" parameterType="map">
+	 
+	 
+	 </insert>
+
 
 	<select id="getEpayWaitList" parameterType="map" resultType="map">
 	SELECT *
