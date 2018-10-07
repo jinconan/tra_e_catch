@@ -83,6 +83,23 @@ public class SqlPayDao {
 		EpayWaitList = sqlSessionTemplate.selectList("getEpayWaitList", pMap);
 		return EpayWaitList;
 	}
+	public String getPath() {
+		String path = null;
+		return path;
+	}
+	public String getTitle() {
+		String title = null;
+		return title;
+	}
+	public String getUp_date() {
+		String up_date = null;
+		return up_date;
+	}
+	public String getContent() {
+		String content = null;
+		
+		return content;
+	}
 }
 		
 		

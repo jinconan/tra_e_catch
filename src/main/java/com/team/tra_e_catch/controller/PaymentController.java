@@ -49,7 +49,7 @@ public class PaymentController {
 	}*/
 	//////////////////////////// 기안 ///////////////////////////////
 	// 가안문서 입력
-	@RequestMapping("/epay/epayInsert")
+	@RequestMapping(value = "/epay/epayInsert", method = RequestMethod.POST)
 	public String epayInsert(@ModelAttribute PaymentVO pVO)
 	{	
 		//DB 연동 처리
@@ -66,7 +66,7 @@ public class PaymentController {
 	}
 
 	// 기안 문서 페이지
-	@RequestMapping(value = "/epay", method = RequestMethod.POST)
+	@RequestMapping(value = "/epay", method = RequestMethod.GET)
 	public String epay(Model mod) {
 		logger.info("epayview 호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-draft-submenu");
@@ -78,7 +78,7 @@ public class PaymentController {
 	
 
 	// 작업지시서 페이지
-	@RequestMapping(value = "/epay/jobInst", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/epay/jobInst", method = RequestMethod.POST)
 	public String jobtable(@RequestParam Map<String, Object> pMap,Model mod) {
 		logger.info("jobtable호출");
 		System.out.println(pMap);
@@ -86,11 +86,11 @@ public class PaymentController {
 		// subMenuList : List<Map<String, Object>>
 		// [{key : value}] = [{"sm_name" : "서브메뉴이름"}, {"sm_url" : "링크경로"}]
 		// curSubMenu : String
-		/*List<Map<String,Object>> jobinsert = null;
-		jobinsert = paymentLogic.setJobInsert(pMap);*/
+		List<Map<String,Object>> jobinsert = null;
+		jobinsert = paymentLogic.setJobInsert(pMap);
 		return "pay/epay/jobInst";
 
-	}
+	}*/
 	// 작업지시서 입력
 	/*@RequestMapping(value = "/jobInst/insert", method = RequestMethod.POST)
 	public String jobInsert(PaymentVO paymentList) 
@@ -120,7 +120,7 @@ public class PaymentController {
 			return "pay/epay/restForm";
 	}*/
 	
-	@RequestMapping(value = "/pay_list", method = RequestMethod.POST)
+	@RequestMapping(value = "/pay_list", method = RequestMethod.GET)
 	public String pay_list(Model mod,@RequestParam Map<String, Object> pMap,@RequestParam Map<String,String> map) {
 		logger.info("pay_list진입");
 		logger.info(map);
@@ -144,8 +144,8 @@ public class PaymentController {
 			paymentList += "&emp_no=" + map.get("emp_no");
 		}		
 		paymentList = paymentList.replaceAll(" ", "");
-		mod.addAttribute("curSubMenu", "기안 목록");
-		mod.addAttribute("subMenuList", subMenuList);
+		/*mod.addAttribute("curSubMenu", "기안 목록");
+		mod.addAttribute("subMenuList", subMenuList);*/
 		mod.addAttribute("counts",1);
 		mod.addAttribute("datas",paymentList);
 		System.out.println(paymentList);

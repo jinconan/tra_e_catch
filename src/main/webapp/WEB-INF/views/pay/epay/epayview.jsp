@@ -63,14 +63,14 @@
 </head>
 <body>
 <script type="text/javascript">
-	 $(document).ready(function(){
+	/*  $(document).ready(function(){
 		
 		$.ajax({
 			method:"POST"
 			,url:""
 		})
 		
-	}); 
+	});  */
 	 
 	 function listoption() {
 		 var optnum = ("#optionnum").val();
@@ -124,7 +124,7 @@
 			 
 		 }
 	 }
-	 
+	/*  
 	 function reset() {
 		 
 		 $.ajax({
@@ -132,15 +132,15 @@
 			,url:"/tra_e_catch/pay/epay/epayview"
 		 })
 		 
-	 }
-	 
+	 } */
+	/*  
 	 function insert() {
 		
 		 $("#f_insert").attr("action","./epayInsert");
 		 $("#f_insert").submit();
 		 alert("저장되었습니다.");
 	 }
-	 
+	  */
 	
 		
 	 
@@ -281,7 +281,7 @@
 			</div>
 		</div>
 	
-		<div class="form-group" id=""></div>
+		<div class="form-group" id="epayview" ></div>
 		</form>
 		<hr>
 	</div>
