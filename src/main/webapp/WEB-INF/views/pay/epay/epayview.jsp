@@ -13,20 +13,30 @@
 %>
 <script type="text/javascript">
 	$(function() {
-		$('#datetimepicker1').datetimepicker({
+		 /* $('#datetimepicker1').datetimepicker({
 			format: 'yyyy-mm-dd'
 		   ,minView:2
 		});
 		$('#datetimepicker2').datetimepicker({
 			format: 'yyyy-mm-dd'
 		   ,minView:2
-		});
+		}); */
+	
+	$('#fromDate').datetimepicker({
+		language : 'ko', // 화면에 출력될 언어를 한국어로 설정한다.
+		pickTime : false, // 사용자로부터 시간 선택을 허용하려면 true를 설정하거나 pickTime 옵션을 생략한다.
+		defalutDate : new Date() // 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션을 생략한다.
+	});
+
+	$('#toDate').datetimepicker({
+		language : 'ko',
+		pickTime : false,
+		defalutDate : new Date()
 	});
 	
+	}); 
 	
-
-
-
+	
 	/*  function listoption(){
 		var optnum = $("#optionnum").val();
 		//alert(optnum);
@@ -54,21 +64,81 @@
 <body>
 <script type="text/javascript">
 	 $(document).ready(function(){
-		$("#btn_Inst").click(function(){
-			$("#f_jobInst").attr("method","post");
-			$("#f_jobInst").attr("action","jobInst.jsp");
-			$("#f_jobInst").sumbit();
-			$("#f_jobInst").attr("method","post");
-			$("#f_jobInst").attr("action","restForm.jsp");
-			$("#f_jobInst").sumbit();
-		});
+		
+		$.ajax({
+			method:"POST"
+			,url:""
+		})
+		
 	}); 
 	 
-	 function insert() {
-		 $("#f_insert").attr("method","post");
-		 $("#f_insert").attr("action","draft.jsp");
-		 $("#f_insert").submit();
+	 function listoption() {
+		 var optnum = ("#optionnum").val();
+		 if(optnum == "기획서"){
+			 
+		 }
+		 else if(optnum==0){
+			 alert("증명서를 선택해 주세요");
+				
+		}
+		 else if(optnum == "계약서"){
+			 
+		 }
+		 else if(optnum == "근로계약서"){
+			 
+		 }
+		 else if(optnum == "고용계약서"){
+			 
+		 }
+		 else if(optnum == "작업지시서"){
+			 
+		 }
+		 else if(optnum == "사직서"){
+			 
+		 }
+		 else if(optnum == "휴가"){
+			 
+		 }
+		 else if(optnum == "외근"){
+			 
+		 }
+		 else if(optnum == "프로젝트보고서"){
+			 
+		 }
+		 else if(optnum == "협찬보고서"){
+			 
+		 }
+		 else if(optnum == "협업승인서"){
+			 
+		 }
+		 else if(optnum == "공간대여"){
+			 
+		 }
+		 else if(optnum == "공용장비대여"){
+			 
+		 }
+		 else if(optnum == "주말근무보고서"){
+			 
+		 }
+		 else if(optnum == "회식보고서"){
+			 
+		 }
+	 }
+	 
+	 function reset() {
 		 
+		 $.ajax({
+			method:"POST"
+			,url:"/tra_e_catch/pay/epay/epayview"
+		 })
+		 
+	 }
+	 
+	 function insert() {
+		
+		 $("#f_insert").attr("action","./epayInsert");
+		 $("#f_insert").submit();
+		 alert("저장되었습니다.");
 	 }
 	 
 	
@@ -78,35 +148,35 @@
 	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
 	<div class="container">
 		<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
-			<form class="form-horizontal" id="f_insert">
+			<form class="form-horizontal" id="f_insert" method="post">
 				<div class="col-md-10">
 				
 				<!-- 분류 버튼 -->
-				<div class="btn-group">
-					<button type="button" class="btn btn-default dropdown-toggle"
-						data-toggle="dropdown" aria-expanded="false">
-						분류 <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" role="menu" id="optionum" >
-						<li><a href="#" id="" onClick="">기획서</a></li>
-						<li><a href="#" id="" onClick="">계약서</a></li>
-						<li><a href="#" id="" onClick="">근로계약서</a></li>
-						<li><a href="#" id="" onClick="">고용계약서</a></li>
-						<li><a href="<%=request.getContextPath()%>/pay/epay/jobInst" id="btn_Inst" >작업지시서</a></li>
-						<li><a href="#" id="" onClick="">사직서</a></li>
-						<li><a href="<%=request.getContextPath()%>/pay/epay/restForm" id="btn_Inst" >휴가</a></li>
-						<li><a href="#" id="" onClick="">외근</a></li>
-						<li><a href="#" id="" onClick="">프로젝트보고서</a></li>
-						<li><a href="#" id="" onClick="">협찬보고서</a></li>
-						<li><a href="#" id="" onClick="">협업승인서</a></li>
-						<li><a href="#" id="" onClick="">공간대여</a></li>
-						<li><a href="#" id="" onClick="">공용장비대여</a></li>
-						<li><a href="#" id="" onClick="">주말근무보고서</a></li>
-						<li><a href="#" id="" onClick="">회식보고서</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-					</ul>
-				</div>
+				<table>
+					<tr>
+						<td>결재문서 분류 :&nbsp;&nbsp;&nbsp;</td>
+						<td>
+						<select class="form-control" id="optionnum" name="doc_no">
+							<option val="0">결재문서 선택</option>
+							<option val="1">기획서</option>
+							<option val="2">계약서</option>
+							<option val="3">근로계약서</option>
+							<option val="4">고용계약서</option>
+							<option val="5">작업지시서</option>
+							<option val="6">사직서</option>
+							<option val="7">휴가</option>
+							<option val="8">외근</option>
+							<option val="9">프로젝트보고서</option>
+							<option val="10">협찬보고서</option>
+							<option val="11">협업승인서</option>
+							<option val="12">공간대여</option>
+							<option val="13">공용장비대여</option>
+							<option val="14">주말근무보고서</option>
+							<option val="15">회식보고서</option>
+						</select>
+						</td>
+				</tr>
+				</table>	
 				
 				<center>
 				<div class="page-header">
@@ -115,14 +185,30 @@
 				</center>
 				
 				<div class="form-group">
+					<label class="col-sm-3 control-label" for="doc_emp_name">사원이름</label>
+					<div class="col-sm-3">
+						<input class="form-control" id="c_emp_name" name="emp_name" type="text"
+							placeholder="사원이름">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="doc-emp_no">사원번호</label>
+					<div class="col-sm-3">
+						<input class="form-control" id="c_emp_no" name="emp_no" type="text"
+							placeholder="사원번호">
+					</div>
+				</div>
+			
+				<!-- <div class="form-group">
 					<label class="col-sm-3 control-label" for="inputEmail">담당부서</label>
 					<div class="col-sm-3">
-						<input class="form-control" id="inputEmail" type="email"
+						<input class="form-control" id="inputEmail" type="text"
 							placeholder="담당부서">
 					</div>
 					<div class="btn-group">
 
-						<!-- 버튼태그 -->
+						버튼태그
 
 						<button class="btn btn-default dropdown-toggle" type="button"
 							data-toggle="dropdown">
@@ -138,11 +224,11 @@
 							<li><a href="#">사운드팀</a></li>
 						</ul>
 					</div>
-				</div>
+				</div> -->
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="doc_name">제목</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="doc_name" type="name"
+						<input class="form-control" id="doc_title" name="title" type="text"
 							placeholder="제목">
 
 					</div>
@@ -150,9 +236,9 @@
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="doc-start-date">시행일자</label>
-					<div class="col-sm-2" style="padding-right: 0px;">
+					<div class="col-sm-2" style="padding-right: 0px;" >
 
-						<div class='input-group date' id='datetimepicker1'>
+						<div class='input-group date' id='fromDate' name="up_date">
 							<input type='text' class="form-control" /> <span
 								class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"></span>
@@ -165,7 +251,7 @@
 					<label class="col-sm-2 control-label" for="doc-end-date">종료일자</label>
 					<div class="col-sm-2" style="padding-left: 0px;">
 
-						<div class='input-group date' id='datetimepicker2'>
+						<div class='input-group date' id='toDate' name="toDate">
 							<input type='text' class="form-control" /> <span
 								class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"></span>
@@ -176,27 +262,20 @@
 
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="doc-data">내용</label>
+					<label class="col-sm-3 control-label" for="doc-content">내용</label>
 					<div class="col-sm-6">
-						<textarea class="form-control" rows="20"></textarea>
+						<textarea class="form-control" id="d_content" name="content" rows="20"></textarea>
 					</div>
 				</div>
 
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="doc-emp">공람자</label>
-					<div class="col-sm-3">
-						<input class="form-control" id="inputEmail" type="email"
-							placeholder="공람자">
-					</div>
-				</div>
 		</div>
 	
 		<div class="form-group">
 			<div class="col-sm-12 text-center">
-				<button id="btn_pay" class="btn btn-primary" onclick="insert()">
+				<button id="btn_pay" class="btn btn-primary" onclick="javascript:insert()">
 					입력<i class="fa fa-check spaceLeft"></i>
 				</button>
-				<button id="btn_pay" class="btn btn-primary">
+				<button id="btn_pay" class="btn btn-primary" onclick="javascript:reset()">
 					취소<i class="fa fa-check spaceLeft"></i>
 				</button>
 			</div>

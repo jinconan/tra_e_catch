@@ -33,17 +33,6 @@ public class SqlPayDao {
 		
 		return paymentList;
 	}
-	//문서 번호 채번할 때
-	public int getDoc() {
-		int doc_no = 0;//전체 레코드 수를 담을 변수
-		doc_no = sqlSessionTemplate.selectOne("getDoc");
-		return doc_no;
-	}
-	public int getEmp() {
-		int emp_no = 0;//전체 레코드 수를 담을 변수
-		emp_no = sqlSessionTemplate.selectOne("getEmp");
-		return emp_no;
-	}
 	//기안문서 입력
 	public int epayInsert(PaymentVO pVO) {
 		int result = 0;
@@ -66,6 +55,27 @@ public class SqlPayDao {
 		sqlSessionTemplate.insert("restinsert", pMap);
 		return null;
 	}
+	public List<Map<String, Object>> getPaymentDao(Map<String, Object> map) {
+		logger.info("getPaymentDao진입");
+		logger.info(map);
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		list = sqlSessionTemplate.selectList("getPaymentList",map);
+		return list;
+	}
+	//문서 번호 채번할 때
+	public int getDoc() {
+		int doc_no = 0;//전체 레코드 수를 담을 변수
+		doc_no = sqlSessionTemplate.insert("getDoc",doc_no);
+		return doc_no;
+	}
+	public int getEmp() {
+		int emp_no = 0;//전체 레코드 수를 담을 변수
+		emp_no = sqlSessionTemplate.insert("getEmp",emp_no);
+		return emp_no;
+	}
+
+	
+	
 //결재 대기 문서 
 	public List<Map<String, Object>> getEpayWaitList(Map<String, Object> pMap ) {
 		logger.info("Dao EpaywaitList 호출성공");
@@ -73,8 +83,6 @@ public class SqlPayDao {
 		EpayWaitList = sqlSessionTemplate.selectList("getEpayWaitList", pMap);
 		return EpayWaitList;
 	}
-	
-	
 }
 		
 		

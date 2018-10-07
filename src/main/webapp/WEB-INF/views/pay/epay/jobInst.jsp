@@ -77,16 +77,16 @@
 					<div class="form-group">
 					<label class="col-sm-3 control-label" for="inputEmail">거래처</label>
 					<div class="col-sm-3">
-						<input class="form-control" id="c_name" name="c_name" type="email"
+						<input class="form-control" id="c_name" name="c_name" type="text"
 							placeholder="거래처">
 					</div>
 					</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="inputPassword">제목</label>
 					<div class="col-sm-6">
-					<form id = "inputTitle" name="title">
-						<input class="form-control" id="inputTitle" name="title" type="password"
-							placeholder="제목">
+					<form id = "title" name="title" method="post">
+						<input class="form-control" id="title" name="title" type="text"
+							placeholder="제목">${paymentinfo.title}
 						</form>
 					</div>
 				</div>
@@ -97,9 +97,9 @@
 
 						<div class='input-group date' id='datetimepicker1'>
 						<form id="up_date" name="up_date">
-							<input type='text' class="form-control" /> <span
-								class="input-group-addon"> <span
-								class="glyphicon glyphicon-calendar"></span>
+							<input type='text' class="form-control" />${paymentinfo.up_date} 
+							<span class="input-group-addon"> 
+							<span class="glyphicon glyphicon-calendar"></span>
 							</span>
 							</form>
 						</div>
@@ -123,8 +123,8 @@
 					<label class="col-sm-3 control-label" for="inputEmail">사원코드</label>
 						<div class="col-sm-3">
 					<form id="emp_no" name="emp_no" method="post">
-				<input class="form-control" id="emp_no" name="emp_no" placeholder="사원코드">
-					</form>
+				<input class="form-control" id="emp_no" name="emp_no" placeholder="사원코드">${paymentinfo.emp_no}
+					</form> 
 						</div>
 				</div>		
 				
@@ -133,7 +133,7 @@
 					<label class="col-sm-3 control-label" for="inputEmail">내용</label>
 					<div class="col-sm-6">
 					<form id="content" name = "content" method="post">
-						<textarea class="form-control" id=content name=content rows="10"></textarea>
+						<textarea class="form-control" id=content name=content rows="10">${paymentinfo.content}</textarea>
 					</form>
 					</div>
 				</div>
@@ -145,7 +145,7 @@
 				<button id="btn_pay" class="btn btn-primary" onclick="javascript:jobInst()" >
 					등록<i class="fa fa-check spaceLeft" ></i>
 				</button>
-				<button id="btn_pay" class="btn btn-primary">
+				<button id="btn_pay" class="btn btn-primary" onclick="javascript:reset()">
 					취소<i class="fa fa-check spaceLeft"></i>
 				</button>
 
