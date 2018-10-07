@@ -1,16 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	<% %>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>휴가 양식</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Insert title here</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
-<%
-	
-	 
-%>
+
 <script type="text/javascript">
 	$(function() {
 		$('#datetimepicker1').datetimepicker({
@@ -24,142 +21,90 @@
 	});
 	
 	
-
-
-
-	/*  function listoption(){
-		var optnum = $("#optionnum").val();
-		//alert(optnum);
-		if(optnum=="0"){
-			$.ajax({
-		        method:"POST"
-		        ,url:"/tra_e_catch/epay/jobInst"
-		        ,data:"",
-		        success : function(log){
-		        	
-		        	console.log(log);
-		        	
-		        }
-				,error : function(xhr) {
-					console.log("땡");
-				}
-	        });
-		}
+	function accept(){
+		var emp_no = $("#emp_no").serialize();
+		$.ajax({
+			url:"/tra_e_catch/pay/epay/jobInst"
+			,method:"POST"
+			,data:emp_no,
+			success:function(log){
+			$("#jobtable").html(log);
+			}
+			 ,error:function(Object){
+	    	 alert("error : "+Object.responseText);
+	     }
+		});
+	}
 	
-	} */
+	function jobInst() {
+			
+			$("#emp_no").attr("action","./jobInst/insert");
+			$("#title").attr("action","./jobInst/insert");
+			$("#content").attr("action","./jobInst/insert");
+			$("#up_date").attr("action","./jobInst/insert");
+			$("#emp_no").submit();
+			$("#title").submit();
+			$("#content").submit();
+			$("#up_date").submit(); 
+			alert("등록되었습니다."); 
+		
+	}
 	
 	
-	</script>
+	
+	
+</script>
+
 </head>
 <body>
-<script type="text/javascript">
-	 $(document).ready(function(){
-		$("#btn_Inst").click(function(){
-			$("#f_jobInst").attr("method","post");
-			$("#f_jobInst").attr("action","jobInst.jsp");
-			$("#f_jobInst").sumbit();
-		});
-	}); 
-	 
-	 function insert() {
-		 $("#f_insert").attr("method","post");
-		 $("#f_insert").attr("action","draft.jsp");
-		 $("#f_insert").submit();
-		 
-	 }
-	 
-	
-		
-	 
-</script>	
-	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
+
+
+<%@ include file="/WEB-INF/views/_common/header.jsp"%>
 	<div class="container">
-		<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
-			<form class="form-horizontal" id="f_insert">
-				<div class="col-md-10">
-				
-				<!-- 분류 버튼 -->
-				<div class="btn-group">
-					<button type="button" class="btn btn-default dropdown-toggle"
-						data-toggle="dropdown" aria-expanded="false">
-						분류 <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" role="menu" id="optionum" >
-						<li><a href="#" id="" onClick="">기획서</a></li>
-						<li><a href="#" id="" onClick="">계약서</a></li>
-						<li><a href="#" id="" onClick="">근로계약서</a></li>
-						<li><a href="#" id="" onClick="">고용계약서</a></li>
-						<li><a href="<%=request.getContextPath()%>/pay/epay/jobInst" id="btn_Inst" >작업지시서</a></li>
-						<li><a href="#" id="" onClick="">사직서</a></li>
-						<li><a href="<%=request.getContextPath()%>/pay/epay/restForm" id="" onClick="">휴가</a></li>
-						<li><a href="#" id="" onClick="">외근</a></li>
-						<li><a href="#" id="" onClick="">프로젝트보고서</a></li>
-						<li><a href="#" id="" onClick="">협찬보고서</a></li>
-						<li><a href="#" id="" onClick="">협업승인서</a></li>
-						<li><a href="#" id="" onClick="">공간대여</a></li>
-						<li><a href="#" id="" onClick="">공용장비대여</a></li>
-						<li><a href="#" id="" onClick="">주말근무보고서</a></li>
-						<li><a href="#" id="" onClick="">회식보고서</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-					</ul>
-				</div>
-				
+	<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
+		<div class="col-md-10">
+			
+			<form class="form-horizontal" id="f_jobInst">
 				<center>
+				
 				<div class="page-header">
-					<h1>휴가 신청서</h1>
+					<h1>작업지시서</h1>
 				</div>
 				</center>
-				
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="inputEmail">담당부서</label>
+					<div class="form-group">
+					<label class="col-sm-3 control-label" for="inputEmail">거래처</label>
 					<div class="col-sm-3">
-						<input class="form-control" id="inputEmail" type="email"
-							placeholder="담당부서">
+						<input class="form-control" id="c_name" name="c_name" type="email"
+							placeholder="거래처">
 					</div>
-					<div class="btn-group">
-
-						<!-- 버튼태그 -->
-
-						<button class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown">
-							<span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<li><a href="#">경영팀</a></li>
-							<li><a href="#">관리팀</a></li>
-							<li><a href="#">cs팀</a></li>
-							<li><a href="#">인사팀</a></li>
-							<li><a href="#">외부지원팀</a></li>
-							<li><a href="#">개발팀</a></li>
-							<li><a href="#">사운드팀</a></li>
-						</ul>
 					</div>
-				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="doc_name">제목</label>
+					<label class="col-sm-3 control-label" for="inputPassword">제목</label>
 					<div class="col-sm-6">
-						<input class="form-control" id="doc_name" type="name"
+					<form id = "inputTitle" name="title">
+						<input class="form-control" id="inputTitle" name="title" type="password"
 							placeholder="제목">
-
+						</form>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="doc-start-date">시행일자</label>
+					<label class="col-sm-3 control-label" for="inputNumber">등록일자</label>
 					<div class="col-sm-2" style="padding-right: 0px;">
 
 						<div class='input-group date' id='datetimepicker1'>
+						<form id="up_date" name="up_date">
 							<input type='text' class="form-control" /> <span
 								class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"></span>
 							</span>
+							</form>
 						</div>
 					</div>
 
 
 
-					<label class="col-sm-2 control-label" for="doc-end-date">종료일자</label>
+					<label class="col-sm-2 control-label" for="inputNumber">납기일자</label>
 					<div class="col-sm-2" style="padding-left: 0px;">
 
 						<div class='input-group date' id='datetimepicker2'>
@@ -170,41 +115,45 @@
 						</div>
 					</div>
 				</div>
-
+ 				
+ 				<div class="form-group">
+					<label class="col-sm-3 control-label" for="inputEmail">사원코드</label>
+						<div class="col-sm-3">
+					<form id="emp_no" name="emp_no" method="post">
+				<input class="form-control" id="emp_no" name="emp_no" placeholder="사원코드">
+					</form>
+						</div>
+				</div>		
+				
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="doc-data">내용</label>
+					<label class="col-sm-3 control-label" for="inputEmail">내용</label>
 					<div class="col-sm-6">
-						<textarea class="form-control" rows="20"></textarea>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="doc-emp">공람자</label>
-					<div class="col-sm-3">
-						<input class="form-control" id="inputEmail" type="email"
-							placeholder="공람자">
+					<form id="content" name = "content" method="post">
+						<textarea class="form-control" id=content name=content rows="10"></textarea>
+					</form>
 					</div>
 				</div>
 		</div>
 	
+		
 		<div class="form-group">
 			<div class="col-sm-12 text-center">
-				<button id="btn_pay" class="btn btn-primary" onclick="javascript:insert()">
-					입력<i class="fa fa-check spaceLeft"></i>
+				<button id="btn_pay" class="btn btn-primary" onclick="javascript:jobInst()" onclick="javascript:accept()">
+					등록<i class="fa fa-check spaceLeft" ></i>
 				</button>
 				<button id="btn_pay" class="btn btn-primary">
 					취소<i class="fa fa-check spaceLeft"></i>
 				</button>
+
 			</div>
 		</div>
-	
-		<div class="form-group" id=""></div>
+		<div class="form-group" id="jobtable"></div>
 		</form>
 		<hr>
 	</div>
-
-
+	</div>
+	
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </body>
 </html>

@@ -74,7 +74,7 @@ public class PaymentController {
 	
 
 	// 작업지시서 페이지
-	@RequestMapping(value = "/epay/jobInst", method = RequestMethod.GET)
+	@RequestMapping(value = "/epay/jobInst", method = RequestMethod.POST)
 	public String jobtable(@RequestParam Map<String, Object> pMap,Model mod) {
 		logger.info("jobtable호출");
 		System.out.println(pMap);
@@ -88,15 +88,15 @@ public class PaymentController {
 
 	}
 	// 작업지시서 입력
-	/*@RequestMapping(value = "/jobInst/insert", method = RequestMethod.GET)
-	public String jobInsert(@RequestParam Map<String, Object> pMap) 
+	/*@RequestMapping(value = "/jobInst/insert", method = RequestMethod.POST)
+	public String jobInsert(PaymentVO paymentList) 
 	{	
 		logger.info("jobInsert호출");
 		System.out.println(pMap);
 		List<Map<String,Object>> jobinsert = null;
 		jobinsert = paymentLogic.setJobInsert(pMap);
-		
-		return "pay/epay";
+		 
+		return "pay/epay/draft";
 	}*/
 	//휴가 페이지
 	@RequestMapping(value = "/epay/restForm", method = RequestMethod.POST) 
@@ -116,12 +116,13 @@ public class PaymentController {
 	}
 
 	// 기안 문서
-	@RequestMapping(value = "/epay/draft/{counts}", method = RequestMethod.GET)
-	public String draft(@RequestParam Map<String,Object> pMap, Model mod, @PathVariable int counts) {
+	@RequestMapping(value = "/epay/draft/{counts}", method = RequestMethod.POST)
+	public String draft(@RequestParam Map<String,Object> pMap, Model mod, @PathVariable int counts,ParameterVO parameterList) {
 		logger.info("draft 호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-draft-submenu");
 		mod.addAttribute("curSubMenu", "기안 목록");
 		mod.addAttribute("subMenuList", subMenuList);
+		
 		return "pay/epay/draft";
 	}
 
