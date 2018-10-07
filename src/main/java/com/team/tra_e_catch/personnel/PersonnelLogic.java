@@ -1,11 +1,8 @@
 package com.team.tra_e_catch.personnel;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -220,7 +217,25 @@ public class PersonnelLogic {
 			return null;
 		}
 
+		
+		//급여 지급 페이지에서 나타나는 지급내역
+		public Map<String, Object> getSalHistory(Map<String, Object> pMap) {
+			Map<String, Object> rMap = new HashMap<String, Object>();
+			int total = sqlPerDao.getTotalSalHistory(pMap);
+			List<Map<String, Object>> rows = sqlPerDao.getSalHistory(pMap);
+			rMap.put("total",total);
+			rMap.put("rows", rows);
+			return rMap;
+		}
+
+		public int insertSalary(Map<String, Object> pMap) {
+			return sqlPerDao.insertSalary(pMap);
+		}
 
 
+		public int updateSalary(Map<String, Object> pMap) {
+			return sqlPerDao.updateSalary(pMap);
+			
+		}
 
 }

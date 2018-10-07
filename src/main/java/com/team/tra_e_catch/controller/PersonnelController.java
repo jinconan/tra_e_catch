@@ -299,7 +299,7 @@ public class PersonnelController {
 		public String perEmpList(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
 			logger.info("emplist호출");
 			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
-			mod.addAttribute("curSubMenu", "기획서 리스트");
+			mod.addAttribute("curSubMenu", "사원 명부");
 			mod.addAttribute("subMenuList", subMenuList);
 			return "per/onlyauthper/emplist";
 		}
@@ -378,7 +378,7 @@ public class PersonnelController {
 		public String empcont(@RequestParam Map<String, Object> pMap, Model mod) {
 			logger.info("고용계약서 조회");
 			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
-			mod.addAttribute("curSubMenu", "기획서 리스트");
+			mod.addAttribute("curSubMenu", "고용계약서");
 			mod.addAttribute("subMenuList", subMenuList);
 			return "per/onlyauthper/empcont";
 		}
@@ -391,10 +391,45 @@ public class PersonnelController {
 	}
 	
 	// 인사정보수정테이블
-		@RequestMapping(value = "/empupdatetable")
-		public String empupdatetable(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
-			req.setAttribute("emp_no", pMap.get("emp_no"));
-			System.out.println(pMap.get("emp_no"));
-			return "per/onlyauthper/updatetable";
-		}
+	@RequestMapping(value = "/empupdatetable")
+	public String empupdatetable(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
+		req.setAttribute("emp_no", pMap.get("emp_no"));
+		System.out.println(pMap.get("emp_no"));
+		return "per/onlyauthper/updatetable";
+	}
+		
+	////////////// 급여 지급////////////////
+	/**
+	 * 급여지급 페이지 요청
+	 * @param mod
+	 * @return
+	 */
+	@RequestMapping(value="/onlyauthper/empSal")
+	public String viewEmpSal(Model mod) {
+		logger.info("viewEmpSal ");
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+		mod.addAttribute("curSubMenu", "사원 급여관리");
+		mod.addAttribute("subMenuList", subMenuList);
+		return "per/onlyauthper/empSal";
+
+	}	
+		
+	/**
+	 * 급여 지급 요청
+	 * @param pMap
+	 * @return
+	 */
+	@RequestMapping(value="/salaryInsert", method=RequestMethod.POST)
+	public String salaryInsert(@RequestParam Map<String, Object> pMap) {
+		logger.info("salaryInsert "+pMap);
+		personnelLogic.insertSalary(pMap);
+		return "redirect:/per/onlyauthper/empSal";
+	}
+	
+	@RequestMapping(value="/empSalUpdate", method=RequestMethod.POST)
+	public String empSalaryUpdate(@RequestParam Map<String, Object> pMap) {
+		logger.info("empSalaryUpdate "+pMap);
+		personnelLogic.updateSalary(pMap);
+		return "redirect:/per/onlyauthper/empSal";
+	}
 }

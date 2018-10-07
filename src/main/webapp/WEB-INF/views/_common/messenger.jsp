@@ -5,15 +5,16 @@
 	<div class="panel-heading">
 		<span>${sessionScope.emp_level}</span>
 		<span>${sessionScope.emp_name}</span>
-		<span>${sessionScope.emp_dept}</span>
+		<span>(${sessionScope.emp_dept})</span>
 	</div>
-	<div style="height:100%;overflow:auto;">
-		<ul id="online_list" class="list-group"></ul>
+	<div style="overflow:auto; height: 336px;">
+		<div class="bg-success text-center">접속자 명단</div>
+		<ul id="online_list" class="list-group" style="margin-bottom: 0px;"></ul>
 	</div>
 </div>
 
 <!-- 채팅창 -->
-<div id="d_chat" class="panel panel-info panel-chat">
+<div id="d_chat" class="panel panel-success panel-chat">
 	<input type="hidden" class="emp_no"/>
 	<input type="hidden" class="emp_level"/> 
 	<input type="hidden" class="emp_name"/> 
@@ -27,15 +28,15 @@
 	</div>
 	<div class="panel-body">
 		<div style="overflow:auto; height: 250px; top: 0px; right: 0px;">
-			<ul class="list-grouplist-group"></ul>
+			<ul class="list-grouplist-group" style="padding:0px;"></ul>
 		</div>
 	</div>
 	<!-- 내부 입력창 -->
-	<div class="input-group">
+	<div class="input-group" style="width:301px; margin-left:15px; margin-right:15px;">
 		<label for="chat_content" class="sr-only control-label">입력창</label>
 		<input type="text" id="chat_content" class="form-control"> 
 		<span class="input-group-btn">
-			 <button id="btn_sendchat" class="btn btn-default" type="button">전송</button>
+			 <button id="btn_sendchat" class="btn btn-primary" type="button">전송</button>
 		</span>
 	</div>
 </div>
@@ -44,7 +45,8 @@
 <!-- 메신저 스크립트 부분 -->
 <script src=" <%=request.getContextPath()%>/resources/js/sockjs.min.js"></script>
 <script>
-	var wsocket = new SockJS("/tra_e_catch/echo-ws");
+	//웹소켓 연결
+	var wsocket = new SockJS("/tra_e_catch/chat-ws");
 	
 	wsocket.onopen = function() {
         console.log("연결되었습니다.");
@@ -65,7 +67,7 @@
         	closeMsg(data);
         	break;
         case "clog":
-        	$("#d_chat .list-grouplist-group").text("");
+        	clogMsg(data);
         	break;
         case "chat":
         	chatMsg(data);
@@ -74,7 +76,12 @@
         
     }
 	wsocket.onclose = function () {
-        console.log("연결끊김");
+		if($("#d_chat").is(":visible")) {
+			$("#d_chat .list-grouplist-group").append("<li class='list-group-item alert alert-danger'>메신저와의 연결이 종료되었습니다.</li>");
+		}
+		$("#online_list").html("<li class='list-group-item alert alert-danger'>메신저와의 연결이 종료되었습니다.</li>")
+        $("#btn_sendchat").off();
+		$("#chat_content").off();
     }
 	
 	//채팅 전송 버튼 클릭 이벤트
@@ -112,8 +119,6 @@
 		
 		//접속자 리스트를 받아오는 것에 성공했다면 그것을 접속자 리스트에 출력한다.
 		if(onlineList != null) {
-			console.log("나를 제외한 접속자 수 : " + onlineList.length);
-			
 			for(var i=0;i<onlineList.length;i++) {
 				$("#online_list").append("<li class='list-group-item' onclick='selectEmp($(this))'>"
 						+"<span class='emp_no' style='display:none;'>"+onlineList[i].emp_no+"</span>"
@@ -152,6 +157,23 @@
 	
 	//채팅로그 요청에 대한 응답메시지를 받았을때 함수
 	function clogMsg(data) {
+		var logs = data.logs;
+		console.log(data);
+		$("#d_chat .list-grouplist-group").text("");
+		for(var i=0; i<logs.length;i++) {
+			var newchat = "<li class='list-group-item'>";
+			var fname = "";
+			if(logs[i].from == ${sessionScope.emp_no})
+				fname = "${sessionScope.emp_name}";
+			else
+				fname = $("#d_chat").find(".emp_name").val();
+			newchat += "&lt;<strong>"+fname+"</strong>&gt;";
+			newchat+="<span style='font-size:5px;'>["+logs[i].timestamp+"]</span>";
+    		newchat+="<div>"+logs[i].content+"</div></li>";
+    		$("#d_chat .list-grouplist-group").append(newchat);
+    		$("#d_chat .panel-body>div").scrollTop($("#d_chat .list-grouplist-group")[0].scrollHeight);
+		}
+		
 		
 	}
 	
@@ -164,10 +186,10 @@
     	if(another == data.from || another == data.to) {
     		var newchat = "<li class='list-group-item'>";
     		if(another == data.from)
-    			newchat = newchat +"&lt;"+$("#d_chat").find(".emp_name").val()+"&gt;";
+    			newchat = newchat +"&lt;<strong>"+$("#d_chat").find(".emp_name").val()+"</strong>&gt;";
    			else
-   				newchat = newchat +"&lt;${sessionScope.emp_name}&gt;";	
-			newchat+="<span>["+data.timestamp+"]</span>";
+   				newchat = newchat +"&lt;<strong>${sessionScope.emp_name}</strong>&gt;";	
+			newchat+="<span style='font-size:5px;'>["+data.timestamp+"]</span>";
     		newchat+="<div>"+data.content+"</div></li>";
     		$("#d_chat .list-grouplist-group").append(newchat);
     		$("#d_chat .panel-body>div").scrollTop($("#d_chat .list-grouplist-group")[0].scrollHeight);

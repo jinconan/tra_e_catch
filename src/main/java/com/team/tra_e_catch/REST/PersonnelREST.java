@@ -239,4 +239,19 @@ public class PersonnelREST {
 		System.out.println("고용계약서에 들어오는"+indivList);
 		return indivList;
 	}
+	
+	////////////////급여 지급에서 쓰이는 부분/////////////
+	
+	
+	/**
+	 * 급여내역 json 요청
+	 * @param pMap
+	 * @return
+	 */
+	@RequestMapping(value="salhistory")
+	public Map<String,Object> salHistory(@RequestParam Map<String, Object> pMap) {
+		logger.info("salHistory " + pMap);
+		
+		return personnelLogic.getSalHistory(pMap);
+	}
 }

@@ -20,6 +20,25 @@
 		
 	</select>
 	
+	<insert id="insertChatlog" parameterType="map">
+		INSERT INTO chatlog(chat_no, from_emp_no, to_emp_no, content, chat_date)
+			VALUES(seq_chat_no.nextval, #{from}, #{to}, SUBSTRB(#{content},1,500), TO_CHAR(sysdate,'yyyy-mm-dd hh:mi:ss'))
+	</insert>
+	
+	<select id="getChatlog" resultType="map" parameterType="map">
+		SELECT feno as "from", teno as "to", content as "content", chat_date as "timestamp"
+		FROM (
+		    SELECT  /*+ALL_ROWS */ rownum rno, chat_no, from_emp_no feno, to_emp_no teno, content, chat_date 
+		    FROM chatlog c 
+		        inner join employee fe on c.from_emp_no=fe.emp_no
+		        INNER JOIN employee te on c.to_emp_no=te.emp_no
+		    WHERE (from_emp_no = #{from} AND to_emp_no=#{to}) 
+		        OR (from_emp_no = #{to} AND to_emp_no=#{from})
+		    ORDER BY chat_no desc
+		)
+		ORDER BY chat_no asc
+	</select>
+	
 	<update id="modify"  parameterType="map">
 	UPDATE employee
 		SET 
@@ -28,6 +47,8 @@
 		 ,email_yn = #{cb_recv_email}
 		 WHERE emp_no = #{emp_no}
 	</update>
+	
+	
 	
 	<select id="getOnlineList" parameterType="map" resultType="map">
 		SELECT emp_no as "emp_no", ename as "emp_name", clev as "emp_level", dname as "emp_dept" FROM v_emp

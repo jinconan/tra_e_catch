@@ -187,4 +187,44 @@ select * from v_emp where team_no = (select team_no from v_emp where emp_no = #{
 </where>
 </select>
 	
+	<!-- ==========================급여 지급 페이지에서 사용하는 쿼리문 모음======================== -->
+	<!-- 검색된 급여내역 리스트 -->
+	<select id="getSalHistory" resultType="map" parameterType="map">
+	SELECT *
+	FROM(
+	    SELECT rownum rno, eno, ename, lname, dname, esal, tname, ssal, sname, gdate, snote
+	    FROM(
+	        SELECT e.emp_no eno, e.name ename,l.name lname, d.name dname,e.sal esal
+	            ,t.name tname, S.SAL ssal, s.name sname, s.give_date gdate, snote
+	        FROM employee e
+	            INNER JOIN (
+	                SELECT sal_no, sal, st.stype_no
+	                    ,st.name, st.note stnote
+	                    ,s.note snote, emp_no, give_date
+	                FROM salary s 
+	                    INNER JOIN sal_type st ON s.stype_no = st.stype_no
+	                ORDER BY sal_no asc  
+	            ) s ON e.emp_no = s.emp_no
+	            INNER JOIN department d ON e.dept_no=d.dept_no
+	            INNER JOIN ctlevel l ON e.lev_no=l.lev_no
+	            INNER JOIN team t ON e.team_no=t.team_no
+	        ORDER BY sal_no desc
+	    ) 
+	)
+	WHERE rno between #{offset}+1 and #{offset}+#{limit}
+	</select>
+	<!-- 검색된 급여내역 건 수 -->
+	<select id="getTotalSalHistory" resultType="int" parameterType="map"> 
+	SELECT count(*) FROM salary
+	</select>
+	
+	<insert id="insertSalary" parameterType="map">
+	INSERT INTO salary(sal_no, stype_no, emp_no, sal, give_date, note)
+    VALUES(seq_sal_no.nextval, #{stype}, #{eno}, #{svalue}, TO_CHAR(sysdate,'yyyy-mm-dd'), #{snote})
+	</insert>
+	
+	<update id="updateSalary" parameterType="map">
+	UPDATE employee SET sal=#{msvalue} WHERE emp_no=#{mseno}
+	</update>
+	<!-- ==========================급여 지급 페이지에서 사용하는 쿼리문 모음 끝======================== -->
 </mapper>

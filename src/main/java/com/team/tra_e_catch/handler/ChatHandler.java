@@ -18,8 +18,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class EchoHandler extends TextWebSocketHandler{
-	private Logger logger = Logger.getLogger(EchoHandler.class);
+public class ChatHandler extends TextWebSocketHandler{
+	private Logger logger = Logger.getLogger(ChatHandler.class);
 	private Map<String,WebSocketSession> onlineEmp;
 	public void setOnlineEmp(Map<String,WebSocketSession> onlineEmp) {
 		this.onlineEmp=onlineEmp;
@@ -90,7 +90,7 @@ public class EchoHandler extends TextWebSocketHandler{
 			int from =  (Integer)jsonMap.get("from");
 			int to =  (Integer)jsonMap.get("to");
 			//DB에서 List타입으로 얻음
-			List<Map<String,Object>> logs = new ArrayList<Map<String,Object>>();
+			List<Map<String,Object>> logs = sqlSessionTemplate.selectList("getChatlog", jsonMap);
 			//TextMessage인스턴스화
 			resultMap.put("mtype", mtype);
 			resultMap.put("from", from);
@@ -105,22 +105,37 @@ public class EchoHandler extends TextWebSocketHandler{
 			int from =  (Integer)jsonMap.get("from");
 			int to =  (Integer)jsonMap.get("to");
 			
-			resultMap.put("mtype", mtype);
-			resultMap.put("from", from);
-			resultMap.put("to", to);
-			resultMap.put("content", jsonMap.get("content"));
-			resultMap.put("timestamp", curTime);
+			//DB에 insert
+			int result = sqlSessionTemplate.insert("insertChatlog", jsonMap);
 			
-			jsonResult = mapper.writeValueAsString(resultMap);
-			
-			WebSocketSession recvSocket = onlineEmp.get(Integer.toString(from));
-			if(recvSocket != null)
-				recvSocket.sendMessage(new TextMessage(jsonResult));
-			
-			recvSocket = onlineEmp.get(Integer.toString(to));
-			if(recvSocket != null)
-				recvSocket.sendMessage(new TextMessage(jsonResult));
+			//insert실패시 보낸놈에게 에러 메시지 전송
+			if(result ==0) {
+				resultMap.put("mtype", "error");
+				resultMap.put("errmsg", "서버에서 메시지를 처리하는데 실패했습니다.");
+				jsonResult = mapper.writeValueAsString(resultMap);
+				session.sendMessage(new TextMessage(jsonResult));
+			}
+			//성공시 양측에게 메시지 전달.
+			else {
+				resultMap.put("mtype", mtype);
+				resultMap.put("from", from);
+				resultMap.put("to", to);
+				resultMap.put("content", jsonMap.get("content"));
+				resultMap.put("timestamp", curTime);
+				
+				jsonResult = mapper.writeValueAsString(resultMap);
+				
+				WebSocketSession recvSocket = onlineEmp.get(Integer.toString(from));
+				if(recvSocket != null)
+					recvSocket.sendMessage(new TextMessage(jsonResult));
+				
+				recvSocket = onlineEmp.get(Integer.toString(to));
+				if(recvSocket != null)
+					recvSocket.sendMessage(new TextMessage(jsonResult));
+			}
 		}
+			
+			
 		
 		//잘못된 메시지타입(보낸사람만)
 		else {

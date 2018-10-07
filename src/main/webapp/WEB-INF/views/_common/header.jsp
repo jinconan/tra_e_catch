@@ -6,8 +6,8 @@
 
 %>
 <!-- 맨 위 메뉴 -->
-<header class="navbar bs-docs-nav" id="top" role="banner">
-	<div class="container">
+<header class="navbar" id="top" role="banner">
+	<div class="container-fluid">
 		<!-- 트라2캐치 홈 화면 링크 -->
 		<div class="navbar-header">
 			<a class="navbar-brand" href="<%=contextPath%>/">
@@ -127,5 +127,6 @@ $(window).load(function() {
      $('#loading').hide();  
     });
 </script>
-	<div id="loading"><img id="loading-image" src="<%=request.getContextPath() %>/imgs/ajax-loader.gif" alt="Loading..." /></div>
+<div id="loading">
+	<img id="loading-image" src="<%=request.getContextPath()%>/imgs/ajax-loader.gif" alt="Loading..." />
 </div>

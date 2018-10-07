@@ -19,6 +19,7 @@
 			<exclude-mapping path="/css/**"/>
 			<exclude-mapping path="/js/**"/>
 			<exclude-mapping path="/fonts/**"/>
+			<exclude-mapping path="/imgs/**"/>		
 			<exclude-mapping path="/resources/**"/>
 			<exclude-mapping path="/scv/view/login"/>	
 			<exclude-mapping path="/scv/login"/>	
@@ -31,6 +32,7 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/js/**" location="/resources/js/" />
 	<resources mapping="/fonts/**" location="/resources/fonts/" />
+	<resources mapping="/imgs/**" location="/resources/imgs/" />
 	<resources mapping="/resources/**" location="/resources/" />
 
 

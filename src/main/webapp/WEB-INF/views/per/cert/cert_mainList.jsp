@@ -161,5 +161,6 @@ function listform(){
 			<div id="d_printlist"></div>
 		</div>
 	</div>
+	<jsp:include page="/WEB-INF/views/_common/footer.jsp"/>
 </body>
 </html>

@@ -14,53 +14,93 @@
 </style>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/_common/header.jsp" />
-<div class="container">
-	<div class="row">
+	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
+	<div class="container">
 		<div class="col-sm-4">
-    	    <div class="hero-widget well well-sm">
-                <div class="icon">
-                     <i class="glyphicon glyphicon-user"></i>
-                </div>
-                <div class="text">
-                    <var>3</var>
-                    <label class="text-muted">invited guests</label>
-                </div>
-                <div class="options">
-                    <a href="javascript:;" class="btn btn-primary btn-lg"><i class="glyphicon glyphicon-plus"></i> Add a guest</a>
-                </div>
-            </div>
+			<div class="hero-widget well well-sm">
+				<div class="icon">
+					<i class="glyphicon glyphicon-user"></i>
+				</div>
+				<div class="text">
+					<var>인사</var>
+					<label class="text-muted">Personnel</label>
+				</div>
+				<div class="options">
+					<a href="per/attd/1" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> 출결내역</a>
+				</div>
+			</div>
 		</div>
-        <div class="col-sm-4">
-            <div class="hero-widget well well-sm">
-                <div class="icon">
-                     <i class="glyphicon glyphicon-star"></i>
-                </div>
-                <div class="text">
-                    <var>614</var>
-                    <label class="text-muted">page likes</label>
-                </div>
-                <div class="options">
-                    <a href="javascript:;" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> View traffic</a>
-                </div>
-            </div>
+		<div class="col-sm-4">
+			<div class="hero-widget well well-sm">
+				<div class="icon">
+					<i class="glyphicon glyphicon-shopping-cart"></i>
+				</div>
+				<div class="text">
+					<var>상품</var>
+					<label class="text-muted">Product</label>
+				</div>
+				<div class="options">
+					<a href="prod/view/prodStat" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> 상품 통계</a>
+				</div>
+			</div>
 		</div>
-        <div class="col-sm-4">
-            <div class="hero-widget well well-sm">
-                <div class="icon">
-                     <i class="glyphicon glyphicon-tags"></i>
-                </div>
-                <div class="text">
-                    <var>73</var>
-                    <label class="text-muted">total orders</label>
-                </div>
-                <div class="options">
-                    <a href="javascript:;" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> View orders</a>
-                </div>
-            </div>
-    	</div>
+		<div class="col-sm-4">
+			<div class="hero-widget well well-sm">
+				<div class="icon">
+					<i class="glyphicon glyphicon-briefcase"></i>
+				</div>
+				<div class="text">
+					<var>상품기획</var>
+					<label class="text-muted">Product Planning</label>
+				</div>
+				<div class="options">
+					<a href="plan/view/propList" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> 기획서</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="hero-widget well well-sm">
+				<div class="icon">
+					<i class="glyphicon glyphicon-credit-card"></i>
+				</div>
+				<div class="text">
+					<var>전자결재</var>
+					<label class="text-muted">Draft</label>
+				</div>
+				<div class="options">
+					<a href="pay/epay" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i>기안서 작성</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="hero-widget well well-sm">
+				<div class="icon">
+					<i class="glyphicon glyphicon-piggy-bank"></i>
+				</div>
+				<div class="text">
+					<var>회계</var>
+					<label class="text-muted">Accounting</label>
+				</div>
+				<div class="options">
+					<a href="acc/slip/in" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> 전표작성</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="hero-widget well well-sm">
+				<div class="icon">
+					<i class="glyphicon glyphicon-cog"></i>
+				</div>
+				<div class="text">
+					<var>My</var>
+					<label class="text-muted">My page</label>
+				</div>
+				<div class="options">
+					<a href="scv/logout" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> 로그아웃</a>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
-<jsp:include page="/WEB-INF/views/_common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </body>
 </html>

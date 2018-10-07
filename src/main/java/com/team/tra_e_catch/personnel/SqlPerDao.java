@@ -180,6 +180,65 @@ public class SqlPerDao {
 			sqlSessionTemplate.update("deptUpdate",pMap);
 			return null;
 		}
+		
+		//조건하에 검색된 급여내역의 건 수.
+		public int getTotalSalHistory(Map<String, Object> pMap) {
+			logger.info("getTotalSalHistory");
+			int result = 0;
+			try {
+				result = sqlSessionTemplate.selectOne("getTotalSalHistory", pMap);
+			} catch(Exception e) {
+				logger.error(e.toString());
+			}
+			
+			return result;
+		}
+		
+		//조건하에 검색된 급여내역의 리스트 조회
+		public List<Map<String, Object>> getSalHistory(Map<String, Object> pMap) {
+			logger.info("getTotalSalHistory");
+			List<Map<String, Object>> result = null;
+			try {
+				result = sqlSessionTemplate.selectList("getSalHistory", pMap);
+			} catch(Exception e) {
+				logger.error(e.toString());
+				result = new ArrayList<Map<String,Object>>();
+			}
+			
+			return result;
+		}
+		public List<Map<String, Object>> getEmpListForSalary() {
+			logger.info("getEmpListForSalary");
+			List<Map<String, Object>> result = null;
+			try {
+				result = sqlSessionTemplate.selectList("getEmpListForSalary");
+			} catch(Exception e) {
+				logger.error(e.toString());
+				result = new ArrayList<Map<String,Object>>();
+			}
+			return result;
+		}
 
-	
+		public int insertSalary(Map<String, Object> pMap) {
+			logger.info("insertSalary");
+			int result = 0;
+			try {
+				result = sqlSessionTemplate.selectOne("insertSalary", pMap);
+			} catch(Exception e) {
+				logger.error(e.toString());
+			}
+			
+			return result;
+		}
+		public int updateSalary(Map<String, Object> pMap) {
+			logger.info("updateSalary");
+			int result = 0;
+			try {
+				result = sqlSessionTemplate.selectOne("updateSalary", pMap);
+			} catch(Exception e) {
+				logger.error(e.toString());
+			}
+			
+			return result;
+		}
 }
