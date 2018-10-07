@@ -40,4 +40,8 @@
 	footer { position: absolute; bottom: 0; left: 0; right: 0; 
 		background-color: #333333;
 		color: #fffff0;}
+		
+	.input-group .form-control {
+    z-index: 0;
+}
 </style>

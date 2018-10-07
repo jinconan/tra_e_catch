@@ -80,24 +80,24 @@
 	<insert id="restInsert" parameterType="map">
 		insert into docs values(#{emp_no},100,null,'휴가',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'휴가')
 	</insert>
-	
-	 <!-- 근로계약서 -->
+<!-- 	
+	 근로계약서
+	 <insert id="" parameterType="map">
+	  
+	 
+	 </insert>
+	 
+	 고용계약서
 	 <insert id="" parameterType="map">
 	 
 	 
 	 </insert>
 	 
-	 <!-- 고용계약서 -->
+	 프로젝트 기안서
 	 <insert id="" parameterType="map">
 	 
 	 
-	 </insert>
-	 
-	 <!-- 프로젝트 기안서 -->
-	 <insert id="" parameterType="map">
-	 
-	 
-	 </insert>
+	 </insert> -->
 
 
 	<select id="getEpayWaitList" parameterType="map" resultType="map">

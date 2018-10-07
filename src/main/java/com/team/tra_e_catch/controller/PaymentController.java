@@ -117,7 +117,8 @@ public class PaymentController {
 
 	// 기안 문서
 	@RequestMapping(value = "/epay/draft/{counts}", method = RequestMethod.POST)
-	public String draft(@RequestParam Map<String,Object> pMap, Model mod, @PathVariable int counts,ParameterVO parameterList) {
+	public String draft(@RequestParam Map<String,Object> pMap, Model mod, @PathVariable int counts) {
+//	public String draft(@RequestParam Map<String,Object> pMap, Model mod, @PathVariable int counts,ParameterVO parameterList) {
 		logger.info("draft 호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-draft-submenu");
 		mod.addAttribute("curSubMenu", "기안 목록");
