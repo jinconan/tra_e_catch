@@ -54,32 +54,29 @@ public class PaymentREST {
 		List<Map<String, Object>> as = accountingLogic.teamR_Logic();
 		return as;
 	}*/
+	//결제 대기 문서 
 	@RequestMapping("epay/epaywait")
-	private List<Map<String,Object>> epaywaitlist(@RequestParam Map<String,Object>pMap,HttpServletRequest req){
+	private Map<String,Object> epaywaitlist(@RequestParam Map<String,Object>pMap,HttpServletRequest req){
 		logger.info("epaywaitlist 호출 성공");
-		List<Map<String,Object>> epaywaitList = null;
 		System.out.println("epaywaitList에 들어가는 : " +pMap);
 		HttpSession session = req.getSession();
 		String semp_no = String.valueOf(session.getAttribute("emp_no"));
 		int emp_no = Integer.parseInt(semp_no);
-		epaywaitList = paymentLogic.getEpayWaitList(pMap);
-		pMap.put("emp_no", emp_no);
+		pMap.put("eno", emp_no);
+		Map<String,Object> rMap = paymentLogic.getEpayWaitList(pMap);
 		logger.info("REST emp_no :" +emp_no);
-		logger.info(epaywaitList);
-		return epaywaitList;
+		logger.info(rMap);
+		return rMap;
 	}
-		
-/*	@RequestMapping("epay/draft/{counts}")
-	private List<Map<String, Object>> getEpayList(@RequestParam Map<String,Object> pMap, @PathVariable int counts
-			,Model mod,HttpServletResponse res)
-	{
-		logger.info(counts+"번 payR진입");
-		List<Map<String, Object>> paymentList = null;	
-		pMap.put("counts",counts);
-		paymentList = paymentLogic.getPaymentList(pMap);
-		mod.addAttribute("paymentList", paymentList.size());
-		return paymentList;
-	}*/
+	//결제 문서 폼
+		@RequestMapping(value = "epay/epayform")
+		public List<Map<String, Object>> empform(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
+			List<Map<String, Object>> empform = null;
+			System.out.println("기안문서에 들어오는"+pMap);
+			empform = paymentLogic.getEpayform(pMap);
+			System.out.println("결제기안문서에 들어오는"+empform);
+			return empform;
+		}
 	@RequestMapping("epay/draft/t/{counts}")
 	private List<Map<String, Object>> searchList(@PathVariable int counts,Model mod,HttpServletRequest req) {
 		logger.info("payR_t진입");
