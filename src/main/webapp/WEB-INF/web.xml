@@ -9,6 +9,30 @@
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
 	
+	
+
+	
+	<!-- 스프링 디바이스 필터 -->
+	<filter>
+		<filter-name>deviceResolverRequestFilter</filter-name>
+		<filter-class>org.springframework.mobile.device.DeviceResolverRequestFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>deviceResolverRequestFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>checkDeviceFilter</filter-name>
+		<filter-class>com.team.tra_e_catch.filter.CheckDeviceFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>checkDeviceFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+	
 	<!-- 스프링에서 제공하는 API를 활용하여 한글처리하기 (filter) -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -32,6 +56,8 @@
           <filter-name>MultipartFilter</filter-name>
           <url-pattern>/</url-pattern>
      </filter-mapping>
+
+	
 	
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
