@@ -6,6 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<%
+int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no"))); //사원정보 받는 곳
+%>
 </head>
 <body>
 	<script type="text/javascript">
@@ -43,7 +46,12 @@
 					$("#exampleModalupdate").modal('show'); 
 				}
 			});
-		
+			var emp_nochk = <%=addemp_no%>;
+
+			if(emp_nochk>3){
+				alert("인사권자 전용 페이지 입니다.");
+				location.href='<%=request.getContextPath()%>/';
+			}
 		
 	}); 
 	</script>

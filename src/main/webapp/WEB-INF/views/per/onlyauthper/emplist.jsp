@@ -5,6 +5,11 @@
 <head>
 <title>사원명부</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<%
+
+int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no"))); //사원정보 받는 곳
+
+%>
 <script type="text/javascript">
 function accept(){
 var lev_no = $("#f_info").serialize();
@@ -20,6 +25,27 @@ var lev_no = $("#f_info").serialize();
      }
 	});
 }
+
+$(function() {
+var emp_nochk = <%=addemp_no%>;
+
+if(emp_nochk>3){
+	alert("인사권자 전용 페이지 입니다.");
+	location.href='<%=request.getContextPath()%>/';
+}
+<%-- var adminno= <%=adminemp_no%>;
+	/* alert(adminno);//emp_no정상적으로 가져옴 */
+	$("#adminacc").click(function() {
+		if(adminno>3){
+			alert("인사권자 전용페이지 입니다.");
+			$("#adminacc").attr("href", "<%=contextPath%>/")
+			<li><a href="<%=contextPath%>/per/empList" id="adminacc">인사권자 전용</a></li>
+		}
+	}) --%>
+});
+
+
+
 </script>
 	
 </head>

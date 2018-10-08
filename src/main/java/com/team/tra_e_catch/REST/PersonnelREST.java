@@ -148,6 +148,7 @@ public class PersonnelREST {
 		List<Map<String, Object>> sourcingList = null;
 		/*		pMap.put("emp_no", req.getParameter("emp_no").toString());*/
 		System.out.println("viewsourcinglist에 들어가는 : "+pMap);
+		pMap.put("in_emp_no", pMap.get("emp_no"));
 		sourcingList = personnelLogic.getSourcingList(pMap);
 		logger.info(sourcingList);
 		return sourcingList;

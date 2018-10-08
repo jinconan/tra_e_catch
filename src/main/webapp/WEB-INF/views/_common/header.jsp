@@ -3,10 +3,11 @@
 <%
 	String contextPath = request.getContextPath();
 	Object emp_no = session.getAttribute("emp_no");
-
+	
 %>
 <!-- 맨 위 메뉴 -->
 <header class="navbar" id="top" role="banner">
+
 	<div class="container-fluid">
 		<!-- 트라2캐치 홈 화면 링크 -->
 		<div class="navbar-header">
@@ -29,7 +30,7 @@
 						<li><a href="<%=contextPath%>/per/salary/1">급여관리</a></li>
 						<li><a href="<%=contextPath%>/per/rating/perrating">인사고과</a></li>
 						<li class="divider"></li>
-						<li><a href="<%=contextPath%>/per/empList">인사권자 전용</a></li>
+						<li><a href="<%=contextPath%>/per/empList" id="adminacc">인사권자 전용</a></li>
 					</ul>
 				</li>
 				<!-- 상품 업무 메뉴 -->
