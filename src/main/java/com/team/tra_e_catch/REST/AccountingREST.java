@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.team.tra_e_catch.accounting.AccountingLogic;
-import com.team.tra_e_catch.accounting.Arrrtd;
+import com.team.tra_e_catch.accounting.Acc_VO;
 
 
 /*

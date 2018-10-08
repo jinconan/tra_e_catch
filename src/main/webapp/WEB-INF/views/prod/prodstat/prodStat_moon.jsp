@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<%@ include file="/WEB-INF/views/_common/loading.jsp"%>
 <title>Insert title here</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <%

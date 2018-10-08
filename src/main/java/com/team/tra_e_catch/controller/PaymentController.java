@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-import com.team.tra_e_catch.accounting.Arrrtd;
+import com.team.tra_e_catch.accounting.Acc_VO;
 import com.team.tra_e_catch.payment.PaymentLogic;
 import com.team.tra_e_catch.payment.PaymentVO;
 import com.team.tra_e_catch.payment.SqlPayDao;

@@ -39,7 +39,7 @@
 						상품<span class="glyphicon glyphicon-shopping-cart"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="<%=contextPath%>/prod/view/prodInven">재고관리</a></li>
+						<li><a href="<%=contextPath%>/prod/view/prodInven/1">상품관리</a></li>
 						<li><a href="<%=contextPath%>/prod/view/prodStat">상품통계</a></li>
 						<li><a href="<%=contextPath%>/prod/view/prodTran/1">상품관리</a></li>
 					</ul>
@@ -122,12 +122,3 @@
 	z-index: 100;
 }
 </style>
-
-<script type="text/javascript">
-$(window).load(function() {    
-     $('#loading').hide();  
-    });
-</script>
-<div id="loading">
-	<img id="loading-image" src="<%=request.getContextPath()%>/imgs/ajax-loader.gif" alt="Loading..." />
-</div>

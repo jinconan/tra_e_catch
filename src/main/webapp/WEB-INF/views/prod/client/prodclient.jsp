@@ -19,14 +19,19 @@
 <script type="text/javascript">
 $(function() {
 	$('#p_table').bootstrapTable({
-		url : '<%=request.getContextPath()%>/proR/Inven/<%=counts%><%=datas%>',	
+		url : '<%=request.getContextPath()%>/proR/client/<%=counts%><%=datas%>',	
 		onClickRow : function(row,$element, field) {
 			console.log(row.번호);
-			$("#updateno").html(row.상품코드);	
-			$("#updatename").html(row.이름);
-			$("#updateno1").val(row.상품코드);	
-			$("#updatename2").val(row.이름);
-			$("#updatecost").val(row.가격);	
+			$("#client").val(row.업체번호);	
+			$("#client1").html(row.업체번호);
+			$("#client1").val(row.업체번호);	
+			$("#client2").html(row.업체명);
+			$("#client2").val(row.업체명);
+			$("#client3").val(row.업체주소);	
+			$("#client4").val(row.업체전화번호);
+			$("#client5").val(row.담당자전화번호);	
+			$("#client6").val(row.사업자번호);	
+			$("#client6").html(row.사업자번호);	
 			$("#exampleModal").modal('show');
 			test();/* test메소드에 아작스 처리하면 됨 쀼쀼 */
 		}
@@ -86,12 +91,12 @@ function exampleModalInsert(){
 		      <thead>
 				  	    <tr>
 				  	    	<th data-field="순번">순번</th>
-				  			<th data-field="상품코드">상품코드</th>
-				  			<th data-field="타입">타입</th>
-				  			<th data-field="이름">이름</th>
-				  			<th data-field="판매여부">판매여부</th>
-				  			<th data-field="가격">가격</th>
-				 			<th data-field="등록일자">등록일자</th>
+				  			<th data-field="업체번호">업체번호</th>
+				  			<th data-field="업체명">업체명</th>
+				  			<th data-field="업체주소">업체주소</th>
+				  			<th data-field="업체전화번호">업체전화번호</th>
+				  			<th data-field="담당자전화번호">담당자전화번호</th>
+				 			<th data-field="사업자번호">사업자번호</th>
 				  		</tr>
 				  	</thead>
 				  	<tbody>				  		
@@ -103,21 +108,21 @@ function exampleModalInsert(){
 					<div class="col-xs-8 .col-md-10">
 						<nav>
 							<ul class="pagination">
-								<li><a href="<%=request.getContextPath()%>/prod/view/prodInven/1<%=datas%>" aria-label="Previous"><span
+								<li><a href="<%=request.getContextPath()%>/prod/view/client/1<%=datas%>" aria-label="Previous"><span
 										aria-hidden="true"> << </span></a></li>
-								<li><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list-1%><%=datas%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
-								<li id="liid1"><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list%><%=datas%>"><%=list%><span class="sr-only">(current)</span></a></li>
-								<li id="liid2"><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list+1%><%=datas%>"><%=list+1%><span class="sr-only">(current)</span></a></li>
-								<li id="liid3"><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list+2%><%=datas%>"><%=list+2%><span class="sr-only">(current)</span></a></li>
-								<li id="liid4"><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list+3%><%=datas%>"><%=list+3%><span class="sr-only">(current)</span></a></li>
-								<li id="liid5"><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list+4%><%=datas%>"><%=list+4%><span class="sr-only">(current)</span></a></li>
-								<li id="liid6"><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list+5%><%=datas%>"><%=list+5%><span class="sr-only">(current)</span></a></li>
-								<li id="liid7"><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list+6%><%=datas%>"><%=list+6%><span class="sr-only">(current)</span></a></li>
-								<li id="liid8"><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list+7%><%=datas%>"><%=list+7%><span class="sr-only">(current)</span></a></li>
-								<li id="liid9"><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list+8%><%=datas%>"><%=list+8%><span class="sr-only">(current)</span></a></li>
-								<li id="liid0"><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list+9%><%=datas%>"><%=list+9%> <span class="sr-only">(current)</span></a></li>
-								<li><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list+10%><%=datas%>" aria-label="Previous"><span aria-hidden="true"> > </span></a></li>
-								<li><a href="<%=request.getContextPath()%>/prod/view/prodInven/<%=list+100%><%=datas%>" aria-label="Previous"><span aria-hidden="true"> >> </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/prod/view/client/<%=list-1%><%=datas%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
+								<li id="liid1"><a href="<%=request.getContextPath()%>/prod/view/client/<%=list%><%=datas%>"><%=list%><span class="sr-only">(current)</span></a></li>
+								<li id="liid2"><a href="<%=request.getContextPath()%>/prod/view/client/<%=list+1%><%=datas%>"><%=list+1%><span class="sr-only">(current)</span></a></li>
+								<li id="liid3"><a href="<%=request.getContextPath()%>/prod/view/client/<%=list+2%><%=datas%>"><%=list+2%><span class="sr-only">(current)</span></a></li>
+								<li id="liid4"><a href="<%=request.getContextPath()%>/prod/view/client/<%=list+3%><%=datas%>"><%=list+3%><span class="sr-only">(current)</span></a></li>
+								<li id="liid5"><a href="<%=request.getContextPath()%>/prod/view/client/<%=list+4%><%=datas%>"><%=list+4%><span class="sr-only">(current)</span></a></li>
+								<li id="liid6"><a href="<%=request.getContextPath()%>/prod/view/client/<%=list+5%><%=datas%>"><%=list+5%><span class="sr-only">(current)</span></a></li>
+								<li id="liid7"><a href="<%=request.getContextPath()%>/prod/view/client/<%=list+6%><%=datas%>"><%=list+6%><span class="sr-only">(current)</span></a></li>
+								<li id="liid8"><a href="<%=request.getContextPath()%>/prod/view/client/<%=list+7%><%=datas%>"><%=list+7%><span class="sr-only">(current)</span></a></li>
+								<li id="liid9"><a href="<%=request.getContextPath()%>/prod/view/client/<%=list+8%><%=datas%>"><%=list+8%><span class="sr-only">(current)</span></a></li>
+								<li id="liid0"><a href="<%=request.getContextPath()%>/prod/view/client/<%=list+9%><%=datas%>"><%=list+9%> <span class="sr-only">(current)</span></a></li>
+								<li><a href="<%=request.getContextPath()%>/prod/view/client/<%=list+10%><%=datas%>" aria-label="Previous"><span aria-hidden="true"> > </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/prod/view/client/<%=list+100%><%=datas%>" aria-label="Previous"><span aria-hidden="true"> >> </span></a></li>
 							</ul>
 						</nav>
 					</div>
@@ -143,28 +148,31 @@ function exampleModalInsert(){
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 						</button>
-						<h4 class="modal-title" id="myModalLabel">부서정보 변경</h4>
+						<h4 class="modal-title" id="myModalLabel">거래처 등록</h4>
 					</div>
 					<div class="modal-body">
 						<div class="row">
 							<div class=" col-xs-offset-3 col-xs-6">
 								<div class="well">
 									<div class="form-group">
-										<label for="new_dept_no" class="control-label">결제 방식 </label>
-										<select class="form-control" name="opt">
-											<option value = "100">디지털 소프트웨어</option>
-											<option value = "200">CD타이틀</option>
-											<option value = "300">DLC</option>
-											<option value = "400">굿즈</option>
-										</select> <span class="help-block"></span>
+										<label for="name" class="control-label">업체명</label>
+										<div id="select1"><input type="text" name = "업체명"></div>
 									</div>
 									<div class="form-group">
-										<label for="name" class="control-label">상품명</label>
-										<div id="select1"><input type="text" name = "name"></div>
+										<label for="name" class="control-label">업체주소</label>
+										<div><input id="select2" type="text" name = "업체주소"></div>
 									</div>
 									<div class="form-group">
-										<label for="new_dept_name" class="control-label">가격</label>
-										<div id="select2"><input type="text" name = "cost"></div>
+										<label for="name" class="control-label">업체전화번호</label>
+										<div><input id="select3" type="text" name = "업체전화번호"></div>
+									</div>
+									<div class="form-group">
+										<label for="name" class="control-label">담당자전화번호</label>
+										<div><input id="select4" type="text" name = "담당자전화번호"></div>
+									</div>
+									<div class="form-group">
+										<label for="name" class="control-label">사업자번호</label>
+										<div id="select5"><input type="text" name = "사업자번호"></div>
 									</div>
 								</div>
 							</div>
@@ -186,39 +194,41 @@ function exampleModalInsert(){
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document" style="width: 635px">
 		    <div class="modal-content" aria-hidden="true">
-				<form id="f_deptinsert"  action="<%=request.getContextPath()%>/Inven_update" method="POST" enctype="multipart/form-data" class="form-horizontal">
-					<input type="hidden" name="up1" id = "updateno1">
-					<input type="hidden" name="up2" id = "updatename2">
+				<form id="f_deptinsert"  action="<%=request.getContextPath()%>/client_update" method="POST" enctype="multipart/form-data" class="form-horizontal">
+					<input type="hidden" name="cost0" id = "client">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 						</button>
-						<h4 class="modal-title" id="myModalLabel">부서정보 추가</h4>
+						<h4 class="modal-title" id="myModalLabel">거래처 변경</h4>
 					</div>
 					<div class="modal-body">
 						<div class="row">
 							<div class=" col-xs-offset-3 col-xs-6">
-								<div class="well">
+								<div class="well"> 
 									<div class="form-group">
 										<label for="name" class="control-label">업체번호</label>
-										<div id="update1"><label for="name" class="control-label" id = "updateno" ></label></div>
+										<div id="client1"><label for="name" class="control-label" id = "client1" ></label></div>
 									</div>
 									<div class="form-group">
 										<label for="name" class="control-label">업체명</label>
-										<div id="update1"><label for="name" class="control-label" id = "updatename" ></label></div>
+										<div id="client2"><label for="name" class="control-label" id = "client2" ></label></div>
 									</div>
 									<div class="form-group">
-										<label for="new_dept_name" class="control-label">가격</label>
-										<div id="select2"><input type="text" name = "cost" id = "updatecost"></div>
+										<label for="new_dept_name" class="control-label">업체주소</label>
+										<div ><input type="text" name = "cost1" id = "client3"></div>
 									</div>
 									<div class="form-group">
-										<label for="new_dept_name" class="control-label">판매여부</label>
-										<div id="select2">
-											<select class="form-control" name="yn">
-												<option value = "1">판매중</option>
-												<option value = "0">판매종료</option>
-											</select>
-										</div>
+										<label for="new_dept_name" class="control-label">업체전화번호</label>
+										<div ><input type="text" name = "cost2" id = "client4"></div>
+									</div>
+									<div class="form-group">
+										<label for="new_dept_name" class="control-label">담당자전화번호</label>
+										<div ><input type="text" name = "cost3" id = "client5"></div>
+									</div>
+									<div class="form-group">
+										<label for="new_dept_name" class="control-label">사업자번호</label>
+										<div id="client6"><label for="name" class="control-label" id = "client6" ></label></div>
 									</div>
 								</div>
 							</div>

@@ -31,19 +31,46 @@
 	            )where ROWNUM >  #{counts}*10-10 and ROWNUM <#{counts}*10+1 
     ]]>
 	</select>
-	
-	
-	
-	<select id="moon_list" parameterType="int"  resultType="Map">
+	<select id="emp_list" parameterType="String"  resultType="int">
+		<![CDATA[
+			select LEV_NO from EMPLOYEE where EMP_NO = #{emp_no}
+		]]>
+	</select>
+	<select id="moon_lists" parameterType="int"  resultType="Map">
 		<![CDATA[
 			select distinct(substr(hire_date, 1, 4)) as day from employee
             order by substr(hire_date, 1, 4)
+		]]>
+	</select>
+	<select id="client_list" parameterType="int"  resultType="Map">
+		<![CDATA[
+			  select 순번, 업체번호, 업체명, 업체주소, 업체전화번호, 담당자전화번호, 사업자번호 from(
+				  select rownum as 순번, 업체번호, 업체명, 업체주소, 업체전화번호, 담당자전화번호, 사업자번호 from(      
+				  select C_NO as 업체번호, NAME as 업체명, ADDR as 업체주소, CONTACT as 업체전화번호, TPIC_CONTACT as 담당자전화번호, CONTNUM as 사업자번호 from CLIENT      
+				  order by C_NO)
+			  ) where 순번 >  #{counts}*10-10 and 순번 <#{counts}*10+1   
+		]]>
+	</select>
+	<select id="orInvenRlist" parameterType="int"  resultType="Map">
+		<![CDATA[
+			select 순번,상품코드,타입, 이름, 판매여부, 가격, 등록일자 from 
+				(select rownum as 순번,상품코드,타입, 이름, 판매여부, 가격, 등록일자 from
+					(select PROD_NO as 상품코드,  B.NAME as 이름,A.NAME as 타입,decode(SALE_YN,1,'판매중','판매종료') as 판매여부,COST as 가격,REG_DATE as 등록일자   from PROD_TYPE A
+					    LEFT JOIN product B on A.PTYPE_NO = B.PTYPE_NO
+					    order by REG_DATE desc))
+		    where 순번 >  #{counts}*10-10 and 순번 <#{counts}*10+1 
 		]]>
 	</select>
 	
 	<insert id="Tran_init" parameterType="Map">	
 		<![CDATA[
 		insert into PROD_HISTORY (VOLUME,PAY_DATE,PTYPE_NO,PHIST_NO,CPROD_NO) values(#{new_dept_note},TO_CHAR(sysdate,'YYYY-MM-DD HH24:MI'),#{opt},SEQ_PHIST_NO.nextval,#{goods})
+		 ]]> 
+	</insert>
+	
+	<insert id="CLIENT_init" parameterType="Map">	
+		<![CDATA[
+		insert into CLIENT(C_NO,NAME,ADDR,CONTACT,TPIC_CONTACT,CONTNUM) values(SEQ_CLIENT_NO.nextval,#{업체명},#{업체주소},#{업체전화번호},#{담당자전화번호},#{사업자번호})
 		 ]]> 
 	</insert>
 
@@ -76,7 +103,21 @@
 		update PROD_HISTORY set VOLUME = #{거래량} where PHIST_NO = #{결제코드}
 			    ]]>
 	</update>
+	<update id="Inven_update" parameterType="Map">
+		<![CDATA[
+				update product set cost = #{cost} , SALE_YN = #{yn} where PROD_NO = #{up1}
+		]]>
+	</update>
+	<update id="CLIENT_update" parameterType="Map">
+		<![CDATA[
+			update CLIENT set ADDR = #{cost1},CONTACT = #{cost2}, TPIC_CONTACT = #{cost3}  where  C_NO = #{cost0}
+		]]>
+	</update>
 	
+	
+	<select id="Inven_init" statementType="CALLABLE" parameterType="Map">	
+		CALL product_Indate(#{name},#{opt},#{cost})
+	</select>
 	
 	<select id="Pro_ct_Chart" statementType="CALLABLE" parameterType="Map"  resultType="java.util.TreeMap">	
 		CALL pro_CLIENT_PROD_list(#{counst},#{day},#{yn},#{chart_Plan1, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=chart_Plan1})

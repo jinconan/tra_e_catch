@@ -9,6 +9,7 @@
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <title>Insert title here</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<%@ include file="/WEB-INF/views/_common/loading.jsp"%>
 <%
 	int counts = (Integer)request.getAttribute("counts");
 	int day = (Integer)request.getAttribute("day");

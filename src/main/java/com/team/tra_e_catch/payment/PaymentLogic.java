@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.team.tra_e_catch.accounting.Arrrtd;
+import com.team.tra_e_catch.accounting.Acc_VO;
 
 @Service
 public class PaymentLogic {
@@ -40,7 +40,7 @@ public class PaymentLogic {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("counst", counst);
 		map.put("emp_no", emp_no);
-		Arrrtd arr = new Arrrtd();
+		Acc_VO arr = new Acc_VO();
 		arr.initDate(res,map);
 		paymentList = sqlPayDao.getPaymentDao(map);
 		return paymentList;
