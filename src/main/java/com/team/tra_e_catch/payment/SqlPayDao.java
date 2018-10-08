@@ -54,9 +54,24 @@ public class SqlPayDao {
 		logger.info("Dao EpaywaitList 호출성공");
 		List<Map<String,Object>> EpayWaitList = null;
 		EpayWaitList = sqlSessionTemplate.selectList("getEpayWaitList", pMap);
-		
 		return EpayWaitList;
 	}
+	public int getTotalEpayWaitList(Map<String, Object> pMap) {
+		logger.info("Dao EpaywaitList 호출성공");
+		int result = 0;
+		result = sqlSessionTemplate.selectOne("getTotalEpayWaitList", pMap);
+		return result;
+	}
+	
+	
+	//결제 문서 폼
+	public List<Map<String, Object>> getEpayform(Map<String, Object> pMap) {
+		logger.info("Dao getEpayform 호출성공");
+		List<Map<String,Object>> epayform = null;
+		epayform = sqlSessionTemplate.selectList("getEpayform", pMap);
+		return epayform;
+	}
+	
 	
 }
 		

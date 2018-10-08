@@ -46,11 +46,23 @@ public class PaymentLogic {
 		return result;
 	}
 
-	public List<Map<String, Object>> getEpayWaitList(Map<String, Object> pMap) {
+	public Map<String, Object> getEpayWaitList(Map<String, Object> pMap) {
 		logger.info("getEpayWaitList 호출성공");
+		
+		Map<String, Object> rMap = new HashMap<String, Object>();
 		List<Map<String,Object>> epaywaitList = null; 
 		epaywaitList = sqlPayDao.getEpayWaitList(pMap);
-		return epaywaitList;
+		int total = sqlPayDao.getTotalEpayWaitList(pMap);
+		rMap.put("total", total);
+		rMap.put("rows", epaywaitList);
+		return rMap;
+	}
+
+	public List<Map<String, Object>> getEpayform(Map<String, Object> pMap) {
+		logger.info("getEpayform 호출성공");
+		List<Map<String,Object>> epayform = null;
+		epayform = sqlPayDao.getEpayform(pMap);
+		return epayform;
 	}
 
 }
