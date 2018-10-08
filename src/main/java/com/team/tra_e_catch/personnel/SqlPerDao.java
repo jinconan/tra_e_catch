@@ -157,6 +157,7 @@ public class SqlPerDao {
 			deptList = sqlSessionTemplate.selectList("getDeptList",pMap);
 			return deptList;
 		}
+
 		public List<Map<String, Object>> updateEmployee(Map<String, Object> pMap) {
 			// TODO Auto-generated method stub
 			List<Map<String, Object>> updateList = null;
@@ -240,5 +241,27 @@ public class SqlPerDao {
 			}
 			
 			return result;
+		}
+		//팀정보 인서트
+		public List<Map<String, Object>> teamInsert(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			
+			sqlSessionTemplate.insert("teamInsert",pMap);
+				return null;
+		}
+		//개인 근무평정 기간분류
+		public List<Map<String, Object>> getQuarList(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String, Object>> quarlist = null;
+			quarlist = sqlSessionTemplate.selectList("getQuarList",pMap);
+			return quarlist;
+		}
+		//인사권자의견
+		public List<Map<String, Object>> getLeaderView(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String, Object>> leaderview = null;
+			leaderview = sqlSessionTemplate.selectList("getLeaderView",pMap);
+			System.out.println("받는값 : "+leaderview.get(0));
+			return leaderview;
 		}
 }

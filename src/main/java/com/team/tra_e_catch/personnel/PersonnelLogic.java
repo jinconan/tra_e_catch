@@ -238,4 +238,27 @@ public class PersonnelLogic {
 			
 		}
 
+		//팀추가 로직
+		public List<Map<String, Object>> teamInsert(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String,Object>> teaminsert = null;
+			teaminsert = sqlPerDao.teamInsert(pMap);
+			return null;
+		}
+
+		//개인평정 확인 분기 리스트
+		public List<Map<String, Object>> getQuarList(Map<String, Object> pMap) {
+			List<Map<String,Object>> quarlist = null;
+			quarlist = sqlPerDao.getQuarList(pMap);
+			return quarlist;
+		}
+
+		//인사권자의견
+		public List<Map<String, Object>> getleaderView(Map<String, Object> pMap) {
+			// TODO Auto-generated method stub
+			List<Map<String,Object>> leaderview = null;
+			leaderview = sqlPerDao.getLeaderView(pMap);
+			return leaderview;
+		}
+
 }

@@ -5,11 +5,21 @@
 <head>
 <title>트라E캐치 - 인사권자 전용 - 사원 급여관리</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<%
+int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no"))); //사원정보 받는 곳
+%>
 <script type="text/javascript">
 $(function() {
 	$('#f_gsmodal').on('load-success.bs.table', function (e,data) {
 	    $('#f_gsmodal').bootstrapTable('resetView', 100);
 	});
+
+var emp_nochk = <%=addemp_no%>;
+
+if(emp_nochk>3){
+	alert("인사권자 전용 페이지 입니다.");
+	location.href='<%=request.getContextPath()%>/';
+}
 })
 </script>
 </head>

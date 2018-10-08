@@ -8,7 +8,7 @@
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 </head>
 <%
-String emp_no = request.getParameter("emp_no").toString();
+String emp_no = request.getParameter("in_emp_no").toString();
 System.out.println("뾰롱"+emp_no);
 %>
 <body>

@@ -16,6 +16,24 @@ set name = #{up_dept_name},
 
 </update>
 
+
+
+<select id="getQuarList" parameterType="map" resultType="map">
+<![CDATA[
+select content, write_date, quarter, rownum rno from SERVRATING
+ where emp_no = #{emp_no} and writer_emp_no = 2 and rownum<5  order by quarter desc
+ 	 ]]>
+</select>
+
+
+<!-- 인사권자 의견 -->
+<select id="getLeaderView" parameterType="map" resultType="map">
+<![CDATA[
+select content, write_date, quarter, rownum rno 
+from SERVRATING where emp_no =  #{emp_no} and writer_emp_no = 2 and quarter = #{i_quarter} and rownum<5  order by quarter desc
+ 	 ]]>
+</select>
+
 <!-- 전체 팀리스트 -->
 <select id="getTeamListView" parameterType="map" resultType="map">
 select * from team
@@ -24,7 +42,7 @@ select * from team
 
 <select id="updateEmployee" statementType="CALLABLE" parameterType="hashmap">
 
-  {CALL proc_updateemp(#{emp_no},
+  {CALL proc_updateemp(#{in_emp_no},
   					   #{emp_name, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
   					   #{af_dept, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
   					   #{af_ctlev, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
@@ -34,7 +52,10 @@ select * from team
 
 <!-- 부서리스트 -->
 <select id="getDeptList" parameterType="map" resultType="map">
-select * from department
+             select * from
+    (select dept_no, name, note, rownum as rno
+     from department order by dept_no)
+     where rno betWeen  #{counts}*10-9 and  #{counts}*10 order by dept_no, rno asc
 </select>
 
 <!-- 근무지리스트 -->
@@ -57,7 +78,7 @@ select * from docs where emp_no = #{emp_no} and dtype_no = 910
 <!-- 고용계약서 -->
 <select id="viewSourcingList" parameterType="map" resultType="map">
 <!-- select * from docs where emp_no = #{emp_no} -->
-select * from docs where emp_no = #{emp_no} and dtype_no = 920
+select * from docs where emp_no = #{in_emp_no} and dtype_no = 920
 	 
 </select>
 
@@ -84,6 +105,15 @@ insert into certlist
 insert into department
      values(#{new_dept_no},#{new_dept_name},#{new_dept_note})
 </insert>
+
+<insert id="teamInsert" parameterType="map">
+
+insert into team
+     values(#{new_dept_no},#{new_dept_name})
+</insert>
+
+
+
 
 <select id="viewDeptList" parameterType="map" resultType="map">
 select * from department

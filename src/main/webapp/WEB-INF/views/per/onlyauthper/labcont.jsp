@@ -6,9 +6,33 @@
 <meta charset="UTF-8">
 <title></title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<%
+
+int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no"))); //사원정보 받는 곳
+%>
 <script type="text/javascript">
+
+$(function() {
+
+	var emp_nochk = <%=addemp_no%>;
+
+if(emp_nochk>3){
+	alert("인사권자 전용 페이지 입니다.");
+	location.href='<%=request.getContextPath()%>/';
+}
+
+ $("#i_emp_no").keypress(function(e) {
+	
+	if(e.which==13 ||event.keyCode == 13) {
+		$("#in_emp_no").val($("#i_emp_no").val());
+		accept();
+		}
+	});
+}); 
+
 	function accept(){
-		var emp_no = $("#f_emp_no").serialize();
+		$("#in_emp_no").val($("#i_emp_no").val());
+		var emp_no = $("#in_emp_no").serialize();
 		$.ajax({
 			url:"/tra_e_catch/per/labtable"
 			,method:"POST"
@@ -27,6 +51,8 @@
 		alert("등록되었습니다.");
 		
 	}
+	
+	
 </script>
 </head>
 <body>
@@ -42,8 +68,10 @@
 			
 				<label class="col-sm-3 control-label" for="inputEmail">사원코드</label>
 				<div class="col-sm-3">
+			
+				<input class="form-control" id="i_emp_no" placeholder="사원코드">
 				<form id="f_emp_no" method="post">
-				<input class="form-control" id="emp_no" name="emp_no" placeholder="사원코드">
+				<input type="hidden" id="in_emp_no" name="in_emp_no">
 				</form>
 						</div>
 				

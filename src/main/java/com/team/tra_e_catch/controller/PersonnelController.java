@@ -78,11 +78,15 @@ public class PersonnelController {
 	}
 	//인사발령 메인
 	@RequestMapping(value = "/onlyauthper/empupdate")
-	public String empUpdate(@RequestParam Map<String, Object> pMap, Model mod) {
+	public String empUpdate(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
 		logger.info("empUpdate호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 		mod.addAttribute("curSubMenu", "인사정보 수정");
 		mod.addAttribute("subMenuList", subMenuList);
+		HttpSession session = req.getSession();
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
+		
 		return "per/onlyauthper/empupdate";
 	}
 	// 기안서폼 임시저장
@@ -234,10 +238,14 @@ public class PersonnelController {
 		}
 		
 		// 부서정보 수정
-				@RequestMapping(value = "/onlyauthper/deptupdatelist")
-				public String deptupdatelist(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
+				@RequestMapping(value = "/onlyauthper/deptupdatelist/{counts}")
+				public String deptupdatelist(@RequestParam Map<String, Object> pMap,@PathVariable int counts, Model mod, HttpServletRequest req) {
 					logger.info("deptupdatelist호출");
 					List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+					HttpSession session = req.getSession();
+					String semp_no = String.valueOf(session.getAttribute("emp_no"));
+					int emp_no = Integer.parseInt(semp_no);			
+					mod.addAttribute("counts", counts);
 					mod.addAttribute("curSubMenu", "부서관리");
 					mod.addAttribute("subMenuList", subMenuList);
 				
@@ -268,6 +276,17 @@ public class PersonnelController {
 					deptinsertinfo = personnelLogic.deptInsert(pMap);
 					return "per/onlyauthper/deptinsert";
 				}
+				// 팀정보 인서트
+				@RequestMapping(value = "/onlyauthper/teaminsert")
+				public String teamInsert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
+					logger.info("deptinsert호출");
+					List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+					mod.addAttribute("curSubMenu", "부서관리");
+					mod.addAttribute("subMenuList", subMenuList);
+					List<Map<String, Object>> teaminsertinfo = null;
+					teaminsertinfo = personnelLogic.teamInsert(pMap);
+					return "per/onlyauthper/deptinsert";
+				}
 	
 	@RequestMapping(value = "/attdinsert")
 	public String attdInsert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
@@ -291,16 +310,22 @@ public class PersonnelController {
 		List<Map<String, Object>> empinsert = null;
 		System.out.println("사원정보 : "+pMap);
 		/*attdinfo = personnelLogic.setAttdInsert(pMap);*/
+		HttpSession session= req.getSession();
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
 		empinsert = personnelLogic.EmpInsert(pMap);
 		return "per/onlyauthper/empRegist";
 	}
 	// 사원명부
 		@RequestMapping(value = "/empList")
-		public String perEmpList(@RequestParam Map<String, Object> pMap, Model mod, HttpServletResponse res) {
+		public String perEmpList(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
 			logger.info("emplist호출");
 			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 			mod.addAttribute("curSubMenu", "사원 명부");
 			mod.addAttribute("subMenuList", subMenuList);
+			HttpSession session= req.getSession();
+			String semp_no = String.valueOf(session.getAttribute("emp_no"));
+			int emp_no = Integer.parseInt(semp_no);
 			return "per/onlyauthper/emplist";
 		}
 
@@ -323,11 +348,14 @@ public class PersonnelController {
 
 	// 근로계약서 관리
 	@RequestMapping(value = "/labcont")
-	public String labcont(Locale locale, Model mod) {
+	public String labcont(Locale locale, Model mod, HttpServletRequest req) {
 		logger.info("labcont호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 		mod.addAttribute("curSubMenu", "근로계약서 관리");
 		mod.addAttribute("subMenuList", subMenuList);
+		HttpSession session= req.getSession();
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);		
 		return "per/onlyauthper/labcont";
 	}
 	//고용계약서 뷰
@@ -361,13 +389,17 @@ public class PersonnelController {
 
 	//고용계약서 등록
 		@RequestMapping(value = "/sourcing/insert")
-		public String empsourcinginsert(@RequestParam Map<String, Object> pMap,Model mod) {
+		public String empsourcinginsert(@RequestParam Map<String, Object> pMap,Model mod, HttpServletRequest req) {
 			logger.info("empsourcinginsert호출");
 			System.out.println(pMap);//정상적으로 emp_no가 들어있음.
 			List<Map<String, Object>> sourcinginsert = null;
 			System.out.println(pMap);
 			sourcinginsert = personnelLogic.empsourcingInsert(pMap);
 			List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+			
+			HttpSession session= req.getSession();
+			String semp_no = String.valueOf(session.getAttribute("emp_no"));
+			int emp_no = Integer.parseInt(semp_no);		
 			mod.addAttribute("curSubMenu", "기획서 리스트");
 			mod.addAttribute("subMenuList", subMenuList);
 			return "per/onlyauthper/empcont";
@@ -384,9 +416,8 @@ public class PersonnelController {
 		}
 		
 	// 근로계약서 조회 테이블
-	@RequestMapping(value = "/empconttable", method = RequestMethod.GET)
+	@RequestMapping(value = "/empconttable")
 	public String empconttable(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is");
 		return "per/onlyauthper/empconttable";
 	}
 	
@@ -405,11 +436,15 @@ public class PersonnelController {
 	 * @return
 	 */
 	@RequestMapping(value="/onlyauthper/empSal")
-	public String viewEmpSal(Model mod) {
+	public String viewEmpSal(Model mod, HttpServletRequest req) {
 		logger.info("viewEmpSal ");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 		mod.addAttribute("curSubMenu", "사원 급여관리");
 		mod.addAttribute("subMenuList", subMenuList);
+		HttpSession session= req.getSession();
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
+
 		return "per/onlyauthper/empSal";
 
 	}	

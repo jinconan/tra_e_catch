@@ -15,15 +15,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<%
+int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no"))); //사원정보 받는 곳
+
+%>
 <title>직원등록</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
 	$(document).ready(function() {
+		var emp_nochk = <%=addemp_no%>;
+
+		if(emp_nochk>3){
+			alert("인사권자 전용 페이지 입니다.");
+			location.href='<%=request.getContextPath()%>/';
+		}
 		$(".form_datetime").datetimepicker({
 			format : 'yyyy-mm-dd'
 			, minView : 2
 			, 
 		});
+		
 		$.ajax({
 			url:'<%=request.getContextPath()%>/perR/lev/list',
 			type: "json",

@@ -6,8 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<%
+int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no"))); //사원정보 받는 곳
+%>
 <script type="text/javascript">
 function accept(){
+	$("#in_emp_no").val($("#i_emp_no").val());
 	var emp_no = $("#f_emp_no").serialize();
 	
 	$.ajax({
@@ -28,6 +32,23 @@ function sourcinginsert(){
 	alert("등록되었습니다.");
 	
 }
+
+$(function() {
+var emp_nochk = <%=addemp_no%>;
+
+if(emp_nochk>3){
+	alert("인사권자 전용 페이지 입니다.");
+	location.href='<%=request.getContextPath()%>/';
+}
+$("#i_emp_no").keypress(function(e) {
+	
+	if(e.which==13 ||event.keyCode == 13) {
+		$("#in_emp_no").val($("#i_emp_no").val());
+		accept();
+		}
+	});
+
+});
 </script>
 </head>
 <body>
@@ -43,9 +64,9 @@ function sourcinginsert(){
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="inputEmail">사원코드</label>
 				<div class="col-sm-3">
-				<form id="f_emp_no" method="post">
-					<input class="form-control" id="emp_no" name="emp_no"
-						placeholder="사원코드">
+					<input class="form-control" id="i_emp_no" placeholder="사원코드">
+              	<form id="f_emp_no" method="post">
+              	<input type="hidden" id="in_emp_no" name="in_emp_no">
               	</form>
 				</div>
 				<div class="col-sm-1 text-center" style="padding-left: 1px;">
