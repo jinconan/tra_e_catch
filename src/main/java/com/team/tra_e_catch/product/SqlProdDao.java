@@ -51,7 +51,7 @@ public class SqlProdDao {
 	public List<Map<String, Object>> moon_List_Deo() {
 		logger.info("moon_Deo진입");
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		list = sqlSessionTemplate.selectList("moon_list");
+		list = sqlSessionTemplate.selectList("moon_lists");
 		return list;
 	}
 
@@ -96,5 +96,44 @@ public class SqlProdDao {
 		// TODO Auto-generated method stub
 		logger.info("getTRANupdate_Dao진입");
 		sqlSessionTemplate.selectList("tran_update",pMap);
+	}
+
+	public List<Map<String, Object>> InvenR_Dao(Map<String, Object> map) {
+		logger.info("InvenR_Dao진입" + map);
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		list = sqlSessionTemplate.selectList("orInvenRlist",map);
+		return list;
+	}
+
+	public void Inven_init_Dao(Map<String, String> map) {
+		logger.info("Tran_init_Dao 도착"+map);
+		sqlSessionTemplate.selectOne("Inven_init",map);
+	}
+	public void Inven_update_Dao(Map<String, String> map) {
+		logger.info("Tran_init_Dao 도착"+map);
+		sqlSessionTemplate.update("Inven_update",map);
+	}
+
+	public int emp_Dao(String emp_no) {
+		// TODO Auto-generated method stub
+		logger.info("emp_Dao진입");
+		return sqlSessionTemplate.selectOne("emp_list",emp_no);
+	}
+
+	public List<Map<String, Object>> clientR_Dao(Map<String, Object> map) {
+		logger.info("clientR_Dao진입" + map);
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		list = sqlSessionTemplate.selectList("client_list",map);
+		return list;
+	}
+
+	public void client_init_Dao(Map<String, Object> map) {
+		logger.info("client_init_Dao 도착"+map);
+		sqlSessionTemplate.insert("CLIENT_init",map);
+	}
+
+	public void client_update_Dao(Map<String, Object> map) {
+		logger.info("client_update_Dao 도착"+map);
+		sqlSessionTemplate.update("CLIENT_update",map);
 	}
 }

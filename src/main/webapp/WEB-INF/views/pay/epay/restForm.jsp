@@ -68,7 +68,7 @@
 				<center>
 				
 				<div class="page-header">
-					<h1>작업지시서</h1>
+					<h1>휴가신청서</h1>
 				</div>
 				</center>
 					<div class="form-group">

@@ -42,6 +42,20 @@ public class ProductREST {
 		logger.info(as);
 		return as;
 	}
+	@RequestMapping("/Inven/{counts}")
+	private List<Map<String, Object>> Inven(@PathVariable int counts,HttpServletRequest req) {
+		logger.info("Inven 진입");
+		List<Map<String, Object>> as = productLogic.InvenR_Logic(counts,req);
+		logger.info(as);
+		return as;
+	}
+	@RequestMapping("/client/{counts}")
+	private List<Map<String, Object>> client(@PathVariable int counts,HttpServletRequest req) {
+		logger.info("client 진입");
+		List<Map<String, Object>> as = productLogic.clientR_Logic(counts,req);
+		logger.info(as);
+		return as;
+	}
 	@RequestMapping("/trancli")
 	private List<Map<String, Object>> teamcli() {
 		logger.info("teamcli 진입");

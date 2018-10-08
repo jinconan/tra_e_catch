@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.team.tra_e_catch.accounting.AccountingLogic;
-import com.team.tra_e_catch.accounting.Arrrtd;
+import com.team.tra_e_catch.accounting.Acc_VO;
 
 
 /*
@@ -87,7 +87,7 @@ public class AccountingController {
 		mod.addAttribute("curSubMenu", "팀운영비 관리");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("counts", counts);		
-		Arrrtd arr = new Arrrtd();
+		Acc_VO arr = new Acc_VO();
 		mod.addAttribute("datas",arr.outDate(res));
 		return "acc/teamexp/team_main";
 	}
@@ -182,7 +182,7 @@ public class AccountingController {
 		mod.addAttribute("curSubMenu", "복지지원비 조회");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("counts", counts);	
-		Arrrtd arr = new Arrrtd();
+		Acc_VO arr = new Acc_VO();
 		mod.addAttribute("datas",arr.outDate(res));
 		return "acc/welfare/wel_main";
 	}

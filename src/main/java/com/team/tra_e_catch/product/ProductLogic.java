@@ -30,7 +30,7 @@ public class ProductLogic {
 		logger.info("TeamR_Logic진입");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("counts", counts);
-		Arrrtd arr = new Arrrtd();
+		Prod_VO arr = new Prod_VO();
 		arr.initDate(res, map);
 		List<Map<String, Object>> s = sqlProdDao.tranR_Dao(map);
 		return s;
@@ -108,5 +108,45 @@ public class ProductLogic {
 		// TODO Auto-generated method stub
 		sqlProdDao.getTRANupdate_Dao(pMap);
 		return null;
+	}
+
+	public List<Map<String, Object>> InvenR_Logic(int counts, HttpServletRequest res) {
+		logger.info("TeamR_Logic진입");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("counts", counts);
+		List<Map<String, Object>> s = sqlProdDao.InvenR_Dao(map);
+		return s;
+	}
+
+	public void Inven_init_Logic(Map<String, String> map) {
+		logger.info("Inven_init_Logic진입");
+		sqlProdDao.Inven_init_Dao(map);
+	}
+	public void Inven_update_Logic(Map<String, String> map) {
+		logger.info("Inven_update_Logic진입");
+		sqlProdDao.Inven_update_Dao(map);
+	}
+
+	public int emp_test(String emp_no) {
+		// TODO Auto-generated method stub
+		return sqlProdDao.emp_Dao(emp_no);
+	}
+
+	public List<Map<String, Object>> clientR_Logic(int counts, HttpServletRequest req) {
+		logger.info("clientR_Logic진입");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("counts", counts);
+		List<Map<String, Object>> s = sqlProdDao.clientR_Dao(map);
+		return s;
+	}
+
+	public void client_init_Logic(Map<String, Object> map) {
+		logger.info("client_init_Logic진입");
+		sqlProdDao.client_init_Dao(map);
+	}
+
+	public void client_update_Logic(Map<String, Object> map) {
+		logger.info("client_update_Logic진입");
+		sqlProdDao.client_update_Dao(map);
 	}
 }

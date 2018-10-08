@@ -4,7 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class Arrrtd {
+public class Acc_VO {
 
 	
 	public void initDate(HttpServletRequest res,Map<String, Object> map) {		

@@ -54,7 +54,7 @@ public class AccountingLogic {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("counst", counst);
 		map.put("emp_no", emp_no);
-		Arrrtd arr = new Arrrtd();
+		Acc_VO arr = new Acc_VO();
 		arr.initDate(res,map);
 		s = sqlAccDao.t_Team_Dao(map);
 		gbrun(s);
@@ -69,7 +69,7 @@ public class AccountingLogic {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("counst", counst);
 		map.put("emp_no", emp_no);
-		Arrrtd arr = new Arrrtd();
+		Acc_VO arr = new Acc_VO();
 		arr.initDate(res,map);
 		s = sqlAccDao.b_Team_Dao(map);
 		gbrun(s);
