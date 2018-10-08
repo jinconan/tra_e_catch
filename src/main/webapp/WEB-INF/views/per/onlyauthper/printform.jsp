@@ -13,6 +13,9 @@
 <%
 String emp_no = String.valueOf(request.getAttribute("emp_no"));
 
+
+
+
 %>
 <script type="text/javascript">
 $(function() {
@@ -41,7 +44,7 @@ $(function() {
 
 </script>
 <form id="f_emp_no" method="post">
-<input type="hidden" id="emp_no" value="<%=emp_no %>">
+<input type="hidden" id="emp_no" name="in_emp_no" value="<%=emp_no %>">
 </form>
 	<table border="1" style="width: 600px;" align="center" id="printtable">
 		<tr>
