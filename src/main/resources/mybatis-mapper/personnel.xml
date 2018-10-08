@@ -16,6 +16,24 @@ set name = #{up_dept_name},
 
 </update>
 
+
+
+<select id="getQuarList" parameterType="map" resultType="map">
+<![CDATA[
+select content, write_date, quarter, rownum rno from SERVRATING
+ where emp_no = #{emp_no} and writer_emp_no = 2 and rownum<5  order by quarter desc
+ 	 ]]>
+</select>
+
+
+<!-- 인사권자 의견 -->
+<select id="getLeaderView" parameterType="map" resultType="map">
+<![CDATA[
+select content, write_date, quarter, rownum rno 
+from SERVRATING where emp_no =  #{emp_no} and writer_emp_no = 2 and quarter = #{i_quarter} and rownum<5  order by quarter desc
+ 	 ]]>
+</select>
+
 <!-- 전체 팀리스트 -->
 <select id="getTeamListView" parameterType="map" resultType="map">
 select * from team
@@ -34,7 +52,10 @@ select * from team
 
 <!-- 부서리스트 -->
 <select id="getDeptList" parameterType="map" resultType="map">
-select * from department
+             select * from
+    (select dept_no, name, note, rownum as rno
+     from department order by dept_no)
+     where rno betWeen  #{counts}*10-9 and  #{counts}*10 order by dept_no, rno asc
 </select>
 
 <!-- 근무지리스트 -->
@@ -84,6 +105,15 @@ insert into certlist
 insert into department
      values(#{new_dept_no},#{new_dept_name},#{new_dept_note})
 </insert>
+
+<insert id="teamInsert" parameterType="map">
+
+insert into team
+     values(#{new_dept_no},#{new_dept_name})
+</insert>
+
+
+
 
 <select id="viewDeptList" parameterType="map" resultType="map">
 select * from department

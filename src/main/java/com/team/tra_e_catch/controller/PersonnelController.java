@@ -238,13 +238,14 @@ public class PersonnelController {
 		}
 		
 		// 부서정보 수정
-				@RequestMapping(value = "/onlyauthper/deptupdatelist")
-				public String deptupdatelist(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
+				@RequestMapping(value = "/onlyauthper/deptupdatelist/{counts}")
+				public String deptupdatelist(@RequestParam Map<String, Object> pMap,@PathVariable int counts, Model mod, HttpServletRequest req) {
 					logger.info("deptupdatelist호출");
 					List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
 					HttpSession session = req.getSession();
 					String semp_no = String.valueOf(session.getAttribute("emp_no"));
-					int emp_no = Integer.parseInt(semp_no);					
+					int emp_no = Integer.parseInt(semp_no);			
+					mod.addAttribute("counts", counts);
 					mod.addAttribute("curSubMenu", "부서관리");
 					mod.addAttribute("subMenuList", subMenuList);
 				
@@ -273,6 +274,17 @@ public class PersonnelController {
 					mod.addAttribute("subMenuList", subMenuList);
 					List<Map<String, Object>> deptinsertinfo = null;
 					deptinsertinfo = personnelLogic.deptInsert(pMap);
+					return "per/onlyauthper/deptinsert";
+				}
+				// 팀정보 인서트
+				@RequestMapping(value = "/onlyauthper/teaminsert")
+				public String teamInsert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
+					logger.info("deptinsert호출");
+					List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+					mod.addAttribute("curSubMenu", "부서관리");
+					mod.addAttribute("subMenuList", subMenuList);
+					List<Map<String, Object>> teaminsertinfo = null;
+					teaminsertinfo = personnelLogic.teamInsert(pMap);
 					return "per/onlyauthper/deptinsert";
 				}
 	

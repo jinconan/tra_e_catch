@@ -34,8 +34,7 @@ $(function() {
 			$("#email").append(log[0].EMAIL);//이메일
 			$("#dname").append(log[0].DNAME);//근무부서
 			$("#conename").text(log[0].ENAME);
-			
-		}
+					}
 	})
 	 
 });

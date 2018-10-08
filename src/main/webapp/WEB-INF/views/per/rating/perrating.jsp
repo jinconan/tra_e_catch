@@ -36,10 +36,40 @@ $(function() {
 			}
 		}
 	})
-	 
-
+	
+	//개인 평정 작성 분기
+	 $.ajax({
+		url:'<%=request.getContextPath()%>/perR/rating/quar',
+		type: "json",
+		success: function(data){
+			for(i in data){
+				$("#ranknum").append("<option val="+data[i].RNO+">"+data[i].QUARTER+"</option>");
+				
+			}
+			
+		}
+	})
 
 });
+function isselect(){
+
+	$("#i_quarter").val($("#ranknum option:selected").val());
+	var testindex = $("#f_quarter").serialize();
+	//인사권자의견 평정 작성 분기
+$.ajax({
+	url:'<%=request.getContextPath()%>/perR/rating/leader',
+	method:"POST",
+	type: "json",
+	data: testindex,
+	success: function(data){
+		for(i in data){
+			$("#insa").text(data[i].CONTENT);
+	}
+			
+		}
+		
+	})
+}
 
 function isok(){
 /* 	alert("저장되었습니다."); */
@@ -87,14 +117,13 @@ function isok(){
 					<div class="col-xs-7">
 						<textarea class="form-control" rows="4" placeholder="개인평가를 작성해 주세요" id="w_content"name="w_content"></textarea>
 						<br>
-						<select class="form-control" id="ranknum">
-							<option value="0">분기 선택</option>
-							<option value="1">2018-06</option>
-							<option value="2">2017-12</option>
-							<option value="3">2017-06</option>
-							<option value="4">2016-12</option>
-							<option value="5">2016-06</option>
-						</select>
+						<div class="col-xs-12" style="padding-left: 0px; padding-right: 0px;">
+						<select class="form-control col-xs-6" id="ranknum" style="width: 78%;">
+						</select> 
+						&nbsp; &nbsp;<button type="button" class="btn btn-primary" onclick="javascript:isselect()">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 검색</button>
+
+						</div>
 						<textarea class="form-control" id="insa" rows="3" readonly=""></textarea>
 					</div>
 					</div>
@@ -111,7 +140,7 @@ function isok(){
 						<select class="form-control" id="e_list" name="e_list">
 
 						</select>
-						<textarea class="form-control" rows="5" placeholder="숨김상태로 있다가 팀원 을 선택하게되면 자동으로 창을 띄울 생각 님들은 어떰?" name="e_content"id="e_content"></textarea>
+						<textarea class="form-control" rows="5" placeholder="" name="e_content"id="e_content"></textarea>
 					</div>
 					</div>
 
@@ -145,6 +174,11 @@ function isok(){
 		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Remove
 	</button>
 	</div>
+							<form id="f_quarter" method="post">
+						<input type="hidden" id="i_quarter" name="i_quarter">
+						</form>
+						
+						
 <jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </div>
 </body>

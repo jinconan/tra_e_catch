@@ -8,6 +8,9 @@
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <%
 int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no"))); //사원정보 받는 곳
+int counts = (Integer)request.getAttribute("counts");
+int list = (((counts-1)/10)*10)+1;
+int num = (counts%10);
 %>
 </head>
 <body>
@@ -24,6 +27,16 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 		alert("정상적으로 처리 되었습니다.");
 		
 	}
+	//팀추가
+	function teaminsertnow(){
+		/* alert("찍어볼까~?"); 정상작동 */
+		$("#f_deptinsert").attr("action","./deptinsert");
+		$("#f_deptinsert").submit(); 
+		alert("정상적으로 처리 되었습니다.");
+		
+	}
+	
+	
 	//부서 수정
 	function deptupdatenow(){
 		/* alert("찍어볼까~?"); 정상작동 */
@@ -34,7 +47,7 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 	}
 	 $(function() {
 			$('#p_table').bootstrapTable({
-				url:'<%=request.getContextPath()%>/perR/only/deptlist',
+				url:'<%=request.getContextPath()%>/perR/only/deptlist/<%=counts%>',
 				onClickRow : function(row,$element, field) {
 					console.log(row);
 					
@@ -46,6 +59,9 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 					$("#exampleModalupdate").modal('show'); 
 				}
 			});
+			var base = $('#liid'+<%=num%>);
+			base.addClass('active');
+		
 			var emp_nochk = <%=addemp_no%>;
 
 			if(emp_nochk>3){
@@ -66,13 +82,12 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 		<div class="col-sm-10">
 		
 			<div class="table-responsive col-xs-9" style="overflow:auto;">
-		<button type="button" class="btn btn-primary" id="deptinsert" onclick="javascript:deptinsertbutton()">부서추가</button><br>
-		<button type="button" class="btn btn-primary" id="deptinsert" >팀추가</button>
+		<button type="button" class="btn btn-primary" id="deptinsert" onclick="javascript:deptinsertbutton()">부서 및 팀 추가</button><br>
 				<table id="p_table" class="table table-striped table-hover">
 					<thead>
 						<tr>
-							<th data-field="DEPT_NO" data-width="15%">부서번호</th>
-							<th data-field="NAME" data-width="20%">부서명</th>
+							<th data-field="DEPT_NO" data-width="15%">부서/팀번호</th>
+							<th data-field="NAME" data-width="20%">부서/팀명</th>
 							<th data-field="NOTE" data-width="20%">설명</th>
 						</tr>
 					</thead>
@@ -80,6 +95,25 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 					
 					</tbody>
 				</table>
+				<nav>
+					<ul class="pagination">
+								<li><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/1" aria-label="Previous"><span
+										aria-hidden="true"> << </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list-1%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
+								<li id="liid1"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list%>"><%=list%><span class="sr-only">(current)</span></a></li>
+								<li id="liid2"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+1%>"><%=list+1%><span class="sr-only">(current)</span></a></li>
+								<li id="liid3"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+2%>"><%=list+2%><span class="sr-only">(current)</span></a></li>
+								<li id="liid4"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+3%>"><%=list+3%><span class="sr-only">(current)</span></a></li>
+								<li id="liid5"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+4%>"><%=list+4%><span class="sr-only">(current)</span></a></li>
+								<li id="liid6"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+5%>"><%=list+5%><span class="sr-only">(current)</span></a></li>
+								<li id="liid7"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+6%>"><%=list+6%><span class="sr-only">(current)</span></a></li>
+								<li id="liid8"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+7%>"><%=list+7%><span class="sr-only">(current)</span></a></li>
+								<li id="liid9"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+8%>"><%=list+8%><span class="sr-only">(current)</span></a></li>
+								<li id="liid0"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+9%>"><%=list+9%> <span class="sr-only">(current)</span></a></li>
+								<li><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+10%>" aria-label="Previous"><span aria-hidden="true"> > </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+100%>" aria-label="Previous"><span aria-hidden="true"> >> </span></a></li>
+							</ul>
+				</nav>
 			</div>
 			
 			<!-- 업데이트 모달 -->
@@ -166,6 +200,7 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
               </div>
           </div>
           <div class="modal-footer">
+         <button type="button" class="btn btn-primary" id="t_printinp" onclick="javascript:teaminsertnow()">팀추가</button>
         <button type="button" class="btn btn-primary" id="printinp" onclick="javascript:deptinsertnow()">추가</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
         

@@ -78,11 +78,11 @@ public class PersonnelREST {
 		return locList;
 	}
 	
-	@RequestMapping("only/deptlist")//부서 리스트
-	private List<Map<String, Object>> deptList(@RequestParam Map<String, Object> pMap){
+	@RequestMapping("only/deptlist/{counts}")//부서 리스트
+	private List<Map<String, Object>> deptList(@RequestParam Map<String, Object> pMap,@PathVariable int counts){
 		logger.info("deptList요청");
 		List<Map<String, Object>>deptList = null;
-		System.out.println("deptList에 들어가는 : "+pMap);
+		pMap.put("counts", counts);
 		deptList = personnelLogic.getdeptList(pMap);
 		logger.info(deptList);
 		return deptList;
@@ -240,6 +240,36 @@ public class PersonnelREST {
 		System.out.println("고용계약서에 들어오는"+indivList);
 		return indivList;
 	}
+	
+	@RequestMapping("rating/quar")//근무평정 기간분류
+	private List<Map<String, Object>> quarList(@RequestParam Map<String, Object> pMap, HttpServletRequest req){
+		logger.info("quarlist요청");
+		List<Map<String, Object>>	quarlist = null;
+		HttpSession session = req.getSession();
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
+		pMap.put("emp_no", emp_no);
+		System.out.println("quarlist대상자 emp_no : "+pMap);
+		quarlist = personnelLogic.getQuarList(pMap);
+		
+		return quarlist;
+	}
+	@RequestMapping("rating/leader")//근무평정 기간분류
+	private List<Map<String, Object>> leaderView(@RequestParam Map<String, Object> pMap, HttpServletRequest req){
+		logger.info("leaderView요청");
+		List<Map<String, Object>>	leaderView = null;
+		HttpSession session = req.getSession();
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);
+		pMap.put("emp_no", emp_no);
+		System.out.println("들어있는값 : "+pMap);
+		leaderView = personnelLogic.getleaderView(pMap);
+		
+		return leaderView;
+	}
+	
+	
+	
 	
 	////////////////급여 지급에서 쓰이는 부분/////////////
 	
