@@ -75,7 +75,15 @@ public class PaymentREST {
 		List<Map<String, Object>> paymentList = null;	
 		pMap.put("counts",counts);
 		paymentList = paymentLogic.getPaymentList(pMap);
-		mod.addAttribute("paymentList", paymentList);
+		mod.addAttribute("paymentList", paymentList.size());
+		return paymentList;
+	}
+	@RequestMapping("epay/draft/t/{counts}")
+	private List<Map<String, Object>> searchList(@PathVariable int counts,Model mod,HttpServletRequest req) {
+		logger.info("payR_t¡¯¿‘");
+		List<Map<String, Object>> paymentList = paymentLogic.getPaymentLogic(counts,req);	
+		logger.info(paymentList.size());
+		mod.addAttribute("paymentList",paymentList.size());
 		return paymentList;
 	}
 	@RequestMapping("epay/jobInst/insert")

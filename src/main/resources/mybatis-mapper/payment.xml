@@ -4,6 +4,7 @@
 	<parameterMap id="pDVO" type="com.team.tra_e_catch.payment.PaymentVO">
 		<parameter property="emp_no" javaType="int" mode="IN"/>
 		<parameter property="dtype_no" javaType="int" mode="IN"/>
+		<parameter property="title" javaType="java.lang.String" mode="IN"/>
 		<parameter property="path" javaType="java.lang.String" mode="IN"/>
 		<parameter property="content" javaType="java.lang.String" mode="IN"/>
 		<parameter property="doc_no" javaType="int" mode="IN"/>
@@ -21,6 +22,7 @@
 	<resultMap id="pDVO" type="com.team.tra_e_catch.payment.PaymentVO">
 		<id property="emp_no" column="emp_no" />
 		<result property="dtype_no" column="dtype_no" />
+		<result property="title" column="title" />
 		<result property="path" column="path" />
 		<result property="content" column="content" />
 		<result property="doc_no" column="doc_no" />
@@ -39,28 +41,39 @@
     select * from
     (select emp_no, dtype_no, path, content, doc_no, up_date, title rownum as rno
      from docs order by rno)
-     where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno
+     where rno betWeen #{counst}*10-9 and #{counst}*10 order by rno
 	<if test='emp_no != null and emp_no != "" '>
-		and emp_no = #{emp_no}
+		and emp_no like '%'||#{emp_no}||'%'
 	</if>
  	<if test='dtype_no != null and dtype_no != ""'>
-		and dtype_no = #{dtype_no}
+		and dtype_no like '%'|| #{dtype_no}||'%'
 	</if>
 	<if test='path != null and !path.equals("")'>
-		and path = #{path}
+		and path like '%'|| #{path}||'%'
 	</if>
 	<if test='content != null and !content.equals("")'>
-		and content = #{content}
+		and content like '%'|| #{content}||'%'
 	</if>
+	<if test='doc_no != null and !doc_no != ""'>
+		and doc_no like '%'|| #{doc_no}||'%'
+	</if>
+	<if test='up_date != null and !up_date.equals("")'>
+		and up_date like '%'||#{up_date}||'%'
+	</if>
+	<if test='title != null and !title.equals("")'>
+		and title like '%'||#{title}||'%'
+	</if>
+	
 	</select>
 	
 	
-	<!-- 검색 조건 -->
-	<select id = "searchPaymentList" resultType="map" parameterType="map">
+	 <!-- 검색 조건 -->
+	<!-- <select id = "searchPaymentList" resultType="map" parameterType="map">
 	select * from docs where doc_no like '%{doc_no}%' and dtype_no like '%{dtype_no}%' 
-	and title like '%{title}%' and up_date like '%{up_date}%' and emp_no like '%{emp_no}%' and content like '%{content}%'
+	and title like '%{title}%' and up_date like '%{up_date}%' and emp_no like '%{emp_no}%' 
+	and content like '%{content}%'
 	
-	</select>
+	</select>  -->
 		
 	<!-- 작업지시서 등록 -->
  	 <insert id="jobInsert" parameterType="map">
@@ -77,29 +90,11 @@
 	</insert>
 	
 	<!-- 휴가 신청서 -->
-	<insert id="restInsert" parameterType="map">
+	<!-- <insert id="restInsert" parameterType="map">
 		insert into docs values(#{emp_no},100,null,'휴가',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'휴가')
-	</insert>
-<!-- 	
-	 근로계약서
-	 <insert id="" parameterType="map">
-	  
+	</insert> -->
+	
 	 
-	 </insert>
-	 
-	 고용계약서
-	 <insert id="" parameterType="map">
-	 
-	 
-	 </insert>
-	 
-	 프로젝트 기안서
-	 <insert id="" parameterType="map">
-	 
-	 
-	 </insert> -->
-
-
 	<select id="getEpayWaitList" parameterType="map" resultType="map">
 	SELECT *
        FROM(

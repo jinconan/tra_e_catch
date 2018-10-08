@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+
+import com.team.tra_e_catch.accounting.Arrrtd;
 
 @Service
 public class PaymentLogic {
@@ -26,6 +30,20 @@ public class PaymentLogic {
 		paymentList = sqlPayDao.getPaymentList(pMap);
 		return paymentList;
 	}
+	
+	public List<Map<String, Object>> getPaymentLogic(int counst,HttpServletRequest res) {
+		logger.info("getPaymentLogic¡¯¿‘");
+		HttpSession session = res.getSession();
+		String emp_no = String.valueOf(session.getAttribute("emp_no"));
+		List<Map<String, Object>> paymentList = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("counst", counst);
+		map.put("emp_no", emp_no);
+		Arrrtd arr = new Arrrtd();
+		arr.initDate(res,map);
+		paymentList = sqlPayDao.getPaymentDao(map);
+		return paymentList;
+	}
 
 	public int epayInsert(PaymentVO pVO) {
 		int result = 0;
@@ -34,6 +52,14 @@ public class PaymentLogic {
 			pVO.setDoc_no(doc_no);
 			int emp_no = sqlPayDao.getEmp();
 			pVO.setEmp_no(emp_no);
+			String path = sqlPayDao.getPath();
+			pVO.setPath(path);
+			String title = sqlPayDao.getTitle();
+			pVO.setTitle(title);
+			String up_date = sqlPayDao.getUp_date();
+			pVO.setUp_date(up_date);
+			String content = sqlPayDao.getContent();
+			pVO.setContent(content);
 			int pi = 0;
 			pi = sqlPayDao.epayInsert(pVO);
 			if(pi==1) {
