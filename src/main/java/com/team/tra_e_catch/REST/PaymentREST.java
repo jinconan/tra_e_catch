@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.team.tra_e_catch.payment.PaymentLogic;
 import com.team.tra_e_catch.personnel.PersonnelLogic;
@@ -67,7 +69,7 @@ public class PaymentREST {
 		return epaywaitList;
 	}
 		
-	@RequestMapping("epay/draft/{counts}")
+/*	@RequestMapping("epay/draft/{counts}")
 	private List<Map<String, Object>> getEpayList(@RequestParam Map<String,Object> pMap, @PathVariable int counts
 			,Model mod,HttpServletResponse res)
 	{
@@ -77,7 +79,7 @@ public class PaymentREST {
 		paymentList = paymentLogic.getPaymentList(pMap);
 		mod.addAttribute("paymentList", paymentList.size());
 		return paymentList;
-	}
+	}*/
 	@RequestMapping("epay/draft/t/{counts}")
 	private List<Map<String, Object>> searchList(@PathVariable int counts,Model mod,HttpServletRequest req) {
 		logger.info("payR_t진입");
@@ -106,4 +108,18 @@ public class PaymentREST {
 		logger.info(empList);
 		return empList;
 	}*/
+	
+	
+	/////////////////////////////기안 목록/////////////////////////
+	@RequestMapping(value="epay/draft", method=RequestMethod.GET) 
+	private Map<String, Object> getEpayList(@RequestParam Map<String, Object> pMap
+			, @SessionAttribute("emp_no") int eno) {
+		
+		pMap.put("eno", eno);
+		logger.info("getEpayList " + pMap);
+		Map<String, Object> rMap  = paymentLogic.getPaymentList(pMap);
+		return rMap;
+	}
+		
+	
 }

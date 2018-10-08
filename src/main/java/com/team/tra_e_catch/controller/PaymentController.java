@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.team.tra_e_catch.accounting.Arrrtd;
 import com.team.tra_e_catch.payment.PaymentLogic;
@@ -50,19 +51,13 @@ public class PaymentController {
 	//////////////////////////// 기안 ///////////////////////////////
 	// 가안문서 입력
 	@RequestMapping(value = "/epay/epayInsert", method = RequestMethod.POST)
-	public String epayInsert(@ModelAttribute PaymentVO pVO)
+	public String epayInsert(@RequestParam Map<String, Object> pMap
+				, @SessionAttribute("emp_no") int eno)
 	{	
-		//DB 연동 처리
-		logger.info("epayInsert호출");
-		int result = 0;
-		pVO.setEmp_no(pVO.getEmp_no());
-		pVO.setDtype_no(pVO.getDtype_no());
-		pVO.setPath(pVO.getPath());
-		pVO.setContent(pVO.getContent());
-		pVO.setDoc_no(pVO.getDoc_no());
-		pVO.setUp_date(pVO.getUp_date());
-		result = paymentLogic.epayInsert(pVO);
-		return "pay/epay/draft";
+		logger.info("epayInsert호출 emp_no : "+eno+", " + pMap);
+		pMap.put("eno", eno);
+		int result = paymentLogic.insertEpay(pMap);
+		return "redirect:/pay/epay/draft";
 	}
 
 	// 기안 문서 페이지
@@ -154,22 +149,13 @@ public class PaymentController {
 	
 
 	// 기안 문서
-	@RequestMapping(value = "/epay/draft/{counts}", method = RequestMethod.POST)
-	public String draft(@RequestParam Map<String,Object> pMap, Model mod, @PathVariable int counts
-			,HttpServletRequest res) 
+	@RequestMapping(value = "/epay/draft", method = RequestMethod.GET)
+	public String draft(Model mod, @RequestParam Map<String,Object> pMap) 
 	{	
-		/*SqlPayDao pDao = new pDao;
-		ArrayList<pVO> pVOS = pDao.getPaymentList(pMap);*/		
 		logger.info("draft 호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("pay-draft-submenu");
 		mod.addAttribute("curSubMenu", "기안 목록");
 		mod.addAttribute("subMenuList", subMenuList);
-		mod.addAttribute("counts", counts);		
-		Arrrtd arr = new Arrrtd();
-		mod.addAttribute("datas",arr.outDate(res));
-		
-		/*paymentinfo = paymentLogic.getPaymentList(pMap);*/
-		
 		return "pay/epay/draft";
 	}
 

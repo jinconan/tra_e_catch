@@ -6,10 +6,6 @@
 <title>트라E캐치 - 인사권자 전용 - 사원 급여관리</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script type="text/javascript">
-function tableParam(param,) {
-	param.pageNo=1;
-	return param;
-}
 $(function() {
 	$('#f_gsmodal').on('load-success.bs.table', function (e,data) {
 	    $('#f_gsmodal').bootstrapTable('resetView', 100);
@@ -34,7 +30,6 @@ $(function() {
 				<!-- 급여 지급내역 테이블 -->
 				<table data-toggle="table"
 					data-url="<%=request.getContextPath() %>/perR/salhistory"
-					data-query-params="tableParam"
 					data-toolbar="#table-toolbar"
 					data-show-columns="true"
 					data-pagination="true"

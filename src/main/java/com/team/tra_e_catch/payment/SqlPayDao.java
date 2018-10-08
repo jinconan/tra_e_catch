@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.payment;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,26 +20,35 @@ public class SqlPayDao {
 		
 		
 	}
-	/**
-	 * 
-	 * @param pMap
-	 * @return
-	 */
-	//기안 문서 데이터 요청 DB
-	public List<Map<String, Object>> getPaymentList(Map<String, Object> pMap) {
-		logger.info("getPaymentList 호출");
-		logger.info(pMap);
-		List<Map<String,Object>> paymentList = null;
-		paymentList = sqlSessionTemplate.selectList("getPaymentList",pMap);
-		
-		return paymentList;
-	}
-	//기안문서 입력
-	public int epayInsert(PaymentVO pVO) {
+
+	
+	////////기안문서 작성////////
+	//기안문서 등록
+	public int insertEpay(Map<String, Object> pMap) {
+		logger.info("insertEpay");
 		int result = 0;
-		result = sqlSessionTemplate.insert("epayInsert", pVO);
+		try {
+			result = sqlSessionTemplate.insert("insertEpay", pMap);
+		} catch(Exception e) {
+			logger.error(e.toString());
+			result = 0;	
+		}
 		return result;
 	}
+	
+	//서류에 대한 승인자, 결재자 등록
+	public int insertSign(Map<String,Object> pMap) {
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.insert("insertSign",pMap);
+		} catch (Exception e) {
+			logger.error(e.toString());
+			result = 0;	
+		}
+		return result;
+	}
+	//////기안문서 작성 끝///////
+	
 	public List<Map<String, Object>> jobList(Map<String, Object> pMap) {
 		List<Map<String, Object>> joblist = null;
 		joblist = sqlSessionTemplate.selectList("jobList",pMap);
@@ -99,6 +109,29 @@ public class SqlPayDao {
 		String content = null;
 		
 		return content;
+	}
+	
+	
+	/**
+	 * 
+	 * @param pMap
+	 * @return
+	 */
+	//기안 문서 데이터 요청 DB
+	public List<Map<String, Object>> getPaymentList(Map<String, Object> pMap) {
+		logger.info("getPaymentList 호출");
+		logger.info(pMap);
+		List<Map<String,Object>> paymentList = null;
+		paymentList = sqlSessionTemplate.selectList("getPaymentList",pMap);
+		return paymentList;
+	}
+	
+	//기안문서 수.
+	public int getTotalPayment(Map<String, Object> pMap) {
+		logger.info("getTotalPayment " + pMap);
+		int result = 0;
+		result = sqlSessionTemplate.selectOne("getTotalPayment", pMap);
+		return result;
 	}
 }
 		

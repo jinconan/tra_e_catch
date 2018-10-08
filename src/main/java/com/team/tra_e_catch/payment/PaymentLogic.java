@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.payment;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,12 +25,12 @@ public class PaymentLogic {
 	private SqlPayDao sqlPayDao = null;
 	
 	//기안 문서 JSON데이터 요청
-	public List<Map<String, Object>> getPaymentList(Map<String, Object> pMap) {
+	/*public List<Map<String, Object>> getPaymentList(Map<String, Object> pMap) {
 		logger.info("getPaymentList 호출");
 		List<Map<String,Object>> paymentList = null;
 		paymentList = sqlPayDao.getPaymentList(pMap);
 		return paymentList;
-	}
+	}*/
 	
 	public List<Map<String, Object>> getPaymentLogic(int counst,HttpServletRequest res) {
 		logger.info("getPaymentLogic진입");
@@ -45,29 +46,18 @@ public class PaymentLogic {
 		return paymentList;
 	}
 
-	public int epayInsert(PaymentVO pVO) {
+	public int insertEpay(Map<String, Object> pMap) {
+		logger.info("insertEpay() " + pMap);
 		int result = 0;
-		try {
-			int doc_no = sqlPayDao.getDoc();
-			pVO.setDoc_no(doc_no);
-			int emp_no = sqlPayDao.getEmp();
-			pVO.setEmp_no(emp_no);
-			String path = sqlPayDao.getPath();
-			pVO.setPath(path);
-			String title = sqlPayDao.getTitle();
-			pVO.setTitle(title);
-			String up_date = sqlPayDao.getUp_date();
-			pVO.setUp_date(up_date);
-			String content = sqlPayDao.getContent();
-			pVO.setContent(content);
-			int pi = 0;
-			pi = sqlPayDao.epayInsert(pVO);
-			if(pi==1) {
-				result = 1;
-			}
-			
-		} catch (DataAccessException de) {
-			throw de;
+		
+		
+		int resultOfEpay = sqlPayDao.insertEpay(pMap);
+		if(resultOfEpay == 0)
+			throw new RuntimeException();
+		else {
+			result = sqlPayDao.insertSign(pMap);
+			if(result == 0)
+				throw new RuntimeException();
 		}
 		return result;
 	}
@@ -96,6 +86,18 @@ public class PaymentLogic {
 		List<Map<String,Object>> restInsert = null;
 		restInsert = sqlPayDao.RestInsert(pMap);
 		return null;
+	}
+
+	public Map<String, Object> getPaymentList(Map<String, Object> pMap) {
+		logger.info("getPaymentList " + pMap);
+		Map<String, Object> rMap = new HashMap<String, Object>();
+		
+		List<Map<String, Object>> rows = sqlPayDao.getPaymentList(pMap);
+		int total = sqlPayDao.getTotalPayment(pMap);
+		
+		rMap.put("total",  total);
+		rMap.put("rows", rows);
+		return rMap;
 	}
 
 }

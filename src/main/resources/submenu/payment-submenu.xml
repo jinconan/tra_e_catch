@@ -12,11 +12,6 @@
 			<entry key="sm_name" value="기안 목록" />
 			<entry key="sm_url" value="/pay/epay/draft" />
 		</map>
-		<map>
-			<entry key="sm_name" value="부결 기안" />
-			<entry key="sm_url" value="/pay/epay/backdraft" />
-		</map>
-		
 	</util:list>
 	<!-- 결제 목록 메뉴 -->
 	<util:list id="pay-submenu" list-class="java.util.ArrayList">
