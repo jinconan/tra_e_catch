@@ -138,6 +138,8 @@ public class PersonnelREST {
 		logger.info("viewWorklist요청");
 		List<Map<String, Object>> workList = null;
 /*		pMap.put("emp_no", req.getParameter("emp_no").toString());*/
+		
+		pMap.put("in_emp_no", pMap.get("emp_no"));
 		System.out.println("viewWorklist에 들어가는 : "+pMap);
 		workList = personnelLogic.getWorkList(pMap);
 		return workList;

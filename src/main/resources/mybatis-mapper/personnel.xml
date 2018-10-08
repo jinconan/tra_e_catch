@@ -72,7 +72,7 @@ select * from ctlevel
 <!-- 근로계약서 -->
 <select id="viewWorkList" parameterType="map" resultType="map">
 <!-- select * from docs where emp_no = #{emp_no} -->
-select * from docs where emp_no = #{emp_no} and dtype_no = 910
+select * from docs where emp_no = #{in_emp_no} and dtype_no = 910
 	 
 </select>
 <!-- 고용계약서 -->
@@ -141,10 +141,20 @@ select * from location
 <!-- 개인신상정보 -->
 <select id="getIndivList" parameterType="map" resultType="map">
 
-select * from v_emp where emp_no = #{emp_no} <!-- 로그인했을때 들어있는정보. -->
-
+select * from v_emp 
+<where>
+	<choose>
+		<when test="emp_no != null">
+		emp_no = #{emp_no}
+		</when>
+		<otherwise>
+		emp_no = #{in_emp_no}		
+		</otherwise>
+	</choose>
+</where>
 
 </select>
+
 
 <select id="setAttdInsert" statementType="CALLABLE" parameterType="hashmap">
 
