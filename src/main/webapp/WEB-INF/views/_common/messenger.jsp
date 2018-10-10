@@ -27,7 +27,7 @@
 		</a>
 	</div>
 	<div class="panel-body">
-		<div style="overflow:auto; height: 250px; top: 0px; right: 0px;">
+		<div style="overflow:auto; height: 340px; top: 0px; right: 0px;">
 			<ul class="list-grouplist-group" style="padding:0px;"></ul>
 		</div>
 	</div>
@@ -46,7 +46,7 @@
 <script src=" <%=request.getContextPath()%>/resources/js/sockjs.min.js"></script>
 <script>
 	//웹소켓 연결
-	var wsocket = new SockJS("/tra_e_catch/chat-ws");
+	var wsocket = new SockJS("<%=request.getContextPath()%>/chat-ws");
 	
 	wsocket.onopen = function() {
         console.log("연결되었습니다.");

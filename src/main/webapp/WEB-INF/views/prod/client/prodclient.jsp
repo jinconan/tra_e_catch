@@ -156,23 +156,23 @@ function exampleModalInsert(){
 								<div class="well">
 									<div class="form-group">
 										<label for="name" class="control-label">업체명</label>
-										<div id="select1"><input type="text" name = "업체명"></div>
+										<div id="select1"><input type="text" name="업체명" class="form-control"></div>
 									</div>
 									<div class="form-group">
 										<label for="name" class="control-label">업체주소</label>
-										<div><input id="select2" type="text" name = "업체주소"></div>
+										<div><input id="select2" type="text" name="업체주소" class="form-control"></div>
 									</div>
 									<div class="form-group">
 										<label for="name" class="control-label">업체전화번호</label>
-										<div><input id="select3" type="text" name = "업체전화번호"></div>
+										<div><input id="select3" type="text" name = "업체전화번호" class="form-control"></div>
 									</div>
 									<div class="form-group">
 										<label for="name" class="control-label">담당자전화번호</label>
-										<div><input id="select4" type="text" name = "담당자전화번호"></div>
+										<div><input id="select4" type="text" name = "담당자전화번호" class="form-control"></div>
 									</div>
 									<div class="form-group">
 										<label for="name" class="control-label">사업자번호</label>
-										<div id="select5"><input type="text" name = "사업자번호"></div>
+										<div id="select5"><input type="text" name = "사업자번호" class="form-control"></div>
 									</div>
 								</div>
 							</div>
@@ -216,15 +216,15 @@ function exampleModalInsert(){
 									</div>
 									<div class="form-group">
 										<label for="new_dept_name" class="control-label">업체주소</label>
-										<div ><input type="text" name = "cost1" id = "client3"></div>
+										<div ><input type="text" name = "cost1" id = "client3" class="form-control"></div>
 									</div>
 									<div class="form-group">
 										<label for="new_dept_name" class="control-label">업체전화번호</label>
-										<div ><input type="text" name = "cost2" id = "client4"></div>
+										<div ><input type="text" name = "cost2" id = "client4" class="form-control"></div>
 									</div>
 									<div class="form-group">
 										<label for="new_dept_name" class="control-label">담당자전화번호</label>
-										<div ><input type="text" name = "cost3" id = "client5"></div>
+										<div ><input type="text" name = "cost3" id = "client5" class="form-control"></div>
 									</div>
 									<div class="form-group">
 										<label for="new_dept_name" class="control-label">사업자번호</label>

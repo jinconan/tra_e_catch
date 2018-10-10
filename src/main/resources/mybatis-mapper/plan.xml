@@ -395,47 +395,49 @@
 	
 	<!-- 프로젝트 게시물 조회 -->
 	<select id="getArticleList" parameterType="map" resultType="map">
-		SELECT *
-        FROM (
-            SELECT rownum rno, ano
-                ,proj_no, board_no, article_no
-                ,article_title,article_content,article_path
-                ,article_writer,article_date,article_hit
-            FROM(
-                SELECT rownum ano
-                    ,proj_no, board_no, article_no
-                    ,article_title,article_content,article_path
-                    ,article_writer,article_date,article_hit
-                FROM(
-                    SELECT p.proj_no,pb.board_no,article_no
-                        ,article_title,article_content,article_path
-                        ,article_writer,article_date,article_hit
-                    FROM board_article a 
-                        INNER JOIN project p ON a.proj_no = p.proj_no
-                        INNER JOIN proj_board pb ON a.board_no = pb.board_no
-                    ORDER BY article_no asc
-                )
-                <where>
-                	<if test="proj_no != null">proj_no=#{proj_no}</if>
-					<if test="board_no != null">AND board_no=#{board_no}</if>
-                </where>
-                ORDER BY ano desc
-            )
-        )            
+	SELECT *
+	FROM (
+		SELECT ROWNUM rno, ano, proj_no,
+		board_no, article_no, article_title,
+		article_content, article_path, article_writer,
+		article_date,article_hit
+		FROM ( 
+			SELECT ROWNUM ano, proj_no,	board_no,
+			article_no,article_title,article_content,
+			article_path,article_writer,article_date,
+			article_hit
+			FROM ( 
+				SELECT p.proj_no, ba.board_no, BA.ARTICLE_NO,
+				ba.article_title,article_content,article_path,
+				article_writer, article_date,article_hit
+				FROM proj_board pb
+					INNER JOIN project p ON pb.proj_no = p.proj_no
+					INNER JOIN board_article ba ON PB.BOARD_NO = ba.board_no
+						AND ba.proj_no = pb.proj_no
+				ORDER BY p.proj_no, pb.board_no, ba.article_no)
+			<where>
+				<if test="proj_no != null">
+				proj_no=#{proj_no}
+				</if>
+				<if test="board_no != null">
+				AND board_no=#{board_no}
+				</if>
+			</where>
+			ORDER BY ano DESC))
 		<where>
 			<if test="pageNo != null">
-				rno between (#{pageNo}-1)*10+1 and (#{pageNo})*10  
-			</if> 
+			rno between (#{pageNo}-1)*10+1 and (#{pageNo})*10
+			</if>
 			<choose>
-				<when test="searchColumn != null and searchColumn.equals('articleTitle')">
-					AND article_title LIKE '%' || #{searchValue} || '%'
-				</when>
-				<when test="searchColumn != null and searchColumn.equals('articleWriter')">
-					AND article_writer LIKE '%' || #{searchValue} || '%'
-				</when>
-				<otherwise></otherwise>
+			<when test="searchColumn != null and searchColumn.equals('articleTitle')">
+				AND article_title LIKE '%' || #{searchValue} || '%'
+			</when>
+			<when test="searchColumn != null and searchColumn.equals('articleWriter')">
+				AND article_writer LIKE '%' || #{searchValue} || '%'
+			</when>
+			<otherwise></otherwise>
 			</choose>
-		</where>	
+		</where>    
 	</select>
 	
 	<select id="getArticleDetail" parameterType="int" resultType="map">

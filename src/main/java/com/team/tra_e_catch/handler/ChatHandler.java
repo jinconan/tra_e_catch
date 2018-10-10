@@ -18,27 +18,36 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 웹 소켓을 통해 브라우저가 보낸 요청을 처리하는 핸들러
+ */
 public class ChatHandler extends TextWebSocketHandler{
 	private Logger logger = Logger.getLogger(ChatHandler.class);
-	private Map<String,WebSocketSession> onlineEmp;
+	
+	//접속한 사원을 담는 map 객체
+	private Map<String,WebSocketSession> onlineEmp; 
 	public void setOnlineEmp(Map<String,WebSocketSession> onlineEmp) {
 		this.onlineEmp=onlineEmp;
 	}
 	
+	//DB 작업을 수행하기 위한 SqlSession
 	private SqlSessionTemplate sqlSessionTemplate;
 	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
 		this.sqlSessionTemplate = sqlSessionTemplate;
 	}
 	
+	/**
+	 * 소켓이 연결되었을때 호출되는 메소드
+	 */
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		logger.info(session.getRemoteAddress()+" 접속");
 		
-		Map<String,Object> sessionAttr = session.getAttributes();
-		Map<String,Object> resultMap = new HashMap<String,Object>();
+		Map<String,Object> sessionAttr = session.getAttributes(); //세션에 담겨있는 어트리뷰트
+		Map<String,Object> resultMap = new HashMap<String,Object>(); //브라우저로 보낼 Map객체
 		
 		//DB조회해서 접속자의 번호, 이름, 직책, 부서 가져옴.
-		resultMap.put("mtype", "open_other");
+		resultMap.put("mtype", "open_other"); //메시지 타입.
 		resultMap.put("emp_no", sessionAttr.get("emp_no"));
 		resultMap.put("emp_name", sessionAttr.get("emp_name"));
 		resultMap.put("emp_level", sessionAttr.get("emp_level"));
@@ -60,9 +69,9 @@ public class ChatHandler extends TextWebSocketHandler{
 		if(onlineEmp.size()!=0) {
 			List<Map<String,Object>> onlineList = sqlSessionTemplate.selectList("getOnlineList",onlineEmp);
 			resultMap.put("onlineList", onlineList);
-			
 		}
 		jsonResult = mapper.writeValueAsString(resultMap);
+		
 		//현재 접속한 사람에게 메시지를 전달한다.
 		session.sendMessage(new TextMessage(jsonResult));
 		
@@ -72,25 +81,32 @@ public class ChatHandler extends TextWebSocketHandler{
 		logger.info("접속자 리스트 : " + onlineEmp);
 	}
 	
+	/**
+	 * 소켓에서 전송한 메시지를 처리하는 메소드
+	 */
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		//소켓에서 받은 json 데이터를 Map으로 변환
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String,Object> jsonMap = mapper.readValue(message.getPayload(),new TypeReference<Map<String,Object>>() {});
-		System.out.println(jsonMap);
+		logger.info(jsonMap);
 		
-		String mtype = (String)jsonMap.get("mtype"); //메시지 타입
+		String mtype = (String)jsonMap.get("mtype"); //종류에 따른 메시지 처리를 위해 메시지타입을 get.
 		
+		//소켓에 보낼 응답메시지 초기화.
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		String jsonResult = null;
-		//메시지 타입에 따른 로직 처리
+		
+		///////메시지 타입에 따른 로직 처리///////
 		
 		//채팅내역 요청 (보낸놈한테만 답장)
 		if("clog".equals(mtype)) {
-			int from =  (Integer)jsonMap.get("from");
-			int to =  (Integer)jsonMap.get("to");
-			//DB에서 List타입으로 얻음
+			int from =  (Integer)jsonMap.get("from"); //송신자의 번호
+			int to =  (Integer)jsonMap.get("to"); //수신자의 번호
+			
+			//DB에서 List타입으로 채팅 내역을 얻음
 			List<Map<String,Object>> logs = sqlSessionTemplate.selectList("getChatlog", jsonMap);
+			
 			//TextMessage인스턴스화
 			resultMap.put("mtype", mtype);
 			resultMap.put("from", from);
@@ -98,18 +114,19 @@ public class ChatHandler extends TextWebSocketHandler{
 			resultMap.put("logs", logs);
 			jsonResult = mapper.writeValueAsString(resultMap);
 			session.sendMessage(new TextMessage(jsonResult));
-		} 
+		}
+		
 		//채팅 전송(보낸사람, 받는사람)
 		else if("chat".equals(mtype)) {
 			String curTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-			int from =  (Integer)jsonMap.get("from");
-			int to =  (Integer)jsonMap.get("to");
+			int from =  (Integer)jsonMap.get("from"); //송신자 번호
+			int to =  (Integer)jsonMap.get("to"); //수신자 번호
 			
-			//DB에 insert
+			//DB에 채팅을 저장.
 			int result = sqlSessionTemplate.insert("insertChatlog", jsonMap);
 			
-			//insert실패시 보낸놈에게 에러 메시지 전송
-			if(result ==0) {
+			//insert실패시 송신자에게 에러 메시지 전송
+			if(result == 0) {
 				resultMap.put("mtype", "error");
 				resultMap.put("errmsg", "서버에서 메시지를 처리하는데 실패했습니다.");
 				jsonResult = mapper.writeValueAsString(resultMap);
@@ -122,29 +139,32 @@ public class ChatHandler extends TextWebSocketHandler{
 				resultMap.put("to", to);
 				resultMap.put("content", jsonMap.get("content"));
 				resultMap.put("timestamp", curTime);
-				
 				jsonResult = mapper.writeValueAsString(resultMap);
 				
+				//송신자의 소켓을 접속자 중에서 찾아냄.
 				WebSocketSession recvSocket = onlineEmp.get(Integer.toString(from));
 				if(recvSocket != null)
 					recvSocket.sendMessage(new TextMessage(jsonResult));
 				
+				//수신자의 소켓을 접속자 중에서 찾아냄.
 				recvSocket = onlineEmp.get(Integer.toString(to));
 				if(recvSocket != null)
 					recvSocket.sendMessage(new TextMessage(jsonResult));
 			}
 		}
-			
-			
 		
 		//잘못된 메시지타입(보낸사람만)
 		else {
 			resultMap.put("mtype", "error");
+			resultMap.put("errmsg", "서버에서 메시지를 처리하는데 실패했습니다.");
 			jsonResult = mapper.writeValueAsString(resultMap);
 			session.sendMessage(new TextMessage(jsonResult));
 		}
 	}
 	
+	/**
+	 * 소켓에서 연결을 해제할때 호출되는 메소드.
+	 */
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		//접속 종료시 접속자 리스트에서 제거한다.
@@ -157,7 +177,8 @@ public class ChatHandler extends TextWebSocketHandler{
 		resultMap.put("mtype", "close");
 		resultMap.put("emp_no", sessionAttr.get("emp_no"));
 		String jsonResult = new ObjectMapper().writeValueAsString(resultMap);
-		//메시지 전송
+		
+		//현재 접속 중인 사원들에게 해당 사원이 나갔음을 알리는 메시지를 전송한다.
 		Iterator<String> iter = onlineEmp.keySet().iterator();
 		while(iter.hasNext()) {
 			WebSocketSession empSession = onlineEmp.get(iter.next());

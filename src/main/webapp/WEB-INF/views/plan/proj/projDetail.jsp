@@ -38,26 +38,30 @@
 		$("#btn_del_project").click(function() {
 			var result = confirm("정말 이 프로젝트를 삭제하시겠습니까?");
 			if(result == true) {
-				document.forms[0].action="<%=request.getContextPath()%>/plan/projDelete";
+				document.forms[0].action="<%=request.getContextPath()%>/plan/projDelete?projNo=<%=projNo%>&";
+				document.forms[0].method="post";
 				document.forms[0].submit();
 			}
 		})
 		
 		//중단 버튼 클릭 이벤트
 		$("#btn_stop").click(function() {
-			document.forms[0].action="<%=request.getContextPath()%>/plan/projUpdate?pstatusNo=3";
+			document.forms[0].action="<%=request.getContextPath()%>/plan/projUpdate?projNo=<%=projNo%>&pstatusNo=3";
+			document.forms[0].method="post";
 			document.forms[0].submit();
 		})
 		
 		//재개 버튼 클릭 이벤트
 		$("#btn_restart").click(function() {
-			document.forms[0].action="<%=request.getContextPath()%>/plan/projUpdate?pstatusNo=1";
+			document.forms[0].action="<%=request.getContextPath()%>/plan/projUpdate?projNo=<%=projNo%>&pstatusNo=1";
+			document.forms[0].method="post";
 			document.forms[0].submit();
 		})
 		
 		//종료 버튼 클릭 이벤트
 		$("#btn_end").click(function() {
-			document.forms[0].action="<%=request.getContextPath()%>/plan/projUpdate?pstatusNo=2&endDate="+dateToString(new Date());
+			document.forms[0].action="<%=request.getContextPath()%>/plan/projUpdate?projNo=<%=projNo%>&pstatusNo=2&endDate="+dateToString(new Date());
+			document.forms[0].method="post";
 			document.forms[0].submit();
 		})
 		
@@ -126,7 +130,7 @@
 			<div class="well">
 
 				<div class="row">
-					<form method="post">
+					<form>
 						<input type="hidden" name="projNo" id="projNo" value="<%=projNo%>">
 					</form>
 					<h2>

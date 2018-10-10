@@ -16,18 +16,14 @@
 %>
 <body>
 	<script type="text/javascript">
-	function hovertest(){
-		alert("테스트");
-	}
-		 
-		 $(function() {
+	 $(function() {
 
-			$('#p_table').bootstrapTable({
-				url:'<%=request.getContextPath()%>/perR/attd/<%=counts%>'
-			});
-			var base = $('#liid'+<%=num%>);
-			base.addClass('active');
-		
+		$('#p_table').bootstrapTable({
+			url:'<%=request.getContextPath()%>/perR/attd/<%=counts%>'
+		});
+		var base = $('#liid'+<%=num%>);
+		base.addClass('active');
+	
 	}); 
 		 
 	</script>
@@ -46,7 +42,7 @@
 				
 			</div>
 				<div class="table-responsive col-xs-9">
-				<table id="p_table" class="table table-striped table-hover" onclick="javascript:hovertest()">
+				<table id="p_table" class="table table-striped table-hover">
 					<thead>
 						<tr>
 							<!-- data-field에는 json포멧으로 데이터를 담을예정  -->

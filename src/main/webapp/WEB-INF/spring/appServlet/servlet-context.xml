@@ -10,10 +10,16 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
+	<!-- Device 객체를 컨트롤러 메소드의 파라미터로 넣을수 있게 함. -->
+	<annotation-driven>
+		<argument-resolvers>
+        	<beans:bean class="org.springframework.mobile.device.DeviceWebArgumentResolver"/>
+    	</argument-resolvers>
+	</annotation-driven>
 	
-	<!-- 세션 체크 인터셉터 -->
+	
 	<interceptors>
+		<!-- 모바일 디바이스용 사이트 스위치 핸들러 인터셉터 -->
 		<interceptor>
 			<mapping path="/**"/>
 			<exclude-mapping path="/css/**"/>
@@ -21,10 +27,28 @@
 			<exclude-mapping path="/fonts/**"/>
 			<exclude-mapping path="/imgs/**"/>		
 			<exclude-mapping path="/resources/**"/>
+			<exclude-mapping path="/mobile/**"/>
+			<exclude-mapping path="/mobile/scv/view/login"/>
+			<exclude-mapping path="/scv/login"/>
+			<beans:bean class="org.springframework.mobile.device.switcher.SiteSwitcherHandlerInterceptor" factory-method="urlPath">
+				<beans:constructor-arg index="0" type="java.lang.String" value="/mobile" />
+				<beans:constructor-arg index="1" type="java.lang.String" value="/tra_e_catch" />
+			</beans:bean>
+		</interceptor>
+		<!-- 세션 체크 인터셉터 -->
+		<interceptor>
+			<mapping path="/**"/>
+			<exclude-mapping path="/css/**"/>
+			<exclude-mapping path="/js/**"/>
+			<exclude-mapping path="/fonts/**"/>
+			<exclude-mapping path="/imgs/**"/>		
+			<exclude-mapping path="/resources/**"/>
+			<exclude-mapping path="/mobile/scv/view/login"/>
 			<exclude-mapping path="/scv/view/login"/>	
 			<exclude-mapping path="/scv/login"/>	
 			<beans:bean id="checkSessionInterceptor" class="com.team.tra_e_catch.interceptor.CheckSessionInterceptor"/>
 		</interceptor>
+		
 	</interceptors>
 	
 	
