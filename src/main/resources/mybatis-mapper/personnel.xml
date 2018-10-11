@@ -82,7 +82,7 @@ select * from docs where emp_no = #{in_emp_no} and dtype_no = 920
 	 
 </select>
 
-
+<!-- 근로계약서 등록 -->
 <insert id="labInsert" parameterType="map">
 insert into docs
 values(#{in_emp_no},910,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'근로계약서'||seq_doc_no.nextval)
@@ -90,7 +90,7 @@ values(#{in_emp_no},910,null,'노예계약완료',seq_doc_no.nextval,to_char(sys
 <!--고용계약서 등록  -->
 <insert id="sourcingInsert" parameterType="map">
 insert into docs
-values(#{emp_no},920,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'고용계약서'||seq_doc_no.nextval)
+values(#{in_emp_no},920,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'고용계약서'||seq_doc_no.nextval)
 </insert>
 <insert id="certinsert" parameterType="map">
 
@@ -224,8 +224,12 @@ select * from v_emp where team_no = (select team_no from v_emp where emp_no = #{
  <if test='lev_no!= null and lev_no != ""'>
 	and lev_no = #{lev_no}
 </if>
+ <if test="offset != null and limit != null">
+         rno between #{offset}+1 and #{offset}+#{limit}
+ </if>
 </where>
 </select>
+   
 	
 	<!-- ==========================급여 지급 페이지에서 사용하는 쿼리문 모음======================== -->
 	<!-- 검색된 급여내역 리스트 -->

@@ -27,9 +27,10 @@ $(function() {
 
 </script>
 	<div class="container">
-		<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
+	<%-- 	<%@ include file="/WEB-INF/views/_common/submenu.jsp"%> --%>
 		<div class="col-md-10">
 			<table class="table table-striped" id="p_table">
+				
 				<thead>
 					<tr>
 						<!-- 김훈태 작업중  -->

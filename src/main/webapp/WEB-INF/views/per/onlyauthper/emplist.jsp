@@ -18,6 +18,7 @@ var lev_no = $("#f_info").serialize();
 		,method:"GET"
 		,data:lev_no,
 		success:function(log){
+			console.log(log);
 			$("#emptable").html(log);
 		}
 	 ,error:function(Object){

@@ -131,6 +131,7 @@ public class PersonnelLogic {
 
 
 	public List<Map<String, Object>> labInsert(Map<String, Object> pMap) {
+		logger.info("perLogiclabInsert  호출");
 		List<Map<String, Object>> labInsert = null;
 		labInsert = sqlPerDao.LabInsert(pMap);
 		return labInsert;
@@ -159,6 +160,7 @@ public class PersonnelLogic {
 			 empList = sqlPerDao.getEmpList(pMap);
 			return empList;
 		}
+		
 
 		//직급리스트
 		public List<Map<String, Object>> getlevList(Map<String, Object> pMap) {

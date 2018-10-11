@@ -15,6 +15,7 @@ function accept(){
 	var emp_no = $("#f_emp_no").serialize();
 	
 	$.ajax({
+		
 		url:"/tra_e_catch/per/empconttable"
 		,method:"POST"
 		,data:emp_no,
@@ -27,6 +28,7 @@ function accept(){
 	});
 }
 function sourcinginsert(){
+	$("#in_emp_no").val($("#i_emp_no").val());
 	 $("#f_emp_no").attr("action","./sourcing/insert");
 	$("#f_emp_no").submit(); 
 	alert("등록되었습니다.");
@@ -59,7 +61,7 @@ $("#i_emp_no").keypress(function(e) {
 	<div class="col-md-10">
 		
 		  <div class="page-header">
-          <h1>고용계약서 </h1>
+          <h1>고용계약서 관리 </h1>
          </div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label" for="inputEmail">사원코드</label>

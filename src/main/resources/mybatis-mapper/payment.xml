@@ -122,5 +122,10 @@
        </where>
        ORDER BY dno desc
    )
+   <where>
+      <if test="offset != null and limit != null">
+         rno between #{offset}+1 and #{offset}+#{limit}
+      </if>
+   </where>
    </select>
 </mapper>

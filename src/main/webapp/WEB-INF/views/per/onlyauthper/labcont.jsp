@@ -46,6 +46,7 @@ if(emp_nochk>3){
 		});
 	}
 	function workinsert(){
+		$("#in_emp_no").val($("#i_emp_no").val());
 		 $("#f_emp_no").attr("action","./labcont/insert");
 		$("#f_emp_no").submit(); 
 		alert("등록되었습니다.");
