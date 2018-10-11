@@ -89,6 +89,7 @@
 				/WEB-INF/spring/appServlet/servlet-websocket.xml
 				/WEB-INF/spring/appServlet/servlet-context.xml
 				/WEB-INF/spring/appServlet/servlet-data.xml
+				/WEB-INF/spring/appServlet/servlet-security.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

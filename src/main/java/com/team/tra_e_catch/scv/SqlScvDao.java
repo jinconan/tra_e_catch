@@ -17,7 +17,7 @@ public class SqlScvDao {
 
 	public Map<String, Object> login(Map<String, Object> pMap) {
 		Map<String,Object> result = null;
-		
+		logger.info("login : " + pMap);
 		try {
 			result = sqlSessionTemplate.selectOne("com.mybatis.mapper.scvMapper.login",pMap);
 		} catch (Exception e) {
@@ -26,11 +26,11 @@ public class SqlScvDao {
 		return result;
 	}
 	
-	public int modify(Map<String, Object> pMap) {
+	public int updateEmpPrivate(Map<String, Object> pMap) {
 		int result = 0;
 		
 		try {
-			result = sqlSessionTemplate.update("com.mybatis.mapper.scvMapper.modify", pMap);
+			result = sqlSessionTemplate.update("com.mybatis.mapper.scvMapper.updateEmpPrivateAll", pMap);
 		} catch (Exception e) {
 			logger.error(e.toString());
 		}
@@ -40,7 +40,14 @@ public class SqlScvDao {
 	public List<Map<String, Object>> getScvList(int emp_no) {
 		logger.info("getScvList 호출 성공");
 		List<Map<String, Object>> getScvList = null;
-		getScvList = sqlSessionTemplate.selectList("getScvList", emp_no);
+		getScvList = sqlSessionTemplate.selectList("com.mybatis.mapper.scvMapper.getScvList", emp_no);
 		return getScvList;//NullPointerException
+	}
+
+	public String getPw(int eno) {
+		logger.info("getPw 호출 성공");
+		String result = null;
+		result = sqlSessionTemplate.selectOne("com.mybatis.mapper.scvMapper.getPw", eno);
+		return result;//NullPointerException
 	}
 }

@@ -9,85 +9,78 @@
  	String name = (String)getScvList.get(0).get("NAME");   
 	String email = (String)getScvList.get(0).get("EMAIL");
 	String id    = (String)getScvList.get(0).get("ID");
-	String pw    = (String)getScvList.get(0).get("PW");
 	String birthday    = (String)getScvList.get(0).get("BIRTHDAY");
 	int gender = ((BigDecimal)getScvList.get(0).get("GENDER")).intValue();
-	int email_yn = ((BigDecimal)getScvList.get(0).get("EMAIL_YN")).intValue();
 	
 	if(email == null) {
 		email = "";
 	}
 	
 %> 
-
-<%-- 
-	form정보
-	action : 미정
-	method : post
-	-------------
-	[필드명, 이름, 아이디(이름과 아이디가 다를 경우에 명시)]
-	이름				: emp_name
-	아이디			: emp_id
-	현재 비밀번호		: emp_cur_pw
-	새 비밀번호			: emp_new_pw
-	새 비밀번호 확인		: emp_new_pw_check
-	이메일			: emp_email
-	생일				: emp_birthday
-	성별				: emp_gender(남 : emp_male, 여 : emp_female)
-	이메일수신			: cb_recv_email
- --%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 정보 수정</title>
+<title>트라E캐치-내 정보 수정</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
-	$(document).ready(function() {
+function isok(){
+	//정보를 변경하고 싶으면 현재비번은 무조건 입력하는 것으로...
+	var $emp_cur_pw = $("#emp_cur_pw").val();
+	if($emp_cur_pw != "") {
+		$.ajax({
+			url:"<%=request.getContextPath()%>/scv/checkCurPw"
+			,data:"emp_cur_pw="+$("#emp_cur_pw").val()
+			,method:"post"
+			,success:function(data) {
+				if(data.result == 1) {
+					//현재 비밀번호 일치
+					var $newPw = $("#emp_new_pw").val();
+					var $newPwCheck = $("#emp_new_pw_check").val();
+					
+					if($newPw != $newPwCheck) {
+						alert("새 비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+						return false;
+					}
+					else {
+						var params = null;
+						if($newPw == "") {
+							params = "emp_email="+$("#emp_email").val();
+						} else {
+							params = "emp_email="+$("#emp_email").val()+"&emp_new_pw="+$newPw;
+						}
+						
+						$.ajax({
+							url:"<%=request.getContextPath()%>/scv/modify"
+							,data:params
+							,method:"post"
+							,success:function(data) {
+								if(data.result == 1) {
+									alert("수정되었습니다.");
+								} else {
+									alert("수정에 실패하였습니다");
+								}
+								location.reload();
+							}
+						})
+					}					
+					
+				}
+				else {
+					alert("현재 비밀번호가 올바르지 않습니다.");
+					return false;
+				}
+			}
+		})
+		return false;
 		
-		/* $("#f_modify").click(function(){
-			$("#f_modify1")
-		}); */
-		
-		var gender = <%=gender%>;
-		var email_yn = <%=email_yn%>;
-		
-		if(gender == 1) 
-			$("#emp_male").attr("checked","checked");
-		else 
-			$("#emp_female").attr("checked","checked");
-		
-		if(email_yn == 1)
-			$("#cb_recv_email").attr("checked","checked");
-		else
-			$("#cb_recv_email").attr("unchecked","unchecked");
-		
-	})
-	
-	function isok(){
-		
-	alert("수정되었습니다.")
-	$("#f_modify").attr("action","<%= request.getContextPath() %>/scv/modify");
-	$("#f_modify").submit(); 
-		/* if(emp_new_pw==emp_new_pw_check)
-			alert("저장되었습니다.");
-		if(emp_new_pw!=emp_new_pw_check)
-			alert("비번이 일치하지 않습니다.")
-		if(emp_cur_pw==emp_new_pw)
-			alert("현재 비번과 일치합니다.")
-		if(emp_new_pw==null)
-			alert("비번을 입력하지 않았습니다.") */
-}
-	
- 
-$(function() {
-	$emp_id = $("#emp_id");
-	$remember_id = $("#remember_id");
-	
-	if($emp_id.val() != "") {
-		$remember_id.attr("checked","checked");
+	} else {
+		alert("현재 비밀번호를 입력해 주세요");
+		return false;
 	}
-})
+	
+	//새 비밀번호와 새 비밀번호 확인 칸에 값이 들어있으면 비밀번호를 변경하길 원하는 것으로 판단.
+}
 	
 </script>
 </head>
@@ -117,19 +110,19 @@ $(function() {
 					<div class="form-group">
 						<label for="emp_cur_pw" class="col-sm-3 control-label">현재 비밀번호</label>
 						<div class="col-sm-3">
-							<input type="password" class="form-control" id="emp_cur_pw" name="emp_cur_pw" value="<%=pw %>"  readonly />
+							<input type="password" class="form-control" id="emp_cur_pw" name="emp_cur_pw"  />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="emp_cur_pw" class="col-sm-3 control-label">새 비밀번호</label>
 						<div class="col-sm-3">
-							<input type="password" class="form-control" id="emp_new_pw" name="emp_new_pw"  required />
+							<input type="password" class="form-control" id="emp_new_pw" name="emp_new_pw"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="emp_cur_pw" class="col-sm-3 control-label">새 비밀번호 확인</label>
 						<div class="col-sm-3">
-							<input type="password" class="form-control" id="emp_new_pw_check" name="emp_new_pw_check"  required />
+							<input type="password" class="form-control" id="emp_new_pw_check" name="emp_new_pw_check" />
 						</div>
 					</div>
 	
@@ -145,7 +138,7 @@ $(function() {
 							<input type="text" class="form-control form_datetime" id="emp_birthday" name="emp_birthday" value="<%=birthday %>" readonly>
 						</div>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="d_gender" class="col-sm-3 control-label" >성별</label>
 						<div id="d_gender" class="col-sm-3">
 							<label class="radio-inline control-label"> 
@@ -155,18 +148,18 @@ $(function() {
 							<input type="radio" id="emp_female" name="emp_gender" value="0">여
 							</label>
 						</div>
-					</div>
-					<div class="form-group">
+					</div> -->
+				<!-- 	<div class="form-group">
 						<label for="cb_recv_email" class="col-sm-3 control-label">전자결재 이메일 수신</label>
 						<div class="col-sm-3">
 							<div class="checkbox">
 								<input type="checkbox" id="cb_recv_email" name="cb_recv_email" value="1" style="margin-left: 0px;">
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="form-group">
-						<div class="col-sm-offset-3 col-sm-3" onclick=javascript:isok()>
-							<button class="btn btn-primary">수정</button>
+						<div class="col-sm-offset-3 col-sm-3">
+							<button type="button" class="btn btn-primary" onclick="isok()">수정</button>
 						</div>
 					</div>
 				</form>

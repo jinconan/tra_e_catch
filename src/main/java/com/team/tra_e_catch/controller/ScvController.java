@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -9,14 +10,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mobile.device.Device;
-import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.team.tra_e_catch.scv.ScvLogic;
@@ -105,19 +105,17 @@ public class ScvController {
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/modify", method = RequestMethod.POST)
-	public String modify(Model mod
+	@ResponseBody
+	public Map<String, Object> modify(Model mod
 			, @RequestParam Map<String,Object> pMap
 			, @SessionAttribute("emp_no") int emp_no)
 	{
 		logger.info("modify");
-		logger.info(pMap);
+		logger.info(pMap + ", " + emp_no);
 		pMap.put("emp_no", emp_no);
 		
-	    scvLogic.modify(pMap);
-		 
-		
-		
-		return "redirect:/scv/view/modify";
+	    Map<String, Object> rMap = scvLogic.updateEmpPrivate(pMap);
+		return rMap;
 		
 	}
 
@@ -126,13 +124,11 @@ public class ScvController {
 	 * @param mod
 	 * @return
 	 */
-	@RequestMapping(value = "/scv/view/modify", method = RequestMethod.GET)
-	public String viewModify(Model mod
-			,@SessionAttribute("emp_no") int emp_no) 
+	@RequestMapping(value = "/scv/view/modify", method = {RequestMethod.GET, RequestMethod.POST})
+	public String viewModify(Model mod, HttpSession session) 
 	{
-		logger.info(emp_no);
-		
-		List<Map<String,Object>> getScvList = scvLogic.getScvList(emp_no);	
+		int eno = ((BigDecimal)session.getAttribute("emp_no")).intValue();
+		List<Map<String,Object>> getScvList = scvLogic.getScvList(eno);	
 		logger.info(getScvList);
 		
 		mod.addAttribute("getScvList", getScvList);
@@ -140,4 +136,14 @@ public class ScvController {
 		return "scv/modify";
 	}
 
+	
+	@RequestMapping(value="/scv/checkCurPw", method= RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> checkCurPw(HttpSession session, @RequestParam("emp_cur_pw") String ecurpw) {
+		int eno = ((BigDecimal)session.getAttribute("emp_no")).intValue();
+		
+		Map<String, Object> rMap = scvLogic.checkCurPw(eno, ecurpw);
+		return rMap;
+	}
+	
 }

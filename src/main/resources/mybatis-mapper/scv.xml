@@ -28,7 +28,7 @@
 	<select id="getChatlog" resultType="map" parameterType="map">
 		SELECT feno as "from", teno as "to", content as "content", chat_date as "timestamp"
 		FROM (
-		    SELECT  /*+ALL_ROWS */ rownum rno, chat_no, from_emp_no feno, to_emp_no teno, content, chat_date 
+		    SELECT  rownum rno, chat_no, from_emp_no feno, to_emp_no teno, content, chat_date 
 		    FROM chatlog c 
 		        inner join employee fe on c.from_emp_no=fe.emp_no
 		        INNER JOIN employee te on c.to_emp_no=te.emp_no
@@ -39,14 +39,27 @@
 		ORDER BY chat_no asc
 	</select>
 	
-	<update id="modify"  parameterType="map">
+	<update id="updateEmpPrivate"  parameterType="map">
 	UPDATE employee
-		SET 
-		  pw    = #{emp_cur_pw}
-		 ,email = #{emp_email}
-		 ,email_yn = #{cb_recv_email}
-		 WHERE emp_no = #{emp_no}
+	SET 
+		<if test="emp_new_pw != null">
+		pw = #{emp_new_pw},
+		</if>
+		email = #{emp_email}
+	WHERE emp_no = #{emp_no}
 	</update>
+	
+	<update id="updateEmpPrivateAll"  parameterType="map">
+	UPDATE employee
+	SET 
+		<if test="emp_new_pw != null">
+		pw = #{emp_new_pw}
+		</if>
+	</update>
+	
+	<select id="getPw" resultType="string" parameterType="int">
+	SELECT pw FROM employee WHERE emp_no = #{1}
+	</select>
 	
 	
 	
