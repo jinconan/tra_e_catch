@@ -12,10 +12,6 @@
 <body>
 <%
 String emp_no = String.valueOf(request.getAttribute("emp_no"));
-
-
-
-
 %>
 <script type="text/javascript">
 $(function() {

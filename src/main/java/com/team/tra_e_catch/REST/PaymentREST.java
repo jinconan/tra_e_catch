@@ -58,24 +58,39 @@ public class PaymentREST {
 	@RequestMapping("epay/epaywait")
 	private Map<String,Object> epaywaitlist(@RequestParam Map<String,Object>pMap,HttpServletRequest req){
 		logger.info("epaywaitlist 호출 성공");
-		System.out.println("epaywaitList에 들어가는 : " +pMap);
+		System.out.println(" REST epaywaitList에 들어가는 : " +pMap);
 		HttpSession session = req.getSession();
 		String semp_no = String.valueOf(session.getAttribute("emp_no"));
 		int emp_no = Integer.parseInt(semp_no);
 		pMap.put("eno", emp_no);
 		Map<String,Object> rMap = paymentLogic.getEpayWaitList(pMap);
 		logger.info("REST emp_no :" +emp_no);
-		logger.info(rMap);
+		logger.info("epay컨트롤러 :"+rMap);
 		return rMap;
 	}
-	//결제 문서 폼
-		@RequestMapping(value = "epay/epayform")
-		public List<Map<String, Object>> empform(@RequestParam Map<String, Object> pMap, HttpServletRequest req) {
-			List<Map<String, Object>> empform = null;
+	//결제 문서 update
+		@RequestMapping(value = "epay/epayupdate")
+		public int epayupdate(@RequestParam Map<String, Object> pMap, @SessionAttribute("emp_no") int eno) {
+			int result = 0;
 			System.out.println("기안문서에 들어오는"+pMap);
-			empform = paymentLogic.getEpayform(pMap);
-			System.out.println("결제기안문서에 들어오는"+empform);
-			return empform;
+			pMap.put("eno", eno);
+			result = paymentLogic.getEpayupdate(pMap);
+			System.out.println("결제기안문서에 들어오는"+result);
+			return result;
+		}
+		//결제 완료 문서 
+		@RequestMapping("epay/epayend")
+		private Map<String,Object> epayEnd(@RequestParam Map<String,Object>pMap,HttpServletRequest req){
+			logger.info("epayend 호출 성공");
+			System.out.println(" REST epayend에 들어가는 : " +pMap);
+			HttpSession session = req.getSession();
+			String semp_no = String.valueOf(session.getAttribute("emp_no"));
+			int emp_no = Integer.parseInt(semp_no);
+			pMap.put("eno", emp_no);
+			Map<String,Object> rMap = paymentLogic.getEpayEnd(pMap);
+			logger.info("REST emp_no :" +emp_no);
+			logger.info("epay컨트롤러 :"+rMap);
+			return rMap;
 		}
 	@RequestMapping("epay/draft/t/{counts}")
 	private List<Map<String, Object>> searchList(@PathVariable int counts,Model mod,HttpServletRequest req) {
