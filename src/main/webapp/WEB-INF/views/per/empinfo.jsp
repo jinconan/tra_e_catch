@@ -1,3 +1,4 @@
+<%@page import="java.math.BigDecimal"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -135,56 +136,57 @@ function attdexit(){
 </script>
 
 <div class="row">
-    <div class="card hovercard">
-        <div class="card-background">
-            <img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9/">
-            <!-- http://lorempixel.com/850/280/people/9/ -->
-        </div>
-        <div class="useravatar">
-            <img alt="" src="http://lorempixel.com/100/100/people/9/">
-        </div>
-        <div class="card-info"> <span class="card-title" id="ename"></span>
+	<div class="card hovercard">
+		<div class="card-background">
+			<img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9/">
+			<!-- http://lorempixel.com/850/280/people/9/ -->
+		</div>
+		<div class="useravatar">
+			<img alt="" src="<%=request.getContextPath()%>/imgs/profile/<%=((BigDecimal)session.getAttribute("emp_no")).intValue()%8+1 %>.png">
+		</div>
+		<div class="card-info">
+			<span class="card-title" id="ename"></span>
 
-        </div>
-    </div>
-    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
-        <div class="btn-group" role="group">
-            <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                <div class="hidden-xs">사원정보</div>
-            </button>
-        </div>
-        <div class="btn-group" role="group">
-            <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                <div class="hidden-xs">직무내용</div>
-            </button>
-        </div>
-        <div class="btn-group" role="group">
-            <button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                <div class="hidden-xs">출결버튼</div>
-            </button>
-        </div>
-    </div>
+		</div>
+	</div>
+	<div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+		<div class="btn-group" role="group">
+			<button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab">
+				<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				<div class="hidden-xs">사원정보</div>
+			</button>
+		</div>
+		<div class="btn-group" role="group">
+			<button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab">
+				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+				<div class="hidden-xs">직무내용</div>
+			</button>
+		</div>
+		<div class="btn-group" role="group">
+			<button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab">
+				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+				<div class="hidden-xs">출결버튼</div>
+			</button>
+		</div>
+	</div>
 
-        <div class="well">
-      <div class="tab-content">
-        <div class="tab-pane fade in active" id="tab1">
-          <i class="glyphicon glyphicon-user" id="empno"></i>
-						<br>
-						<i class="glyphicon glyphicon-lock" id="tname"></i>
-						<br>
-						<i class="glyphicon glyphicon-edit" id="clev"></i>
-						 <br> <i class="glyphicon glyphicon-calendar" id="hday"></i>
-						
-        </div>
-       
-        <div class="tab-pane fade in" id="tab2">
-          <h3>This is tab 2</h3>
-        </div>
-        <div class="tab-pane fade in" id="tab3">
+	<div class="well">
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="tab1">
+				<i class="glyphicon glyphicon-user" id="empno"></i> <br> 
+				<i class="glyphicon glyphicon-lock" id="tname"></i> <br> 
+				<i class="glyphicon glyphicon-edit" id="clev"></i> <br> 
+				<i class="glyphicon glyphicon-calendar" id="hday"></i>
+			</div>
+
+			<div class="tab-pane fade in" id="tab2">
+				<h3>This is tab 2</h3>
+			</div>
+			<div class="tab-pane fade in" id="tab3">
 
 
 				<form id="f_attdchk" method="post">
-					<input type="hidden" id="attSelect" name="attSelect"/>
+					<input type="hidden" id="attSelect" name="attSelect" />
 					<button type="button" class="btn btn-danger" id="attok" value="출근" onclick="attdok()">
 						<i class="glyphicon glyphicon-ok" aria-hidden="true"></i>출근
 					</button>
@@ -195,11 +197,11 @@ function attdexit(){
 
 
 			</div>
-      </div>
-    </div>
-    
-    </div>
-            
+		</div>
+	</div>
+
+</div>
+
 
 
 

@@ -8,10 +8,7 @@
 <script>
 var dtype = null;
 var sign_status = null;
-$(function() {
 	
-});
-
 function tableParams(param) {
 	if(sign_status != null) {
 		param.sign_yn = sign_status;
@@ -41,13 +38,13 @@ function setSignStatus(data) {
 	if(data != "전체") {
 		if(data == "읽지않음") 
 			sign_status = 0;
-		else if(data == "결재완료")
-			sign_status = 1;
 		else if(data == "승인완료")
+			sign_status = 1;
+		else if(data == "결재완료")
 			sign_status = 2;
-		else if(data == "결재실패")
-			sign_status = -1;
 		else if(data == "승인실패")
+			sign_status = -1;
+		else if(data == "결재실패")
 			sign_status = -2;
 		$("#sign_status button.dropdown-text").text(data);
 	}
@@ -101,10 +98,10 @@ function setSignStatus(data) {
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="javascript:setSignStatus('전체')">전체</a></li>
 						<li><a href="javascript:setSignStatus('읽지않음')">읽지않음</a></li>
-						<li><a href="javascript:setSignStatus('결재완료')">결재완료</a></li>
 						<li><a href="javascript:setSignStatus('승인완료')">승인완료</a></li>
-						<li><a href="javascript:setSignStatus('결재실패')">결재실패</a></li>
+						<li><a href="javascript:setSignStatus('결재완료')">결재완료</a></li>
 						<li><a href="javascript:setSignStatus('승인실패')">승인실패</a></li>
+						<li><a href="javascript:setSignStatus('결재실패')">결재실패</a></li>
 					</ul>
 				</div>
 			</div>
@@ -119,7 +116,7 @@ function setSignStatus(data) {
 					data-page-list="[10]"
 					data-query-params="tableParams"
 					data-side-pagination="server">
-					<!-- RNO, DNAME, TITLE, CONTENT, UDATE, CENAME, AENAME, SIGN_YN, SRESULT -->
+					<%-- RNO, DNAME, TITLE, CONTENT, UDATE, CENAME, AENAME, SIGN_YN, SRESULT --%> 
 					<thead>
 						<tr>
 							<th data-field="RNO">#</th>
@@ -136,21 +133,6 @@ function setSignStatus(data) {
 
 		</div>
 	</div>
-
-
-	<script type="text/javascript">
-		$('#fromDate').datetimepicker({
-			language : 'ko', // 화면에 출력될 언어를 한국어로 설정한다.
-			pickTime : false, // 사용자로부터 시간 선택을 허용하려면 true를 설정하거나 pickTime 옵션을 생략한다.
-			defalutDate : new Date() // 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션을 생략한다.
-		});
-	
-		$('#toDate').datetimepicker({
-			language : 'ko',
-			pickTime : false,
-			defalutDate : new Date()
-		});
-	</script>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </body>
 </html>

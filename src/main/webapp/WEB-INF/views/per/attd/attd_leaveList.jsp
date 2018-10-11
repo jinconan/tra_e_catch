@@ -5,7 +5,6 @@
 <meta charset="UTF-8">
 <title>트라E캐치 홈화면</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
-<%-- <jsp:include page="/WEB-INF/views/_common/header.jsp" /> --%>
 </head>
 <body>
 <script type="text/javascript">
@@ -13,7 +12,6 @@ var $table = $('#p_table');
 var mydata = 
 [
 	{
-
 	    	"l_date"   :"2018-07-07",
 	    	"l_cla"    :"연차",
 	    	"l_sdate"  :"2018-07-07",
@@ -44,7 +42,7 @@ $('#p_table').bootstrapTable({
 		<h3><b>연 차 관 리</b></h3>
 	<div class="col-sm-10">
 		<div class="col-sm-3">
-			<jsp:include page="/WEB-INF/views/per/empinfo.jsp" />
+			<jsp:include page="/WEB-INF/views/per/empinfo.jsp"/>
 		</div>
 		<!-- 무죄 -->
 		<div class="table-responsive col-xs-9">
