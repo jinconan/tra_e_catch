@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util" xmlns:websocket="http://www.springframework.org/schema/websocket" xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+	<!-- 웹소켓 -->
+	<util:map id="onlineEmp" map-class="java.util.HashMap" key-type="java.lang.String" value-type="org.springframework.web.socket.handler.WebSocketSessionDecorator"></util:map>
+	
+	<bean id="chatHandler" class="com.team.tra_e_catch.handler.ChatHandler">
+		<property name="onlineEmp" ref="onlineEmp"></property>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
+	
+	
+	<websocket:handlers>
+		<websocket:mapping handler="chatHandler" path="/chat-ws" />
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		<websocket:sockjs/>
+	</websocket:handlers>	
+
+</beans>

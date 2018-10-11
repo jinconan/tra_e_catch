@@ -13,7 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
-<%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<%@ include file="/WEB-INF/views/_common/commonMobileUI.jsp"%>
 <script>
 //체크박스 체크
 $(function() {
@@ -28,13 +28,15 @@ $(function() {
 </script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
-	<div class="container">
+	<div class="container-fluid" style="position:relative; height:100%;">
+		<div style="background-color: blue; height:33%%; ">
+		hello
+		</div>
+		
 		<%-- 로그인은 서브메뉴를 필요로 하지 않는다. --%>
 		<%-- <jsp:include page="/WEB-INF/views/_common/submenu.jsp" /> --%>
-		<div class="col-sm-12">
 			<div class="well">
-				<h2><strong>로그인</strong></h2>
+				<%-- <h2><strong>로그인</strong></h2>
 				<form action="<%= request.getContextPath() %>/scv/login" class="form-horizontal" method="post">
 					<div class="form-group">
 						<label for="emp_id" class="sr-only control-label">ID</label>
@@ -60,10 +62,8 @@ $(function() {
 							<button class="btn btn-primary btn-block">로그인</button>
 						</div>
 					</div>
-				</form>
+				</form> --%>
 			</div>
-		</div>
 	</div>
-	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </body>
 </html>

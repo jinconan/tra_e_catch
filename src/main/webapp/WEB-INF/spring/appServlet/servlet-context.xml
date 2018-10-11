@@ -28,8 +28,10 @@
 			<exclude-mapping path="/imgs/**"/>		
 			<exclude-mapping path="/resources/**"/>
 			<exclude-mapping path="/mobile/**"/>
+<!-- 	
 			<exclude-mapping path="/mobile/scv/view/login"/>
 			<exclude-mapping path="/scv/login"/>
+ -->
 			<beans:bean class="org.springframework.mobile.device.switcher.SiteSwitcherHandlerInterceptor" factory-method="urlPath">
 				<beans:constructor-arg index="0" type="java.lang.String" value="/mobile" />
 				<beans:constructor-arg index="1" type="java.lang.String" value="/tra_e_catch" />

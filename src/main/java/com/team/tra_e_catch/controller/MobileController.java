@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MobileController {
 	Logger logger= Logger.getLogger(MobileController.class);
 	
-	@RequestMapping("/")
+/*	@RequestMapping("/")
 	private String home(Model model) {
 		return "mobile/home";
 	}
@@ -20,6 +20,6 @@ public class MobileController {
 		logger.info("모바일 로그인 페이지");
 		return "mobile/login";
 	}
-	
+	*/
 	
 }

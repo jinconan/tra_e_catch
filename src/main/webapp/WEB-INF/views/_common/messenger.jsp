@@ -179,6 +179,7 @@
 	
 	//서버로부터 받은 채팅메시지 처리에 대한 함수
 	function chatMsg(data) {
+		
 		//현재 열린 창에서의 대화인 경우 출력. 아닌경우 출력X.
     	var another = $("#d_chat").find(".emp_no").val();
 		//another ==data.to : 보낸것
