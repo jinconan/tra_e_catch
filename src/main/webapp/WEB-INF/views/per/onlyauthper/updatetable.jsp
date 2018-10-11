@@ -41,7 +41,7 @@ $(function() {
 	})
 	/* 부서리스트 */
 		$.ajax({
-		url:'<%=request.getContextPath()%>/perR/only/deptlist',
+		url:'<%=request.getContextPath()%>/perR/dept/list',
 		type: "json",
 		success: function(data){
 			for(i in data){
