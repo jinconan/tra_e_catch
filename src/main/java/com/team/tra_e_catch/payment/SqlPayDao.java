@@ -83,6 +83,11 @@ public class SqlPayDao {
 		emp_no = sqlSessionTemplate.insert("getEmp",emp_no);
 		return emp_no;
 	}
+	public String getEname() {
+		String ename = "";
+		ename = sqlSessionTemplate.selectOne("getEname",ename);
+		return ename;
+	}
 
 	
 	
@@ -133,8 +138,10 @@ public class SqlPayDao {
 		logger.info("Dao EpaywaitList 호출성공");
 		List<Map<String,Object>> EpayWaitList = null;
 		EpayWaitList = sqlSessionTemplate.selectList("getEpayWaitList", pMap);
+		System.out.println(EpayWaitList);
 		return EpayWaitList;
 	}
+	//결제 대기 문서 페이지네이션
 	public int getTotalEpayWaitList(Map<String, Object> pMap) {
 		logger.info("Dao EpaywaitList 호출성공");
 		int result = 0;
@@ -143,12 +150,22 @@ public class SqlPayDao {
 	}
 	
 	
-	//결제 문서 폼
-	public List<Map<String, Object>> getEpayform(Map<String, Object> pMap) {
+	//결제 대기 문서 승인 부결
+	public int getEpayupdate(Map<String, Object> pMap) {
 		logger.info("Dao getEpayform 호출성공");
-		List<Map<String,Object>> epayform = null;
-		epayform = sqlSessionTemplate.selectList("getEpayform", pMap);
-		return epayform;
+		int result = 0;
+		result = sqlSessionTemplate.update("getEpayupdate", pMap);
+		return result;
+	}
+
+// 결제 완료 문서
+	public List<Map<String, Object>> getEpayEnd(Map<String, Object> pMap) {
+		logger.info("getEpayEnd 호출성공");
+		List<Map<String,Object>> epayend = null;
+		epayend = sqlSessionTemplate.selectList("getEpayEnd", pMap);
+		System.out.println(epayend);
+		return epayend;
+		
 	}
 	
 	

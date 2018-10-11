@@ -8,7 +8,14 @@ public class PaymentVO {
 	private String up_date;
 	private int emp_no;
 	private String title;
+	private String ename;
 	
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
 	public String getTitle() {
 		return title;
 	}

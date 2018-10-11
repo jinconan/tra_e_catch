@@ -179,6 +179,7 @@ public class PaymentController {
 		mod.addAttribute("subMenuList", subMenuList);
 		List<Map<String,Object>> epaywaitList = null;
 		pMap.put("emp_no", session.getAttribute("emp_no"));
+		pMap.put("ename", session.getAttribute("ename"));
 		System.out.println("epaywaitList에 들어가는 : " +pMap);
 		
 		//epaywaitList = paymentLogic.getEpayWaitList(pMap);
@@ -197,15 +198,15 @@ public class PaymentController {
 		
 		return "pay/epay/epayend";
 	}
-	//기안문서  뷰
+	/*//기안문서  뷰
 		@RequestMapping(value = "/epay/epayform",method = RequestMethod.GET)
 		public String epayfrom(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
 			logger.info("epayfrom호출");
 			System.out.print("기안문서 뷰"+pMap);
 			List<Map<String, Object>> epayform = null;
 			epayform = paymentLogic.getEpayform(pMap);
-			/*System.out.println("고용계약서 인포 : "+getEmpList);
-			req.setAttribute("emp_no", getEmpList.get(0).get("EMP_NO"));*/
+			System.out.println("고용계약서 인포 : "+getEmpList);
+			req.setAttribute("emp_no", getEmpList.get(0).get("EMP_NO"));
 			mod.addAttribute("epayform", epayform);
 			req.setAttribute("ename", epayform.get(0).get("ENAME"));
 			req.setAttribute("dno", epayform.get(0).get("DTYPE_NO"));
@@ -215,5 +216,5 @@ public class PaymentController {
 			req.setAttribute("title", epayform.get(0).get("TITLE"));
 			return "pay/epay/epayform";
 		}
-
+*/
 }
