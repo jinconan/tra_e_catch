@@ -51,6 +51,8 @@ public class SqlPerDao {
 		return getEmpList;
 		
 	}
+	
+	
 	//근무평정 데이터 insert
 	
 	public List<Map<String, Object>> setSerList(Map<String, Object> pMap) {
@@ -117,7 +119,7 @@ public class SqlPerDao {
 		workList = sqlSessionTemplate.selectList("viewWorkList",pMap);
 		return workList;
 	}
-	
+	//근로계약서 등록
 	public List<Map<String, Object>> LabInsert(Map<String, Object> pMap) {
 		System.out.println("최종적으로 들어가는 것들 : "+pMap);
 		sqlSessionTemplate.insert("labInsert", pMap);

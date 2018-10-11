@@ -63,7 +63,7 @@
 			<entry key="sm_url" value="/per/labcont" />
 		</map>
 		<map>
-			<entry key="sm_name" value="고용계약서" />
+			<entry key="sm_name" value="고용계약서 관리" />
 			<entry key="sm_url" value="/per/empcont" />
 		</map>
 		<map>

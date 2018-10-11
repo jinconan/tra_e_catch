@@ -378,12 +378,19 @@ public class PersonnelController {
 	}
 	//근로계약서 등록
 	@RequestMapping(value = "/labcont/insert")
-	public String labcontinsert(@RequestParam Map<String, Object> pMap) {
+	public String labcontinsert(@RequestParam Map<String, Object> pMap,Model mod, HttpServletRequest req) {
 		logger.info("labcontinsert호출");
 		System.out.println(pMap);//정상적으로 emp_no가 들어있음.
 		List<Map<String, Object>> labinsert = null;
 		System.out.println(pMap);
 		labinsert = personnelLogic.labInsert(pMap);
+		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
+		
+		HttpSession session= req.getSession();
+		String semp_no = String.valueOf(session.getAttribute("emp_no"));
+		int emp_no = Integer.parseInt(semp_no);		
+		mod.addAttribute("curSubMenu", "기획서 리스트");
+		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/labcont";
 	}
 
