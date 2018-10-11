@@ -5,9 +5,9 @@
 	<resultMap id="chart_Plan1" type="java.util.TreeMap"></resultMap>
 	<select id="orTranlist" parameterType="int"  resultType="Map">
 		<![CDATA[
-        select ROWNUM as 번호, 등록코드,거래처코드,결제방식,결제일자,결제코드,거래량 from
-            (select 등록코드,거래처코드,결제방식,결제일자,결제코드,거래량 from T_VIEW_PROD_HISTORY
-            where 0=0
+        select 번호, 등록코드,거래처코드,결제방식,결제일자,결제코드,거래량 from
+            (select 등록코드,거래처코드,결제방식,결제일자,결제코드,거래량,번호 from T_VIEW_PROD_HISTORY
+            where 번호 > (#{counts}*10)-10
 		]]>
 	<if test='std != null'>
 		<![CDATA[and 결제일자 >#{std}]]>
@@ -28,7 +28,7 @@
 		<![CDATA[and 등록코드 = #{incode}]]>
 	</if>
 	<![CDATA[
-	            )where ROWNUM >  #{counts}*10-10 and ROWNUM <#{counts}*10+1 
+	            )where rownum<11
     ]]>
 	</select>
 	<select id="emp_list" parameterType="String"  resultType="int">
