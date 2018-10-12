@@ -281,6 +281,10 @@
 		</if>
 	</delete>
 
+	<insert id="insertMemberOne" parameterType="map">
+		INSERT INTO proj_member(proj_no, emp_no, rtype_no) VALUES (#{proj_no}, #{emp_no}, 101)
+	</insert>
+	
 	<!-- 멤버 추가 -->
 	<insert id="insertMember" parameterType="map">
 		INSERT ALL

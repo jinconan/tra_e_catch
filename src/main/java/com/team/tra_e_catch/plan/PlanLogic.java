@@ -161,7 +161,7 @@ public class PlanLogic {
 		int result = sqlPlanDao.insertProj(pMap);
 		if(result != 0) {
 			pMap.put("rtype_no", 101);
-			result = sqlPlanDao.insertMember(pMap);
+			result = sqlPlanDao.insertMemberOne(pMap);
 		}
 		return result;
 	}

@@ -214,6 +214,17 @@ public class SqlPlanDao {
 		return result;
 	}
 	
+	public int insertMemberOne(Map<String, Object> pMap) {
+		logger.info("insertMemberOne()");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.insert("mybatis-mapper.planMapper.insertMemberOne",pMap);
+			logger.info("insertMemberOne() = " + result);
+		} catch(Exception e) {
+			logger.error(e.toString());
+		}
+		return result;
+	}
 	public int insertMember(Map<String, Object> pMap) {
 		logger.info("insertMember()");
 		int result = 0;
