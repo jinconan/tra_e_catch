@@ -60,9 +60,11 @@ $(function(){
 	});
 	
 	$("#btn_deny").click(function() {
+		$("#signDno").val(modal_row.DNO);
 		if(modal_row.CENO == ${sessionScope.emp_no}) {
 	   		//alert("승인자")
 	   		$("#signVal").val("-1");
+	   		$("#isConfirm").val("true");
 	   		//$("#cname").text(modal_row.CENAME);
 	   		//$("#cdate").text(modal_row.CDATE);
 	    
@@ -70,6 +72,7 @@ $(function(){
 			//alert("결재자")
 			//$("#aname").text(modal_row.AENAME);
 			$("#signVal").val("-2");
+			$("#isConfirm").val("false");
 		}
 	
 	   	$("#f_update").submit();
@@ -131,50 +134,44 @@ $(function(){
 								<input type="hidden" name="signVal" id="signVal">
 								<input type="hidden" name="signDno" id="signDno">
 								<input type="hidden" name="isConfirm" id="isConfirm">
-								<table border="1" style="text-align: center; width: 600px">
+								<table border="1" class="center-block" style="width: 100%; text-align:center;">
 									<tr>
-										<td colspan="7"><div>
-												<h3>기 안 서</h3>
-											</div></td>
+										<td colspan="5">
+											<h3>기 안 서</h3>
+										</td>
 									</tr>
 									<tr>
-										<td width="10%">문서번호</td>
-										<td width="25%"><div id="dno"></div></td>
+										<td width="15%">문서번호</td>
+										<td width="45%" id="dno"></td>
 										<td rowspan="2" width="10%">결재</td>
-										<td>승인</td>
-										<td>결재</td>
+										<td width="15%">승인</td>
+										<td width="15%">결재</td>
 									</tr>
 									<tr>
 										<td>기안일자</td>
-										<td><div id="udate"></div></td>
-										<td><div id="cname"></div></td>
-										<td><div id="aname"></div></td>
-
+										<td id="udate"></td>
+										<td id="cname"></td>
+										<td id="aname"></td>
 									</tr>
 									<tr>
-										<td>시행일자</td>
-										<td><div id="cdate"></div></td>
-										<td>기안자</td>
-										<td colspan="4"><div id="name">
-												<%-- <input id="ename" value="<%=ename%>"> --%>
-											</div></td>
+										<td>승인일자</td>
+										<td id="cdate"></td>
+										<td colspan="3">기안자</td>
 									</tr>
 									<tr>
-										<td>결제일자</td>
-										<td><div id="adate"></div></td>
-										<!-- <td>참조</td>
-									<td colspan="4">div</td> -->
+										<td>결재일자</td>
+										<td id="adate"></td>
+										<td colspan="3" id="name"></td>
 									</tr>
 									<tr>
 										<td>제목</td>
-										<td colspan="6"><div id="title"></div></td>
+										<td colspan="4" id="title"></td>
 									</tr>
 									<tr>
-										<td colspan="8">내용</td>
+										<td colspan="5">내용</td>
 									</tr>
 									<tr>
-										<td colspan="8" rowspan="10" width="532" height="420"><div
-												id="content"></div>
+										<td id="content" colspan="5" rowspan="10" width="532" height="420"></td>
 									</tr>
 								</table>
 								</form>

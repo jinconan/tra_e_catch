@@ -55,6 +55,37 @@ function setSignStatus(data) {
 	$("#p_table").bootstrapTable('refresh',null);
 }
 </script>
+<script>
+$(document).ready(function() {
+	$("#p_table").on("click-row.bs.table", function(e, row, $element, field) {
+		console.log(row);
+		$("#draftModal").modal('show');
+		$("#dno").text(row.DNO);
+		$("#udate").text(row.UDATE);
+		$("#name").text("${sessionScope.emp_name}");
+		$("#title").text(row.TITLE);
+		$("#content").text(row.CONTENT);
+		
+		if(row.SIGN_YN == 1) {
+			$("#cname").text(row.CENAME);
+			$("#cdate").text(row.CDATE);
+		} else if(row.SIGN_YN == 2) {
+			$("#cname").text(row.CENAME);
+			$("#cdate").text(row.CDATE);
+			$("#aname").text(row.AENAME);
+			$("#adate").text(row.ADATE);
+		} else if(row.SIGN_YN == -1) {
+			$("#cname").text(row.CENAME);
+			$("#cdate").text(row.CDATE);
+		} else if(row.SIGN_YN == -2) {
+			$("#cname").text(row.CENAME);
+			$("#cdate").text(row.CDATE);
+			$("#aname").text(row.AENAME);
+			$("#adate").text(row.ADATE);
+		}
+	})
+})
+</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
@@ -130,7 +161,66 @@ function setSignStatus(data) {
 					</thead>
 				</table>
 			</div>
-
+			
+			<div class="modal fade" id="draftModal" tabindex="-1" role="dialog" aria-labelledby="draftModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="draftModalLabel">기안서</h4>
+						</div>
+						<div class="modal-body">
+							<div id="d_viewwork">
+								<table border="1" class="center-block" style="width: 100%; text-align:center;">
+									<tr>
+										<td colspan="5">
+											<h3>기 안 서</h3>
+										</td>
+									</tr>
+									<tr>
+										<td width="15%">문서번호</td>
+										<td width="45%" id="dno"></td>
+										<td rowspan="2" width="10%">결재</td>
+										<td width="15%">승인</td>
+										<td width="15%">결재</td>
+									</tr>
+									<tr>
+										<td>기안일자</td>
+										<td id="udate"></td>
+										<td id="cname"></td>
+										<td id="aname"></td>
+									</tr>
+									<tr>
+										<td>승인일자</td>
+										<td id="cdate"></td>
+										<td colspan="3">기안자</td>
+									</tr>
+									<tr>
+										<td>결재일자</td>
+										<td id="adate"></td>
+										<td colspan="3" id="name"></td>
+									</tr>
+									<tr>
+										<td>제목</td>
+										<td colspan="4" id="title"></td>
+									</tr>
+									<tr>
+										<td colspan="5">내용</td>
+									</tr>
+									<tr>
+										<td id="content" colspan="5" rowspan="10" width="532" height="420"></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />

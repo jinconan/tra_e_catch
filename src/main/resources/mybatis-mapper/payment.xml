@@ -19,8 +19,8 @@
  	<select id="getPaymentList" resultType="map" parameterType="map">
 	SELECT *
 	FROM (
-	    SELECT rownum rno, dno, dname, eno, title, content, udate, path, cename, aename, sign_yn, sresult
-	    FROM v_draftlist
+	    SELECT rownum rno, dno, dname, eno, ename, title, content, udate, cdate, adate, ceno, aeno, cename, aename, sign_yn, sresult
+       	FROM v_draftlist
 	    <where>
 	    	<if test="eno != null">
 	    		eno = #{eno}
