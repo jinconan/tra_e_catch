@@ -151,10 +151,16 @@ public class SqlPayDao {
 	
 	
 	//결제 대기 문서 승인 부결
-	public int getEpayupdate(Map<String, Object> pMap) {
-		logger.info("Dao getEpayform 호출성공");
+	public int updateEpay(Map<String, Object> pMap) {
 		int result = 0;
-		result = sqlSessionTemplate.update("getEpayupdate", pMap);
+		try {
+			logger.info(pMap);
+			result = sqlSessionTemplate.update("updateEpay", pMap);
+			logger.info("업데이트 성공");
+		}
+		catch(Exception e) {
+			logger.error(e.toString());
+		}
 		return result;
 	}
 
@@ -166,6 +172,14 @@ public class SqlPayDao {
 		System.out.println(epayend);
 		return epayend;
 		
+	}
+
+
+	public int getTotalEpayEndList(Map<String, Object> pMap) {
+		logger.info("getTotalEpayEndList 호출성공");
+		int result = 0;
+		result = sqlSessionTemplate.selectOne("getTotalEpayEndList", pMap);
+		return result;
 	}
 	
 	

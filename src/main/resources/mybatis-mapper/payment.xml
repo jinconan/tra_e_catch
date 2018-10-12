@@ -58,7 +58,7 @@
        SELECT rownum rno, dno, dname, eno, ename, title, content, udate, cdate, adate, ceno, aeno, cename, aename, sign_yn, sresult
        FROM v_draftlist
        <where>
-       		<if test="eno">
+       		<if test="eno != null">
        		(ceno = #{eno} and sign_yn=0) OR (aeno = #{eno} and sign_yn=1)
        		</if>   
        </where>
@@ -87,7 +87,15 @@
 	SELECT count(*) FROM v_draftlist
 	<where>
 		<if test="eno">
-			ceno = #{eno} OR aeno = #{eno}
+			(ceno = #{eno} AND sign_yn = 0) OR (aeno = #{eno} AND sign_yn = 1)
+		</if>
+	</where>
+	</select>
+	<select id="getTotalEpayEndList" resultType="int" parameterType="map">
+	SELECT count(*) FROM v_draftlist
+	<where>
+		<if test="eno">
+			(ceno = #{eno} AND (sign_yn = 1 OR sign_yn = -1)) OR (aeno = #{eno} AND (sign_yn = 2 OR sign_yn = -2))
 		</if>
 	</where>
 	</select>
@@ -96,19 +104,20 @@
 	
 	
 	<!-- 결제 대기문서 날짜update -->
-	<select id="getEpayupdate" parameterType="map" resultType="map">
+	<update id="updateEpay" parameterType="map">
 	update sign
 	<choose>
-		<when test="ceno != null">
+		<when test="isConfirm.equals('true')">
 			set sign_yn = #{signVal}, confirm_date =
-			to_char(sysdate,'yyyy-mm-dd')where confirm_emp_no=#{eno}
+			to_char(sysdate,'yyyy-mm-dd') where confirm_emp_no=#{eno} AND doc_no = #{signDno}
 		</when>
 		<otherwise>
 			set sign_yn = #{signVal}, accept_date =
-			to_char(sysdate,'yyyy-mm-dd')where accept_emp_no=#{eno}
+			to_char(sysdate,'yyyy-mm-dd') where accept_emp_no=#{eno} AND doc_no = #{signDno}
 		</otherwise>
 	</choose>
-	</select>
+	</update>
+	
 	<!-- 결제 완료 문서 -->
 	 <select id="getEpayEnd" parameterType="map" resultType="map">
 	SELECT *

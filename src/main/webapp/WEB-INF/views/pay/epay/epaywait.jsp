@@ -37,18 +37,22 @@ $(function(){
 		$("#name").text(row.ENAME);
 		$("#content").text(row.CONTENT);
 		$("#title").text(row.TITLE);
+		
 	})
 	
 	$("#btn_con").on('click',function(evt){
+		$("#signDno").val(modal_row.DNO);
 	   	if(modal_row.CENO == ${sessionScope.emp_no}) {
 	   		//alert("승인자")
 	   		$("#signVal").val("1");
+	   		$("#isConfirm").val("true");
 	   		//$("#cname").text(modal_row.CENAME);
 	   		//$("#cdate").text(modal_row.CDATE);
 	    
 		} else if(modal_row.AENO == ${sessionScope.emp_no}) {
 			//alert("결재자")
 			//$("#aname").text(modal_row.AENAME);
+			$("#isConfirm").val("false");
 			$("#signVal").val("2");
 		}
 	
@@ -123,8 +127,10 @@ $(function(){
 						<div id="d_viewwork">
 
 
-							<form id="f_update" method="post" action="<%=request.getContextPath()%>/payR/epay/epayupdate">
+							<form id="f_update" method="post" action="<%=request.getContextPath()%>/pay/epay/epayupdate">
 								<input type="hidden" name="signVal" id="signVal">
+								<input type="hidden" name="signDno" id="signDno">
+								<input type="hidden" name="isConfirm" id="isConfirm">
 								<table border="1" style="text-align: center; width: 600px">
 									<tr>
 										<td colspan="7"><div>

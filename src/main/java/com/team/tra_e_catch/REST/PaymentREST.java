@@ -69,15 +69,7 @@ public class PaymentREST {
 		return rMap;
 	}
 	//결제 문서 update
-		@RequestMapping(value = "epay/epayupdate")
-		public int epayupdate(@RequestParam Map<String, Object> pMap, @SessionAttribute("emp_no") int eno) {
-			int result = 0;
-			System.out.println("기안문서에 들어오는"+pMap);
-			pMap.put("eno", eno);
-			result = paymentLogic.getEpayupdate(pMap);
-			System.out.println("결제기안문서에 들어오는"+result);
-			return result;
-		}
+		
 		//결제 완료 문서 
 		@RequestMapping("epay/epayend")
 		private Map<String,Object> epayEnd(@RequestParam Map<String,Object>pMap,HttpServletRequest req){

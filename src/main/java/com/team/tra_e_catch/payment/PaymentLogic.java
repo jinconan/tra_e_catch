@@ -74,10 +74,10 @@ public class PaymentLogic {
 		return rMap;
 	}
 //결제 대기 문서 승인 부결
-	public int getEpayupdate(Map<String, Object> pMap) {
+	public int updateEpay(Map<String, Object> pMap) {
 		logger.info("getEpayupdate 호출성공");
 		int result = 0;
-		result = sqlPayDao.getEpayupdate(pMap);
+		result = sqlPayDao.updateEpay(pMap);
 		return result;
 	}
 	//결제 완료 문서
@@ -87,7 +87,7 @@ public class PaymentLogic {
 		Map<String, Object> rMap = new HashMap<String, Object>();
 		List<Map<String,Object>> epayend = null; 
 		epayend = sqlPayDao.getEpayEnd(pMap);
-		int total = sqlPayDao.getTotalEpayWaitList(pMap);
+		int total = sqlPayDao.getTotalEpayEndList(pMap);
 		rMap.put("total", total);
 		rMap.put("rows", epayend);
 		return rMap;

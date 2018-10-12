@@ -217,4 +217,14 @@ public class PaymentController {
 			return "pay/epay/epayform";
 		}
 */
+	
+	@RequestMapping(value = "epay/epayupdate")
+	public String epayupdate(@RequestParam Map<String, Object> pMap, @SessionAttribute("emp_no") int eno) {
+		int result = 0;
+		pMap.put("eno", eno);
+		logger.info("epayupdate : " + pMap);
+		result = paymentLogic.updateEpay(pMap);
+		System.out.println("결제기안문서에 들어오는"+result);
+		return "redirect:/pay/epay/epaywait";
+	}
 }
