@@ -242,6 +242,7 @@ public class PlanLogic {
 
 	public int insertMember(Map<String, Object> pMap) {
 		logger.info("insertMember");
+		
 		if(pMap.containsKey("projNo"))
 			pMap.put("proj_no", pMap.get("projNo"));
 		if(pMap.containsKey("empNo"))

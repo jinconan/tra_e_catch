@@ -283,15 +283,19 @@
 
 	<!-- 멤버 추가 -->
 	<insert id="insertMember" parameterType="map">
-		INSERT INTO
-		proj_member(proj_no, emp_no, rtype_no)
-		VALUES(#{proj_no}, #{emp_no},
-		<if test="rtype_no != null">
-			#{rtype_no})
-		</if>
-		<if test="rtype_no == null">
-			102)
-		</if>
+		INSERT ALL
+		<foreach collection="emp_no" item="item" index="index"> 
+		INTO proj_member(proj_no, emp_no, rtype_no) VALUES (#{proj_no}, #{item},
+		<choose>
+			<when test="rtype_no != null">
+				#{rtype_no})
+			</when>
+			<otherwise>
+				102)
+			</otherwise>
+		</choose>
+		</foreach>
+		SELECT * FROM dual
 	</insert>
 
 	<!-- 멤버 삭제 -->

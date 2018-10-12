@@ -136,21 +136,25 @@ function btnAddClick() {
 	$.each(emp,function(i,data) {
 		empList[i]=data.empNo;		
 	})
-	console.log(empList)
+	
+	var params = {
+			projNo:<%=projNo%>
+			,empNo:empList
+	};
+	
+	console.log(params);
 	if(empList.length > 0) {
+		
 		$.ajax({
 			url:"${pageContext.request.contextPath}/plan/memberInsert"
 			,type:"post"
-			,data:{
-				"projNo":<%=projNo%>
-				,"empNo":empList[0]
-			}
+			,data:params
 			,success:function(data) {
 				$table.bootstrapTable("refresh");
 				$notMemberTable.bootstrapTable("refresh");
 			}
 			,error:function(xhr) {
-				console.log("error");
+				console.log(xhr);
 			}
 		})
 		

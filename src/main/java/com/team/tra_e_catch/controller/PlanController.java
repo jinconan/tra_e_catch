@@ -419,9 +419,11 @@ public class PlanController {
 	}
 	
 	@RequestMapping(value="/plan/memberInsert", method=RequestMethod.POST)
-	public String memberInsert(@RequestParam Map<String, Object> pMap) {
-		logger.info("memberInsert");
-		logger.info(pMap.toString());
+	public String memberInsert(@RequestParam("projNo") int projNo, @RequestParam("empNo[]") String[] empNo) {
+		logger.info("memberInsert(projNo :" +projNo +", empNo :"+empNo);
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		pMap.put("projNo", projNo);
+		pMap.put("empNo", empNo);
 		int result = planLogic.insertMember(pMap);
 		return "redirect:/planR/json/projMemberList?projNo="+pMap.get("projNo");
 	}
