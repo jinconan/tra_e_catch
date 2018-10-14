@@ -16,65 +16,286 @@ public class PersonnelLogic {
 	@Autowired
 	private SqlPerDao sqlPerDao = null;
 	
-	//출퇴근 관리 JSON데이터 요청
+	/**
+	 * 출퇴근 관리 JSON데이터 요청
+	 * @param pMap
+	 * @return
+	 */
 	public List<Map<String, Object>> getAttdList(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		logger.info("getAttdList 호출 성공");
-		
-		List<Map<String,Object>> attdList = null;
-		
-		attdList = sqlPerDao.getAttdList(pMap);
-		return attdList;
+		logger.info("getAttdList :"+pMap);
+		return sqlPerDao.getAttdList(pMap);
 	}
 	
+	/**
+	 * 증명서 내역 json데이터 요청
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getCertlist(Map<String, Object> pMap) {
+		logger.info("getCertlist :" + pMap);
+		return sqlPerDao.getCertList(pMap);
+	}
 	
-	//급여내역 JSON포멧 데이터 요청
+	/**
+	 * 증명서 내역 추가
+	 * @param pMap
+	 * @return
+	 */
+	public int insertCert(Map<String, Object> pMap) {
+		return sqlPerDao.insertCert(pMap);
+	}
+	
+	/**
+	 * 개인 신상 내역 데이터 요청
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getindivList(Map<String, Object> pMap) {
+		logger.info("getindivList :" + pMap);
+		List<Map<String, Object>> serList = null;
+		serList = sqlPerDao.getIndivList(pMap); 
+		return serList;
+	}
+	
+	/**
+	 * 급여내역 JSON포멧 데이터 요청 
+	 * @param pMap
+	 * @return
+	 */
 	public List<Map<String, Object>> getSalList(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		logger.info("getSalList 호출 성공");
-		
-		List<Map<String,Object>> salList = null;
-		
-		salList = sqlPerDao.getSalList(pMap);
+		logger.info("getSalList 호출 성공 :" + pMap);
+		List<Map<String,Object>> salList = sqlPerDao.getSalList(pMap);
 		return salList;
 	}
 	
-
-
+	/**
+	 * 팀원 리스트 데이터 요청
+	 * @param pMap
+	 * @return
+	 */
 	public List<Map<String, Object>> getTeamList(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
 		logger.info("getTeamList 호출 성공");
-		List<Map<String,Object>> teamList = null;
-		teamList = sqlPerDao.getTeamList(pMap);
+		List<Map<String,Object>> teamList = sqlPerDao.getTeamList(pMap);
 		return teamList;
 	}
 
-
-
-	public List<Map<String, Object>> setServrating(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> serList = null;
-		serList = sqlPerDao.setSerList(pMap);
-		return serList;
+	/**
+	 * 개인평정 확인 분기 리스트 
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getQuarList(Map<String, Object> pMap) {
+		List<Map<String,Object>> quarlist = null;
+		quarlist = sqlPerDao.getQuarList(pMap);
+		return quarlist;
+	}
+	
+	/**
+	 * 인사권자의견 
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getleaderView(Map<String, Object> pMap) {
+		List<Map<String,Object>> leaderview = null;
+		leaderview = sqlPerDao.getLeaderView(pMap);
+		return leaderview;
 	}
 
-
-	public List<Map<String, Object>> getindivList(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> serList = null;
-		serList = sqlPerDao.getIndivList(pMap);
-		return serList;
+	
+	/**
+	 * 평정 추가
+	 * @param pMap
+	 * @return
+	 */
+	public int insertServrating(Map<String, Object> pMap) {
+		logger.info("insertServrating : " + pMap);
+		int result = sqlPerDao.insertSerList(pMap);
+		return result;
 	}
 
-
-	public List<Map<String, Object>> getCertlist(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> certList = null;
-		certList = sqlPerDao.getCertList(pMap);
-		return certList;
+	/**
+	 * 사원명부
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getEmpList(Map<String, Object> pMap) {
+		logger.info("getEmpList 호출 :" + pMap);
+		List<Map<String, Object>> empList = sqlPerDao.getEmpList(pMap);
+		return empList;
 	}
 
+	/**
+	 * 직급 리스트
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getlevlist(Map<String, Object> pMap) {
+		List<Map<String, Object>> levList = null;
+		levList = sqlPerDao.viewLevList(pMap);
+		return levList;
+	}
 
+	/**
+	 * 지역 리스트
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getLocList(Map<String, Object> pMap) {
+		List<Map<String, Object>> locList = null;
+		locList = sqlPerDao.viewLocList(pMap);
+		return locList;
+	}
+
+	/**
+	 * 부서 리스트
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getDeptList(Map<String, Object> pMap) {
+		List<Map<String, Object>> deptList = null;
+		deptList = sqlPerDao.viewDeptList(pMap);
+		return deptList;
+	}
+
+	/**
+	 * 사원 등록 수행
+	 * @param pMap
+	 * @return
+	 */
+	public int insertEmp(Map<String, Object> pMap) {
+		logger.info("insertEmp :" + pMap);
+		int result = sqlPerDao.insertEmp(pMap);
+		return result;
+	}
+	
+	/**
+	 *  
+	 * @param pMap
+	 * @return
+	 */
+	public int insertLab(Map<String, Object> pMap) {
+		logger.info("insertLab  호출");
+		int result  = sqlPerDao.insertLab(pMap);
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getWorkList(Map<String, Object> pMap) {
+		List<Map<String, Object>> workList = null;
+		workList = sqlPerDao.viewWorkList(pMap);
+		return workList;
+	}
+
+	/**
+	 * 고용계약서 조회
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getSourcingList(Map<String, Object> pMap) {
+		logger.info("perLogic sourcingList  호출");
+		List<Map<String,Object>> sourcingList = null;
+		sourcingList = sqlPerDao.viewSourcingList(pMap);
+		return sourcingList;
+	}
+	
+	/**
+	 * 고용계약서 등록
+	 * @param pMap
+	 * @return
+	 */
+	public int insertEmpSourcing(Map<String, Object> pMap) {
+		logger.info("perLogic empsourcingInsert  호출");
+		return sqlPerDao.insertSourcing(pMap);
+	}
+	
+	/**
+	 * 부서추가
+	 * @param pMap
+	 * @return
+	 */
+	public int insertDept(Map<String, Object> pMap) {
+		logger.info("insertDept : "+pMap);
+		return sqlPerDao.insertDept(pMap);
+	}
+	
+	/**
+	 * 부서 수정
+	 * @param pMap
+	 * @return
+	 */
+	public int updateDept(Map<String, Object> pMap) {
+		return  sqlPerDao.updateDept(pMap);
+	}
+	
+	/**
+	 * 부서 리스트
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getdeptList(Map<String, Object> pMap) {
+		List<Map<String, Object>> deptList = null;
+		deptList = sqlPerDao.getDeptList(pMap);
+		return deptList;
+	}
+	
+	/**
+	 * 인사발령 수정
+	 * @param pMap
+	 * @return
+	 */
+	public int updateEmployee(Map<String, Object> pMap) {
+		return sqlPerDao.updateEmployee(pMap);
+	}
+
+	/**
+	 * 직급리스트
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getlevList(Map<String, Object> pMap) {
+		List<Map<String,Object>> levList = null;
+		levList = sqlPerDao.getLevList(pMap);
+		return levList;
+	}
+
+	/**
+	 * 근무지 리스트
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getlocList(Map<String, Object> pMap) {
+		List<Map<String,Object>> locList = null;
+		locList = sqlPerDao.getLocList(pMap);
+		return locList;
+	}
+
+	/**
+	 * 전체팀 리스트
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getTeamListView(Map<String, Object> pMap) {
+		List<Map<String,Object>> teamList = null;
+		teamList = sqlPerDao.getTeamListView(pMap);
+		return teamList;
+
+	}
+
+	/**
+	 * 팀추가 로직
+	 * @param pMap
+	 * @return
+	 */
+	public int insertTeam(Map<String, Object> pMap) {
+		return sqlPerDao.insertTeam(pMap);
+	}
+	
+	
+	
 	public List<Map<String, Object>> setAttdInsert(Map<String, Object> pMap) {
 		// TODO Auto-generated method stub
 		List<Map<String, Object>> attdInsert = null;
@@ -83,141 +304,27 @@ public class PersonnelLogic {
 	}
 
 
-	public List<Map<String, Object>> getlevlist(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> levList = null;
-		levList = sqlPerDao.viewLevList(pMap);
-		return levList;
-	}
 
 
-	public List<Map<String, Object>> getLocList(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> locList = null;
-		locList = sqlPerDao.viewLocList(pMap);
-		return locList;
-	}
+
+	
 
 
-	public List<Map<String, Object>> getDeptList(Map<String, Object> pMap) {
-		List<Map<String, Object>> deptList = null;
-		deptList = sqlPerDao.viewDeptList(pMap);
-		return deptList;
-	}
 
 
-	public List<Map<String, Object>> EmpInsert(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> empInsert = null;
-		empInsert = sqlPerDao.EmpInsert(pMap);
-		return null;
-	}
+
+	
+
+	
 
 
-	public List<Map<String, Object>> certInsert(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> certInsert = null;
-		certInsert = sqlPerDao.CertInsert(pMap);
-		return null;
-	}
+
+	
+	
 
 
-	public List<Map<String, Object>> getWorkList(Map<String, Object> pMap) {
-		// TODO Auto-generated method stub
-		List<Map<String, Object>> workList = null;
-		workList = sqlPerDao.viewWorkList(pMap);
-		return workList;
-	}
 
 
-	public List<Map<String, Object>> labInsert(Map<String, Object> pMap) {
-		logger.info("perLogiclabInsert  호출");
-		List<Map<String, Object>> labInsert = null;
-		labInsert = sqlPerDao.LabInsert(pMap);
-		return labInsert;
-	}
-
-	//고용계약서 조회
-		public List<Map<String, Object>> getSourcingList(Map<String, Object> pMap) {
-			logger.info("perLogic sourcingList  호출");
-			List<Map<String,Object>> sourcingList = null;
-			sourcingList = sqlPerDao.viewSourcingList(pMap);
-			return sourcingList;
-		}
-
-	//고용계약서 등록
-		public List<Map<String, Object>> empsourcingInsert(Map<String, Object> pMap) {
-			logger.info("perLogic empsourcingInsert  호출");
-			List<Map<String,Object>> sourcinginsert = null;
-			sourcinginsert = sqlPerDao.SourcingInsert(pMap);
-			return sourcinginsert;
-		}
-
-	//사원명부
-		public List<Map<String, Object>> getEmpList(Map<String, Object> pMap) {
-			logger.info("perLogic  getEmpList 호출");
-			List<Map<String,Object>> empList = null;
-			 empList = sqlPerDao.getEmpList(pMap);
-			return empList;
-		}
-		
-
-		//직급리스트
-		public List<Map<String, Object>> getlevList(Map<String, Object> pMap) {
-			// TODO Auto-generated method stub
-			List<Map<String,Object>> levList = null;
-			levList = sqlPerDao.getLevList(pMap);
-			return levList;
-		}
-
-		//근무지 리스트
-		public List<Map<String, Object>> getlocList(Map<String, Object> pMap) {
-			// TODO Auto-generated method stub
-			List<Map<String,Object>> locList = null;
-			locList = sqlPerDao.getLocList(pMap);
-			return locList;
-		}
-
-		//부서 리스트
-		public List<Map<String, Object>> getdeptList(Map<String, Object> pMap) {
-			// TODO Auto-generated method stub
-			List<Map<String,Object>> deptList = null;
-			deptList = sqlPerDao.getDeptList(pMap);
-			return deptList;
-		}
-
-		//인사발령 수정
-		public List<Map<String, Object>> updateEmployee(Map<String, Object> pMap) {
-			// TODO Auto-generated method stub
-			List<Map<String,Object>> empupdatelist = null;
-			empupdatelist = sqlPerDao.updateEmployee(pMap);
-			return empupdatelist;
-		}
-
-		//전체팀 리스트
-		public List<Map<String, Object>> getTeamListView(Map<String, Object> pMap) {
-			// TODO Auto-generated method stub
-			List<Map<String,Object>> teamList = null;
-			teamList = sqlPerDao.getTeamListView(pMap);
-			return teamList;
-
-		}
-
-		//부서추가
-		public List<Map<String, Object>> deptInsert(Map<String, Object> pMap) {
-			// TODO Auto-generated method stub
-			List<Map<String,Object>> deptinsert = null;
-			deptinsert = sqlPerDao.deptInsert(pMap);
-			return null;
-		}
-
-		//부서 수정
-		public List<Map<String, Object>> deptUpdate(Map<String, Object> pMap) {
-			// TODO Auto-generated method stub
-			List<Map<String,Object>> deptupdate = null;
-			deptupdate = sqlPerDao.deptUpdate(pMap);
-			return null;
-		}
 
 		
 		//급여 지급 페이지에서 나타나는 지급내역
@@ -240,27 +347,9 @@ public class PersonnelLogic {
 			
 		}
 
-		//팀추가 로직
-		public List<Map<String, Object>> teamInsert(Map<String, Object> pMap) {
-			// TODO Auto-generated method stub
-			List<Map<String,Object>> teaminsert = null;
-			teaminsert = sqlPerDao.teamInsert(pMap);
-			return null;
-		}
 
-		//개인평정 확인 분기 리스트
-		public List<Map<String, Object>> getQuarList(Map<String, Object> pMap) {
-			List<Map<String,Object>> quarlist = null;
-			quarlist = sqlPerDao.getQuarList(pMap);
-			return quarlist;
-		}
 
-		//인사권자의견
-		public List<Map<String, Object>> getleaderView(Map<String, Object> pMap) {
-			// TODO Auto-generated method stub
-			List<Map<String,Object>> leaderview = null;
-			leaderview = sqlPerDao.getLeaderView(pMap);
-			return leaderview;
-		}
+
+
 
 }

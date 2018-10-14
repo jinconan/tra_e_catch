@@ -19,22 +19,28 @@ public class ScvLogic {
 	private SqlScvDao sqlScvDao;
 
 	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	public Map<String,Object> login(String emp_id, String emp_pw) {
 		logger.info("login");
 		Map<String, Object> pMap = new HashMap<String, Object>();
 		pMap.put("emp_id",  emp_id);
-		pMap.put("emp_pw",  emp_pw);
-//		pMap.put("emp_pw",  bCryptPasswordEncoder.encode(emp_pw));
-		
-		return sqlScvDao.login(pMap);
+		Map<String, Object> rMap = sqlScvDao.login(pMap);
+		if(rMap != null) {
+			//아이디는 일치하는 경우 입력한 값과 암호화된 비밀번호를 비교한다.
+			String enc_pw = (String)rMap.get("PW");
+			if(bcryptPasswordEncoder.matches(emp_pw, enc_pw))
+				return rMap;
+			else
+				return null;
+		} else
+			return null;
 	}
 	public Map<String, Object> updateEmpPrivate(Map<String,Object> pMap)
 	{
 		logger.info("modify " + pMap);
 		if(pMap.containsKey("emp_new_pw")) {
-		//	pMap.put("emp_new_pw", bCryptPasswordEncoder.encode((String)pMap.get("emp_new_pw")));
+			pMap.put("emp_new_pw", bcryptPasswordEncoder.encode((String)pMap.get("emp_new_pw")));
 		}
 		
 		int result = 0;//0:수정실패, 1:수정성공
@@ -47,7 +53,6 @@ public class ScvLogic {
 	public List<Map<String, Object>> getScvList(int emp_no) {
 		logger.info("getScvList 호출 성공");
 		List<Map<String,Object>> scvList = null;
-		//왜 Dao에는 메소드를 분리하지 않는거지? - 같은 sql문을 사용하니깐
 		scvList = sqlScvDao.getScvList(emp_no);
 		
 		return scvList;
@@ -60,8 +65,7 @@ public class ScvLogic {
 		
 		
 		System.out.println(rawPw+", " + encPw);
-		//if(bCryptPasswordEncoder.matches(rawPw, encPw)) {
-		if(rawPw.equals(encPw)) {
+		if(bcryptPasswordEncoder.matches(rawPw, encPw)) {
 			rMap.put("result", 1);
 		} else {
 			rMap.put("result", 0);

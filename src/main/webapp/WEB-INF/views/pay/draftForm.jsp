@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	List<Map<String,Object>> upperTeamMemberList = (List<Map<String,Object>>)request.getAttribute("upperTeamMemberList");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>기안문서 작성</title>
+<title>트라E캐치-기안문서 작성</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
@@ -13,7 +18,7 @@
 		<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
 		<div class="col-md-10">
 			<!-- title, dtname, content,ceno,aeno -->
-			<form action="<%=request.getContextPath() %>/pay/epay/epayInsert" class="form-horizontal" method="post">
+			<form action="<%=request.getContextPath() %>/pay/draftInsert" class="form-horizontal" method="post">
 				<div class="page-header">
 					<h1>기안문서 작성</h1>
 				</div>
@@ -47,14 +52,29 @@
 					</div>
 				</div>
 
+
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="ceno">승인자</label>
 					<div class="col-sm-2">
-						<input type="number" class="form-control" id="ceno" name="ceno" placeholder="승인자" required="required"/>
+						<select class="form-control" id="ceno" name="ceno" placeholder="승인자" required="required">
+							<%if(upperTeamMemberList == null || upperTeamMemberList.size() == 0) { %>
+								<option value="${sessionScope.emp_no}">${sessionScope.emp_name }</option>
+							<%} else {%>
+								<%for(int i=0;i<upperTeamMemberList.size();i++) { %>
+									<option value="<%=upperTeamMemberList.get(i).get("ENO")%>"><%=upperTeamMemberList.get(i).get("ENAME") %></option>
+								<%} %>
+							<%} %>
+						</select>
 					</div>
 					<label class="col-sm-2 control-label" for="aeno">결재자</label>
 					<div class="col-sm-2">
-						<input type="number" class="form-control" id="aeno" name="aeno" placeholder="결재자" required="required"/>
+						<select class="form-control" id="aeno" name="aeno" placeholder="결재자" required="required">
+							<%if(upperTeamMemberList == null || upperTeamMemberList.size() == 0) { %>
+								<option value="${sessionScope.emp_no}">${sessionScope.emp_name }</option>
+							<%} else {%>
+								<option value="<%=upperTeamMemberList.get(0).get("ENO")%>"><%=upperTeamMemberList.get(0).get("ENAME") %></option>
+							<%} %>
+						</select>
 					</div>
 				</div>
 				
@@ -68,7 +88,7 @@
 				<div class="form-group">
 					<div class="col-sm-offset-3 col-sm-6">
 						<button class="btn btn-primary">작성</button>
-						<a href="draft" class="btn btn-danger">취소</a>
+						<a href="<%=request.getContextPath() %>/pay/draftList" class="btn btn-danger">취소</a>
 					</div>
 				</div>
 			</form>

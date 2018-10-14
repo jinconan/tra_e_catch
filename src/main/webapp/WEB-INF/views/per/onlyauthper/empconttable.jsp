@@ -16,7 +16,7 @@ $(function() {
 
 	$('#p_table').bootstrapTable({
 		
-		url:'<%=request.getContextPath()%>/perR/only/sourcinglist',
+		url:'<%=request.getContextPath()%>/perR/auth/sourcinglist',
 		queryParams: function(p){
             return{
             	emp_no : '<%=emp_no%>'

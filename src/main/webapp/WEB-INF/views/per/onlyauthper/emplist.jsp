@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>사원명부</title>
+<title>트라E캐치-사원명부</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <%
 
@@ -11,20 +11,15 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 
 %>
 <script type="text/javascript">
+function tableParams(params) {
+	params.name=$("#name").val();
+	params.dept_no=$("#dept_no").val();
+	params.lev_no=$("#lev_no").val();
+	return params;
+}
+
 function accept(){
-var lev_no = $("#f_info").serialize();
-	$.ajax({
-		url:"/tra_e_catch/per/emptable"
-		,method:"GET"
-		,data:lev_no,
-		success:function(log){
-			console.log(log);
-			$("#emptable").html(log);
-		}
-	 ,error:function(Object){
-    	 alert("error : "+Object.responseText);
-     }
-	});
+	 $('#p_table').bootstrapTable('refresh', null); 
 }
 
 $(function() {
@@ -52,80 +47,61 @@ if(emp_nochk>3){
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/_common/header.jsp"%>
-	<%-- <jsp:include page="/WEB-INF/views/_common/header.jsp" /> --%>
 	<div class="container">
 		<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
-		<div class="col-md-9">
+		<div class="col-md-10">
+			<div class="row">
 				<div class="page-header">
-					<h1>
-						사원명부 <small>basic form</small>
-					</h1>
-				</div>
-				<form id="f_info" method="post" class="form-horizontal col-xs-11">
-					<div class="form-group"></div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label" for="per-name">이름</label>
-						<div class="col-sm-3">
-							<input class="form-control" name="name" id="name"
-								type="per-name" placeholder="이름">
-						</div>
-
+						<h1>사원명부</h1>
 					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label" for="lev-no">직급코드</label>
-						<div class="col-sm-4">
-							<input class="form-control" name="lev_no" id="lev-no"
-								type="lev-code" placeholder="직접코드">
-
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label" for="dept-no">부서코드</label>
-						<div class="col-sm-4">
-							<input class="form-control" name="dept_no" id="dept-no"
-								type="dept-code" placeholder="부서코드">
-
-						</div>
-					</div>
-				</form>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-12 text-center">
-				<button id="btn_emp" class="btn btn-primary" onclick="javascript:accept()">
-					검색<i class="fa fa-check spaceLeft"></i>
-				</button>
-
-			</div>
-		</div>
-		<div class="form-group" id="emptable">
+					<div class="form-group" id="emptable"></div>
+				</div>	
 				
-			</div>
-		<!-- <div class="table-responsive col-xs-9 col-xs-offset-2">
-			<table id="p_table" class="table table-striped table-hover">
-				<thead>
-					<tr>
-
-						data-field에는 json포멧으로 데이터를 담을예정 
-						<th width="15%" data-field="EMP_NO">사원번호</th>
-						<th width="10%" data-field="NAME">이름</th>
-						<th width="11%" data-field="HIRE_DATE">입사일자</th>
-						<th width="11%" data-field="LEV_NO">직급코드</th>
-						<th width="11%" data-field="DEPT_NO">부서코드</th>
-						<th width="11%" data-field="LOC_NO">지역코드</th>
-						<th width="11%" data-field="BIRTHDAY">생일</th>
-						<th width="11%" data-field="EMAIL">이메일</th>
-						<th width="11%" data-field="TEAM_NO">팀코드</th>
-
-
-					</tr>
-				</thead>
-				<tbody>
-
-				</tbody>
-			</table>
-
-			<hr>
-		</div> -->
+				<!-- -------------- -->
+				<div class="row">
+					<div id="table-toolbar" class="form-inline">
+						<div class="form-group">
+							<label for="name" class="control-label sr-only">이름</label>
+							<input class="form-control " name="name" id="name" type="text" placeholder="이름">
+						</div>
+						<div class="form-group">
+							<label class="control-label sr-only" for="lev_no">직급</label>
+							<input class="form-control " name="lev_no" id="lev_no" type="text" placeholder="직급코드">
+						</div>
+						<div class="form-group">
+							<label class="control-label sr-only" for="dept_no">부서</label>
+							<input class="form-control " name="dept_no" id="dept_no" type="text" placeholder="부서코드">
+						</div>
+						<div class="form-group">
+							<button id="btn_emp" class="btn btn-primary" onclick="javascript:accept()">
+								<i class="glyphicon glyphicon-search"></i>
+							</button>
+						</div>
+					</div>
+				
+					<table class="table table-striped" id="p_table"
+						data-toggle="table"
+						data-url="<%=request.getContextPath() %>/perR/auth/emplist"
+						data-toolbar="#table-toolbar"
+						data-pagination="true"
+						data-page-list="[10]"
+						data-query-params="tableParams">
+						<thead>
+							<tr>
+							    <th width="10%" data-field="NAME">이름</th>
+								<th width="11%" data-field="HIRE_DATE">입사일자</th>
+								<th width="11%" data-field="LEV_NO">직급코드</th>
+								<th width="11%" data-field="DEPT_NO">부서코드</th>
+								<th width="11%" data-field="LOC_NO">지역코드</th>
+								<th width="11%" data-field="BIRTHDAY">생일</th>
+								<th width="11%" data-field="EMAIL">이메일</th>
+								<th width="11%" data-field="TEAM_NO">팀코드</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<!-- ----------------- -->
+		</div>
 		<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 	</div>
 </body>

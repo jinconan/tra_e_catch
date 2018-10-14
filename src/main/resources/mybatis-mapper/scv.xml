@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.scvMapper">
 	<select id="login" resultType="map" parameterType="map">
-	    SELECT emp_no, e.name emp_name, lev.name emp_level, d.name emp_dept 
+	    SELECT pw, emp_no, e.name emp_name, lev.name emp_level, d.name emp_dept 
 		FROM employee e
 		    INNER JOIN ctlevel lev ON e.lev_no = lev.lev_no
 		    INNER JOIN department d ON e.dept_no = d.dept_no
-		WHERE id=#{emp_id} AND pw=#{emp_pw}
+		WHERE id=#{emp_id} AND resign_yn=0
 	</select>
 	
 	<select id="getScvList" parameterType="int" resultType="map">

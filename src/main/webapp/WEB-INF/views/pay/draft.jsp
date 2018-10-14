@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,23 +67,27 @@ $(document).ready(function() {
 		$("#content").text(row.CONTENT);
 		
 		if(row.SIGN_YN == 1) {
-			$("#cname").text(row.CENAME);
+			$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
 			$("#cdate").text(row.CDATE);
 		} else if(row.SIGN_YN == 2) {
-			$("#cname").text(row.CENAME);
 			$("#cdate").text(row.CDATE);
-			$("#aname").text(row.AENAME);
 			$("#adate").text(row.ADATE);
+			$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
+			$("#aname").html(row.AENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
 		} else if(row.SIGN_YN == -1) {
-			$("#cname").text(row.CENAME);
+			$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-down' aria-hidden='true'></span>");
 			$("#cdate").text(row.CDATE);
 		} else if(row.SIGN_YN == -2) {
-			$("#cname").text(row.CENAME);
+			$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
+			$("#aname").html(row.AENAME + "<span class='glyphicon glyphicon-thumbs-down' aria-hidden='true'></span>");
 			$("#cdate").text(row.CDATE);
-			$("#aname").text(row.AENAME);
 			$("#adate").text(row.ADATE);
 		}
 	})
+	
+	$('#printinp').click(function() {
+		$('#print_table').printThis();
+	});
 })
 </script>
 </head>
@@ -140,7 +144,7 @@ $(document).ready(function() {
 			<div class="row">
 				<table class="table table-striped" id="p_table"
 					data-toggle="table"
-					data-url="<%=request.getContextPath() %>/payR/epay/draft"
+					data-url="<%=request.getContextPath() %>/payR/draft"
 					data-show-columns="true"
 					data-toolbar="#table-toolbar"
 					data-pagination="true"
@@ -173,7 +177,7 @@ $(document).ready(function() {
 						</div>
 						<div class="modal-body">
 							<div id="d_viewwork">
-								<table border="1" class="center-block" style="width: 100%; text-align:center;">
+								<table border="1" id="print_table" class="center-block" style="width: 532px; text-align:center;">
 									<tr>
 										<td colspan="5">
 											<h3>기 안 서</h3>
@@ -216,6 +220,7 @@ $(document).ready(function() {
 							</div>
 						</div>
 						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="printinp">Print</button>
 							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 						</div>
 					</div>

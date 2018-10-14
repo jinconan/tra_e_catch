@@ -1,117 +1,102 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>증명서 발급</title>
+<title>트라E캐치-증명서 발급</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 </head>
-
 <script type="text/javascript">
-
-	
-	
 
 function listoption(){
 	var optnum = $("#optionnum").val();
 	var certdata = $("#f_certinsert").serialize();
-	if(optnum=="재직증명서"){
-		$.ajax({
-	        method:"POST"
-	        ,url:"/tra_e_catch/per/cert/certform"
-	        ,data:certdata,
-	        success : function(log){
-	        	
-	        	console.log(log);
-	        	$("#d_formprint").html(log);
-	        	$("#d_usepoint").text($("#useinput").val());
-	        	$("#d_userwork").text($("#workinfo").val());
-	        	listform();
-	        	
-	        }
-			,error : function(xhr) {
-				console.log("땡");
-			}
-        });
-	}
-	else if(optnum==0){
+	
+	if(optnum == 0) {
 		alert("증명서를 선택해 주세요");
-		
-		
 	}
-	/* 경력증명서 */
-	else if(optnum=="경력증명서"){
+	//재직증명서
+	else if(optnum=="재직증명서"){ 
 		$.ajax({
 	        method:"POST"
-	        ,url:"/tra_e_catch/per/cert/careercert"
-	        ,data:certdata,
-	        success : function(log){
-	        	
-	        	console.log(log);
-	        	$("#d_formprint").html(log);
-	        	$("#d_usepoint").text($("#useinput").val());
-	        	$("#d_userwork").text($("#workinfo").val());
-	        	listform();
-	        }
+	        ,url:"<%=request.getContextPath()%>/per/cert/certform"
+			,data:certdata
+			,success:function(log) {
+					console.log(log);
+					$("#d_formprint").html(log);
+					$("#d_usepoint").text($("#useinput").val());
+					$("#d_userwork").text($("#workinfo").val());
+					listform();
+			}
+			,error : function(xhr) {
+					console.log("땡");
+				}
+			});
+	} 
+	/* 경력증명서 */
+	else if (optnum =="경력증명서") {
+		$.ajax({
+			method : "POST"
+			,url : "<%=request.getContextPath()%>/per/cert/careercert"
+			,data : certdata
+			,success : function(log) {
+				console.log(log);
+				$("#d_formprint").html(log);
+				$("#d_usepoint").text($("#useinput").val());
+				$("#d_userwork").text($("#workinfo").val());
+				listform();
+			}
 			,error : function(xhr) {
 				console.log("땡");
 			}
-        });
+		});
 	}
 	/* 사직서 양식 */
-	else if(optnum=="사직서"){
+	else if (optnum == "사직서") {
 		$.ajax({
-	        method:"POST"
-	        ,url:"/tra_e_catch/per/cert/retireform"
-	        ,data:certdata,
-	        success : function(log){
-	        	
-	        	console.log(log);
-	        	$("#d_formprint").html(log);
-	        	$("#d_userwork").text($("#workinfo").val());
-	        	listform();
-	        }
+			method : "POST"
+			,url : "<%=request.getContextPath()%>/per/cert/retireform"
+			,data : certdata
+			,success : function(log) {
+				console.log(log);
+				$("#d_formprint").html(log);
+				$("#d_userwork").text($("#workinfo").val());
+				listform();
+			}
 			,error : function(xhr) {
 				console.log("땡");
 			}
-        });
+		});
 	}
 	/* 시말서 양식 */
-	else if(optnum=="시말서"){
+	else if (optnum == "시말서") {
 		$.ajax({
-	        method:"POST"
-	        ,url:"/tra_e_catch/per/cert/reasonform"
-	        ,data:certdata,
-	        success : function(log){
-	        	
-	        	console.log(log);
-	        	$("#d_formprint").html(log);
-	        	$("#d_userwork").text($("#workinfo").val());
-	        	listform();
-	        }
+			method : "POST"
+			,url : "<%=request.getContextPath()%>/per/cert/reasonform"
+			,data : certdata
+			,success : function(log) {
+				console.log(log);
+				$("#d_formprint").html(log);
+				$("#d_userwork").text($("#workinfo").val());
+				listform();
+			}
 			,error : function(xhr) {
 				console.log("땡");
 			}
-        });
-		
+		});
+
 	}
-	/* $("#f_certinsert").attr("action","./certlist");
-	$("#f_certinsert").submit(); */
 }
 
-function listform(){
-	
+function listform() {
 	$.ajax({
-        method:"POST"
-        ,url:"/tra_e_catch/per/cert/certprint"
-        ,success : function(log){
-        	$("#d_printlist").html(log);
-          }
-           });
-	
+		method : "POST"
+		,url : "<%=request.getContextPath()%>/per/cert/certprint"
+		,success : function(log) {
+			$("#d_printlist").html(log);
+		}
+	});
 }
-
-
 </script>
 <body>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
@@ -127,11 +112,11 @@ function listform(){
 						<td>증명서 종류 :&nbsp;&nbsp;&nbsp;</td>
 						<td>
 						<select class="form-control" id="optionnum" name="p_c_name">
-							<option val="0">증명서 선택</option>
-							<option val="1">재직증명서</option>
-							<option val="2">경력증명서</option>
-							<option val="3">사직서</option>
-							<option val="4">시말서</option>
+							<option value="0">증명서 선택</option>
+							<option value="재직증명서">재직증명서</option>
+							<option value="경력증명서">경력증명서</option>
+							<option value="사직서">사직서</option>
+							<option value="시말서">시말서</option>
 						</select>
 						</td>
 						<td>&nbsp;&nbsp;&nbsp;</td>

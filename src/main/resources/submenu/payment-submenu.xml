@@ -6,22 +6,22 @@
         <util:list id="pay-draft-submenu" list-class="java.util.ArrayList">
 		<map>
 			<entry key="sm_name" value="기안문서 작성" />
-			<entry key="sm_url" value="/pay/epay" />
+			<entry key="sm_url" value="/pay/draft" />
 		</map>
 		<map>
 			<entry key="sm_name" value="기안 목록" />
-			<entry key="sm_url" value="/pay/epay/draft" />
+			<entry key="sm_url" value="/pay/draftList" />
 		</map>
 	</util:list>
 	<!-- 결제 목록 메뉴 -->
 	<util:list id="pay-submenu" list-class="java.util.ArrayList">
       <map>
 			<entry key="sm_name" value="결재 대기 문서" />
-			<entry key="sm_url" value="/pay/epay/epaywait" />
+			<entry key="sm_url" value="/pay/epaywait" />
 		</map>
 		<map>
 			<entry key="sm_name" value="결재 완료 문서" />
-			<entry key="sm_url" value="/pay/epay/epayend" />
+			<entry key="sm_url" value="/pay/epayend" />
 		</map>
 	</util:list>
 </beans>

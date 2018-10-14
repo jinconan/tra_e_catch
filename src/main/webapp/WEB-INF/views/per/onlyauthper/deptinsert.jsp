@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,7 +22,7 @@ int num = (counts%10);
 	//부서 추가
 	function deptinsertnow(){
 		/* alert("찍어볼까~?"); 정상작동 */
-		$("#f_deptinsert").attr("action","./deptinsert");
+		$("#f_deptinsert").attr("action","<%=request.getContextPath()%>/per/auth/deptinsert");
 		$("#f_deptinsert").submit(); 
 		alert("정상적으로 처리 되었습니다.");
 		
@@ -30,7 +30,7 @@ int num = (counts%10);
 	//팀추가
 	function teaminsertnow(){
 		/* alert("찍어볼까~?"); 정상작동 */
-		$("#f_deptinsert").attr("action","./deptinsert");
+		$("#f_deptinsert").attr("action","<%=request.getContextPath()%>/per/auth/deptinsert");
 		$("#f_deptinsert").submit(); 
 		alert("정상적으로 처리 되었습니다.");
 		
@@ -40,14 +40,14 @@ int num = (counts%10);
 	//부서 수정
 	function deptupdatenow(){
 		/* alert("찍어볼까~?"); 정상작동 */
-		$("#f_deptupdate").attr("action","./deptupdate");
+		$("#f_deptupdate").attr("action","<%=request.getContextPath()%>/per/auth/deptupdate");
 		$("#f_deptupdate").submit(); 
 		alert("정상적으로 처리 되었습니다.");
 		
 	}
 	 $(function() {
 			$('#p_table').bootstrapTable({
-				url:'<%=request.getContextPath()%>/perR/only/deptlist/<%=counts%>',
+				url:'<%=request.getContextPath()%>/perR/auth/deptlist/<%=counts%>',
 				onClickRow : function(row,$element, field) {
 					console.log(row);
 					
@@ -97,21 +97,21 @@ int num = (counts%10);
 				</table>
 				<nav>
 					<ul class="pagination">
-								<li><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/1" aria-label="Previous"><span
+								<li><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/1" aria-label="Previous"><span
 										aria-hidden="true"> << </span></a></li>
-								<li><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list-1%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
-								<li id="liid1"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list%>"><%=list%><span class="sr-only">(current)</span></a></li>
-								<li id="liid2"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+1%>"><%=list+1%><span class="sr-only">(current)</span></a></li>
-								<li id="liid3"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+2%>"><%=list+2%><span class="sr-only">(current)</span></a></li>
-								<li id="liid4"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+3%>"><%=list+3%><span class="sr-only">(current)</span></a></li>
-								<li id="liid5"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+4%>"><%=list+4%><span class="sr-only">(current)</span></a></li>
-								<li id="liid6"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+5%>"><%=list+5%><span class="sr-only">(current)</span></a></li>
-								<li id="liid7"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+6%>"><%=list+6%><span class="sr-only">(current)</span></a></li>
-								<li id="liid8"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+7%>"><%=list+7%><span class="sr-only">(current)</span></a></li>
-								<li id="liid9"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+8%>"><%=list+8%><span class="sr-only">(current)</span></a></li>
-								<li id="liid0"><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+9%>"><%=list+9%> <span class="sr-only">(current)</span></a></li>
-								<li><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+10%>" aria-label="Previous"><span aria-hidden="true"> > </span></a></li>
-								<li><a href="<%=request.getContextPath()%>/per/onlyauthper/deptupdatelist/<%=list+100%>" aria-label="Previous"><span aria-hidden="true"> >> </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list-1%>" aria-label="Previous"><span aria-hidden="true"> < </span></a></li>
+								<li id="liid1"><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list%>"><%=list%><span class="sr-only">(current)</span></a></li>
+								<li id="liid2"><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list+1%>"><%=list+1%><span class="sr-only">(current)</span></a></li>
+								<li id="liid3"><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list+2%>"><%=list+2%><span class="sr-only">(current)</span></a></li>
+								<li id="liid4"><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list+3%>"><%=list+3%><span class="sr-only">(current)</span></a></li>
+								<li id="liid5"><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list+4%>"><%=list+4%><span class="sr-only">(current)</span></a></li>
+								<li id="liid6"><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list+5%>"><%=list+5%><span class="sr-only">(current)</span></a></li>
+								<li id="liid7"><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list+6%>"><%=list+6%><span class="sr-only">(current)</span></a></li>
+								<li id="liid8"><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list+7%>"><%=list+7%><span class="sr-only">(current)</span></a></li>
+								<li id="liid9"><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list+8%>"><%=list+8%><span class="sr-only">(current)</span></a></li>
+								<li id="liid0"><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list+9%>"><%=list+9%> <span class="sr-only">(current)</span></a></li>
+								<li><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list+10%>" aria-label="Previous"><span aria-hidden="true"> > </span></a></li>
+								<li><a href="<%=request.getContextPath()%>/per/auth/deptupdatelist/<%=list+100%>" aria-label="Previous"><span aria-hidden="true"> >> </span></a></li>
 							</ul>
 				</nav>
 			</div>

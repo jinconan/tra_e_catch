@@ -27,9 +27,7 @@
 			<exclude-mapping path="/fonts/**"/>
 			<exclude-mapping path="/imgs/**"/>		
 			<exclude-mapping path="/resources/**"/>
-			<exclude-mapping path="/mobile/**"/>
 <!-- 	
-			<exclude-mapping path="/mobile/scv/view/login"/>
 			<exclude-mapping path="/scv/login"/>
  -->
 			<beans:bean class="org.springframework.mobile.device.switcher.SiteSwitcherHandlerInterceptor" factory-method="urlPath">
@@ -37,7 +35,7 @@
 				<beans:constructor-arg index="1" type="java.lang.String" value="/tra_e_catch" />
 			</beans:bean>
 		</interceptor>
-		<!-- 세션 체크 인터셉터 -->
+ 		<!-- 세션 체크 인터셉터 -->
 		<interceptor>
 			<mapping path="/**"/>
 			<exclude-mapping path="/css/**"/>
@@ -45,12 +43,17 @@
 			<exclude-mapping path="/fonts/**"/>
 			<exclude-mapping path="/imgs/**"/>		
 			<exclude-mapping path="/resources/**"/>
-			<exclude-mapping path="/mobile/scv/view/login"/>
 			<exclude-mapping path="/scv/view/login"/>	
 			<exclude-mapping path="/scv/login"/>	
-			<beans:bean id="checkSessionInterceptor" class="com.team.tra_e_catch.interceptor.CheckSessionInterceptor"/>
+			<beans:bean id="checkSessionInterceptor" class="com.team.tra_e_catch.interceptor.CheckSessionInterceptor"/> 
 		</interceptor>
 		
+		<!-- 인사권 체크 인터셉터 -->
+		<!-- <interceptor>
+			<mapping path="/per/auth/**"/>
+			<mapping path="/perR/auth/**"/>
+			<beans:bean id="checkPerAuthInterceptor" class="com.team.tra_e_catch.interceptor.CheckPerAuthInterceptor"/>
+		</interceptor> -->
 	</interceptors>
 	
 	

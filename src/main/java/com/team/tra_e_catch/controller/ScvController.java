@@ -32,10 +32,15 @@ public class ScvController {
 	/**
 	 * 로그인 처리 요청 메소드
 	 * @param mod
+	 * @param session
+	 * @param res
+	 * @param emp_id
+	 * @param emp_pw
+	 * @param remember_id
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/login", method = RequestMethod.POST)
-	public String login(Model mod
+	public String doLogin(Model mod
 			, HttpSession session
 			, HttpServletResponse res
 			, @RequestParam("emp_id") String emp_id
@@ -55,8 +60,9 @@ public class ScvController {
 		}
 		
 		Map<String,Object> result = scvLogic.login(emp_id, emp_pw);
-		if(result == null)
-			return "redirect:/scv/view/login";
+		if(result == null) {
+			return "scv/loginFail";
+		}
 		else {
 			session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
 			session.setAttribute("emp_no", result.get("EMP_NO"));
@@ -70,6 +76,8 @@ public class ScvController {
 	/**
 	 * 로그인 페이지 요청 메소드
 	 * @param mod
+	 * @param session
+	 * @param cookie
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/view/login", method = RequestMethod.GET)
@@ -78,8 +86,9 @@ public class ScvController {
 		logger.info("viewLogin");
 		logger.info("cookie : " + cookie);
 		
-		if(session != null && session.getAttribute("emp_no") != null)
+		if(session != null && session.getAttribute("emp_no") != null) {
 			return "redirect:/";
+		}
 		if(cookie != null)
 			mod.addAttribute("emp_id",cookie.getValue());
 		else
@@ -90,6 +99,7 @@ public class ScvController {
 	/**
 	 * 로그아웃 처리 요청 메소드
 	 * @param mod
+	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/logout", method = RequestMethod.GET)
@@ -100,8 +110,10 @@ public class ScvController {
 	}
 
 	/**
-	 * 정보 수정 처리 요청 메소드
+	 * 정보 수정 처리 요청 메소드 
 	 * @param mod
+	 * @param pMap
+	 * @param emp_no
 	 * @return
 	 */
 	@RequestMapping(value = "/scv/modify", method = RequestMethod.POST)

@@ -68,7 +68,7 @@
 					<label class="text-muted">Draft</label>
 				</div>
 				<div class="options">
-					<a href="<%=request.getContextPath() %>/pay/epay" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i>기안서 작성</a>
+					<a href="<%=request.getContextPath() %>/pay/draft" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i>기안서 작성</a>
 				</div>
 			</div>
 		</div>

@@ -1,28 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%-- 
-	form정보
-	action : 미정
-	method : post
-	-------------
-	[필드명, 이름, 아이디(이름과 아이디가 다를 경우에 명시)]
-	이름		: emp_name
-	아이디	: emp_id
-	이메일	: emp_email
-	생일		: emp_birthday
-	성별		: emp_gender(남 : emp_male, 여 : emp_female)
- --%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <%
 int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no"))); //사원정보 받는 곳
-
+/* int result = (Integer)request.getAttribute("result"); */
 %>
-<title>직원등록</title>
+<title>트라E캐치-사원등록</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
 	$(document).ready(function() {
+		
+		
 		var emp_nochk = <%=addemp_no%>;
 
 		if(emp_nochk>3){
@@ -67,7 +57,7 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 		})
 	})
 	function accept(){
-		 $("#f_empinsert").attr("action","./empinsert");
+		 $("#f_empinsert").attr("action","<%=request.getContextPath()%>/per/auth/empInsert");
 			$("#f_empinsert").submit(); 
 			/* 필요 정보
 			

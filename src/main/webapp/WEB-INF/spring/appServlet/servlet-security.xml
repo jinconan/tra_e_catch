@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans:beans xmlns="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
-	<sec:authentication-manager alias="authenticationManager">
-		<sec:authentication-provider>
-			<sec:jdbc-user-service data-source-ref="data-source-target"/>
-			<sec:password-encoder ref="bcryptPasswordEncoder"/>
-		</sec:authentication-provider>
-	</sec:authentication-manager>
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="data-source-target"/>			
+			<password-encoder ref="bcryptPasswordEncoder"/>
+		</authentication-provider>
+	</authentication-manager>
 	
-</beans>
+	<http pattern="/css/**" security="none"/>
+	<http pattern="/imgs/**" security="none"/>
+	<http pattern="/js/**" security="none"/>
+	
+</beans:beans>

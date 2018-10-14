@@ -1,25 +1,21 @@
 package com.team.tra_e_catch.product;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import io.grpc.netty.shaded.io.netty.channel.local.LocalEventLoopGroup;
-
-
+@Repository
 public class SqlProdDao {
 	Logger logger = Logger.getLogger(SqlProdDao.class);
+	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate = null;
 
-	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
-		this.sqlSessionTemplate = sqlSessionTemplate;
-	}
-	
 	public List<Map<String, Object>> tranR_Dao(Map<String, Object> map) {
 		logger.info("tran_Dao¡¯¿‘");
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();

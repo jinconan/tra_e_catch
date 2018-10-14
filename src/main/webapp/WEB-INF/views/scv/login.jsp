@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	String emp_id = "";
-	try {
-		emp_id = (String)request.getAttribute("emp_id");
-	}catch(Exception e) {
-		emp_id = "";
-	}
-
+	String emp_id =(request.getAttribute("emp_id") != null) ? (String)request.getAttribute("emp_id") : "";
 %>
 <!DOCTYPE html>
 <html>
@@ -17,6 +11,7 @@
 <script>
 //체크박스 체크
 $(function() {
+	
 	$emp_id = $("#emp_id");
 	$remember_id = $("#remember_id");
 	

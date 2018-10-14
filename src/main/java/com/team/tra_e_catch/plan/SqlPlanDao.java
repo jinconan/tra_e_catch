@@ -7,14 +7,14 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class SqlPlanDao {
 	Logger logger = Logger.getLogger(SqlPlanDao.class);
+	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate = null;
-
-	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
-		this.sqlSessionTemplate = sqlSessionTemplate;
-	}
 
 	public List<Map<String, Object>> getPropList(Map<String, Object> pMap) {
 		logger.info("getPropList() »£√‚");

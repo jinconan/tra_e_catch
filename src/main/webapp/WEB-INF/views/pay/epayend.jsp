@@ -18,41 +18,54 @@
 <script type="text/javascript">
 var modal_row = null;
 
-$(function(){
-	$('#p_table').on('click-row.bs.table', function (e, row, $element, field) {
+$(function() {
+	$('#p_table').on('click-row.bs.table', function(e, row, $element, field) {
 		modal_row = row;
-		
-		if(modal_row.CENO == ${sessionScope.emp_no}) {
-	   		$("#btn_con").text("승인");
-	    
+		if (modal_row.SIGN_YN == -1) {
+			$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-down' aria-hidden='true'></span>");
+		} else if (modal_row.SIGN_YN == -2) {
+			$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
+			$("#aname").html(row.AENAME + "<span class='glyphicon glyphicon-thumbs-down' aria-hidden='true'></span>");
+		} else if (modal_row.SIGN_YN == 1) {
+			$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
+		} else if (modal_row.SIGN_YN == 2) {
+			$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
+			$("#aname").html(row.AENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
+		}
+
+		/* if(modal_row.CENO == ${sessionScope.emp_no}) {
+   		$("#btn_con").text("승인");
+    
 		} else if(modal_row.AENO == ${sessionScope.emp_no}) {
 			$("#btn_con").text("결재");
-		}
-		
+		} */
+
 		$("#exampleModal").modal('show');
 		$("#dno").text(row.DNO);
 		$("#udate").text(row.UDATE);
 		$("#cdate").text(row.CDATE);
 		$("#adate").text(row.ADATE);
 		$("#name").text(row.ENAME);
+
 		$("#content").text(row.CONTENT);
 		$("#title").text(row.TITLE);
-		
 	})
-	
-	$("#btn_con").on('click',function(evt){
-		$("#signDno").val(modal_row.DNO);
+	$('#printinp').click(function() {
+		$('#print_table').printThis();
+	});
+});
+
+
+	/* $("#btn_con").on('click',function(evt){
 	   	if(modal_row.CENO == ${sessionScope.emp_no}) {
 	   		//alert("승인자")
 	   		$("#signVal").val("1");
-	   		$("#isConfirm").val("true");
-	   		//$("#cname").text(modal_row.CENAME);
+	   		$("#cname").text(modal_row.CENAME);
 	   		//$("#cdate").text(modal_row.CDATE);
 	    
 		} else if(modal_row.AENO == ${sessionScope.emp_no}) {
 			//alert("결재자")
-			//$("#aname").text(modal_row.AENAME);
-			$("#isConfirm").val("false");
+			$("#aname").text(modal_row.AENAME);
 			$("#signVal").val("2");
 		}
 	
@@ -60,11 +73,9 @@ $(function(){
 	});
 	
 	$("#btn_deny").click(function() {
-		$("#signDno").val(modal_row.DNO);
 		if(modal_row.CENO == ${sessionScope.emp_no}) {
 	   		//alert("승인자")
 	   		$("#signVal").val("-1");
-	   		$("#isConfirm").val("true");
 	   		//$("#cname").text(modal_row.CENAME);
 	   		//$("#cdate").text(modal_row.CDATE);
 	    
@@ -72,17 +83,15 @@ $(function(){
 			//alert("결재자")
 			//$("#aname").text(modal_row.AENAME);
 			$("#signVal").val("-2");
-			$("#isConfirm").val("false");
 		}
 	
 	   	$("#f_update").submit();
 	})
-});
-/* function test(row){
-	
-	
-} */
-
+}); */
+	/* function test(row){
+		
+		
+	} */
 </script>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 	<div class="container">
@@ -90,11 +99,11 @@ $(function(){
 		<div class="col-md-10">
 
 			<div class="page-header">
-				<h1>결재 대기 문서</h1>
+				<h1>결재 완료 문서</h1>
 			</div>
 			<table class="table table-striped" id="p_table" 
 				data-toggle="table"
-				data-url="<%=request.getContextPath() %>/payR/epay/epaywait"
+				data-url="<%=request.getContextPath() %>/payR/epayend"
 				data-show-columns="true" data-toolbar="#table-toolbar"
 				data-pagination="true" data-page-list="[10]"
 				data-query-params="tableParams" data-side-pagination="server">
@@ -117,24 +126,20 @@ $(function(){
 		<!-- 상세내역 모달 페이지 -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document" style="width: 635px">
+			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">결제 대기 문서</h5>
+						<h5 class="modal-title" id="exampleModalLabel">결재 완료 문서</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body">
+					<div class="modal-body" style="">
 						<div id="d_viewwork">
-
-
-							<form id="f_update" method="post" action="<%=request.getContextPath()%>/pay/epay/epayupdate">
+							<form id="f_update" method="post" action="<%=request.getContextPath()%>/payR/epay/epayend">
 								<input type="hidden" name="signVal" id="signVal">
-								<input type="hidden" name="signDno" id="signDno">
-								<input type="hidden" name="isConfirm" id="isConfirm">
-								<table border="1" class="center-block" style="width: 100%; text-align:center;">
+								<table id="print_table" border="1" class="center-block" style="width: 532px; text-align:center;" >
 									<tr>
 										<td colspan="5">
 											<h3>기 안 서</h3>
@@ -179,13 +184,9 @@ $(function(){
 					</div>
 					
 					<div class="modal-footer" >
-						<!-- <button type="button" class="btn btn-primary" id="printinp">Print</button> -->
-						<button type="button" class="btn btn-secondary" id="btn_con"
-							data-dismiss="modal">승인</button>
-						<button type="button" class="btn btn-secondary" id="btn_deny"
-							data-dismiss="modal">부결</button>
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">닫기</button>
+					    <button type="button" class="btn btn-primary" id="printinp">Print</button>
 
 					</div>
 				</div>

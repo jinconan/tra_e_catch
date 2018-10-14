@@ -15,24 +15,9 @@ public class HomeController {
 
 	private static final Logger logger = Logger.getLogger(HomeController.class);
 
-	@Autowired
-	BCryptPasswordEncoder bcryptPasswordEncoder;
-	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, Device device) {
 		logger.info("home");
 		return "home";
 	}
-/*	
-	@RequestMapping("/mobile")
-	public String homeVerMobile(Model model) {
-		logger.info("mobile home");
-		return "mobile/home";
-	}
-	
-	@RequestMapping("/mobile/view/login")
-	public String viewLoginVerMobile(Model model) {
-		logger.info("mobile home");
-		return "mobile/login";
-	}*/
 }

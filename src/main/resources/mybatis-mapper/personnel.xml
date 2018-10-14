@@ -1,30 +1,179 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.personnelMapper">
-<select id="getCertList" parameterType="map" resultType="map">
-select * from certlist where emp_no = #{emp_no} order by c_no desc
-</select>
 
-<!-- 부서정보 수정 -->
+	<select id="getAttdList" parameterType="map" resultType="map">
+		<!-- emp_no={사원번호} -->
+		<![CDATA[
+		    select * from
+	    (select emp_no, a_date,a_time,l_time,time_chk,time_etc, rownum as rno
+	     from comchk where emp_no = #{emp_no} order by rno)
+	     where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno
+		 ]]>
+	</select>
 
-<update id="deptUpdate">
-update department
-set name = #{up_dept_name},
-	note = #{up_dept_note}
-	where dept_no = #{up_dept_no}
+	<select id="getCertList" parameterType="map" resultType="map">
+	select * from certlist where emp_no = #{emp_no} order by c_no desc
+	</select>
 
+	<insert id="certinsert" parameterType="map">
+	insert into certlist
+	values(seq_cert_no.nextval, #{p_c_name}, #{p_c_type}, #{emp_no}, to_char(sysdate,'YYYY-MM-DD'))
+	</insert>
 
-</update>
+	<!-- 개인신상정보 -->
+	<select id="getIndivList" parameterType="map" resultType="map">
+	select * from v_emp
+	<where>
+		<choose>
+			<when test="emp_no != null">
+				emp_no = #{emp_no}
+			</when>
+			<otherwise>
+				emp_no = #{in_emp_no}
+			</otherwise>
+		</choose>
+	</where>
+	</select>
 
+	<select id="getSalList" parameterType="map" resultType="map">
+	<![CDATA[
+	select * from (
+	select GIVE_DATE, NOTE, SAL, rownum as rno from sal_list where emp_no = #{emp_no} order by GIVE_DATE desc)
+	where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno 
+	]]>
+	</select>
 
+	<select id="getTeamList" parameterType="map" resultType="map">
+	select * from v_emp where team_no = (select team_no from v_emp where emp_no = #{emp_no})
+	</select>
 
-<select id="getQuarList" parameterType="map" resultType="map">
-<![CDATA[
-select content, write_date, quarter, rownum rno from SERVRATING
- where emp_no = #{emp_no} and writer_emp_no = 2 and rownum<5  order by quarter desc
- 	 ]]>
-</select>
+	<select id="getQuarList" parameterType="map" resultType="map">
+	<![CDATA[
+	select content, write_date, quarter, rownum rno from SERVRATING
+	where emp_no = #{emp_no} and writer_emp_no = 2 and rownum<5  order by quarter desc
+ 	]]>
+	</select>
 
+	<insert id="insertSerList" statementType="CALLABLE" parameterType="hashmap">
+	{CALL proc_serv_write(#{emp_no, mode=IN, javaType=java.lang.Integer, jdbcType=NUMERIC},#{e_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{w_content, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{e_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{pm_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{cos_type1, mode=OUT, jdbcType=VARCHAR, javaType=java.sql.ResultSet, resultMap=cos_type1})}
+	</insert>
+
+	<!-- 사원명부 -->
+	<select id="getEmpList" parameterType="map" resultType="map">
+	SELECT *
+	FROM (
+	    SELECT rownum rno,name,hire_date,lev_no,dept_no,loc_no,birthday,email,team_no
+	    FROM (
+	        SELECT * FROM employee
+	        <where>
+			<if test='dept_no!= null and !dept_no.equals("")'>
+				dept_no = #{dept_no}
+			</if>
+			<if test='name!= null and !name.equals("")'>
+				and name = #{name}
+			</if>
+			 <if test='lev_no!= null and !lev_no.equals("")'>
+				and lev_no = #{lev_no}
+			</if>
+			</where>
+	        ORDER BY emp_no ASC
+	    )
+	)
+	</select>
+
+	<insert id="insertEmp" statementType="CALLABLE"
+		parameterType="hashmap">
+		{CALL proc_empinsert(#{emp_name, mode=IN, javaType=java.lang.String,
+		jdbcType=VARCHAR},#{emp_id, mode=IN, javaType=java.lang.String,
+		jdbcType=VARCHAR},
+		#{lev_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+		#{loc_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+		#{dept_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+		#{emp_email, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+		#{emp_bdate, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+		#{emp_gen, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR})}
+	</insert>
+
+	<!-- 근로계약서 등록 -->
+	<insert id="insertLab" parameterType="map">
+	insert into docs
+	values(#{in_emp_no},910,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'근로계약서'||seq_doc_no.nextval)
+	</insert>
+
+	<!-- 근로계약서 -->
+	<select id="viewWorkList" parameterType="map" resultType="map">
+	<!-- select * from docs where emp_no = #{emp_no} -->
+	select * from docs where emp_no = #{in_emp_no} and dtype_no = 910
+	</select>
+
+	<!-- 고용계약서 -->
+	<select id="viewSourcingList" parameterType="map"
+		resultType="map">
+		<!-- select * from docs where emp_no = #{emp_no} -->
+		select * from docs where emp_no = #{in_emp_no} and dtype_no = 920
+	</select>
+	
+	<!--고용계약서 등록  -->
+	<insert id="insertSourcing" parameterType="map">
+		insert into docs
+		values(#{in_emp_no},920,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'고용계약서'||seq_doc_no.nextval)
+	</insert>
+	
+	<insert id="insertDept" parameterType="map">
+	insert into department
+	values(#{new_dept_no},#{new_dept_name},#{new_dept_note})
+	</insert>
+	
+	<!-- 부서정보 수정 -->
+	<update id="updateDept">
+	update department
+	set name = #{up_dept_name},
+		note = #{up_dept_note}
+		where dept_no = #{up_dept_no}
+	</update>
+
+	<select id="viewDeptList" parameterType="map" resultType="map">
+	select * from department
+	</select>
+
+	<!-- 부서리스트 -->
+	<select id="getDeptList" parameterType="map" resultType="map">
+   	select * from
+	    (select dept_no, name, note, rownum as rno
+	     from department order by dept_no)
+	     where rno betWeen  #{counts}*10-9 and  #{counts}*10 order by dept_no, rno asc
+	</select>
+
+	<update id="updateEmployee" statementType="CALLABLE"
+		parameterType="hashmap">
+		{CALL proc_updateemp(#{in_emp_no},
+		#{emp_name, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+		#{af_dept, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+		#{af_ctlev, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+		#{af_loc, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
+		#{af_team, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR})}
+	</update>
+
+	<!-- 전체 팀리스트 -->
+	<select id="getTeamListView" parameterType="map" resultType="map">
+	select * from team
+	</select>
+	
+	<!-- 근무지리스트 -->
+	<select id="getLocList" parameterType="map" resultType="map">
+	select * from location 
+	</select>
+	
+	<!-- 직급리스트 -->
+	<select id="getLevList" parameterType="map" resultType="map">
+	select * from ctlevel 
+	</select>
+
+	<insert id="insertTeam" parameterType="map">
+	insert into team
+	values(#{new_dept_no},#{new_dept_name})
+	</insert>
 
 <!-- 인사권자 의견 -->
 <select id="getLeaderView" parameterType="map" resultType="map">
@@ -34,125 +183,22 @@ from SERVRATING where emp_no =  #{emp_no} and writer_emp_no = 2 and quarter = #{
  	 ]]>
 </select>
 
-<!-- 전체 팀리스트 -->
-<select id="getTeamListView" parameterType="map" resultType="map">
-select * from team
-</select>
-<!-- 인사발령 프로시저 -->
-
-<select id="updateEmployee" statementType="CALLABLE" parameterType="hashmap">
-
-  {CALL proc_updateemp(#{in_emp_no},
-  					   #{emp_name, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
-  					   #{af_dept, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
-  					   #{af_ctlev, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
-  					   #{af_loc, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
-  					   #{af_team, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR})}
-</select>
-
-<!-- 부서리스트 -->
-<select id="getDeptList" parameterType="map" resultType="map">
-             select * from
-    (select dept_no, name, note, rownum as rno
-     from department order by dept_no)
-     where rno betWeen  #{counts}*10-9 and  #{counts}*10 order by dept_no, rno asc
-</select>
-
-<!-- 근무지리스트 -->
-<select id="getLocList" parameterType="map" resultType="map">
-select * from location 
-</select>
-
-
-<!-- 직급리스트 -->
-<select id="getLevList" parameterType="map" resultType="map">
-select * from ctlevel 
-</select>
-
-<!-- 근로계약서 -->
-<select id="viewWorkList" parameterType="map" resultType="map">
-<!-- select * from docs where emp_no = #{emp_no} -->
-select * from docs where emp_no = #{in_emp_no} and dtype_no = 910
-	 
-</select>
-<!-- 고용계약서 -->
-<select id="viewSourcingList" parameterType="map" resultType="map">
-<!-- select * from docs where emp_no = #{emp_no} -->
-select * from docs where emp_no = #{in_emp_no} and dtype_no = 920
-	 
-</select>
-
-<!-- 근로계약서 등록 -->
-<insert id="labInsert" parameterType="map">
-insert into docs
-values(#{in_emp_no},910,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'근로계약서'||seq_doc_no.nextval)
-</insert>
-<!--고용계약서 등록  -->
-<insert id="sourcingInsert" parameterType="map">
-insert into docs
-values(#{in_emp_no},920,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'고용계약서'||seq_doc_no.nextval)
-</insert>
-<insert id="certinsert" parameterType="map">
-
-insert into certlist
-     values(seq_cert_no.nextval, #{p_c_name}, #{p_c_type}, #{emp_no}, to_char(sysdate,'YYYY-MM-DD'))
-</insert>
-
-
-
-<insert id="deptInsert" parameterType="map">
-
-insert into department
-     values(#{new_dept_no},#{new_dept_name},#{new_dept_note})
-</insert>
-
-<insert id="teamInsert" parameterType="map">
-
-insert into team
-     values(#{new_dept_no},#{new_dept_name})
-</insert>
 
 
 
 
-<select id="viewDeptList" parameterType="map" resultType="map">
-select * from department
-</select>
+
+
+
+
+
+
 <select id="viewLevList" parameterType="map" resultType="map">
 select * from ctlevel
 </select>
 
 <select id="viewLocList" parameterType="map" resultType="map">
 select * from location
-</select>
-
-
-
-<select id="getAttdList" parameterType="map" resultType="map">
-	<!-- select * from comchk where emp_no = 1 and rownum<50 -->
-	<!-- emp_no={사원번호} -->
-	<![CDATA[
-	    select * from
-    (select emp_no, a_date,a_time,l_time,time_chk,time_etc, rownum as rno
-     from comchk where emp_no = #{emp_no} order by rno)
-     where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno
-	 ]]>
-</select>
-<!-- 개인신상정보 -->
-<select id="getIndivList" parameterType="map" resultType="map">
-
-select * from v_emp 
-<where>
-	<choose>
-		<when test="emp_no != null">
-		emp_no = #{emp_no}
-		</when>
-		<otherwise>
-		emp_no = #{in_emp_no}		
-		</otherwise>
-	</choose>
-</where>
-
 </select>
 
 
@@ -163,73 +209,6 @@ select * from v_emp
 </select>
 
  <resultMap id="cos_type1" type="java.util.HashMap"></resultMap>
-<select id="EmpInsert" statementType="CALLABLE" parameterType="hashmap">
-
-  {CALL proc_empinsert(#{emp_name, mode=IN, javaType=java.lang.String,
-			jdbcType=VARCHAR},#{emp_id, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
-			#{lev_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
-			#{loc_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
-			#{dept_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
-			#{emp_email, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
-			#{emp_bdate, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
-			#{emp_gen, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR})}
-
-
-</select>
-
-
-<select id="setSerList" statementType="CALLABLE" parameterType="hashmap">
-
-  {CALL proc_serv_write(#{emp_no, mode=IN, javaType=java.lang.Integer, jdbcType=NUMERIC},#{e_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{w_content, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{e_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{pm_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{cos_type1, mode=OUT, jdbcType=VARCHAR, javaType=java.sql.ResultSet, resultMap=cos_type1})}
-
-
-</select>
-
-<select id="getSalList" parameterType="map" resultType="map">
-
-<![CDATA[
-	select * from (
-	select GIVE_DATE, NOTE, SAL, rownum as rno from sal_list where emp_no = #{emp_no} order by GIVE_DATE desc)
-	where rno betWeen #{counts}*10-9 and #{counts}*10 order by rno 
-	 
-]]>
-</select>
-<select id="getTeamList" parameterType="map" resultType="map">
-
-select * from v_emp where team_no = (select team_no from v_emp where emp_no = #{emp_no})
-
-<!-- 사원명부 -->
-</select>
-<select id="getEmpList" parameterType="map" resultType="map">
-
-	select name,hire_date,lev_no,dept_no,loc_no,birthday,email,team_no
-      from employee 
-
-<where>
-<!-- <if test="dept_no != null">
-	and dept_no = #{dept_no}
-</if>
-<if test="name != null">
-	and name = #{name}
-</if>
-<if test="lev_no != null">
-	and lev_no = #{lev_no}
-</if> -->
-<if test='dept_no!= null and dept_no !="" '>
-	and dept_no = #{dept_no}
-</if>
-<if test='name!= null and !name.equals("")'>
-	and name = #{name}
-</if>
- <if test='lev_no!= null and lev_no != ""'>
-	and lev_no = #{lev_no}
-</if>
- <if test="offset != null and limit != null">
-         rno between #{offset}+1 and #{offset}+#{limit}
- </if>
-</where>
-</select>
-   
 	
 	<!-- ==========================급여 지급 페이지에서 사용하는 쿼리문 모음======================== -->
 	<!-- 검색된 급여내역 리스트 -->

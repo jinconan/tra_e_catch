@@ -12,12 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.team.tra_e_catch.plan.PlanLogic;
 
-/*
- * 클래스명 : PlanREST 
- * 작성자 : Lee Jin
- * 날짜 : 2018-09-23
- */
-
 @RestController
 @RequestMapping(value="/planR")
 public class PlanREST {
@@ -25,12 +19,6 @@ public class PlanREST {
 	@Autowired
 	private PlanLogic planLogic;
 
-	/**
-	 * 일정 json 형식 요청
-	 * @param projNo
-	 * @param isToday
-	 * @return
-	 */
 	@RequestMapping("/json/projTimeline")
 	public Map<String,Object> getTimeLineJson(@RequestParam("projNo") int projNo
 			,@RequestParam(value="isToday", defaultValue="true") String isToday) {

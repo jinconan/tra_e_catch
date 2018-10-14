@@ -39,7 +39,7 @@ if(emp_nochk>3){
 				</div>
 				<!-- 급여 지급내역 테이블 -->
 				<table data-toggle="table"
-					data-url="<%=request.getContextPath() %>/perR/salhistory"
+					data-url="<%=request.getContextPath() %>/perR/auth/salhistory"
 					data-toolbar="#table-toolbar"
 					data-show-columns="true"
 					data-pagination="true"
@@ -71,7 +71,7 @@ if(emp_nochk>3){
 						</button>
 						<h4 class="modal-title">급여지급</h4>
 					</div>
-					<form action="<%=request.getContextPath()%>/per/salaryInsert" method="post">
+					<form action="<%=request.getContextPath()%>/per/auth/salaryInsert" method="post">
 						<div class="modal-body">
 							<div>
 								<label for="eno" class="control-label">사원번호</label> <input type="number" class="form-control" name="eno" id="eno" required="required" />
@@ -110,7 +110,7 @@ if(emp_nochk>3){
 						</button>
 						<h4 class="modal-title">월급수정</h4>
 					</div>
-					<form action="<%=request.getContextPath() %>/per/empSalUpdate" method="post">
+					<form action="<%=request.getContextPath() %>/per/auth/empSalUpdate" method="post">
 						<div class="modal-body">
 							<div>
 								<label for="mseno" class="control-label">사원번호</label> <input type="number" class="form-control" name="mseno" id="mseno" required="required" />

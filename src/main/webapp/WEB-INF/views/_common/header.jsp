@@ -26,11 +26,11 @@
 					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<%=contextPath%>/per/attd/1">근태</a></li>
-						<li><a href="<%=contextPath%>/per/cert/cert">증명서 발급</a></li>
+						<li><a href="<%=contextPath%>/per/cert">증명서 발급</a></li>
 						<li><a href="<%=contextPath%>/per/salary/1">급여관리</a></li>
 						<li><a href="<%=contextPath%>/per/rating/perrating">인사고과</a></li>
-						<li class="divider"></li>
-						<li><a href="<%=contextPath%>/per/empList" id="adminacc">인사권자 전용</a></li>
+						<li class="divider"></li> 
+						<li><a href="<%=contextPath%>/per/auth/empList" id="adminacc">인사권자 전용</a></li>
 					</ul>
 				</li>
 				<!-- 상품 업무 메뉴 -->
@@ -60,8 +60,8 @@
 						전자결재<span class="glyphicon glyphicon-credit-card"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="<%=contextPath %>/pay/epay">기안문서</a></li>
-						<li><a href="<%=contextPath %>/pay/epay/epaywait">결재목록</a></li>
+						<li><a href="<%=contextPath %>/pay/draft">기안문서</a></li>
+						<li><a href="<%=contextPath %>/pay/epaywait">결재목록</a></li>
 					</ul>
 				</li>
 				<!-- 회계 업무 메뉴 -->

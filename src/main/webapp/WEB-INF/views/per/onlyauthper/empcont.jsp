@@ -16,7 +16,7 @@ function accept(){
 	
 	$.ajax({
 		
-		url:"/tra_e_catch/per/empconttable"
+		url:"<%=request.getContextPath()%>/per/auth/empconttable"
 		,method:"POST"
 		,data:emp_no,
 		success:function(log){
@@ -29,7 +29,7 @@ function accept(){
 }
 function sourcinginsert(){
 	$("#in_emp_no").val($("#i_emp_no").val());
-	 $("#f_emp_no").attr("action","./sourcing/insert");
+	 $("#f_emp_no").attr("action","<%=request.getContextPath()%>/per/auth/sourcing/insert");
 	$("#f_emp_no").submit(); 
 	alert("등록되었습니다.");
 	

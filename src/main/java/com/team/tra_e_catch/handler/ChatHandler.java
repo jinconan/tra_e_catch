@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class ChatHandler extends TextWebSocketHandler{
 	private Logger logger = Logger.getLogger(ChatHandler.class);
-	
+	 
 	//접속한 사원을 담는 map 객체
 	private Map<String,WebSocketSession> onlineEmp; 
 	public void setOnlineEmp(Map<String,WebSocketSession> onlineEmp) {

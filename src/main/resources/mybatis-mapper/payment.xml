@@ -137,4 +137,16 @@
       </if>
    </where>
    </select>
+   
+   <select id="getUpperTeamMemberList" parameterType="int" resultType="map">
+   <![CDATA[
+	SELECT emp_no eno, name ename 
+	FROM(
+		SELECT * FROM employee 
+		WHERE team_no = (SELECT team_no FROM employee WHERE emp_no = #{eno}) 
+			AND lev_no < (SELECT lev_no FROM employee WHERE emp_no = #{eno})
+		ORDER BY lev_no asc
+	)
+	]]>
+   </select>
 </mapper>

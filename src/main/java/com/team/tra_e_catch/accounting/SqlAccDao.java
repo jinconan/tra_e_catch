@@ -7,19 +7,19 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /*
  * 클래스명 : AccountingController
  * 작성자 : 신철우
  * 날짜 : 2018-08-31
  */
+@Repository 
 public class SqlAccDao {
 	Logger logger = Logger.getLogger(SqlAccDao.class);
+	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate = null;
-	
-	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
-		this.sqlSessionTemplate = sqlSessionTemplate;
-	}
 	
 	public List<Map<String, Object>> Team_Dao(int counst,String emp_no) {
 		logger.info("Team_Dao진입");

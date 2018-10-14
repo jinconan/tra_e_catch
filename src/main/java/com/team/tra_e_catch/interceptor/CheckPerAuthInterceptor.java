@@ -8,13 +8,12 @@ import org.apache.log4j.Logger;
 import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class CheckSessionInterceptor extends HandlerInterceptorAdapter{
-	Logger logger = Logger.getLogger(CheckSessionInterceptor.class);
+public class CheckPerAuthInterceptor extends HandlerInterceptorAdapter{
+	Logger logger = Logger.getLogger(CheckPerAuthInterceptor.class);
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("preHandle");
 		HttpSession session = request.getSession(false);
 		if(session == null || session.getAttribute("emp_no") == null) {
 			response.sendRedirect(request.getContextPath()+"/scv/view/login");

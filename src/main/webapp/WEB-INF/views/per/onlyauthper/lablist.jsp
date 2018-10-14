@@ -16,14 +16,11 @@ String emp_no = request.getParameter("in_emp_no").toString();
 		var inputdata = $("#f_modalselect").serialize();
 	 	$.ajax({
 	        method:"POST"
-	        ,url:"/tra_e_catch/per/onlyauthper/wordprint"
+	        ,url:"<%=request.getContextPath()%>/per/auth/wordprint"
 	        ,data:inputdata,
 	        success : function(log){
-	        	
 	        	console.log(log);
 	        	$("#d_viewwork").html(log);
-
-	        	
 	        }
 			,error : function(xhr) {
 				console.log("땡");
@@ -37,7 +34,7 @@ $(function() {
 	
 	$('#p_table').bootstrapTable({
 		
-		url:'<%=request.getContextPath()%>/perR/only/worklist',
+		url:'<%=request.getContextPath()%>/perR/auth/worklist',
 		queryParams: function(p){
             return{
             	emp_no : '<%=emp_no%>'
@@ -89,25 +86,25 @@ $(function() {
 		
 		<!-- 상세내역 모달 페이지 -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="width: 635px">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">고용계약서 상세페이지</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      	<div id="d_viewwork"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="printinp">Print</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        
-      </div>
-    </div>
-  </div>
-</div>
+			<div class="modal-dialog" role="document" style="width: 635px">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">고용계약서 상세페이지</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="d_viewwork"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="printinp">Print</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- 상세내역 모달 끝 -->
 	</div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />

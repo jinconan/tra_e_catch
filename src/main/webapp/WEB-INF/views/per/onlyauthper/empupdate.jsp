@@ -14,7 +14,7 @@ function acceptlist(){
 	$("#in_emp_no").val($("#i_emp_no").val());
 	var emp_no = $("#f_emp_no").serialize();
 	$.ajax({
-		url:"/tra_e_catch/per/empupdatetable"
+		url:"<%=request.getContextPath()%>/per/auth/empupdatetable"
 		,method:"POST"
 		,data:emp_no,
 		success:function(log){

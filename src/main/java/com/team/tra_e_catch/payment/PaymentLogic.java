@@ -24,28 +24,11 @@ public class PaymentLogic {
 	@Autowired
 	private SqlPayDao sqlPayDao = null;
 	
-	//기안 문서 JSON데이터 요청
-	/*public List<Map<String, Object>> getPaymentList(Map<String, Object> pMap) {
-		logger.info("getPaymentList 호출");
-		List<Map<String,Object>> paymentList = null;
-		paymentList = sqlPayDao.getPaymentList(pMap);
-		return paymentList;
-	}*/
-	
-	public List<Map<String, Object>> getPaymentLogic(int counst,HttpServletRequest res) {
-		logger.info("getPaymentLogic진입");
-		HttpSession session = res.getSession();
-		String emp_no = String.valueOf(session.getAttribute("emp_no"));
-		List<Map<String, Object>> paymentList = null;
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("counst", counst);
-		map.put("emp_no", emp_no);
-		Acc_VO arr = new Acc_VO();
-		arr.initDate(res,map);
-		paymentList = sqlPayDao.getPaymentDao(map);
-		return paymentList;
-	}
-
+	/**
+	 * 기안 등록
+	 * @param pMap
+	 * @return
+	 */
 	public int insertEpay(Map<String, Object> pMap) {
 		logger.info("insertEpay() " + pMap);
 		int result = 0;
@@ -61,7 +44,11 @@ public class PaymentLogic {
 		}
 		return result;
 	}
-//결제 대기 문서
+	/**
+	 * 결재 대기 목록 
+	 * @param pMap
+	 * @return
+	 */
 	public Map<String, Object> getEpayWaitList(Map<String, Object> pMap) {
 		logger.info("getEpayWaitList 호출성공");
 		
@@ -73,14 +60,22 @@ public class PaymentLogic {
 		rMap.put("rows", epaywaitList);
 		return rMap;
 	}
-//결제 대기 문서 승인 부결
+	/**
+	 * 기안에 대한 승인 또는 거부
+	 * @param pMap
+	 * @return
+	 */
 	public int updateEpay(Map<String, Object> pMap) {
 		logger.info("getEpayupdate 호출성공");
 		int result = 0;
 		result = sqlPayDao.updateEpay(pMap);
 		return result;
 	}
-	//결제 완료 문서
+	/**
+	 * 결재 완료 리스트
+	 * @param pMap
+	 * @return
+	 */
 	public Map<String, Object> getEpayEnd(Map<String, Object> pMap) {
         logger.info("getEpayEnd 호출성공");
 		
@@ -93,26 +88,11 @@ public class PaymentLogic {
 		return rMap;
 	}
 
-
-	
-	public List<Map<String, Object>> jobList(Map<String, Object> pMap) {
-		List<Map<String, Object>> joblist = null;
-		joblist = sqlPayDao.jobList(pMap);
-		return joblist;
-	}
-
-	public List<Map<String, Object>> setJobInsert(Map<String, Object> pMap) {
-		List<Map<String, Object>> setJobInsert = null;
-		setJobInsert = sqlPayDao.SetJobInsert(pMap);
-		return setJobInsert;
-	}
-
-	public List<Map<String, Object>> restInsert(Map<String, Object> pMap) {
-		List<Map<String,Object>> restInsert = null;
-		restInsert = sqlPayDao.RestInsert(pMap);
-		return null;
-	}
-
+	/**
+	 * 기안 목록 리스트
+	 * @param pMap
+	 * @return
+	 */
 	public Map<String, Object> getPaymentList(Map<String, Object> pMap) {
 		logger.info("getPaymentList " + pMap);
 		Map<String, Object> rMap = new HashMap<String, Object>();
@@ -123,6 +103,17 @@ public class PaymentLogic {
 		rMap.put("total",  total);
 		rMap.put("rows", rows);
 		return rMap;
+	}
+
+	/**
+	 * 같은 팀 내에서 사원번호가 eno인 사원보다 윗 선인 사원들의 리스트
+	 * @param eno
+	 * @return
+	 */
+	public List<Map<String, Object>> getUpperTeamMemberList(int eno) {
+		logger.info("getUpperTeamMemberList " + eno);
+		List<Map<String, Object>> upperTeamMemberList = sqlPayDao.getUpperTeamMemberList(eno);
+		return upperTeamMemberList;
 	}
 
 	
