@@ -7,7 +7,7 @@
 			SELECT dtype_no as "dtno", seq_doc_no.nextval as "dno"  FROM doc_type WHERE name=#{dtname}
 		</selectKey>
 		INSERT INTO docs(doc_no, dtype_no, title, content, emp_no, up_date)
-		VALUES(#{dno}, #{dtno}, #{title}, #{content}, #{eno}, TO_CHAR(sysdate,'yyyy-mm-dd'))
+		VALUES(#{dno}, #{dtno}, #{title}, #{content}, #{eno}, TO_CHAR(sysdate,'yyyy-mm-dd hh24:mi:ss'))
 	</insert> 
 	 
 	<insert id="insertSign" parameterType="map">
@@ -18,7 +18,7 @@
 	<!-- 서류 리스트  -->	
  	<select id="getPaymentList" resultType="map" parameterType="map">
 	SELECT * FROM (
-	    SELECT rownum rno, dno, dname, eno, ename, title, content, udate, cdate, adate, ceno, aeno, cename, aename, sign_yn, sresult
+	    SELECT rownum rno, dno, dname, eno, ename, title, content, SUBSTR(udate,1,10) udate, SUBSTR(cdate,1,10) cdate, SUBSTR(adate,1,10) adate, ceno, aeno, cename, aename, sign_yn, sresult
        	FROM (
        		SELECT * FROM v_draftlist
        		<where>
@@ -56,7 +56,7 @@
 	<select id="getEpayWaitList" parameterType="map" resultType="map">
 	SELECT *
    	FROM (
-       SELECT rownum rno, dno, dname, eno, ename, title, content, udate, cdate, adate, ceno, aeno, cename, aename, sign_yn, sresult
+       SELECT rownum rno, dno, dname, eno, ename, title, content, SUBSTR(udate,1,10) udate, SUBSTR(cdate,1,10) cdate, SUBSTR(adate,1,10) adate, ceno, aeno, cename, aename, sign_yn, sresult
        FROM (
 	       SELECT * FROM v_draftlist
 	       <where>
@@ -101,11 +101,11 @@
 	<choose>
 		<when test="isConfirm.equals('true')">
 			set sign_yn = #{signVal}, confirm_date =
-			to_char(sysdate,'yyyy-mm-dd') where confirm_emp_no=#{eno} AND doc_no = #{signDno}
+			to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where confirm_emp_no=#{eno} AND doc_no = #{signDno}
 		</when>
 		<otherwise>
 			set sign_yn = #{signVal}, accept_date =
-			to_char(sysdate,'yyyy-mm-dd') where accept_emp_no=#{eno} AND doc_no = #{signDno}
+			to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where accept_emp_no=#{eno} AND doc_no = #{signDno}
 		</otherwise>
 	</choose>
 	</update>
@@ -114,7 +114,7 @@
 	 <select id="getEpayEnd" parameterType="map" resultType="map">
 	SELECT *
    	FROM (
-       SELECT rownum rno, dno, dname, eno, ename, title, content, udate, cdate, adate, ceno, aeno, cename, aename, sign_yn, sresult
+       SELECT rownum rno, dno, dname, eno, ename, title, content, SUBSTR(udate,1,10) udate, SUBSTR(cdate,1,10) cdate, SUBSTR(adate,1,10) adate, ceno, aeno, cename, aename, sign_yn, sresult
        FROM (
        	SELECT * FROM v_draftlist
        <where>
@@ -143,4 +143,12 @@
 	)
 	]]>
    </select>
+   
+   <!-- 오늘 처리된 기안 수 -->
+	<select id="getTotalTodayCheckedDraft" parameterType="map" resultType="int">
+	SELECT count(*) FROM v_draftlist 
+	WHERE eno = #{eno} 
+	    AND (CDATE = TO_CHAR(sysdate,'yyyy-mm-dd') 
+	    OR ADATE = TO_CHAR(sysdate,'yyyy-mm-dd'))	
+	</select>
 </mapper>

@@ -105,7 +105,7 @@
 			chart.draw(dataTable);
 		}
 		else {
-			container.innerHTML="<p class='bg-danger'>없음</p>";
+			
 		}
 	}
 	
@@ -126,24 +126,24 @@
 
 		<!-- 작성할 부분 -->
 		<div class="col-sm-10">
-
-			<div class="well">
-
 				<div class="row">
 					<form>
 						<input type="hidden" name="projNo" id="projNo" value="<%=projNo%>">
 					</form>
-					<h2>
-						<strong><%=proj_name %></strong>
-						<%if(isLeader == true) {%>
-						<span class="btn-group">
-							<a class="btn btn-warning" id="btn_mod_project" href="<%=request.getContextPath() %>/plan/view/projUpdate?projNo=<%=projNo %>">
-									변경
-							</a>
-							<button type="button" id="btn_del_project" class="btn btn-danger">삭제</button>
-						</span>
-						<%} %>
-					</h2>
+					<div class="page-header">
+						<h2>
+							<strong><%=proj_name %></strong>
+							<%if(isLeader == true) {%>
+							<span class="btn-group">
+								<a class="btn btn-warning" id="btn_mod_project" href="<%=request.getContextPath() %>/plan/view/projUpdate?projNo=<%=projNo %>">
+										변경
+								</a>
+								<button type="button" id="btn_del_project" class="btn btn-danger">삭제</button>
+							</span>
+							<%} %>
+						</h2>
+						
+					</div>
 					<p>
 						<strong>상태: </strong>
 						<%if("종료".equals(pstatus_name)) {%>
@@ -196,7 +196,6 @@
 					%>
 				</div>
 				<%} %>
-			</div>
 		</div>
 	</div>
 

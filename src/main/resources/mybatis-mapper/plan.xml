@@ -455,4 +455,17 @@
 		FROM board_article
 		WHERE article_no=#{1}
 	</select>
+	
+	<select id="getProjMemberLevChart" parameterType="int" resultType="map">
+		SELECT lvname, count(*) cnt FROM v_proj_member WHERE pno=#{1} GROUP BY lvname
+	</select>
+	
+	<select id="getProjMemberDeptChart" parameterType="int" resultType="map">
+		SELECT dname, count(*) cnt FROM v_proj_member WHERE pno=#{1} GROUP BY dname
+	</select>
+	
+	<select id="getProjMemberTeamChart" parameterType="int" resultType="map">
+		SELECT tname, count(*) cnt FROM v_proj_member WHERE pno=#{1} GROUP BY tname
+	</select>
+	
 </mapper>

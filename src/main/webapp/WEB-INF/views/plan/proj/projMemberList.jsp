@@ -12,6 +12,81 @@
 <meta charset="UTF-8">
 <title>트라E캐치 프로젝트 참여자 리스트</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<script src="<%=request.getContextPath()%>/js/google_chart_loader.js"></script>
+<script>
+var levChart = null;
+var deptChart = null;
+var teamChart = null;
+var levDataTable = null;
+var deptDataTable = null;
+var teamDataTable = null;
+var jsonData = null;
+
+//시작시 서버로부터 차트 데이터를 요청한다.
+function getChartDatas() {
+	$.ajax({
+		url:"<%=request.getContextPath()%>/planR/json/projMemberCharts"
+		,async:false
+		,data:"projNo=${requestScope.projNo}"
+		,dataType:"json"
+		,success:function(data) {
+			jsonData = data;
+		}
+		,error:function(xhr) {
+			console.log(xhr);
+		}
+	})
+}
+
+getChartDatas();
+google.charts.load('current', {'packages':['corechart'],'language': 'ko' });
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+    var levChartArray = [ ['직급', '인원']];
+    var deptChartArray = [ ['직급', '인원']];
+    var teamChartArray = [ ['직급', '인원']];
+    
+    for(var i=0;i<jsonData.levChart.length;i++) {
+    	levChartArray[1+i] = [jsonData.levChart[i].LVNAME, jsonData.levChart[i].CNT];
+    }
+    for(var i=0;i<jsonData.deptChart.length;i++) {
+    	deptChartArray[1+i] = [jsonData.deptChart[i].DNAME, jsonData.deptChart[i].CNT];
+    }
+    for(var i=0;i<jsonData.teamChart.length;i++) {
+    	teamChartArray[1+i] = [jsonData.teamChart[i].TNAME, jsonData.teamChart[i].CNT];
+    }
+    
+    console.log(levChartArray);
+    console.log(deptChartArray);
+    console.log(teamChartArray);
+    
+    levDataTable = google.visualization.arrayToDataTable(levChartArray);
+    deptDataTable = google.visualization.arrayToDataTable(deptChartArray);
+    teamDataTable = google.visualization.arrayToDataTable(teamChartArray);
+
+    levChart = new google.visualization.PieChart(document.getElementById('levChart'));
+    deptChart = new google.visualization.PieChart(document.getElementById('deptChart'));
+    teamChart = new google.visualization.PieChart(document.getElementById('teamChart'));
+
+    levChart.draw(levDataTable, {title:"직급"});
+    deptChart.draw(deptDataTable, {title:"부서"});
+    teamChart.draw(teamDataTable, {title:"팀"});
+  }	
+
+function redrawChart() {
+	levChart.clearChart();	
+	deptChart.clearChart();	
+	teamChart.clearChart();	
+	drawChart();
+}
+
+//브라우저 크기 변경시 차트 다시 그리기
+$(window).resize(function(Event) {
+	redrawChart();
+})
+
+</script>
 <script>
 var isModify = false;
 var $table = null;
@@ -25,28 +100,9 @@ $(document).ready(function() {
 	$("#modalInsertMember").on("hidden.bs.modal", function(e) {
 		$("#tb_notMemberList").bootstrapTable("uncheckAll");
 	})
-	
 })
 </script>
 <script>
-//편집버튼 클릭시 메뉴 활성화/비활성화
-function btnModGroupClick() {
-	isModify = !isModify;
-	if(isModify == true) {
-		$("#btnGroupProjMember>a").eq(0).text("편집완료");
-		$table.bootstrapTable('showColumn','cbEmp');
-		
-	}
-	if(isModify == false) {
-		$("#btnGroupProjMember>a").eq(0).text("편집시작");
-		$table.bootstrapTable('uncheckAll');
-		$table.bootstrapTable('hideColumn','cbEmp');
-	}
-	$("#btnGroupProjMember>a").eq(1).toggle();
-	$("#btnGroupProjMember>a").eq(2).toggle();
-	$("#btnGroupProjMember>a").eq(3).toggle();
-}
-
 //삭제버튼 클릭시 삭제 처리
 function btnDelClick() {
 	var emp = $table.bootstrapTable("getSelections");
@@ -66,6 +122,9 @@ function btnDelClick() {
 					
 					if(emp[0].empNo == <%=empNo%>)
 						$("#btnGroupProjMember").hide();
+					
+					getChartDatas();
+					redrawChart();
 				}
 				,error:function(xhr) {
 					console.log("error");
@@ -152,6 +211,8 @@ function btnAddClick() {
 			,success:function(data) {
 				$table.bootstrapTable("refresh");
 				$notMemberTable.bootstrapTable("refresh");
+				getChartDatas();
+				redrawChart();
 			}
 			,error:function(xhr) {
 				console.log(xhr);
@@ -175,47 +236,50 @@ function btnAddClick() {
 
 		<!-- 작성할 부분 -->
 		<div class="col-sm-10">
-			<div class="well">
-				<div class="row">
-					<h2>
-						<strong>참여자 리스트</strong>
-						<%if(isLeader == true) { %>
-						<span id="btnGroupProjMember" class="btn-group">
-							<a class="btn btn-primary" href="javascript:btnModGroupClick()">편집시작</a>
-							<a class="btn btn-success" data-toggle="modal" data-target="#modalInsertMember" style="display: none;">추가</a>
-							<a class="btn btn-warning" href="javascript:btnModClick()" style="display: none;">변경</a>
-							<a class="btn btn-danger" href="javascript:btnDelClick()" style="display: none;">삭제</a>
-						</span>
-						<%} %>
-					</h2>
+				<div class="page-header">
+					<h2><strong>참여자리스트</strong></h2>
 				</div>
-
+				<!-- 차트 들어가는 부분 -->
+				<div class="row">
+					<div class="col-sm-4">
+						<div id="levChart"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="deptChart"></div>
+					</div>
+					<div class="col-sm-4">
+						<div id="teamChart"></div>
+					</div>
+				</div>
+				
+				<div id="table-toolbar">
+					<%if(isLeader == true) { %>
+					<a class="btn btn-success" data-toggle="modal" data-target="#modalInsertMember">추가</a>
+					<a class="btn btn-warning" href="javascript:btnModClick()">변경</a>
+					<a class="btn btn-danger" href="javascript:btnDelClick()">삭제</a>
+					<%} %>
+				</div>
 				<div class="row">
 					<div class="table-responsive">
-						<table id="tb_memberList" 
-							data-unique-id="roleName"
-							data-single-select="true"
-							data-pagination="true" 
-							data-page-list="[10]"  
-							data-search="true" 
-							data-toggle="table"
+						<table id="tb_memberList"
+							data-toolbar="#table-toolbar" 
+							data-unique-id="roleName" data-single-select="true"
+							data-pagination="true" data-page-list="[10]"  
+							data-search="true" data-toggle="table"
 							data-url="<%=request.getContextPath() %>/planR/json/projMemberList?projNo=<%=projNo %>">
 						    <thead>
 						        <tr>
-						        	<th data-checkbox="true" data-field="cbEmp" data-visible="false"></th>
-						        	<th data-field="empNo" data-visible="false">사원번호</th>
+						            <th data-checkbox="true" data-field="cbEmp"></th>
 						            <th data-sortable="true" data-field="empName">사원명</th>
 						            <th data-sortable="true" data-field="roleName">역할</th>
 						            <th data-sortable="true" data-field="levName">직급</th>
 						            <th data-sortable="true" data-field="deptName">부서</th>
 						            <th data-sortable="true" data-field="teamName">팀</th>
-						            <th data-field="startDate">참여일자</th>
 						        </tr>
 						    </thead>
 						</table>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 	
@@ -235,7 +299,6 @@ function btnAddClick() {
 						<thead>
 							<tr>
 								<th data-checkbox="true" data-field="cbEmp"></th>
-								<th data-field="empNo" data-visible="false">사원번호</th>
 								<th data-field="empName">사원명</th>
 								<th data-field="roleName">역할</th>
 								<th data-field="levName">직급</th>
@@ -255,6 +318,10 @@ function btnAddClick() {
 	</div>
 	<%} %>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
+	
+	
+	
+	
 	<script>
 	var $a = $("#submenu>li>a");
 	$a.each(function(i, data) {

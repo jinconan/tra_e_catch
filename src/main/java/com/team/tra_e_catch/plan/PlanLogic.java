@@ -339,6 +339,20 @@ public class PlanLogic {
 		return result;
 	}
 
+	/**
+	 * 프로젝트 참여자 리스트에서 사용할 차트에 필요한 데이터 조회 로직
+	 * @param projNo
+	 * @return
+	 */
+	public Map<String, Object> getJsonProjMemberCharts(int projNo) {
+		logger.info("getJsonProjMemberCharts :" + projNo);
+		Map<String, Object> rMap = new HashMap<String, Object>();
+		rMap.put("levChart", sqlPlanDao.getProjMemberLevChart(projNo));
+		rMap.put("deptChart", sqlPlanDao.getProjMemberDeptChart(projNo));
+		rMap.put("teamChart", sqlPlanDao.getProjMemberTeamChart(projNo));
+		return rMap;
+	}
+
 	
 
 	

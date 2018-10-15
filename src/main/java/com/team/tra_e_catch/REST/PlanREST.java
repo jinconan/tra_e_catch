@@ -30,6 +30,12 @@ public class PlanREST {
 		return planLogic.getJsonProjMemberList(projNo);
 	}
 	
+	@RequestMapping("/json/projMemberCharts")
+	public Map<String ,Object> getProjMemberChartsJson(@RequestParam("projNo") int projNo) {
+		return planLogic.getJsonProjMemberCharts(projNo);
+	}
+	
+	
 	@RequestMapping("/json/notProjMemberList")
 	public List<Map<String,Object>> getNotMemberListJson(@RequestParam("projNo") int projNo) {
 		return planLogic.getJsonNotProjMemberList(projNo);

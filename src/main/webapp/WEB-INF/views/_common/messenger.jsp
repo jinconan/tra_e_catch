@@ -46,15 +46,23 @@
 <script src=" <%=request.getContextPath()%>/resources/js/sockjs.min.js"></script>
 <script>
 	//웹소켓 연결
-	var wsocket = new SockJS("<%=request.getContextPath()%>/chat-ws");
-	
+	var wsocket = new SockJS("<%=request.getContextPath()%>/ws");
+	var tid = null;
 	wsocket.onopen = function() {
-        console.log("연결되었습니다.");
+        //console.log("연결되었습니다.");
+
+       	tid = setInterval(function() {
+        	var msg = {
+        			mtype:"dlog" 
+        	}
+       		wsocket.send(JSON.stringify(msg));
+        }, 10000) 
+        
     }
 	wsocket.onmessage = function (evt) {
         var data = JSON.parse(evt.data);
-        console.log("--서버로 부터 받은 메시지 -- ");
-        console.log(data);
+        //console.log("--서버로 부터 받은 메시지 -- ");
+        //console.log(data);
         
         switch(data.mtype) {
         case "open_self":
@@ -72,6 +80,9 @@
         case "chat":
         	chatMsg(data);
         	break;
+        case "dlog":
+        	dlogMsg(data);
+        	break;
         }
         
     }
@@ -82,6 +93,7 @@
 		$("#online_list").html("<li class='list-group-item alert alert-danger'>메신저와의 연결이 종료되었습니다.</li>")
         $("#btn_sendchat").off();
 		$("#chat_content").off();
+    	clearInterval(tid);
     }
 	
 	//채팅 전송 버튼 클릭 이벤트
@@ -95,6 +107,13 @@
 		else
 			return;
 	})
+	
+	function dlogMsg(data) {
+		var todayChecked = data.todayChecked;
+		var notCheck = data.notCheck;
+		$("#b_todayChecked").text(todayChecked);
+		$("#b_notCheck").text(notCheck); 
+	}
 	
 	//채팅 전송
 	function sendChat() {

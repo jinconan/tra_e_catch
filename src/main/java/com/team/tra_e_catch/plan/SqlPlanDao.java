@@ -444,6 +444,37 @@ public class SqlPlanDao {
 		return result;
 	}
 
+
+	/**
+	 * 프로젝트 멤버에서 직급별 사원수에 대한 차트 데이터 조회
+	 * @param projNo
+	 * @return
+	 */
+	public Object getProjMemberLevChart(int projNo) {
+		logger.info("getProjMemberLevChart : " + projNo);
+		return sqlSessionTemplate.selectList("getProjMemberLevChart", projNo);
+	}
+
+	/**
+	 * 프로젝트 멤버에서 부서별 사원수에 대한 차트 데이터 조회
+	 * @param projNo
+	 * @return
+	 */
+	public Object getProjMemberDeptChart(int projNo) {
+		logger.info("getProjMemberDeptChart : " + projNo);
+		return sqlSessionTemplate.selectList("getProjMemberDeptChart", projNo);
+	}
+
+	/**
+	 * 프로젝트 멤버에서 팀별별 사원수에 대한 차트 데이터 조회
+	 * @param projNo
+	 * @return
+	 */
+	public Object getProjMemberTeamChart(int projNo) {
+		logger.info("getProjMemberTeamChart : " + projNo);
+		return sqlSessionTemplate.selectList("getProjMemberTeamChart", projNo);
+	}
+
 	
 
 	

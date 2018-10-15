@@ -86,8 +86,8 @@
 						<span class="glyphicon glyphicon-info-sign" style="color: red;"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-					    <li><a href="<%=contextPath %>/pay/draftList">오늘 처리된 기안<span class="badge">4</span></a></li> 
-						<li><a href="<%=contextPath %>/pay/epaywait">처리 안한 기안<span class="badge">4</span></a></li>
+					    <li><a href="<%=contextPath %>/pay/draftList">오늘 처리된 기안<span class="badge" id="b_todayChecked"></span></a></li> 
+						<li><a href="<%=contextPath %>/pay/epaywait">처리 안한 기안<span class="badge" id="b_notCheck"></span></a></li>
 					</ul>
 				</li>
 				

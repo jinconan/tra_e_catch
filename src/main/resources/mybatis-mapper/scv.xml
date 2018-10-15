@@ -61,8 +61,6 @@
 	SELECT pw FROM employee WHERE emp_no = #{1}
 	</select>
 	
-	
-	
 	<select id="getOnlineList" parameterType="map" resultType="map">
 		SELECT emp_no as "emp_no", ename as "emp_name", clev as "emp_level", dname as "emp_dept" FROM v_emp
 		WHERE emp_no IN

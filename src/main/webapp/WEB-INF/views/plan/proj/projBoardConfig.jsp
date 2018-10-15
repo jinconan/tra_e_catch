@@ -44,24 +44,6 @@ $(document).ready(function() {
 })
 </script>
 <script>
-//편집버튼 클릭시 메뉴 활성화/비활성화
-function btnModGroupClick() {
-	isModify = !isModify;
-	if(isModify == true) {
-		$("#btnGroupProjBoard>a").eq(0).text("편집완료");
-		$table.bootstrapTable('showColumn','cbBoard');
-		
-	}
-	if(isModify == false) {
-		$("#btnGroupProjBoard>a").eq(0).text("편집시작");
-		$table.bootstrapTable('uncheckAll');
-		$table.bootstrapTable('hideColumn','cbBoard');
-	}
-	$("#btnGroupProjBoard>a").eq(1).toggle();
-	$("#btnGroupProjBoard>a").eq(2).toggle();
-	$("#btnGroupProjBoard>a").eq(3).toggle();
-}
-
 //게시판 생성 버튼 클릭 이벤트
 function btnAddClick() {
 	var $input = $("#add_board_name");
@@ -146,22 +128,22 @@ function btnDelClick() {
 
 		<!-- 작성할 부분 -->
 		<div class="col-sm-10">
-			<div class="well">
 				<div class="row">
-					<h2>
+					<div class="page-header">
+						<h2>
 						<strong>게시판 관리</strong>
-						<span id="btnGroupProjBoard" class="btn-group">
-							<a class="btn btn-primary" href="javascript:btnModGroupClick()">편집시작</a>
-							<a class="btn btn-success" data-toggle="modal" data-target="#modalAddBoard" style="display: none;">추가</a>
-							<a class="btn btn-warning" data-toggle="modal" data-target="#modalModBoard" style="display: none;">변경</a>
-							<a class="btn btn-danger" href="javascript:btnDelClick()" style="display: none;">삭제</a>
-						</span>
-					</h2>
-				</div>
-				<div class="row">
+						</h2>
+					</div>
+
+					<div class="table-toolbar">
+						<a class="btn btn-success" data-toggle="modal" data-target="#modalAddBoard">추가</a>
+						<a class="btn btn-warning" data-toggle="modal" data-target="#modalModBoard">변경</a>
+						<a class="btn btn-danger" href="javascript:btnDelClick()">삭제</a>
+					</div>
 					<div class="table-responsive">
 						<table id="tb_boardList" 
 							data-single-select="true"
+							data-toolbar=""
 							data-url="<%=request.getContextPath() %>/planR/json/projBoardList?projNo=<%=projNo %>"
 							data-toggle="table">
 						    <thead>
@@ -174,7 +156,6 @@ function btnDelClick() {
 						</table>
 					</div>
 				</div>
-			</div>
 		</div>
 		
 	</div>
