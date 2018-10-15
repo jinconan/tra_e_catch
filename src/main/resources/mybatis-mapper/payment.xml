@@ -17,26 +17,27 @@
 	 
 	<!-- 서류 리스트  -->	
  	<select id="getPaymentList" resultType="map" parameterType="map">
-	SELECT *
-	FROM (
+	SELECT * FROM (
 	    SELECT rownum rno, dno, dname, eno, ename, title, content, udate, cdate, adate, ceno, aeno, cename, aename, sign_yn, sresult
-       	FROM v_draftlist
-	    <where>
-	    	<if test="eno != null">
+       	FROM (
+       		SELECT * FROM v_draftlist
+       		<where>
+       			<if test="eno != null">
 	    		eno = #{eno}
-	    	</if>
-	    	<if test="sign_yn != null">
-	    		AND sign_yn = #{sign_yn}
-	    	</if>
-	    	<if test="dname != null">
-	    		AND dname = #{dname}
-	    	</if>
-	    </where>
-	    ORDER BY dno desc
-	)
+		    	</if>
+		    	<if test="sign_yn != null">
+		    	AND sign_yn = #{sign_yn}
+		    	</if>
+		    	<if test="dname != null">
+		    	AND dname = #{dname}
+		    	</if>
+       		</where>
+       		ORDER BY dno desc
+       	)
+	) 
 	<where>
 		<if test="offset != null and limit != null">
-			rno between #{offset}+1 and #{offset}+#{limit}
+		rno between #{offset}+1 and #{offset}+#{limit}
 		</if>
 	</where>
 	</select> 
@@ -56,31 +57,22 @@
 	SELECT *
    	FROM (
        SELECT rownum rno, dno, dname, eno, ename, title, content, udate, cdate, adate, ceno, aeno, cename, aename, sign_yn, sresult
-       FROM v_draftlist
-       <where>
-       		<if test="eno != null">
-       		(ceno = #{eno} and sign_yn=0) OR (aeno = #{eno} and sign_yn=1)
-       		</if>   
-       </where>
-       ORDER BY dno desc
+       FROM (
+	       SELECT * FROM v_draftlist
+	       <where>
+	       		<if test="eno != null">
+	       		(ceno = #{eno} and sign_yn=0) OR (aeno = #{eno} and sign_yn=1)
+	       		</if>   
+	       </where>
+	       ORDER BY dno desc
+       )
    )
    <where>
       <if test="offset != null and limit != null">
          rno between #{offset}+1 and #{offset}+#{limit}
       </if>
    </where>
-	
-	<!-- SELECT *
-       FROM(
-    SELECT rownum rno, confirm_emp_no, accept_emp_no, docs.dtype_no, sign_yn, confirm_date, accept_date, e.emp_no,e.name ename, dt.name dtname, content, up_date, title
-    FROM (
-        SELECT confirm_emp_no, accept_emp_no, doc_no, sign_yn, confirm_date, accept_date 
-            FROM sign
-        WHERE confirm_emp_no = #{emp_no} OR accept_emp_no= #{emp_no}) sign, docs, employee e, doc_type dt
-    WHERE sign.doc_no=docs.doc_no
-        AND e.emp_no = docs.emp_no
-        and docs.dtype_no = dt.dtype_no
-    ORDER BY sign.doc_no desc --> 
+
 	</select>
 	
 	<select id="getTotalEpayWaitList" resultType="int" parameterType="map">
@@ -123,14 +115,16 @@
 	SELECT *
    	FROM (
        SELECT rownum rno, dno, dname, eno, ename, title, content, udate, cdate, adate, ceno, aeno, cename, aename, sign_yn, sresult
-       FROM v_draftlist
+       FROM (
+       	SELECT * FROM v_draftlist
        <where>
        		<if test="eno">
        		(ceno = #{eno} and (sign_yn=1 OR sign_yn=-1)) OR (aeno = #{eno} and (sign_yn=2 OR sign_yn=-2))
        		</if>   
        </where>
        ORDER BY dno desc
-   )
+       )
+   ) 
    <where>
       <if test="offset != null and limit != null">
          rno between #{offset}+1 and #{offset}+#{limit}

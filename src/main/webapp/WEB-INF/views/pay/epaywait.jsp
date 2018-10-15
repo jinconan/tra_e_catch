@@ -97,11 +97,11 @@ $(function(){
 				data-url="<%=request.getContextPath() %>/payR/epaywait"
 				data-show-columns="true" data-toolbar="#table-toolbar"
 				data-pagination="true" data-page-list="[10]"
-				data-query-params="tableParams" data-side-pagination="server">
+				data-side-pagination="server">
 				<!-- RNO, DNAME, TITLE, CONTENT, UDATE, CENAME, AENAME, SIGN_YN, SRESULT -->
 				<thead>
 					<tr>
-						<th data-field="RNO">#</th>
+						<th data-field="RNO" data-visible="false">#</th>
 						<th data-field="DNAME">종류</th>
 						<th data-field="TITLE">제목</th>
 						<th data-field="UDATE">기안날짜</th>
@@ -128,8 +128,6 @@ $(function(){
 					</div>
 					<div class="modal-body">
 						<div id="d_viewwork">
-
-
 							<form id="f_update" method="post" action="<%=request.getContextPath()%>/pay/epayupdate">
 								<input type="hidden" name="signVal" id="signVal">
 								<input type="hidden" name="signDno" id="signDno">

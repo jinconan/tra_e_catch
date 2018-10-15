@@ -249,5 +249,18 @@ select * from location
 	<update id="updateSalary" parameterType="map">
 	UPDATE employee SET sal=#{msvalue} WHERE emp_no=#{mseno}
 	</update>
-	<!-- ==========================급여 지급 페이지에서 사용하는 쿼리문 모음 끝======================== -->
+	
+	<select id="isPerAuth" parameterType="map" resultType="int">
+	<![CDATA[
+	SELECT NVL(
+    (SELECT 1 FROM dual
+        WHERE #{eno} in (
+            SELECT emp_no 
+            FROM employee 
+            WHERE emp_no < 4
+            )),0) auth 
+	FROM dual
+	]]>
+	</select>	
+	
 </mapper>

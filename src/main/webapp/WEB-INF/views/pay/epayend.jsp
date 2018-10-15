@@ -33,13 +33,6 @@ $(function() {
 			$("#aname").html(row.AENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
 		}
 
-		/* if(modal_row.CENO == ${sessionScope.emp_no}) {
-   		$("#btn_con").text("승인");
-    
-		} else if(modal_row.AENO == ${sessionScope.emp_no}) {
-			$("#btn_con").text("결재");
-		} */
-
 		$("#exampleModal").modal('show');
 		$("#dno").text(row.DNO);
 		$("#udate").text(row.UDATE);
@@ -55,43 +48,6 @@ $(function() {
 	});
 });
 
-
-	/* $("#btn_con").on('click',function(evt){
-	   	if(modal_row.CENO == ${sessionScope.emp_no}) {
-	   		//alert("승인자")
-	   		$("#signVal").val("1");
-	   		$("#cname").text(modal_row.CENAME);
-	   		//$("#cdate").text(modal_row.CDATE);
-	    
-		} else if(modal_row.AENO == ${sessionScope.emp_no}) {
-			//alert("결재자")
-			$("#aname").text(modal_row.AENAME);
-			$("#signVal").val("2");
-		}
-	
-	   	$("#f_update").submit();
-	});
-	
-	$("#btn_deny").click(function() {
-		if(modal_row.CENO == ${sessionScope.emp_no}) {
-	   		//alert("승인자")
-	   		$("#signVal").val("-1");
-	   		//$("#cname").text(modal_row.CENAME);
-	   		//$("#cdate").text(modal_row.CDATE);
-	    
-		} else if(modal_row.AENO == ${sessionScope.emp_no}) {
-			//alert("결재자")
-			//$("#aname").text(modal_row.AENAME);
-			$("#signVal").val("-2");
-		}
-	
-	   	$("#f_update").submit();
-	})
-}); */
-	/* function test(row){
-		
-		
-	} */
 </script>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />
 	<div class="container">
@@ -106,11 +62,11 @@ $(function() {
 				data-url="<%=request.getContextPath() %>/payR/epayend"
 				data-show-columns="true" data-toolbar="#table-toolbar"
 				data-pagination="true" data-page-list="[10]"
-				data-query-params="tableParams" data-side-pagination="server">
+				data-side-pagination="server">
 				<!-- RNO, DNAME, TITLE, CONTENT, UDATE, CENAME, AENAME, SIGN_YN, SRESULT -->
 				<thead>
 					<tr>
-						<th data-field="RNO">#</th>
+						<th data-field="RNO" data-visible="false">#</th>
 						<th data-field="DNAME">종류</th>
 						<th data-field="TITLE">제목</th>
 						<th data-field="UDATE">기안날짜</th>

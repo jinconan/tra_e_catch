@@ -29,7 +29,7 @@ public class SqlScvDao {
 		int result = 0;
 		
 		try {
-			result = sqlSessionTemplate.update("com.mybatis.mapper.scvMapper.updateEmpPrivateAll", pMap);
+			result = sqlSessionTemplate.update("com.mybatis.mapper.scvMapper.updateEmpPrivate", pMap);
 		} catch (Exception e) {
 			logger.error(e.toString());
 		}

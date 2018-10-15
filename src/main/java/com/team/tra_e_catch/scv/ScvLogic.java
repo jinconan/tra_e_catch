@@ -36,6 +36,8 @@ public class ScvLogic {
 		} else
 			return null;
 	}
+	
+	
 	public Map<String, Object> updateEmpPrivate(Map<String,Object> pMap)
 	{
 		logger.info("modify " + pMap);

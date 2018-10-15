@@ -304,52 +304,34 @@ public class PersonnelLogic {
 	}
 
 
+	//급여 지급 페이지에서 나타나는 지급내역
+	public Map<String, Object> getSalHistory(Map<String, Object> pMap) {
+		Map<String, Object> rMap = new HashMap<String, Object>();
+		int total = sqlPerDao.getTotalSalHistory(pMap);
+		List<Map<String, Object>> rows = sqlPerDao.getSalHistory(pMap);
+		rMap.put("total",total);
+		rMap.put("rows", rows);
+		return rMap;
+	}
+
+	public int insertSalary(Map<String, Object> pMap) {
+		return sqlPerDao.insertSalary(pMap);
+	}
 
 
-
-	
-
-
-
-
-
-	
-
-	
-
-
-
-	
-	
-
-
-
-
-
+	public int updateSalary(Map<String, Object> pMap) {
+		return sqlPerDao.updateSalary(pMap);
 		
-		//급여 지급 페이지에서 나타나는 지급내역
-		public Map<String, Object> getSalHistory(Map<String, Object> pMap) {
-			Map<String, Object> rMap = new HashMap<String, Object>();
-			int total = sqlPerDao.getTotalSalHistory(pMap);
-			List<Map<String, Object>> rows = sqlPerDao.getSalHistory(pMap);
-			rMap.put("total",total);
-			rMap.put("rows", rows);
-			return rMap;
-		}
+	}
 
-		public int insertSalary(Map<String, Object> pMap) {
-			return sqlPerDao.insertSalary(pMap);
-		}
-
-
-		public int updateSalary(Map<String, Object> pMap) {
-			return sqlPerDao.updateSalary(pMap);
-			
-		}
-
-
-
-
-
+	/**
+	 * 인사권한 체크
+	 * @param pMap
+	 * @return
+	 */
+	public boolean isPerAuth(Map<String, Object> pMap) {
+		int result = sqlPerDao.isPerAuth(pMap);
+		return result == 1 ? true : false;
+	}
 
 }

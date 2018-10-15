@@ -379,6 +379,13 @@ public class SqlPerDao {
 		return result;
 	}
 		
-		
-
+	/**
+	 * 인사권차 체크
+	 * @param pMap
+	 * @return
+	 */
+	public int isPerAuth(Map<String, Object> pMap) {
+		logger.info("isPerAuth");
+		return sqlSessionTemplate.selectOne("isPerAuth", pMap);
+	}
 }

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:beans="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+<beans:beans xmlns="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
@@ -49,11 +46,13 @@
 		</interceptor>
 		
 		<!-- 인사권 체크 인터셉터 -->
-		<!-- <interceptor>
+		<interceptor>
 			<mapping path="/per/auth/**"/>
 			<mapping path="/perR/auth/**"/>
-			<beans:bean id="checkPerAuthInterceptor" class="com.team.tra_e_catch.interceptor.CheckPerAuthInterceptor"/>
-		</interceptor> -->
+			<beans:bean id="checkPerAuthInterceptor" class="com.team.tra_e_catch.interceptor.CheckPerAuthInterceptor">
+				<beans:property name="personnelLogic" ref="personnelLogic"></beans:property>
+			</beans:bean>
+		</interceptor>
 	</interceptors>
 	
 	
@@ -85,4 +84,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.team.tra_e_catch" />
+	
+	<!-- 어노테이션 기반 테스크 -->
+	<task:annotation-driven/>
 </beans:beans>

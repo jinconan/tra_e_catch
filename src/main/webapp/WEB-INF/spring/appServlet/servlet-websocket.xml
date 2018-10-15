@@ -11,6 +11,10 @@
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
 	</bean>
 	
+	<bean id="alarmHandler" class="com.team.tra_e_catch.handler.AlarmHandler">
+		<property name="onlineEmp" ref="onlineEmp"></property>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+	</bean>
 	
 	<websocket:handlers>
 		<websocket:mapping handler="chatHandler" path="/chat-ws" />
@@ -18,6 +22,16 @@
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
 		</websocket:handshake-interceptors>
 		<websocket:sockjs/>
+	</websocket:handlers>
+		
+	<websocket:handlers>
+		<websocket:mapping handler="alarmHandler" path="/alarm-ws" />
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		<websocket:sockjs/>
 	</websocket:handlers>	
+
+
 
 </beans>
