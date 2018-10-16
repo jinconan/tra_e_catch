@@ -52,32 +52,6 @@ function exampleModalInsert(){
   			<div class="page-header">
 					<h1>상품 관리 대장</h1>
 			</div>
-<!------------ 재고 관리 폼 ------------------->  	
-  	<form class="form-inline" id="f_search">
-  	<div class="form-group">
-	<tr>
-		<td>
-		  <select id="cb_type" class="form-control" name="cb_type" class="col-sm-3">
-		    <option value="b_prodC">상품코드</option>
-		    <option value="b_prodVC">상품종류코드</option>
-		    <option value="b_name">상품명</option>
-		    <option value="b_sal">판매여부</option>
-		  </select>
-		</td>
-		<td>
-		  <input type="email" id="sb_keyword" name="sb_keyword" class="form-control" class="col-sm-3"></input>
-		</td>
-		<td>
-		  <button class="btn btn-default btn-m" id="btn_sea" type="submit">조회</button>
-		</td>
-	</tr>
-	</div>
-</form>	
-<script type="text/javascript">
-
-
-
-</script>
   <div class="row">
     <div class="col-sm-10">
 	 <br>
@@ -193,7 +167,7 @@ function exampleModalInsert(){
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 						</button>
-						<h4 class="modal-title" id="myModalLabel">부서정보 추가</h4>
+						<h4 class="modal-title" id="myModalLabel">상품 변경</h4>
 					</div>
 					<div class="modal-body">
 						<div class="row">
@@ -225,7 +199,7 @@ function exampleModalInsert(){
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary">추가</button>
+						<button type="submit" class="btn btn-primary">수정</button>
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">취소</button>
 					</div>
