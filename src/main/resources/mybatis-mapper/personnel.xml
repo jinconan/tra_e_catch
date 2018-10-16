@@ -75,7 +75,22 @@
 
 	<!-- 사원명부 -->
 	<select id="getEmpList" parameterType="map" resultType="map">
-	SELECT *
+	select  ename, ehire_date, ebirthday, eemail, dname,lname,cname,tname from v_emplist
+	<where>
+		<if test='ename!= null and !ename.equals("")'> <!-- 사원명 -->
+			ename = #{ename}
+		</if>
+		<if test='cname!= null and !cname.equals("")'> <!-- 직급명 -->
+			and cname = #{cname}
+		</if>
+		 <if test='dname!= null and !dname.equals("")'> <!-- 부서명 -->
+			and dname = #{dname}
+		</if>
+		 <if test='tname!= null and !tname.equals("")'> <!-- 팀명 -->
+			and tname = #{tname}
+		</if>
+	 </where>
+	<!-- SELECT *
 	FROM (
 	    SELECT rownum rno,name,hire_date,lev_no,dept_no,loc_no,birthday,email,team_no
 	    FROM (
@@ -93,7 +108,7 @@
 			</where>
 	        ORDER BY emp_no ASC
 	    )
-	)
+	) -->
 	</select>
 
 	<insert id="insertEmp" statementType="CALLABLE"

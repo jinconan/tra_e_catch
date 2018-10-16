@@ -12,9 +12,10 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 %>
 <script type="text/javascript">
 function tableParams(params) {
-	params.name=$("#name").val();
-	params.dept_no=$("#dept_no").val();
-	params.lev_no=$("#lev_no").val();
+	params.ename=$("#ename").val();
+	params.dname=$("#dname").val();
+	params.cname=$("#cname").val();
+	params.lname=$("#lname").val();
 	return params;
 }
 
@@ -62,15 +63,15 @@ if(emp_nochk>3){
 					<div id="table-toolbar" class="form-inline">
 						<div class="form-group">
 							<label for="name" class="control-label sr-only">이름</label>
-							<input class="form-control " name="name" id="name" type="text" placeholder="이름">
+							<input class="form-control " name="ename" id="ename" type="text" placeholder="사원이름">
 						</div>
 						<div class="form-group">
 							<label class="control-label sr-only" for="lev_no">직급</label>
-							<input class="form-control " name="lev_no" id="lev_no" type="text" placeholder="직급코드">
+							<input class="form-control " name="cname" id="cname" type="text" placeholder="직급명">
 						</div>
 						<div class="form-group">
 							<label class="control-label sr-only" for="dept_no">부서</label>
-							<input class="form-control " name="dept_no" id="dept_no" type="text" placeholder="부서코드">
+							<input class="form-control " name="dname" id="dname" type="text" placeholder="부서명">
 						</div>
 						<div class="form-group">
 							<button id="btn_emp" class="btn btn-primary" onclick="javascript:accept()">
@@ -90,12 +91,12 @@ if(emp_nochk>3){
 							<tr>
 							    <th width="10%" data-field="NAME">이름</th>
 								<th width="11%" data-field="HIRE_DATE">입사일자</th>
-								<th width="11%" data-field="LEV_NO">직급코드</th>
-								<th width="11%" data-field="DEPT_NO">부서코드</th>
-								<th width="11%" data-field="LOC_NO">지역코드</th>
+								<th width="11%" data-field="CNAME">직급명</th>
+								<th width="11%" data-field="DNAME">부서명</th>
+								<th width="11%" data-field="LNAME">지역명</th>
 								<th width="11%" data-field="BIRTHDAY">생일</th>
 								<th width="11%" data-field="EMAIL">이메일</th>
-								<th width="11%" data-field="TEAM_NO">팀코드</th>
+								<th width="11%" data-field="TNAME">팀명</th>
 							</tr>
 						</thead>
 					</table>
