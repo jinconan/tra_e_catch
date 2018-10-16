@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -15,6 +16,9 @@ public class PersonnelLogic {
 	
 	@Autowired
 	private SqlPerDao sqlPerDao = null;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	
 	/**
 	 * 출퇴근 관리 JSON데이터 요청
@@ -170,6 +174,8 @@ public class PersonnelLogic {
 	 * @return
 	 */
 	public int insertEmp(Map<String, Object> pMap) {
+		String default_emp_pw = bCryptPasswordEncoder.encode("0000");
+		pMap.put("emp_pw", default_emp_pw);
 		logger.info("insertEmp :" + pMap);
 		int result = sqlPerDao.insertEmp(pMap);
 		return result;

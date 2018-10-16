@@ -99,13 +99,13 @@
 	<update id="updateEpay" parameterType="map">
 	update sign
 	<choose>
-		<when test="isConfirm.equals('true')">
-			set sign_yn = #{signVal}, confirm_date =
-			to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where confirm_emp_no=#{eno} AND doc_no = #{signDno}
-		</when>
-		<otherwise>
+		<when test="isConfirm.equals('false')">
 			set sign_yn = #{signVal}, accept_date =
 			to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where accept_emp_no=#{eno} AND doc_no = #{signDno}
+		</when>
+		<otherwise>
+			set sign_yn = #{signVal}, confirm_date =
+			to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') where confirm_emp_no=#{eno} AND doc_no = #{signDno}
 		</otherwise>
 	</choose>
 	</update>

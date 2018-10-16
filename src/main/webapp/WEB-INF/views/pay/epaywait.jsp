@@ -22,14 +22,19 @@ $(function(){
 	$('#p_table').on('click-row.bs.table', function (e, row, $element, field) {
 		modal_row = row;
 		
-		
 		if(modal_row.CENO == ${sessionScope.emp_no}) {
-	   		$("#btn_con").text("승인");
-	    
+			//승인자==결재자
+	   		if(modal_row.CENO == modal_row.AENO && modal_row.SIGN_YN==1) {
+				$("#btn_con").text("결재");
+				$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
+	   		} 
+	   		//승인자 != 결재자
+	   		else {
+				$("#btn_con").text("승인");
+	   		}
 		} else if(modal_row.AENO == ${sessionScope.emp_no}) {
 			$("#btn_con").text("결재");
 			$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
-			
 		} 
 		
 		$("#exampleModal").modal('show');
@@ -45,8 +50,7 @@ $(function(){
 	
 	$("#btn_con").on('click',function(evt){
 		$("#signDno").val(modal_row.DNO);
-	   	if(modal_row.CENO == ${sessionScope.emp_no}) {
-	   		
+	   	if(modal_row.CENO == ${sessionScope.emp_no} && modal_row.CDATE == null) {
 	   		$("#signVal").val("1");
 	   		$("#isConfirm").val("true");
 	   		
@@ -61,8 +65,7 @@ $(function(){
 	
 	$("#btn_deny").click(function() {
 		$("#signDno").val(modal_row.DNO);
-		if(modal_row.CENO == ${sessionScope.emp_no}) {
-	   		
+		if(modal_row.CENO == ${sessionScope.emp_no} && modal_row.CDATE == null) {
 	   		$("#signVal").val("-1");
 	   		$("#isConfirm").val("true");
 	   		
@@ -177,7 +180,7 @@ $(function(){
 						<button type="button" class="btn btn-secondary" id="btn_con"
 							data-dismiss="modal">승인</button>
 						<button type="button" class="btn btn-secondary" id="btn_deny"
-							data-dismiss="modal">부결</button>
+							data-dismiss="modal">반려</button>
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">닫기</button>
 

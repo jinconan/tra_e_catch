@@ -116,6 +116,7 @@
 		{CALL proc_empinsert(#{emp_name, mode=IN, javaType=java.lang.String,
 		jdbcType=VARCHAR},#{emp_id, mode=IN, javaType=java.lang.String,
 		jdbcType=VARCHAR},
+		#{emp_pw, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
 		#{lev_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
 		#{loc_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
 		#{dept_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
