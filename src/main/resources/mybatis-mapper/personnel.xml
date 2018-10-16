@@ -35,6 +35,20 @@
 		</choose>
 	</where>
 	</select>
+	<!-- 개인신상정보 -->
+	<select id="getIndivlist" parameterType="map" resultType="map">
+	select * from v_emp
+	<where>
+		<choose>
+			<when test="emp_no != null">
+				emp_no = #{emp_no}
+			</when>
+			<otherwise>
+				emp_no = #{in_emp_no}
+			</otherwise>
+		</choose>
+	</where>
+	</select>
 
 	<select id="getSalList" parameterType="map" resultType="map">
 	<![CDATA[

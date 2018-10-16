@@ -22,12 +22,15 @@ $(function(){
 	$('#p_table').on('click-row.bs.table', function (e, row, $element, field) {
 		modal_row = row;
 		
+		
 		if(modal_row.CENO == ${sessionScope.emp_no}) {
 	   		$("#btn_con").text("승인");
 	    
 		} else if(modal_row.AENO == ${sessionScope.emp_no}) {
 			$("#btn_con").text("결재");
-		}
+			$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");
+			
+		} 
 		
 		$("#exampleModal").modal('show');
 		$("#dno").text(row.DNO);
@@ -43,15 +46,12 @@ $(function(){
 	$("#btn_con").on('click',function(evt){
 		$("#signDno").val(modal_row.DNO);
 	   	if(modal_row.CENO == ${sessionScope.emp_no}) {
-	   		//alert("승인자")
+	   		
 	   		$("#signVal").val("1");
 	   		$("#isConfirm").val("true");
-	   		//$("#cname").text(modal_row.CENAME);
-	   		//$("#cdate").text(modal_row.CDATE);
-	    
+	   		
 		} else if(modal_row.AENO == ${sessionScope.emp_no}) {
-			//alert("결재자")
-			//$("#aname").text(modal_row.AENAME);
+			
 			$("#isConfirm").val("false");
 			$("#signVal").val("2");
 		}
@@ -62,15 +62,11 @@ $(function(){
 	$("#btn_deny").click(function() {
 		$("#signDno").val(modal_row.DNO);
 		if(modal_row.CENO == ${sessionScope.emp_no}) {
-	   		//alert("승인자")
+	   		
 	   		$("#signVal").val("-1");
 	   		$("#isConfirm").val("true");
-	   		//$("#cname").text(modal_row.CENAME);
-	   		//$("#cdate").text(modal_row.CDATE);
-	    
+	   		
 		} else if(modal_row.AENO == ${sessionScope.emp_no}) {
-			//alert("결재자")
-			//$("#aname").text(modal_row.AENAME);
 			$("#signVal").val("-2");
 			$("#isConfirm").val("false");
 		}
