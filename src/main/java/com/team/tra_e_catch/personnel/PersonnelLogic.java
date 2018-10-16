@@ -56,6 +56,13 @@ public class PersonnelLogic {
 		serList = sqlPerDao.getIndivList(pMap); 
 		return serList;
 	}
+	//고용계약서 개인신상 데이터
+	public List<Map<String, Object>> getindivlist(Map<String, Object> pMap) {
+		logger.info("getindivlist :" + pMap);
+		List<Map<String, Object>> serList = null;
+		serList = sqlPerDao.getIndivlist(pMap); 
+		return serList;
+	}
 	
 	/**
 	 * 급여내역 JSON포멧 데이터 요청 

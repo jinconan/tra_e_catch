@@ -85,7 +85,7 @@
 								<th data-field="분류">분류</th>
 								<th data-field="구분">구분</th>
 								<th data-field="적요">적요</th>
-								<th data-field="작성자">담당자</th>
+								<th data-field="작성자">작성자</th>
 								<th data-field="금액">금액</th>
 								<th data-field="첨부자료">첨부자료</th>
 							</tr>   
@@ -133,7 +133,7 @@
 		  <div class="modal-dialog" role="document" style="width: 635px">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">고용계약서 상세페이지</h5>
+		        <h5 class="modal-title" id="exampleModalLabel">사내결제 상세페이지</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>

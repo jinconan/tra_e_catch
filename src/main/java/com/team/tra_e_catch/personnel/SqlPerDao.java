@@ -58,6 +58,12 @@ public class SqlPerDao {
 		indivList = sqlSessionTemplate.selectList("getIndivList", pMap);
 		return indivList;
 	}
+	//고용계약서 개인 ㅣ프로필 정보
+	public List<Map<String, Object>> getIndivlist(Map<String, Object> pMap) {
+		List<Map<String, Object>> indivList = null;
+		indivList = sqlSessionTemplate.selectList("getIndivlist", pMap);
+		return indivList;
+	}
 	
 	/**
 	 * 급여내역 데이터 요청 DB

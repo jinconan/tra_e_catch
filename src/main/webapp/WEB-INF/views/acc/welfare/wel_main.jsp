@@ -75,7 +75,7 @@
 			<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 		<div class="col-sm-10">
 			<form class="form-signin" action="<%=request.getContextPath()%>/acc/wel_list" method="POST" >
-				<h2 class="form-signin-heading">팀 운영비</h2>
+				<h2 class="form-signin-heading">복지지원비</h2>
 				<div class="row" Style="margin-bottom: 5px">
 					<div class="col-xs-1">
 						<h5>날짜:</h5>
@@ -167,7 +167,7 @@
 		  <div class="modal-dialog" role="document" style="width: 635px">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">고용계약서 상세페이지</h5>
+		        <h5 class="modal-title" id="exampleModalLabel">복지지원비 상세페이지</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
