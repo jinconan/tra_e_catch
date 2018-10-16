@@ -157,12 +157,6 @@ function attdexit(){
 			</button>
 		</div>
 		<div class="btn-group" role="group">
-			<button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab">
-				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-				<div class="hidden-xs">직무내용</div>
-			</button>
-		</div>
-		<div class="btn-group" role="group">
 			<button type="button" id="following" class="btn btn-default" href="#tab3" data-toggle="tab">
 				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 				<div class="hidden-xs">출결버튼</div>

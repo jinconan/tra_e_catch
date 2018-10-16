@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <title>트라E캐치 - 기안 목록</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<script src="<%=request.getContextPath() %>/js/google_chart_loader.js"></script>
 <script>
 var dtype = null;
 var sign_status = null;
@@ -54,6 +55,49 @@ function setSignStatus(data) {
 	}
 	$("#p_table").bootstrapTable('refresh',null);
 }
+////////차트 처리
+var jsonData = null;
+var dataTable = null;
+var chart = null;
+function getChartDatas() {
+	$.ajax({
+		url:"<%=request.getContextPath()%>/payR/draftChart"
+		,async:false
+		,success:function(data) {
+			jsonData = data;
+		}
+		,error:function(xhr) {
+			console.log(xhr);
+		}
+	})
+}
+getChartDatas();
+google.charts.load('current', {'packages':['corechart'],'language': 'ko' });
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+    var chartArray = [['분류', '수']];
+    
+    for(var i=0;i<jsonData.length;i++) {
+    	chartArray[1+i] = [jsonData[i].DNAME, jsonData[i].CNT];
+    }
+    
+    console.log(chartArray);
+    dataTable = google.visualization.arrayToDataTable(chartArray);
+    chart = new google.visualization.PieChart(document.getElementById('chart'));
+    chart.draw(dataTable, {title:"기안서 분류"});
+  }	
+
+function redrawChart() {
+	chart.clearChart();	
+	drawChart();
+}
+
+//브라우저 크기 변경시 차트 다시 그리기
+$(window).resize(function(Event) {
+	redrawChart();
+})
+/////////차트 처리 끝
 </script>
 <script>
 $(document).ready(function() {
@@ -98,7 +142,11 @@ $(document).ready(function() {
 		<%@ include file="/WEB-INF/views/_common/submenu.jsp"%>
 		<div class="col-md-10">
 			<div class="page-header">
-				<h1>기안 문서 목록</h1>
+				<h2>기안 문서 목록</h2>
+			</div>
+			
+			<div class="row">
+				<div id="chart" style="height:270px;"></div>
 			</div>
 			<!-- 테이블 툴바 -->
 			<div id="table-toolbar">

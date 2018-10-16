@@ -177,6 +177,16 @@ public class SqlPayDao {
 		result = sqlSessionTemplate.selectOne("getTotalAlarmCount", pMap);
 		return result;
 	}
+
+	/**
+	 * 
+	 * @param eno
+	 * @return
+	 */
+	public List<Map<String, Object>> getDraftChart(int eno) {
+		logger.info("getDraftChart");
+		return sqlSessionTemplate.selectList("getDraftChart",eno);
+	}
 }
 		
 		

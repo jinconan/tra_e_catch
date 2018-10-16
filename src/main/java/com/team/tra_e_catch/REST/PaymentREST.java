@@ -70,6 +70,12 @@ public class PaymentREST {
 		return rMap;
 	}
 
+	@RequestMapping(value="/draftChart", method=RequestMethod.GET)
+	private List<Map<String, Object>> getDraftChart(@SessionAttribute("emp_no") int eno) {
+		logger.info("getDraftChart : " + eno);
+		return paymentLogic.getDraftChart(eno);
+	}
+	
 	/**
 	 * 알림 숫자 갱신요청
 	 * @param eno

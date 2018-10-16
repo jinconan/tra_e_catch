@@ -120,7 +120,7 @@
        <where>
        		<if test="eno">
        		(ceno = #{eno} and (sign_yn=1 OR sign_yn=-1)) OR (aeno = #{eno} and (sign_yn=2 OR sign_yn=-2))
-       		</if>   
+       		</if>
        </where>
        ORDER BY dno desc
        )
@@ -202,4 +202,8 @@
 	UPDATE employee set alarm_date = TO_CHAR(sysdate,'yyyy-mm-dd hh24:mi:ss')
     WHERE emp_no=#{eno}
 	</update>
+	
+	<select id="getDraftChart" parameterType="int" resultType="map">
+	SELECT dname, count(*) cnt FROM v_draftlist WHERE eno = #{1} GROUP BY dname
+	</select>
 </mapper>

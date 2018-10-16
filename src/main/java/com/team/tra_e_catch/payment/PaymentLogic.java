@@ -129,4 +129,14 @@ public class PaymentLogic {
 		return result;
 	}
 	
+	/**
+	 * 기안목록 차트 데이터
+	 * @param eno
+	 * @return
+	 */
+	public List<Map<String, Object>> getDraftChart(int eno) {
+		logger.info("getDraftChart : " + eno);
+		return sqlPayDao.getDraftChart(eno);
+	}
+	
 }

@@ -67,8 +67,8 @@ $(function() {
 				<thead>
 					<tr>
 						<th data-field="RNO" data-visible="false">#</th>
-						<th data-field="DNAME">종류</th>
-						<th data-field="TITLE">제목</th>
+						<th data-field="DNAME" data-sortable="true">종류</th>
+						<th data-field="TITLE" data-sortable="true">제목</th>
 						<th data-field="UDATE">기안날짜</th>
 						<th data-field="CENAME">승인자</th>
 						<th data-field="AENAME">결재자</th>

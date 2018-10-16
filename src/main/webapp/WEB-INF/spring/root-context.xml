@@ -19,7 +19,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- AOP -->
 	<aop:config>
-		<aop:pointcut expression="execution(* com.team.tra_e_catch.*Logic.*(..))" id="point-cut"/>
+		<aop:pointcut expression="execution(* com.team.tra_e_catch..*Logic.*(..))" id="point-cut"/>
 		<aop:advisor advice-ref="tx-advice" pointcut-ref="point-cut"/>
 	</aop:config>
 	

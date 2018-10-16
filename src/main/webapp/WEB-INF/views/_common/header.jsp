@@ -27,7 +27,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="<%=contextPath%>/per/attd/1">근태</a></li>
 						<li><a href="<%=contextPath%>/per/cert">증명서 발급</a></li>
-						<li><a href="<%=contextPath%>/per/salary/1">급여관리</a></li>
+						<li><a href="<%=contextPath%>/per/salary/1">급여내역</a></li>
 						<li><a href="<%=contextPath%>/per/rating/perrating">인사고과</a></li>
 						<li class="divider"></li> 
 						<li><a href="<%=contextPath%>/per/auth/empList" id="adminacc">인사권자 전용</a></li>
@@ -50,8 +50,8 @@
 						상품기획<span class="glyphicon glyphicon-briefcase"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="<%=contextPath%>/plan/view/propList?pageNo=1">기획서 관리</a></li>
 						<li><a href="<%=contextPath%>/plan/view/projList/all?pageNo=1 ">프로젝트 관리</a></li>
+						<li><a href="<%=contextPath%>/plan/view/propList?pageNo=1">기획서 관리</a></li>
 					</ul>
 				</li>
 				<!-- 전자결재 업무 메뉴 -->
