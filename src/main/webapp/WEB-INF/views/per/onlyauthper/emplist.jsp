@@ -89,13 +89,13 @@ if(emp_nochk>3){
 						data-query-params="tableParams">
 						<thead>
 							<tr>
-							    <th width="10%" data-field="NAME">이름</th>
-								<th width="11%" data-field="HIRE_DATE">입사일자</th>
+							    <th width="10%" data-field="ENAME">이름</th>
+								<th width="11%" data-field="EHIRE_DATE">입사일자</th>
 								<th width="11%" data-field="CNAME">직급명</th>
 								<th width="11%" data-field="DNAME">부서명</th>
 								<th width="11%" data-field="LNAME">지역명</th>
-								<th width="11%" data-field="BIRTHDAY">생일</th>
-								<th width="11%" data-field="EMAIL">이메일</th>
+								<th width="11%" data-field="EBIRTHDAY">생일</th>
+								<th width="11%" data-field="EEMAIL">이메일</th>
 								<th width="11%" data-field="TNAME">팀명</th>
 							</tr>
 						</thead>
