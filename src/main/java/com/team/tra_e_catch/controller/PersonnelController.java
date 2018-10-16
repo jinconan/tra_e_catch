@@ -320,7 +320,7 @@ public class PersonnelController {
 	}
 	
 	/**
-	 * 고용계약서 뷰
+	 * 근로계약서 뷰
 	 * @param pMap
 	 * @param mod
 	 * @return
@@ -329,9 +329,18 @@ public class PersonnelController {
 	public String wordprint(@RequestParam Map<String, Object> pMap, Model mod) {
 		logger.info("wordprint호출 :" + pMap);
 		List<Map<String, Object>> getEmpList = personnelLogic.getindivList(pMap);
-		logger.info("고용계약서 인포 : " + getEmpList);
+		logger.info("근로계약서 인포 : " + getEmpList);
 		mod.addAttribute("emp_no", getEmpList.get(0).get("EMP_NO"));
 		return "per/onlyauthper/printform";
+	}
+	//고용계약서 뷰 
+	@RequestMapping(value = "/auth/contprint")
+	public String contprint(@RequestParam Map<String, Object> pMap, Model mod) {
+		logger.info("contprint호출 :" + pMap);
+		List<Map<String, Object>> getEmpList = personnelLogic.getindivlist(pMap);
+		logger.info("고용계약서 인포 : " + getEmpList);
+		mod.addAttribute("emp_no", getEmpList.get(0).get("EMP_NO"));
+		return "per/onlyauthper/contform";
 	}
 	
 	/**
@@ -350,7 +359,7 @@ public class PersonnelController {
 	}
 
 	/**
-	 * 근로계약서 조회 테이블
+	 * 고용계약서 조회 테이블
 	 * @param model
 	 * @return
 	 */

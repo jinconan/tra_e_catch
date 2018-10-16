@@ -210,6 +210,14 @@ public class PersonnelREST {
 		logger.info("고용계약서에 들어오는" + indivList);
 		return indivList;
 	}
+	@RequestMapping(value = "/auth/contlist")
+	public List<Map<String, Object>> contlist(@RequestParam Map<String, Object> pMap) {
+		List<Map<String, Object>> indivList = null;
+		logger.info("고용계약서에 들어오는 and 인사발령에 들어오는" + pMap);
+		indivList = personnelLogic.getindivlist(pMap);
+		logger.info("고용계약서에 들어오는" + indivList);
+		return indivList;
+	}
 	
 	/**
 	 * 근로계약서 데이터

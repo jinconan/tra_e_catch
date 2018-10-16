@@ -18,7 +18,6 @@ $(function() {
 	
 	var empdata = $("#f_emp_no").serialize();
 	$.ajax({
-		
 		url:'<%=request.getContextPath()%>/perR/auth/indivemplist',
 		method:"POST",
 		type: "json",
@@ -44,7 +43,7 @@ $(function() {
 </form>
 	<table border="1" style="width: 600px;" align="center" id="printtable">
 		<tr>
-			<td colspan="5"><h3 align="center">고용계약서</h3></td>
+			<td colspan="5"><h3 align="center">근로계약서</h3></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">성명</td>
