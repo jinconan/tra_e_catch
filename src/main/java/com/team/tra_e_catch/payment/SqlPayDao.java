@@ -153,6 +153,30 @@ public class SqlPayDao {
 		List<Map<String, Object>> result = sqlSessionTemplate.selectList("com.mybatis.mapper.paymentMapper.getUpperTeamMemberList", eno);
 		return result;
 	}
+	
+	/**
+	 * 사원의 알람 날짜를 갱신한다.
+	 * @param pMap
+	 * @return
+	 */
+	public int updateAlarmDate(Map<String, Object> pMap) {
+		logger.info("updateAlarmDate 호출성공");
+		int result = 0;
+		result = sqlSessionTemplate.update("updateAlarmDate", pMap);
+		return result;
+	}
+	
+	/**
+	 * 사원이 확인하지 않은 알람의 갯수를 구한다.
+	 * @param pMap
+	 * @return
+	 */
+	public int getTotalAlarmCount(Map<String, Object> pMap) {
+		logger.info("getTotalAlarmCount 호출성공");
+		int result = 0;
+		result = sqlSessionTemplate.selectOne("getTotalAlarmCount", pMap);
+		return result;
+	}
 }
 		
 		

@@ -70,4 +70,14 @@ public class PaymentREST {
 		return rMap;
 	}
 
+	/**
+	 * 알림 숫자 갱신요청
+	 * @param eno
+	 * @return
+	 */
+	@RequestMapping(value="/resetAlarm", method=RequestMethod.POST)
+	private int updateAlarmDate(@SessionAttribute("emp_no") int eno) {
+		logger.info("updateAlarmDate");
+		return paymentLogic.updateAlarmDate(eno);
+	}
 }

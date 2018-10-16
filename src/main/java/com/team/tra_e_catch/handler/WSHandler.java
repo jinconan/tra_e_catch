@@ -234,6 +234,7 @@ public class WSHandler extends TextWebSocketHandler{
 		//기안 갯수 가져오기
 		int todayChecked = 0;
 		int notCheck = 0;
+		int totalAlarm = 0;
 		Map<String ,Object> pMap = new HashMap<String, Object>();
 		pMap.put("eno", sessionAttr.get("emp_no"));
 		try {
@@ -247,11 +248,17 @@ public class WSHandler extends TextWebSocketHandler{
 		} catch(SqlSessionException e) {
 			logger.error(e.toString());
 		}
-		
+		try {
+			totalAlarm = sqlSessionTemplate.selectOne("getTotalAlarmCount", pMap);
+		} catch(SqlSessionException e) {
+			logger.error(e.toString());
+		}
 		Map<String ,Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("mtype", "dlog");
 		resultMap.put("todayChecked", todayChecked);
 		resultMap.put("notCheck", notCheck);
+		resultMap.put("totalAlarm", totalAlarm);
+		logger.info(resultMap);
 		session.sendMessage(new TextMessage( new ObjectMapper().writeValueAsString(resultMap)));
 	}
 	

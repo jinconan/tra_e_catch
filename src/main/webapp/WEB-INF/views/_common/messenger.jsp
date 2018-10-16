@@ -111,8 +111,10 @@
 	function dlogMsg(data) {
 		var todayChecked = data.todayChecked;
 		var notCheck = data.notCheck;
+		var totalAlarm = data.totalAlarm;
 		$("#b_todayChecked").text(todayChecked);
 		$("#b_notCheck").text(notCheck); 
+		$("#totalAlarm").text(totalAlarm);
 	}
 	
 	//채팅 전송

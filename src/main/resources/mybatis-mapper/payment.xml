@@ -148,7 +148,58 @@
 	<select id="getTotalTodayCheckedDraft" parameterType="map" resultType="int">
 	SELECT count(*) FROM v_draftlist 
 	WHERE eno = #{eno} 
-	    AND (CDATE = TO_CHAR(sysdate,'yyyy-mm-dd') 
-	    OR ADATE = TO_CHAR(sysdate,'yyyy-mm-dd'))	
+	     AND (SUBSTR(CDATE,1,10) = TO_CHAR(sysdate,'yyyy-mm-dd') 
+        OR SUBSTR(ADATE,1,10) = TO_CHAR(sysdate,'yyyy-mm-dd'))	
 	</select>
+	 
+	<select id="getTotalAlarmCount" parameterType="map" resultType="int">
+    <![CDATA[
+	SELECT todayChecked + notCheck totalAlarm
+	  FROM (SELECT COUNT (*) todayChecked
+	          FROM docs
+	               INNER JOIN SIGN
+	                  ON docs.doc_no = SIGN.doc_no
+	               INNER JOIN employee e
+	                  ON docs.emp_no = e.emp_no
+	               INNER JOIN employee ce
+	                  ON SIGN.confirm_emp_no = ce.emp_no
+	               INNER JOIN employee ae
+	                  ON SIGN.accept_emp_no = ae.emp_no
+	         WHERE     e.emp_no = #{eno}
+	               AND (   (    SUBSTR (confirm_date, 1, 10) =
+	                               TO_CHAR (SYSDATE, 'yyyy-mm-dd')
+	                        AND (TO_DATE (e.alarm_date, 'yyyy-mm-dd hh24:mi:ss') <
+	                                TO_DATE (confirm_date,
+	                                         'yyyy-mm-dd hh24:mi:ss')))
+	                    OR (    SUBSTR (accept_date, 1, 10) =
+	                               TO_CHAR (SYSDATE, 'yyyy-mm-dd')
+	                        AND (TO_DATE (e.alarm_date, 'yyyy-mm-dd hh24:mi:ss') <
+	                                TO_DATE (accept_date,
+	                                         'yyyy-mm-dd hh24:mi:ss'))))),
+	       (SELECT COUNT (*) notCheck
+	          FROM docs
+	               INNER JOIN SIGN
+	                  ON docs.doc_no = SIGN.doc_no
+	               INNER JOIN employee e
+	                  ON docs.emp_no = e.emp_no
+	               INNER JOIN employee ce
+	                  ON SIGN.confirm_emp_no = ce.emp_no
+	               INNER JOIN employee ae
+	                  ON SIGN.accept_emp_no = ae.emp_no
+	         WHERE    (    ce.emp_no = #{eno}
+	                   AND sign_yn = 0
+	                   AND TO_DATE (CE.ALARM_DATE, 'yyyy-mm-dd hh24:mi:ss') <
+	                          TO_DATE (docs.up_date, 'yyyy-mm-dd hh24:mi:ss'))
+	               OR (    ae.emp_no = #{eno}
+	                   AND sign_yn = 1
+	                   AND TO_DATE (AE.ALARM_DATE, 'yyyy-mm-dd hh24:mi:ss') <
+	                          TO_DATE (SIGN.confirm_date,
+	                                   'yyyy-mm-dd hh24:mi:ss')))
+    ]]>
+	</select>
+	
+	<update id="updateAlarmDate" parameterType="map">
+	UPDATE employee set alarm_date = TO_CHAR(sysdate,'yyyy-mm-dd hh24:mi:ss')
+    WHERE emp_no=#{eno}
+	</update>
 </mapper>

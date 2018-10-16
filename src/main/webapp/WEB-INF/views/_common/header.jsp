@@ -82,15 +82,34 @@
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 알림창 -->
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					<a id="a_alarm" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 						<span class="glyphicon glyphicon-info-sign" style="color: red;"></span>
+						<span id="totalAlarm" style="color:red;"></span>
 					</a>
+					
 					<ul class="dropdown-menu" role="menu">
 					    <li><a href="<%=contextPath %>/pay/draftList">오늘 처리된 기안<span class="badge" id="b_todayChecked"></span></a></li> 
 						<li><a href="<%=contextPath %>/pay/epaywait">처리 안한 기안<span class="badge" id="b_notCheck"></span></a></li>
 					</ul>
 				</li>
-				
+				<script>
+					$("#a_alarm").click(function() {
+						$.ajax({
+							url:"<%=request.getContextPath()%>/payR/resetAlarm"
+							,method:"post"
+							,success:function(data) {
+								if(data == 0) {
+									alert("error");
+								} else {
+									$("#totalAlarm").text(0);
+								}
+							}
+							,error:function(xhr) {
+								alert("ajax error")
+							}
+						})
+					})
+				</script>
 				<!-- 개인 정보 메뉴 -->
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

@@ -116,5 +116,17 @@ public class PaymentLogic {
 		return upperTeamMemberList;
 	}
 
+	/**
+	 * 사원의 알람 날짜를 갱신한다.
+	 * @param eno
+	 * @return
+	 */
+	public int updateAlarmDate(int eno) {
+		logger.info("updateAlarmDate " + eno);
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		pMap.put("eno",  eno);
+		int result = sqlPayDao.updateAlarmDate(pMap);
+		return result;
+	}
 	
 }
