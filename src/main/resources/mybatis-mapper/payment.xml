@@ -31,6 +31,9 @@
 		    	<if test="dname != null">
 		    	AND dname = #{dname}
 		    	</if>
+       			<if test="annuDno != null">
+       			AND dno = #{annuDno}
+       			</if>
        		</where>
        		ORDER BY dno desc
        	)
@@ -206,4 +209,8 @@
 	<select id="getDraftChart" parameterType="int" resultType="map">
 	SELECT dname, count(*) cnt FROM v_draftlist WHERE eno = #{1} GROUP BY dname
 	</select>
+	
+	<insert id="insertAnnu" parameterType="map" statementType="CALLABLE">
+	{ CALL proc_insert_annu(#{aname}, #{eno}, #{fdate}, #{tdate})}
+	</insert>
 </mapper>

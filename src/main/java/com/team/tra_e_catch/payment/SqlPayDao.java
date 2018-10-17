@@ -187,6 +187,16 @@ public class SqlPayDao {
 		logger.info("getDraftChart");
 		return sqlSessionTemplate.selectList("getDraftChart",eno);
 	}
+	
+	/**
+	 * ÈÞ°¡ µî·Ï
+	 * @param pMap
+	 * @return
+	 */
+	public int insertAnnu(Map<String, Object> pMap) {
+		logger.info("insertAnnu : " + pMap);
+		return sqlSessionTemplate.insert("insertAnnu", pMap);
+	}
 }
 		
 		

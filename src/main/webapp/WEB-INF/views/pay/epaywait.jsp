@@ -43,7 +43,7 @@ $(function(){
 		$("#cdate").text(row.CDATE);
 		$("#adate").text(row.ADATE);
 		$("#name").text(row.ENAME);
-		$("#content").text(row.CONTENT);
+		$("#content").html(row.CONTENT);
 		$("#title").text(row.TITLE);
 		
 	})
@@ -77,10 +77,7 @@ $(function(){
 	   	$("#f_update").submit();
 	})
 });
-/* function test(row){
-	
-	
-} */
+
 
 </script>
 	<jsp:include page="/WEB-INF/views/_common/header.jsp" />

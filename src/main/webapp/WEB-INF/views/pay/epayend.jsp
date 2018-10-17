@@ -40,7 +40,7 @@ $(function() {
 		$("#adate").text(row.ADATE);
 		$("#name").text(row.ENAME);
 
-		$("#content").text(row.CONTENT);
+		$("#content").html(row.CONTENT);
 		$("#title").text(row.TITLE);
 	})
 	$('#printinp').click(function() {

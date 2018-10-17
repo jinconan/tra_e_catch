@@ -66,7 +66,7 @@ public class ProductController {
 		//curSubMenu : String
 		
 		manubar(req);
-		mod.addAttribute("curSubxMenu", "惑前 包府");
+		mod.addAttribute("curSubMenu", "惑前 包府");
 		mod.addAttribute("subMenuList", subMenuList);
 		
 		return "prod/prodinven/prodInven";
@@ -81,7 +81,7 @@ public class ProductController {
 		//curSubMenu : String
 		
 		manubar(req);
-		mod.addAttribute("curSubxMenu", "惑前 包府");
+		mod.addAttribute("curSubMenu", "芭贰 贸 沥焊");
 		mod.addAttribute("subMenuList", subMenuList);
 		
 		return "prod/client/prodclient";

@@ -108,7 +108,7 @@ $(document).ready(function() {
 		$("#udate").text(row.UDATE);
 		$("#name").text("${sessionScope.emp_name}");
 		$("#title").text(row.TITLE);
-		$("#content").text(row.CONTENT);
+		$("#content").html(row.CONTENT);
 		
 		if(row.SIGN_YN == 1) {
 			$("#cname").html(row.CENAME + "<span class='glyphicon glyphicon-thumbs-up' aria-hidden='true'></span>");

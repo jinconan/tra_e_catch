@@ -1,9 +1,12 @@
 package com.team.tra_e_catch.payment;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +36,39 @@ public class PaymentLogic {
 		logger.info("insertEpay() " + pMap);
 		int result = 0;
 		
+		/*
+		 *     <table border="1">
+			        <thead>
+			            <tr>
+			                <th>종류</th><th>시작일</th><th>종료일</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr>
+			                <td>연차</td><td>2018-10-24</td><td>2018-10-31</td>
+			            </tr>
+			        </tbody>
+			    </table>
+		 * 
+		 * 
+		 * 
+		 */
+		if("휴가".equals(pMap.get("dtname"))) {
+			StringBuilder annuString = new StringBuilder();
+			annuString.append("<table class='table' border='1'>");
+			annuString.append("<thead>");
+			annuString.append("<tr>");
+            annuString.append("<th>종류</th><th>시작일</th><th>종료일</th>");
+            annuString.append("</tr>");
+            annuString.append("<tbody>");
+            annuString.append("<tr>");
+            annuString.append("<td>"+pMap.get("annuType")+"</td><td>"+pMap.get("fdate")+"</td><td>"+pMap.get("tdate")+"</td>");
+            annuString.append("</tr>");
+            annuString.append("</tbody>");
+			annuString.append("</table>");
+			StringBuilder newContent = new StringBuilder(annuString+(String)pMap.get("content"));
+			pMap.put("content", newContent.toString());
+		}
 		
 		int resultOfEpay = sqlPayDao.insertEpay(pMap);
 		if(resultOfEpay == 0)
@@ -67,8 +103,44 @@ public class PaymentLogic {
 	 */
 	public int updateEpay(Map<String, Object> pMap) {
 		logger.info("getEpayupdate 호출성공");
+		int signDno = Integer.parseInt((String)pMap.get("signDno"));
+		int signVal = Integer.parseInt((String)pMap.get("signVal"));
 		int result = 0;
-		result = sqlPayDao.updateEpay(pMap);
+		result = sqlPayDao.updateEpay(pMap); //결재 처리
+		
+		//만약 휴가에 대한 결재처리인 경우
+		pMap = new HashMap<String, Object>();
+		pMap.put("annuDno", signDno);
+		List<Map<String, Object>> annuDoc = sqlPayDao.getPaymentList(pMap);
+		if(signVal == 2 && annuDoc != null && annuDoc.size() == 1) {
+			if("휴가".equals(annuDoc.get(0).get("DNAME"))) {
+				String content = (String)annuDoc.get(0).get("CONTENT");
+				BigDecimal eno = (BigDecimal)annuDoc.get(0).get("ENO");
+				pMap.put("eno", eno.intValue());
+				Pattern p = Pattern.compile("<td>([가-휴]{2,4}|[0-9]{4}-[0-9]{2}-[0-9]{2})</td>");
+				Pattern p2 = Pattern.compile("([가-휴]{2,4}|[0-9]{4}-[0-9]{2}-[0-9]{2})");
+	
+				Matcher m = p.matcher(content);
+				m.find();
+				Matcher m2 = p2.matcher(m.group());
+				m2.find();
+				pMap.put("aname", m2.group());
+				
+				m.find();
+				m2 = p2.matcher(m.group());
+				m2.find();
+				pMap.put("fdate", m2.group());
+				
+				m.find();
+				m2 = p2.matcher(m.group());
+				m2.find();
+				pMap.put("tdate", m2.group());
+				
+				result = sqlPayDao.insertAnnu(pMap);
+			}
+		}
+		
+		
 		return result;
 	}
 	/**
@@ -138,5 +210,5 @@ public class PaymentLogic {
 		logger.info("getDraftChart : " + eno);
 		return sqlPayDao.getDraftChart(eno);
 	}
-	
+
 }
