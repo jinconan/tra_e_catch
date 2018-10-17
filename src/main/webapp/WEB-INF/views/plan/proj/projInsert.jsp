@@ -36,11 +36,12 @@
 
 		<!-- 프로젝트 추가 폼 -->
 		<div class="col-sm-10">
-			<div class="well">
 				<div class="row">
-					<h2>
-						<strong> 프로젝트 등록 </strong>
-					</h2>
+					<div class="page-header">
+						<h2>
+							<strong> 프로젝트 등록 </strong>
+						</h2>
+					</div>
 				</div>
 				<form action="<%=request.getContextPath() %>/plan/projInsert" method="post" class="form-horizontal">
 					<div class="form-group">
@@ -65,7 +66,6 @@
 						</div>
 					</div>
 				</form>
-			</div>
 
 		</div>
 

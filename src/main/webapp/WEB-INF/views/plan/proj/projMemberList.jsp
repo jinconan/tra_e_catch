@@ -44,8 +44,8 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
     var levChartArray = [ ['직급', '인원']];
-    var deptChartArray = [ ['직급', '인원']];
-    var teamChartArray = [ ['직급', '인원']];
+    var deptChartArray = [ ['부서', '인원']];
+    var teamChartArray = [ ['팀', '인원']];
     
     for(var i=0;i<jsonData.levChart.length;i++) {
     	levChartArray[1+i] = [jsonData.levChart[i].LVNAME, jsonData.levChart[i].CNT];
@@ -121,7 +121,7 @@ function btnDelClick() {
 					$notMemberTable.bootstrapTable("refresh");
 					
 					if(emp[0].empNo == <%=empNo%>)
-						$("#btnGroupProjMember").hide();
+						$("#table-toolbar").hide();
 					
 					getChartDatas();
 					redrawChart();
@@ -167,6 +167,7 @@ function btnModClick() {
 					,data:"projNo=<%=projNo%>&empNo="+leader.empNo+"&roleName=팀원"
 					,success:function(data) {
 						$table.bootstrapTable("refresh");
+						$("#table-toolbar").hide();
 					}
 					,error:function(xhr) {
 						console.log("error");

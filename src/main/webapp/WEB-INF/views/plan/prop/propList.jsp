@@ -47,8 +47,9 @@ $(function() {
 		
 		<!-- 중앙 게시판 -->
 		<div class="col-sm-10">
-			<div class="well">
-				<h2><strong>기획서 리스트</strong></h2>
+				<div class="page-header">
+					<h2><strong>기획서 리스트</strong></h2>
+				</div>
 				<!-- 파일 다운로드할 파라미터 폼 -->
 				<form id="f_req_download" action="<%=request.getContextPath() %>/plan/propDownload" method="post">
 					<input type="hidden" name="propNo">
@@ -137,7 +138,6 @@ $(function() {
 						<button class="btn btn-default">검색</button>
 					</div>
 				</form>
-			</div>
 		</div>
 
 	</div>

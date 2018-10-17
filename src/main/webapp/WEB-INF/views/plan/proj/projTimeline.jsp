@@ -51,7 +51,7 @@
 			chart.draw(dataTable);
 		}
 		else {
-			container.innerHTML="<p class='bg-danger'>없음</p>";
+			container.innerHTML="";
 		}
 	}
 	
@@ -207,9 +207,9 @@ $(document).ready(function() {
 
 		<!-- 작성할 부분 -->
 		<div class="col-sm-10">
-			<div class="well">
 
-				<div class="row">
+			<div class="row">
+				<div class="page-header">
 					<h2>
 						<strong>프로젝트 일정</strong>
 						<%if(isLeader == true) {%>
@@ -220,12 +220,12 @@ $(document).ready(function() {
 						</div>
 						<%} %>
 					</h2>
-
 				</div>
 
-				<div class="row">
-					<div id="timeline" style="height: 300px;"></div>
-				</div>
+			</div>
+
+			<div class="row">
+				<div id="timeline" style="height: 300px;"></div>
 			</div>
 		</div>
 	</div>

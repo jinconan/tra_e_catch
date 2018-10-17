@@ -31,12 +31,12 @@
 
 	<div class="container">
 		<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
-		<h3>
-			<b>출 결 내 역</b>
-		</h3>
-		
 		<div class="col-sm-10">
-		
+			<div class="page-header">
+				<h2>
+					<strong>출 결 내 역</strong>
+				</h2>
+			</div>
 			<div class="col-sm-3">
 				<jsp:include page="/WEB-INF/views/per/empinfo.jsp" />
 				

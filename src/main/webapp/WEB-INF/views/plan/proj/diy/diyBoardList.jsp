@@ -78,13 +78,14 @@ $(function() {
 		</nav>
 
 		<div class="col-sm-10">
-			<div class="well">
 				<div class="row">
-					<h2>
-						<strong><%= boardName %></strong>
-					</h2>
+					<div class="page-header">
+						<h2>
+							<strong><%= boardName %></strong>
+						</h2>
+						<a href="<%=request.getContextPath() %>/plan/view/diyBoardInsert?projNo=<%=projNo %>&boardNo=<%=boardNo %>" class="btn btn-primary">글 작성</a>
+					</div>
 					
-					<a href="<%=request.getContextPath() %>/plan/view/diyBoardInsert?projNo=<%=projNo %>&boardNo=<%=boardNo %>" class="btn btn-primary">글 작성</a>
 				</div>
 				<div class="row">
 					<form id="f_req_download" action="<%=request.getContextPath() %>/plan/articleDownload" method="post">
@@ -186,10 +187,9 @@ $(function() {
 						</div>
 					</form>
 				</div>
-
-			</div>
 		</div>
-		<!-- 푸터 -->
-		<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
+	</div>
+	<!-- 푸터 -->
+	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </body>
 </html>

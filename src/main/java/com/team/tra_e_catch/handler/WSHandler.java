@@ -54,7 +54,7 @@ public class WSHandler extends TextWebSocketHandler{
 		//소켓에서 받은 json 데이터를 Map으로 변환
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String,Object> jsonMap = mapper.readValue(message.getPayload(),new TypeReference<Map<String,Object>>() {});
-		logger.info(jsonMap);
+		
 		
 		String mtype = (String)jsonMap.get("mtype"); //종류에 따른 메시지 처리를 위해 메시지타입을 get.
 		
@@ -66,11 +66,13 @@ public class WSHandler extends TextWebSocketHandler{
 		
 		//채팅내역 요청 (보낸놈한테만 답장)
 		if("clog".equals(mtype)) {
+			logger.info(jsonMap);
 			sendClogMsg(session, jsonMap);
 		}
 		
 		//채팅 전송(보낸사람, 받는사람)
 		else if("chat".equals(mtype)) {
+			logger.info(jsonMap);
 			sendChatMsg(session, jsonMap);
 		}
 		
@@ -80,6 +82,7 @@ public class WSHandler extends TextWebSocketHandler{
 		
 		//잘못된 메시지타입(보낸사람만)
 		else {
+			logger.info(jsonMap);
 			resultMap.put("mtype", "error");
 			resultMap.put("errmsg", "서버에서 메시지를 처리하는데 실패했습니다.");
 			jsonResult = mapper.writeValueAsString(resultMap);
@@ -258,7 +261,6 @@ public class WSHandler extends TextWebSocketHandler{
 		resultMap.put("todayChecked", todayChecked);
 		resultMap.put("notCheck", notCheck);
 		resultMap.put("totalAlarm", totalAlarm);
-		logger.info(resultMap);
 		session.sendMessage(new TextMessage( new ObjectMapper().writeValueAsString(resultMap)));
 	}
 	

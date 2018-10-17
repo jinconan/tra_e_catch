@@ -66,8 +66,9 @@ $(document).ready(function() {
 		<!-- 중앙 게시판 -->
 		<!-- 테이블 + 페이지네이션 + 검색창 -->
 		<div class="col-sm-10">
-			<div class="well">
-				<h2><strong>프로젝트 리스트</strong></h2>
+				<div class="page-header">
+					<h2><strong>프로젝트 리스트</strong></h2>
+				</div>
 				<ul id="pstatus_list" class="nav nav-pills">
 				  <li role="presentation"><a href="./all?<%=searchParams%>">전체</a></li>
 				  <li role="presentation"><a href="./ing?<%=searchParams%>">진행중</a></li>
@@ -153,7 +154,6 @@ $(document).ready(function() {
 						<button class="btn btn-default">검색</button>
 					</div>
 				</form>
-			</div>
 		</div>
 
 	</div>

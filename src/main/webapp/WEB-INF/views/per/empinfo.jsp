@@ -28,7 +28,7 @@
     background-color: rgba(255, 255, 255, 1);
 }
 .card.hovercard .card-background {
-    height: 130px;
+    height: 160px;
 }
 .card-background img {
     -webkit-filter: blur(25px);
@@ -136,10 +136,8 @@ function attdexit(){
 </script>
 
 <div class="row">
-	<div class="card hovercard">
+	<div class="card hovercard" style="background: linear-gradient( to bottom, #f0ad4e, #ffffff)">
 		<div class="card-background">
-			<img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9/">
-			<!-- http://lorempixel.com/850/280/people/9/ -->
 		</div>
 		<div class="useravatar">
 			<img alt="" src="<%=request.getContextPath()%>/imgs/profile/<%=((BigDecimal)session.getAttribute("emp_no")).intValue()%8+1 %>.png">

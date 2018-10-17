@@ -39,8 +39,11 @@ $('#p_table').bootstrapTable({
 
 <div class="container">
 	<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
-		<h3><b>연 차 관 리</b></h3>
+		
 	<div class="col-sm-10">
+		<div class="page-header">
+			<h2><strong>연 차 내  역</strong></h2>
+		</div>
 		<div class="col-sm-3">
 			<jsp:include page="/WEB-INF/views/per/empinfo.jsp"/>
 		</div>
