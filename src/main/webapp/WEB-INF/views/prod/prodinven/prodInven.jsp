@@ -134,11 +134,11 @@ function exampleModalInsert(){
 									</div>
 									<div class="form-group">
 										<label for="name" class="control-label">상품명</label>
-										<div id="select1"><input type="text" name = "name"></div>
+										<div id="select1"><input type="text" class="form-control" name = "name"></div>
 									</div>
 									<div class="form-group">
 										<label for="new_dept_name" class="control-label">가격</label>
-										<div id="select2"><input type="text" name = "cost"></div>
+										<div id="select2"><input type="text" class="form-control" name = "cost"></div>
 									</div>
 								</div>
 							</div>

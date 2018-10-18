@@ -12,6 +12,37 @@
 		 ]]>
 	</select>
 
+	<select id="getTotalLeave" parameterType="map" resultType="int">
+		SELECT count(*)
+		    FROM annu_history ah 
+		    INNER JOIN annu_type at ON ah.anntype_no=at.anntype_no
+		WHERE emp_no= #{eno}
+	</select>
+	
+	<select id="getLeaveList" parameterType="map" resultType="map">
+		SELECT *
+		FROM (
+		    SELECT rownum rno, eno, aname, fdate, TO_CHAR(TO_DATE(fdate,'yyyy-mm-dd')+(CEIL(alen)-1),'yyyy-mm-dd') tdate
+		    FROM ( 
+		        SELECT emp_no eno, ah.annhist_no ano, at.name aname, an_date fdate, an_length alen 
+		            FROM annu_history ah 
+		            INNER JOIN annu_type at ON ah.anntype_no=at.anntype_no
+		        WHERE emp_no= #{eno} ORDER BY annhist_no desc
+		    )
+		)
+		<if test="limit != null">
+		WHERE rno  between #{offset}+1 and #{limit}+#{offset}
+		</if> 
+	</select>
+	
+	<select id="getRemainLeave" parameterType="map" resultType="double">
+	SELECT (15-NVL(sum(an_length),0)) remain FROM annu_history 
+    WHERE 
+        emp_no = #{eno}
+        AND (anntype_no =100 OR anntype_no=110)
+        AND TO_CHAR(sysdate,'yyyy') = SUBSTR(an_date,1,4)	
+	</select>
+	
 	<select id="getCertList" parameterType="map" resultType="map">
 	select * from certlist where emp_no = #{emp_no} order by c_no desc
 	</select>
@@ -177,7 +208,7 @@
 
 	<update id="updateEmployee" statementType="CALLABLE"
 		parameterType="hashmap">
-		{CALL proc_updateemp(#{in_emp_no},
+		{CALL proc_updateemp(#{emp_no},
 		#{emp_name, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
 		#{af_dept, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
 		#{af_ctlev, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},
@@ -212,16 +243,6 @@ select content, write_date, quarter, rownum rno
 from SERVRATING where emp_no =  #{emp_no} and writer_emp_no = 2 and quarter = #{i_quarter} and rownum<5  order by quarter desc
  	 ]]>
 </select>
-
-
-
-
-
-
-
-
-
-
 
 <select id="viewLevList" parameterType="map" resultType="map">
 select * from ctlevel

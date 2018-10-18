@@ -131,10 +131,16 @@ public class PaymentLogic {
 				m2.find();
 				pMap.put("fdate", m2.group());
 				
-				m.find();
-				m2 = p2.matcher(m.group());
-				m2.find();
-				pMap.put("tdate", m2.group());
+				
+				
+				if("¿¬Â÷".equals(pMap.get("aname"))) {
+					m.find();
+					m2 = p2.matcher(m.group());
+					m2.find();
+					pMap.put("tdate", m2.group());
+				} else {
+					pMap.put("tdate", "1900-01-01");
+				}
 				
 				result = sqlPayDao.insertAnnu(pMap);
 			}
