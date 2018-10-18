@@ -106,7 +106,7 @@
 
 	<!-- 사원명부 -->
 	<select id="getEmpList" parameterType="map" resultType="map">
-	select  ename, ehire_date, ebirthday, eemail, dname,lname,cname,tname from v_emplist
+	select  eno, ename, ehire_date, ebirthday, eemail, dname,lname,cname,tname from v_emplist
 	<where>
 		<if test='ename!= null and !ename.equals("")'> <!-- 사원명 -->
 			ename = #{ename}
