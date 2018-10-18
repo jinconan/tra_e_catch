@@ -120,7 +120,14 @@ public class PersonnelLogic {
 	 */
 	public int insertServrating(Map<String, Object> pMap) {
 		logger.info("insertServrating : " + pMap);
-		int result = sqlPerDao.insertSerList(pMap);
+		int result = 0;
+		if(pMap.get("ranknum") == null) {
+			pMap.put("ranknum", "신입사원");
+			result = sqlPerDao.insertSerList(pMap);
+		}
+		else {
+		result = sqlPerDao.insertSerList(pMap);
+		}
 		return result;
 	}
 
