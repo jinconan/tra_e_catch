@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -64,12 +65,19 @@ public class PersonnelController {
 	 * @return
 	 */
 	@RequestMapping(value = "/leave/{count}", method = RequestMethod.GET)
-	public String attLeave(Model mod, @RequestParam Map<String, Object> pMap, @PathVariable("count") int count) {
+	public String attLeave(Model mod
+			, @SessionAttribute("emp_no") int eno
+			, @RequestParam Map<String, Object> pMap
+			, @PathVariable("count") int count) {
 		logger.info("attLeave호출");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("per-attsub");// 근태 관련 서브메뉴
 																											// 호출
 		mod.addAttribute("curSubMenu", "연차관리");
 		mod.addAttribute("subMenuList", subMenuList);
+		
+		pMap = new HashMap<String, Object>();
+		pMap.put("eno", eno);
+		mod.addAttribute("remainLeave", personnelLogic.getRemainLeave(pMap));
 		return "per/attd/attd_leaveList";
 
 	}
@@ -497,16 +505,13 @@ public class PersonnelController {
 	}
 
 	@RequestMapping(value = "/attdinsert")
-	public String attdInsert(@RequestParam Map<String, Object> pMap, Model mod, HttpServletRequest req) {
+	public String attdInsert(@RequestParam Map<String, Object> pMap, Model mod, @SessionAttribute("emp_no") int emp_no) {
 		logger.info("attdInsert호출");
 		List<Map<String, Object>> attdinfo = null;
-		HttpSession session = req.getSession();
-		String semp_no = String.valueOf(session.getAttribute("emp_no"));
-		int emp_no = Integer.parseInt(semp_no);
 		pMap.put("emp_no", emp_no);
 		attdinfo = personnelLogic.setAttdInsert(pMap);
 
-		return "home";
+		return "redirect:/per/attd/1";
 	}
 
 ////////////////////////////////김훈태 작성 끝 ///////////////////////////////////////		

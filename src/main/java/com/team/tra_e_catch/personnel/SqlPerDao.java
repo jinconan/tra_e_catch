@@ -1,5 +1,6 @@
 package com.team.tra_e_catch.personnel;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -393,5 +394,36 @@ public class SqlPerDao {
 	public int isPerAuth(Map<String, Object> pMap) {
 		logger.info("isPerAuth");
 		return sqlSessionTemplate.selectOne("isPerAuth", pMap);
+	}
+
+	
+	/**
+	 * 연차 내역 총 갯수
+	 * @param pMap
+	 * @return
+	 */
+	public int getTotalLeave(Map<String, Object> pMap) {
+		logger.info("getTotalLeave");
+		return sqlSessionTemplate.selectOne("getTotalLeave", pMap);
+	}
+
+	/**
+	 * 연차 내역
+	 * @param pMap
+	 * @return
+	 */
+	public List<Map<String, Object>> getLeavList(Map<String, Object> pMap) {
+		logger.info("getLeaveList");
+		return sqlSessionTemplate.selectList("getLeaveList",pMap);
+	}
+	
+	/**
+	 * 올해 남은 연차 일 수
+	 * @param pMap
+	 * @return
+	 */
+	public double getRemainLeave(Map<String, Object> pMap) {
+		logger.info("getRemainLeave");
+		return sqlSessionTemplate.selectOne("getRemainLeave", pMap);
 	}
 }

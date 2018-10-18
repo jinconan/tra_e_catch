@@ -1,40 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	double remainLeave = (request.getAttribute("remainLeave") != null) ?
+				(Double)request.getAttribute("remainLeave") : 0;
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>트라E캐치 홈화면</title>
+<title>트라E캐치-연차내역</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
+<script>
+	function btnLeaveMouseOut() {
+		$('#btn_leave').html("올해 남은 연차 일 수 <span class='badge'><%=remainLeave %> 일 </span>");
+	}
+</script>
 </head>
 <body>
-<script type="text/javascript">
-var $table = $('#p_table');
-var mydata = 
-[
-	{
-	    	"l_date"   :"2018-07-07",
-	    	"l_cla"    :"연차",
-	    	"l_sdate"  :"2018-07-07",
-	    	"l_edate"  :"2018-07-08",
-	    	"l_etc"    :"개인사유"
-	},
-	{
-
-    	"l_date"   :"2018-06-01",
-    	"l_cla"    :"경조사휴가",
-    	"l_sdate"  :"2018-06-01",
-    	"l_edate"  :"2018-06-08",
-    	"l_etc"    :"결혼휴가"
-},
-];
-
-$(function () {
-$('#p_table').bootstrapTable({
-    data: mydata
-});
-});
-
-</script>
 <jsp:include page="/WEB-INF/views/_common/header.jsp" />
 
 <div class="container">
@@ -47,37 +28,39 @@ $('#p_table').bootstrapTable({
 		<div class="col-sm-3">
 			<jsp:include page="/WEB-INF/views/per/empinfo.jsp"/>
 		</div>
-		<!-- 무죄 -->
+		<div id="table-toolbar">
+			 <% if(remainLeave > 0) {%>
+			 <a id="btn_leave" href="<%=request.getContextPath() %>/pay/draft" class="btn btn-primary" 
+			 onmouseover="$('#btn_leave').text('휴가가자')" onmouseout="btnLeaveMouseOut()">
+			 <% } else { %>
+			 <a id="btn_leave" href="#" class="btn btn-primary"
+			 onmouseover="$('#btn_leave').text('휴가못가')" onmouseout="btnLeaveMouseOut()">
+			 <% } %>	
+			 올해 남은 연차 일 수 <span class="badge"><%=remainLeave %> 일 </span>
+			</a>
+		</div>
 		<div class="table-responsive col-xs-9">
-			<table id="p_table" class="table table-striped table-hover">
+			<table id="p_table" class="table table-striped table-hover"
+				data-toggle="table"
+				data-toolbar="#table-toolbar"
+				data-url="<%=request.getContextPath() %>/perR/leave"
+				data-pagination="true"
+				data-side-pagination="server">
 				<thead>
 					<tr>
 					<!-- data-field에는 json포멧으로 데이터를 담을예정  -->
-						<th width="5%" data-field="l_date">사용일자</th>
-						<th width="40%" data-field="l_cla">구분</th>
-						<th width="30%" data-field="l_sdate">시작일자</th>
-						<th width="30%" data-field="l_edate">종료일자</th>
-						<th width="30%" data-field="l_etc">비고</th>
+						<th width="20%" data-field="ANAME">휴가종류</th>
+						<th width="40%" data-field="FDATE">시작일자</th>
+						<th width="40%" data-field="TDATE">종료일자</th>
 					</tr>
 				</thead>
 				<tbody>
 				</tbody>
 			</table>
-			<nav>
-				<ul class="pagination">
-					<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true"> << </span></a></li>
-					<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">2 <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">3 <span class="sr-only">(current)</span></a></li>
-					<li><a href="#">4 <span class="sr-only">(current)</span></a></li>
-				</ul>
-			</nav>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />
 </div>
-
-<body>
 
 </body>
 </html>

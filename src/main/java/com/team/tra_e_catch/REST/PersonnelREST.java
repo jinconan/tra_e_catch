@@ -52,6 +52,14 @@ public class PersonnelREST {
 		return attdList;
 	}
 
+	@RequestMapping("/leave")
+	private Map<String, Object> viewLeavejson(@RequestParam Map<String, Object> pMap, @SessionAttribute("emp_no") int emp_no) {
+		pMap.put("eno",emp_no);
+		Map<String, Object> rMap = personnelLogic.getLeaveList(pMap); 
+		return rMap;
+	}
+	
+	
 	/**
 	 * 증명서 발급 내역
 	 * @param pMap

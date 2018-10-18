@@ -347,4 +347,26 @@ public class PersonnelLogic {
 		return result == 1 ? true : false;
 	}
 
+	/**
+	 * 연차 기록 받아오기
+	 * @param pMap
+	 * @return
+	 */
+	public Map<String, Object> getLeaveList(Map<String, Object> pMap) {
+		logger.info("getLeaveList : " + pMap);
+		Map<String, Object> rMap = new HashMap<String, Object>();
+		rMap.put("total", sqlPerDao.getTotalLeave(pMap));
+		rMap.put("rows", sqlPerDao.getLeavList(pMap));
+		return rMap;
+	}
+
+	/**
+	 * 남은 연차일수 불러오기
+	 * @param pMap
+	 * @return
+	 */
+	public double getRemainLeave(Map<String, Object> pMap) {
+		logger.info("getRemainLeave : " + pMap);
+		return sqlPerDao.getRemainLeave(pMap);
+	}
 }
