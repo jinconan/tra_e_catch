@@ -68,8 +68,8 @@ function isselect(){
 	})
 }
 function isok() {
-	/* 	alert("저장되었습니다."); */
-	alert($("#e_list option:selected").val());
+	alert("저장되었습니다.");
+	/* alert($("#e_list option:selected").val()); */
 
 	$("#f_content").attr("action", "./servrating");
 	$("#f_content").submit();
@@ -109,7 +109,7 @@ function isok() {
 									<textarea class="form-control" rows="4" placeholder="개인평가를 작성해 주세요" id="w_content" name="w_content"></textarea>
 									<br>
 									<div class="col-xs-12" style="padding-left: 0px; padding-right: 0px;">
-										<select class="form-control col-xs-6" id="ranknum" style="width: 78%;">
+										<select class="form-control col-xs-6" id="ranknum" name="ranknum" style="width: 78%;">
 										</select> &nbsp; &nbsp;
 										<button type="button" class="btn btn-primary" onclick="javascript:isselect()">
 											<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 검색
