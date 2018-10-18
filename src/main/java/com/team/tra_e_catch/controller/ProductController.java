@@ -210,7 +210,7 @@ public class ProductController {
 		mod.addAttribute("curSubMenu", "상품 관리");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("counts",1);
-		return "prod/view/prodInven";
+		return "prod/prodinven/prodInven";
 	}
 	
 	@RequestMapping(value ="/client_init", method = RequestMethod.POST)

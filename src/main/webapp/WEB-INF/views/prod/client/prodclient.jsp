@@ -117,7 +117,7 @@ function exampleModalInsert(){
 		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div id="login-overlay" class="modal-dialog">
 			<div class="modal-content" aria-hidden="true">
-				<form id="f_deptinsert"  action="<%=request.getContextPath()%>/Inven_init" method="POST" enctype="multipart/form-data" class="form-horizontal">
+				<form id="f_deptinsert"  action="<%=request.getContextPath()%>/client_init" method="POST" enctype="multipart/form-data" class="form-horizontal">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
