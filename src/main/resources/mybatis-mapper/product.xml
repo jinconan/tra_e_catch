@@ -73,10 +73,24 @@
 		insert into CLIENT(C_NO,NAME,ADDR,CONTACT,TPIC_CONTACT,CONTNUM) values(SEQ_CLIENT_NO.nextval,#{업체명},#{업체주소},#{업체전화번호},#{담당자전화번호},#{사업자번호})
 		 ]]> 
 	</insert>
+	<insert id="client_goodsin" parameterType="Map">	
+		<![CDATA[ 
+		insert into CLIENT_PROD(PROD_NO,C_NO,CPROD_NO,CPROD_DATE) values(#{goods},#{cost0},SEQ_CPROD_NO.nextval,sysdate)
+		 ]]> 
+	</insert>
 
 	<select id="ct_list" parameterType="int"  resultType="Map">	
 		select C_no,name from CLIENT
 	</select>
+	
+	<select id="tran_goods" parameterType="int"  resultType="Map">	
+		select DISTINCT PROD_NO as 번호,NAME as 상품이름 from 
+        (select PROD_NO,NAME from product
+        union all
+        select A.PROD_NO,A.NAME from product A inner join CLIENT_PROD B on A.PROD_NO = B.PROD_NO where C_No = 110)
+        order by PROD_NO
+	</select>
+	
 	<select id="getTRANcell" parameterType="Map"  resultType="Map">	
 	<![CDATA[
 		    select A.VOLUME as 개수, C.name as 회사, D.NAME as 상품명,A.PHIST_NO as 등록번호,PAY_DATE as 등록일, TPIC_CONTACT as 담당자전화번호,

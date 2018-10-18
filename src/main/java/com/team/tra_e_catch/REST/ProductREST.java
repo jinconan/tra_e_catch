@@ -62,11 +62,15 @@ public class ProductREST {
 		List<Map<String, Object>> as = productLogic.teancli_Logic();
 		return as;
 	}
+	@RequestMapping("tran_goods/{counts}")
+	private List<Map<String, Object>> tran_goods(@PathVariable int counts) {
+		List<Map<String, Object>> as = productLogic.tran_goods_Logic(counts);
+		return as;
+	}
 	
 	@RequestMapping("prodStat")
 	private Map<String, Object> proStatR() {
 		Map<String, Object> as = productLogic.chartsR_Logic();
-
 		return as;
 	}
 	

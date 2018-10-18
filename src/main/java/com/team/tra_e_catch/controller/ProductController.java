@@ -210,7 +210,7 @@ public class ProductController {
 		mod.addAttribute("curSubMenu", "惑前 包府");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("counts",1);
-		return "prod/view/prodInven";
+		return "prod/prodinven/prodInven";
 	}
 	
 	@RequestMapping(value ="/client_init", method = RequestMethod.POST)
@@ -218,6 +218,19 @@ public class ProductController {
 		logger.info("client_init柳涝");
 		productLogic.client_init_Logic(map);
 		manubar(req);
+		mod.addAttribute("curSubMenu", "惑前 包府");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("counts",1);
+		return "prod/client/prodclient";
+	}
+	
+	@RequestMapping(value ="/client_goodsin", method = RequestMethod.POST)
+	public String client_goodsin(Model mod,@RequestParam Map<String,Object> map,HttpServletRequest req) {
+		logger.info("client_goodsin柳涝");
+		HttpSession session = req.getSession();
+		String emp_no = String.valueOf(session.getAttribute("emp_no"));
+		map.put("map", emp_no);
+		productLogic.client_goodsin_Logic(map);
 		mod.addAttribute("curSubMenu", "惑前 包府");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("counts",1);

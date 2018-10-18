@@ -28,7 +28,6 @@ $(function() {
 			$("#updatename2").val(row.이름);
 			$("#updatecost").val(row.가격);	
 			$("#exampleModal").modal('show');
-			test();/* test메소드에 아작스 처리하면 됨 쀼쀼 */
 		}
 	});	
 });
@@ -134,11 +133,11 @@ function exampleModalInsert(){
 									</div>
 									<div class="form-group">
 										<label for="name" class="control-label">상품명</label>
-										<div id="select1"><input type="text" name = "name"></div>
+										<div id="select1"><input type="text" class="form-control" name = "name"></div>
 									</div>
 									<div class="form-group">
 										<label for="new_dept_name" class="control-label">가격</label>
-										<div id="select2"><input type="text" name = "cost"></div>
+										<div id="select2"><input type="text" class="form-control" name = "cost"></div>
 									</div>
 								</div>
 							</div>
