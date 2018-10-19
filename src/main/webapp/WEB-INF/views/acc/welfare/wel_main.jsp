@@ -111,7 +111,7 @@
 						<input type="text" class="form-control" placeholder="Text input" name="intxt" id="intxt">
 					</div>
 					<div class="col-xs-2">
-						<input type="submit" class="form-control" value="검색">
+						<input type="submit" class="form-control btn btn-primary" value="검색">
 					</div>
 				</div>
 				<div class="row">

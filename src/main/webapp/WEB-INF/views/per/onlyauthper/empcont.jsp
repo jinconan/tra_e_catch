@@ -72,7 +72,7 @@ $("#i_emp_no").keypress(function(e) {
               	</form>
 				</div>
 				<div class="col-sm-1 text-center" style="padding-left: 1px;">
-					<button id="btn_empcontsearch"class="btn btn-primary" style="margin-left:10px;"
+					<button id="btn_empcontsearch"class="btn btn-success" style="margin-left:10px;"
 					 onclick="javascript:accept()">
 						조회<i class="fa fa-check spaceLeft"></i>
 					</button>

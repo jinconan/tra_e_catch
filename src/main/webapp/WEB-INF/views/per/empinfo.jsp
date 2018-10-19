@@ -47,10 +47,10 @@
     right: 0;
 }
 .card.hovercard .useravatar img {
-    width: 100px;
-    height: 100px;
-    max-width: 100px;
-    max-height: 100px;
+    width: 125px;
+    height: 125px;
+    max-width: 125px;
+    max-height: 125px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -137,8 +137,7 @@ function attdexit(){
 
 <div class="row">
 	<div class="card hovercard" style="background: linear-gradient( to bottom, #f0ad4e, #ffffff)">
-		<div class="card-background">
-		</div>
+		<div class="card-background"></div>
 		<div class="useravatar">
 			<img alt="" src="<%=request.getContextPath()%>/imgs/profile/<%=((BigDecimal)session.getAttribute("emp_no")).intValue()%8+1 %>.png">
 		</div>

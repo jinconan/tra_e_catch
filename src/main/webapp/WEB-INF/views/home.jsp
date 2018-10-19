@@ -26,7 +26,7 @@
 					<label class="text-muted">Personnel</label>
 				</div>
 				<div class="options">
-					<a href="<%=request.getContextPath() %>/per/attd/1" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> 출결내역</a>
+					<a href="<%=request.getContextPath() %>/per/attd/1" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-search"></i> 출결내역</a>
 				</div>
 			</div>
 		</div>
@@ -40,7 +40,7 @@
 					<label class="text-muted">Product</label>
 				</div>
 				<div class="options">
-					<a href="<%=request.getContextPath() %>/prod/view/prodStat" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> 상품 통계</a>
+					<a href="<%=request.getContextPath() %>/prod/view/prodStat" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-search"></i> 상품 통계</a>
 				</div>
 			</div>
 		</div>
@@ -54,7 +54,7 @@
 					<label class="text-muted">Product Planning</label>
 				</div>
 				<div class="options">
-					<a href="<%=request.getContextPath() %>/plan/view/propList" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> 기획서</a>
+					<a href="<%=request.getContextPath() %>/plan/view/propList" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-search"></i> 기획서</a>
 				</div>
 			</div>
 		</div>
@@ -68,7 +68,7 @@
 					<label class="text-muted">Draft</label>
 				</div>
 				<div class="options">
-					<a href="<%=request.getContextPath() %>/pay/draft" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i>기안서 작성</a>
+					<a href="<%=request.getContextPath() %>/pay/draft" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-search"></i>기안서 작성</a>
 				</div>
 			</div>
 		</div>
@@ -82,7 +82,7 @@
 					<label class="text-muted">Accounting</label>
 				</div>
 				<div class="options">
-					<a href="<%=request.getContextPath() %>/acc/slip/in" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> 전표작성</a>
+					<a href="<%=request.getContextPath() %>/acc/slip/in" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-search"></i> 전표작성</a>
 				</div>
 			</div>
 		</div>
@@ -96,7 +96,7 @@
 					<label class="text-muted">My page</label>
 				</div>
 				<div class="options">
-					<a href="<%=request.getContextPath() %>/scv/logout" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-search"></i> 로그아웃</a>
+					<a href="<%=request.getContextPath() %>/scv/logout" class="btn btn-success btn-lg"><i class="glyphicon glyphicon-search"></i> 로그아웃</a>
 				</div>
 			</div>
 		</div>

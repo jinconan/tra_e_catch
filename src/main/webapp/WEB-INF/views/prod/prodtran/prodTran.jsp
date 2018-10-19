@@ -190,7 +190,7 @@
 								placeholder="거래량">
 						</div>
 						<div class="col-sm-2 sx-buttom">
-							<button class="form-control" type="submit">조회하기</button>
+							<button class="form-control btn btn-success " type="submit">조회하기</button>
 						</div>
 					</div>
 				</form>
@@ -236,7 +236,7 @@
 						</nav>
 					</div>
 					<div class="col-sm-2 sx-buttom">
-						<button class="form-control" onclick="javascript:exampleModalInsert()">추가하기</button>
+						<button class="form-control btn btn-primary" onclick="javascript:exampleModalInsert()">추가하기</button>
 					</div>
 			</div>
 		</div>

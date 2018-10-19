@@ -72,7 +72,7 @@
 		</div>
 		<div class="form-group">
 						<div class="pull-right" style="padding-right: 15px;">
-							<input type="submit" class="form-control" value="등록">
+							<input type="submit" class="form-control btn btn-primary" value="등록">
 						</div>
 					</div>
 		<div class="form-group" id="emptable"></div>

@@ -361,7 +361,7 @@ public class PersonnelController {
 	public String empcont(@RequestParam Map<String, Object> pMap, Model mod) {
 		logger.info("고용계약서 조회");
 		List<Map<String, Object>> subMenuList = (List<Map<String, Object>>) context.getBean("perauth-submenu");
-		mod.addAttribute("curSubMenu", "고용계약서");
+		mod.addAttribute("curSubMenu", "고용계약서 관리");
 		mod.addAttribute("subMenuList", subMenuList);
 		return "per/onlyauthper/empcont";
 	}

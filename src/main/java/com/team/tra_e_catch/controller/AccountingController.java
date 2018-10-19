@@ -65,7 +65,7 @@ public class AccountingController {
 	 */
 	@RequestMapping(value = "/slip/{counts}", method = RequestMethod.GET)
 	public String slip_main(Model mod,@RequestParam Map<String, Object> pMap,@PathVariable int counts) {
-		logger.info(counts+"번쨰 slip진입");
+		logger.info(counts+"번 slip진입");
 		mod.addAttribute("curSubMenu", "전표처리 관리");
 		mod.addAttribute("subMenuList", subMenuList);
 		mod.addAttribute("counts", counts);

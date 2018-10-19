@@ -151,7 +151,7 @@ $(document).ready(function() {
 						</select> 
 						<label class="sr-only" for="searchValue">검색창</label> 
 						<input type="text" class="form-control" name="searchValue" id="searchValue" placeholder="검색">
-						<button class="btn btn-default">검색</button>
+						<button class="btn btn-info">검색</button>
 					</div>
 				</form>
 		</div>

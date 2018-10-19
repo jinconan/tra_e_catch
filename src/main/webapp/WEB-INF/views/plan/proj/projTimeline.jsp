@@ -51,7 +51,7 @@
 			chart.draw(dataTable);
 		}
 		else {
-			container.innerHTML="";
+			container.innerHTML="<table border='1' class='bg-danger' width='100%' height='180px' style='text-align:center;'><tr><td>일정을 불러오는데 실패하였습니다.</td></tr></table>";
 		}
 	}
 	

@@ -95,7 +95,7 @@ function exampleModalInsert(){
 						</nav>
 					</div>
 					<div class="col-sm-2 sx-buttom">
-						<button class="form-control" onclick="javascript:exampleModalInsert()">추가하기</button>
+						<button class="form-control btn btn-primary" onclick="javascript:exampleModalInsert()">추가하기</button>
 					</div>
 			</div>
 	</center>

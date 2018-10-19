@@ -28,14 +28,14 @@
 		position:fixed;
 		min-height: 50%;
 		width: 300px; top: 0px; right: 0px ; 
-		margin-top:52px;
+		margin-top:57px;
 		}
 	.panel-chat {
 		display:none;
 		position: fixed; 
 		min-height: 50%;
 		width: 350px;top:0px;right: 300px;
-		margin-top:52px;
+		margin-top:57px;
 		}
 	footer { position: absolute; bottom: 0; left: 0; right: 0; 
 		background-color: #333333;

@@ -5,21 +5,9 @@
 <meta charset="UTF-8">
 <title></title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
-<%
-
-int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no"))); //사원정보 받는 곳
-%>
 <script type="text/javascript">
 
 $(function() {
-
-	var emp_nochk = <%=addemp_no%>;
-
-if(emp_nochk>3){
-	alert("인사권자 전용 페이지 입니다.");
-	location.href='<%=request.getContextPath()%>/';
-}
-
  $("#i_emp_no").keypress(function(e) {
 	
 	if(e.which==13 ||event.keyCode == 13) {
@@ -46,7 +34,7 @@ if(emp_nochk>3){
 	}
 	function workinsert(){
 		$("#in_emp_no").val($("#i_emp_no").val());
-		 $("#f_emp_no").attr("action","<%=request.getContextPath()%>/auth/labcont/insert");
+		 $("#f_emp_no").attr("action","<%=request.getContextPath()%>/per/auth/labcont/insert");
 		$("#f_emp_no").submit(); 
 		alert("등록되었습니다.");
 	}
@@ -72,9 +60,9 @@ if(emp_nochk>3){
 						<input type="hidden" id="in_emp_no" name="in_emp_no">
 					</form>
 				</div>
-
+								
 				<div class="col-sm-1 text-center" style="padding-left: 1px;">
-					<button id="btn_labsearch" class="btn btn-primary" style="margin-left: 10px;" onclick="javascript:accept()">
+					<button id="btn_labsearch" class="btn btn-success" style="margin-left: 10px;" onclick="javascript:accept()">
 						조회<i class="fa fa-check spaceLeft"></i>
 					</button>
 				</div>

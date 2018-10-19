@@ -58,14 +58,14 @@
   
  <!--------------- 버튼 드롭다운 : 연도별  판매량 연도별  판매 금액 --------------->
 	<div class="btn-group">
-  	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+  	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     	년도 <span class="caret"></span>
   	</button>
   <ul class="dropdown-menu" role="menu">
     <li><a href="<%=request.getContextPath()%>/prod/view/prodStat">연도별 전체 판매량</a></li>
-    <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_moon/2008">월별 전체 판매량</a></li>
+    <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_moon/2018">월별 전체 판매량</a></li>
     <li class="divider"></li>
-    <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/110/2008">제조사별 전체 판매량</a></li>
+    <li><a href="<%=request.getContextPath()%>/prod/view/prodStat_ct/110/2018">제조사별 전체 판매량</a></li>
     <li><a href="#">상품별 전체 판매량</a></li>
   </ul>
 </div>

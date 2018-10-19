@@ -11,7 +11,7 @@
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <script>
 	function btnLeaveMouseOut() {
-		$('#btn_leave').html("올해 남은 연차 일 수 <span class='badge'><%=remainLeave %> 일 </span>");
+		$('#btn_leave').html("남은 연차 일 수 <span class='badge'><%=remainLeave %> 일 </span>");
 	}
 </script>
 </head>
@@ -30,13 +30,13 @@
 		</div>
 		<div id="table-toolbar">
 			 <% if(remainLeave > 0) {%>
-			 <a id="btn_leave" href="<%=request.getContextPath() %>/pay/draft" class="btn btn-primary" 
-			 onmouseover="$('#btn_leave').text('휴가가자')" onmouseout="btnLeaveMouseOut()">
+			 <a id="btn_leave" href="<%=request.getContextPath() %>/pay/draft" class="btn btn-primary btn-lg" 
+			 onmouseover="$('#btn_leave').text(' 휴&nbsp;&nbsp;가&nbsp;&nbsp;신&nbsp;&nbsp;청&nbsp;&nbsp;하&nbsp;&nbsp;기')" onmouseout="btnLeaveMouseOut()">
 			 <% } else { %>
-			 <a id="btn_leave" href="#" class="btn btn-primary"
-			 onmouseover="$('#btn_leave').text('휴가못가')" onmouseout="btnLeaveMouseOut()">
+			 <a id="btn_leave" href="#" class="btn btn-danger"
+			 onmouseover="$('#btn_leave').text(' 휴&nbsp;&nbsp;가&nbsp;&nbsp;신&nbsp;&nbsp;청&nbsp;&nbsp;불&nbsp;&nbsp;가')" onmouseout="btnLeaveMouseOut()">
 			 <% } %>	
-			 올해 남은 연차 일 수 <span class="badge"><%=remainLeave %> 일 </span>
+			 남은 연차 일 수 <span class="badge"><%=remainLeave %> 일 </span>
 			</a>
 		</div>
 		<div class="table-responsive col-xs-9">

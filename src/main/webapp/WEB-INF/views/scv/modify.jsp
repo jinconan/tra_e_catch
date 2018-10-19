@@ -91,79 +91,62 @@ function isok(){
 		<jsp:include page="/WEB-INF/views/_common/submenu.jsp" />
 		<!-- 본문 -->
 		<div class="col-sm-10">
-			<div class="well">
-				<h2><strong>내 정보 수정</strong></h2>
-			
-				<form class="form-horizontal" method="post" id="f_modify">
-					<div class="form-group">
-						<label for="emp_name" class="col-sm-3 control-label">이름</label>
-						<div class="col-sm-3">
-							<input type="text" class="form-control" id="emp_name" name="emp_name" value="<%=name %>" readonly />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="emp_id" class="col-sm-3 control-label">아이디</label>
-						<div class="col-sm-3">
-							<input type="text" class="form-control" id="emp_id" name="emp_id" value="<%=id %>" readonly  />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="emp_cur_pw" class="col-sm-3 control-label">현재 비밀번호</label>
-						<div class="col-sm-3">
-							<input type="password" class="form-control" id="emp_cur_pw" name="emp_cur_pw"  />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="emp_cur_pw" class="col-sm-3 control-label">새 비밀번호</label>
-						<div class="col-sm-3">
-							<input type="password" class="form-control" id="emp_new_pw" name="emp_new_pw"/>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="emp_cur_pw" class="col-sm-3 control-label">새 비밀번호 확인</label>
-						<div class="col-sm-3">
-							<input type="password" class="form-control" id="emp_new_pw_check" name="emp_new_pw_check" />
-						</div>
-					</div>
-	
-					<div class="form-group">
-						<label for="emp_email" class="col-sm-3 control-label">이메일</label>
-						<div class="col-sm-3">
-							<input type="text" class="form-control" id="emp_email" name="emp_email" placeholder="xxxx@xxxxx.xxx" value="<%=email %>" required />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="emp_birthday" class="control-label col-sm-3">생일</label>
-						<div class="col-sm-3">
-							<input type="text" class="form-control form_datetime" id="emp_birthday" name="emp_birthday" value="<%=birthday %>" readonly>
-						</div>
-					</div>
-					<!-- <div class="form-group">
-						<label for="d_gender" class="col-sm-3 control-label" >성별</label>
-						<div id="d_gender" class="col-sm-3">
-							<label class="radio-inline control-label"> 
-							  <input type="radio" id="emp_male" name="emp_gender" value="1">남
-							</label> 
-							<label class="radio-inline control-label"> 
-							<input type="radio" id="emp_female" name="emp_gender" value="0">여
-							</label>
-						</div>
-					</div> -->
-				<!-- 	<div class="form-group">
-						<label for="cb_recv_email" class="col-sm-3 control-label">전자결재 이메일 수신</label>
-						<div class="col-sm-3">
-							<div class="checkbox">
-								<input type="checkbox" id="cb_recv_email" name="cb_recv_email" value="1" style="margin-left: 0px;">
-							</div>
-						</div>
-					</div> -->
-					<div class="form-group">
-						<div class="col-sm-offset-3 col-sm-3">
-							<button type="button" class="btn btn-primary" onclick="isok()">수정</button>
-						</div>
-					</div>
-				</form>
+			<div class="page-header">
+				<h2>
+					<strong>내 정보 수정</strong>
+				</h2>
 			</div>
+
+			<form class="form-horizontal" method="post" id="f_modify">
+				<div class="form-group">
+					<label for="emp_name" class="col-sm-3 control-label">이름</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="emp_name" name="emp_name" value="<%=name%>" readonly />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="emp_id" class="col-sm-3 control-label">아이디</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="emp_id" name="emp_id" value="<%=id%>" readonly />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="emp_cur_pw" class="col-sm-3 control-label">현재 비밀번호</label>
+					<div class="col-sm-3">
+						<input type="password" class="form-control" id="emp_cur_pw" name="emp_cur_pw" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="emp_cur_pw" class="col-sm-3 control-label">새 비밀번호</label>
+					<div class="col-sm-3">
+						<input type="password" class="form-control" id="emp_new_pw" name="emp_new_pw" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="emp_cur_pw" class="col-sm-3 control-label">새 비밀번호 확인</label>
+					<div class="col-sm-3">
+						<input type="password" class="form-control" id="emp_new_pw_check" name="emp_new_pw_check" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="emp_email" class="col-sm-3 control-label">이메일</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" id="emp_email" name="emp_email" placeholder="xxxx@xxxxx.xxx" value="<%=email%>" required />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="emp_birthday" class="control-label col-sm-3">생일</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control form_datetime" id="emp_birthday" name="emp_birthday" value="<%=birthday%>" readonly>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-3 col-sm-3">
+						<button type="button" class="btn btn-primary" onclick="isok()">수정</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />

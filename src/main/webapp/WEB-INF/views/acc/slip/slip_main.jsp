@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>트라E캐치-전표처리 관리</title>
 <%@ include file="/WEB-INF/views/_common/commonUI.jsp"%>
 <style>
 .los {
@@ -34,11 +34,8 @@
 		        ,url:"<%=request.getContextPath()%>/acc/slip/wordprint"
 		        ,data:inputdata,
 		        success : function(log){
-		        	
 		        	console.log(log);
 		        	$("#d_viewwork").html(log);
-	
-		        	
 		        }
 				,error : function(xhr) {
 					console.log("땡");
@@ -90,8 +87,6 @@
 								<th data-field="첨부자료">첨부자료</th>
 							</tr>   
 						</thead>
-						<tbody>
-					</tbody>
 					</table>
 					</div>
 				<div class="row">
@@ -117,7 +112,7 @@
 						</nav>
 					</div>
 					<div class="col-xs-2 col-md-2 sx-buttom">
-						<input type="button" class="form-control" value="글작성" onclick="location.href='in'">
+						<input type="button" class="form-control btn btn-primary" value="글작성" onclick="location.href='in'">
 					</div>
 				</div>
 			</form>

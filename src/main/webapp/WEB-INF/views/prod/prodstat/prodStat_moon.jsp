@@ -58,7 +58,7 @@
   
  <!--------------- 버튼 드롭다운 : 연도별  판매량 연도별  판매 금액 --------------->
 	<div class="btn-group">
-  	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+  	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     	년도 <span class="caret"></span>
   	</button>
   <ul class="dropdown-menu" role="menu">
@@ -71,7 +71,7 @@
 
 <!--------------- 버튼 드롭다운 : 월별  판매량 월별  판매 금액 --------------->
 <div class="btn-group">
-  	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+  	<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     	월별 <span class="caret"></span>
   	</button>
   <ul class="dropdown-menu" role="menu">

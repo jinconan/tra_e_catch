@@ -81,7 +81,7 @@
 			<!-- 우측에 정렬된 메뉴 -->
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 알림창 -->
-				<li class="dropdown">
+				<li class="dropdown"  style="font-size: 25px">
 					<a id="a_alarm" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 						<span class="glyphicon glyphicon-info-sign" style="color: red;"></span>
 						<span id="totalAlarm" style="color:red;"></span>
@@ -111,9 +111,9 @@
 					})
 				</script>
 				<!-- 개인 정보 메뉴 -->
-				<li class="dropdown">
+				<li class="dropdown" style="font-size: 25px">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						My<span class="glyphicon glyphicon-cog"></span>
+						<span class="glyphicon glyphicon-cog"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">
 					    <li><a href="<%=contextPath%>/scv/view/modify">정보수정</a></li> 
