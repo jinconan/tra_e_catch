@@ -132,4 +132,14 @@ public class SqlProdDao {
 		logger.info("client_update_Dao µµÂø"+map);
 		sqlSessionTemplate.update("CLIENT_update",map);
 	}
+
+	public List<Map<String, Object>> tran_goods_Dao(int counts) {
+		logger.info("tran_goods_DaoÁøÀÔ" + counts);
+		return sqlSessionTemplate.selectList("tran_goods",counts);
+	}
+
+	public void client_goodsin_Dao(Map<String, Object> map) {
+		logger.info("client_goodsin_Dao µµÂø"+map);
+		sqlSessionTemplate.insert("client_goodsin",map);			
+	}
 }

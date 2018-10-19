@@ -21,7 +21,6 @@ $(function() {
 	$('#p_table').bootstrapTable({
 		url : '<%=request.getContextPath()%>/proR/client/<%=counts%><%=datas%>',	
 		onClickRow : function(row,$element, field) {
-			console.log(row.번호);
 			$("#client").val(row.업체번호);	
 			$("#client1").html(row.업체번호);
 			$("#client1").val(row.업체번호);	
@@ -32,14 +31,43 @@ $(function() {
 			$("#client5").val(row.담당자전화번호);	
 			$("#client6").val(row.사업자번호);	
 			$("#client6").html(row.사업자번호);	
+			$("#client1g").html(row.업체번호);
+			$("#client1g").val(row.업체번호);	
+			$("#client2g").html(row.업체명);
+			$("#client2g").val(row.업체명);
 			$("#exampleModal").modal('show');
-			test();/* test메소드에 아작스 처리하면 됨 쀼쀼 */
 		}
 	});	
 });
 
 function exampleModalInsert(){
 	$("#exampleModalInsert").modal('show'); 
+}
+
+function exinsert(){
+	$("#exampleModal").modal('hide'); 
+	var th = $('#client1g').val();
+	var str;
+	$.ajax({ 
+        type: 'GET', 
+        url: '<%=request.getContextPath()%>/proR/tran_goods/'+th, 
+        dataType:'json',
+        success: function (data) { 
+        	console.log(data);
+        	str = "<select class=\"form-control\" id= \"goods\" name=\"goods\">";
+        	$.each(data, function(key, value){
+        		console.log(key, value);
+        		str = str+"<option value="+value.번호+">"+value.상품이름+"</option>";   
+        	});
+/*             	for(var i = 0; i< _len; i++){
+        		var post = data[i]; 
+           		 str = str+"<option>"+post.회사명+"</option>";            		 
+        	} */
+        	str = str+"<select>" ;
+        	$('#select_goods').html(str);
+        }
+    });
+	$("#exampleModal_goods").modal('show');
 }
 </script>
 <body>
@@ -210,6 +238,52 @@ function exampleModalInsert(){
 					</div>
 					<div class="modal-footer">
 						<button type="submit" class="btn btn-primary">수정</button>
+						<input type="button" class="btn btn-primary" onclick="javascript:exinsert();" value="상품추가">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">취소</button>
+					</div>
+				</form>
+				
+			</div>
+		  </div>
+		</div>
+		
+		<!-- 모달창 종료 -->
+		
+		<!-- 추가 모달 페이지 -->
+		<div class="modal fade" id="exampleModal_goods" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document" style="width: 635px">
+		    <div class="modal-content" aria-hidden="true">
+				<form id="f_deptinsert"  action="<%=request.getContextPath()%>/client_goodsin" method="POST" enctype="multipart/form-data" class="form-horizontal">
+					<input type="hidden" name="cost0" id = "client1g">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">거래처 상품 추가</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class=" col-xs-offset-3 col-xs-6">
+								<div class="well"> 
+									<div class="form-group">
+										<label for="name" class="control-label">업체번호</label>
+										<div id="client1g"><label for="name" class="control-label" id = "client1g"></label></div>
+									</div>
+									<div class="form-group">
+										<label for="name" class="control-label">업체명</label>
+										<div id="client2g"><label for="name" class="control-label" id = "client2g" ></label></div>
+									</div>
+									<div class="form-group">
+										<label for="new_dept_name" class="control-label">상품명</label>
+										<div id="select_goods"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">추가</button>
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">취소</button>
 					</div>
@@ -217,8 +291,6 @@ function exampleModalInsert(){
 			</div>
 		  </div>
 		</div>
-		
-		<!-- 모달창 종료 -->
 
 <jsp:include page="/WEB-INF/views/_common/footer.jsp"/>
 	

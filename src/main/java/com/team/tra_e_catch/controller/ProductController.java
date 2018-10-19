@@ -224,6 +224,19 @@ public class ProductController {
 		return "prod/client/prodclient";
 	}
 	
+	@RequestMapping(value ="/client_goodsin", method = RequestMethod.POST)
+	public String client_goodsin(Model mod,@RequestParam Map<String,Object> map,HttpServletRequest req) {
+		logger.info("client_goodsin진입");
+		HttpSession session = req.getSession();
+		String emp_no = String.valueOf(session.getAttribute("emp_no"));
+		map.put("map", emp_no);
+		productLogic.client_goodsin_Logic(map);
+		mod.addAttribute("curSubMenu", "상품 관리");
+		mod.addAttribute("subMenuList", subMenuList);
+		mod.addAttribute("counts",1);
+		return "prod/client/prodclient";
+	}
+	
 	@RequestMapping(value ="/client_update", method = RequestMethod.POST)
 	public String client_update(Model mod,@RequestParam Map<String,Object> map,HttpServletRequest req) {
 		logger.info("client_update진입");

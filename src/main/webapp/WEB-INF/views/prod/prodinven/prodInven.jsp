@@ -28,7 +28,6 @@ $(function() {
 			$("#updatename2").val(row.이름);
 			$("#updatecost").val(row.가격);	
 			$("#exampleModal").modal('show');
-			test();/* test메소드에 아작스 처리하면 됨 쀼쀼 */
 		}
 	});	
 });

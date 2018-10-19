@@ -149,4 +149,14 @@ public class ProductLogic {
 		logger.info("client_update_Logic진입");
 		sqlProdDao.client_update_Dao(map);
 	}
+
+	public List<Map<String, Object>> tran_goods_Logic(int counts) {
+		logger.info("tran_goods_Logic진입");
+		return sqlProdDao.tran_goods_Dao(counts);
+	}
+
+	public void client_goodsin_Logic(Map<String, Object> map) {
+		logger.info("client_goodsin_Logic진입");
+		sqlProdDao.client_goodsin_Dao(map);		
+	}
 }
