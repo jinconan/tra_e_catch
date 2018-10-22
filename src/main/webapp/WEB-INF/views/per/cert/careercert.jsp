@@ -2,6 +2,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<%
+	StringBuilder path = new StringBuilder(request.getContextPath());
+	path.append("/resources");
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
@@ -20,6 +25,7 @@ $(function() {
 			$("#clev").append(data[0].CLEV);//직급
 			$("#hday").append(data[0].HDAY);//입사일자
 			$("#sdate").append(data[0].SDATE);//현재 일자
+			$("#lname").append(data[0].LNAME);//근무지
 		}
 	})
 	 
@@ -46,12 +52,12 @@ $(function() {
 
 		<tr>
 			<td align="center">근무지</td>
-			<td colspan="3" align="center">경기도 과천시 과천동 513-13호</td>
+			<td colspan="3" align="center"><div id=lname></div></td>
 		</tr>
 
 		<tr>
 			<td align="center">담당업무</td>
-			<td colspan="3" align="center">화장실청소</td>
+			<td colspan="3" align="center"><div id="d_userwork"></div></td>
 		</tr>
 
 		<tr>
@@ -64,17 +70,25 @@ $(function() {
 		</tr>
 		<tr>
 			<td colspan="4" rowspan="40" align="center">
-			  <br>
-			   <br>
-			    <br>
+			 <br>&nbsp;
+			   <br>&nbsp;
+			    <br>&nbsp;
+			     <br>&nbsp;
+			      <br>&nbsp;
+			       <br>&nbsp;
+			         <br>&nbsp;
+			       <br>  <br>
+			       <br>
+			
 				 <br> <br> 
-				 <br> <br> <br> <br> <br>
-				  <br> <br> <br><br> <br>상기 사항은 사실과 틀림없음을 증명함. <br>
-				  <br> <br><br><div id="sdate"></div><br> <br><br>
+				     상기 사항은 사실과 틀림없음을 증명함.<br>
+				 <br> <br> <br> <br><div id="sdate"></div> <br>
+				  <br> <br> <br>
 				  <table align="right">
-				 <tr><td align="right">서울특별시 강남구 싸이동 1-1&nbsp;&nbsp;&nbsp;</td></tr>
-				 <tr><td align="right">주식회사 위백스닷컴&nbsp;&nbsp;&nbsp;</td></tr>
-				 <tr><td align="right">대표이사 김위백 (인)&nbsp;&nbsp;&nbsp;</td>
+				 <tr><td align="right">서울특별시 강남구 논현로 54&nbsp;&nbsp;&nbsp;</td></tr>
+				 <tr><td>주식회사 트라이캐치&nbsp;&nbsp;&nbsp;</td></tr>
+				 <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+				 <tr><td>대표이사 강희복 <span style="position: relative;">(인) <span style="position: absolute; left:-15px; top: -20px;"><img src="<%=path.toString()%>/imgs/intest.png" style="width: 75px; height: 75px;"></span></span>&nbsp;&nbsp;&nbsp;</td>
 				 
 				 </tr>
 				 

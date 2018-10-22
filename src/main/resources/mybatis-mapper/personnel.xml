@@ -90,7 +90,8 @@
 	</select>
 
 	<select id="getTeamList" parameterType="map" resultType="map">
-	select * from v_emp where team_no = (select team_no from v_emp where emp_no = #{emp_no})
+	select * from v_emp where team_no = (select team_no from v_emp where emp_no = #{emp_no}) and emp_no != 3 and lev_no !=(select min(lev_no) from v_emp) 
+	
 	</select>
 
 	<select id="getQuarList" parameterType="map" resultType="map">

@@ -4,12 +4,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<%
+	StringBuilder path = new StringBuilder(request.getContextPath());
+	path.append("/resources");
+%>
 <script type="text/javascript">
 
 $('.c_form').click(function(){
 	$('.c_form').printThis(); <!-- print 할 부분에 설정 -->
 });
-
+$(function() {
+	$.ajax({
+		url:'<%=request.getContextPath()%>/perR/indivemp',
+		type: "json",
+		success: function(data){
+			$("#ename").text(data[0].ENAME);//사원이름
+			$("#bday").append(data[0].BDAY);//사원생년월일
+			$("#tname").append(data[0].TNAME);//팀이름
+			$("#clev").append(data[0].CLEV);//직급
+			$("#hday").append(data[0].HDAY);//입사일자
+			$("#sdate").append(data[0].SDATE);//현재일자
+			
+		}
+	})
+	 
+});
 </script>
 </head>
 <body>
@@ -20,20 +39,16 @@ $('.c_form').click(function(){
 
 		<tr>
 			<td align="center" width="16%">성 명</td>
-			<td align="center">김위백</td>
+			<td align="center"><div id="ename"></div></td>
 			<td align="center" width="14%">생년월일</td>
-			<td align="center">1992년01월07일</td>
+			<td align="center"><div id="bday"></div></td>
 		<tr>
 			<td align="center">부 서</td>
-			<td align="center">인사팀</td>
+			<td align="center"><div id="tname"></div></td>
 			<td align="center">직급</td>
-			<td align="center">찌끄래기</td>
+			<td align="center"><div id="clev"></div></td>
 		</tr>
 
-		<tr>
-			<td align="center">현주소</td>
-			<td colspan="3" align="center">경기도 과천시 과천동 513-13호</td>
-		</tr>
 
 		<tr>
 			<td align="center">담당업무</td>
@@ -42,7 +57,7 @@ $('.c_form').click(function(){
 
 		<tr>
 			<td align="center" width="16%">재직기간</td>
-			<td colspan="3" align="center">2018-04-07 ~ 현재&nbsp;(x년xx개월)</td>
+			<td colspan="3" align="center"><div id="hday"></div> ~ 현재&nbsp;(x년xx개월)</td>
 		</tr>
 		<tr><td align="center" colspan="4">퇴직 사유</td>
 		</tr>
@@ -62,16 +77,17 @@ $('.c_form').click(function(){
 				  <br>
 				  <br>
 				  <table align="center">
-				  <tr><td align="center">20&nbsp;&nbsp;&nbsp;년  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일</td></tr>
+				  <tr><td align="center">20&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;년  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일</td></tr>
 				  <tr><td align="center"></td></tr>
-				  <tr><td align="right">제&nbsp;&nbsp;출&nbsp;&nbsp;인&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(인)&nbsp;&nbsp;</td></tr>
+				  <tr><td align="right">제&nbsp;&nbsp;출&nbsp;&nbsp;인&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(인)&nbsp;&nbsp;</td></tr>
 				  </table>
 				  <br>
 				  <br>
 				  <table align="right">
-				 <tr><td align="right">서울특별시 강남구 싸이동 1-1&nbsp;&nbsp;&nbsp;</td></tr>
-				 <tr><td align="right">주식회사 위백스닷컴&nbsp;&nbsp;&nbsp;</td></tr>
-				 <tr><td align="right">대표이사 김위백 (인)&nbsp;&nbsp;&nbsp;</td>
+				 <tr><td align="right">서울특별시 강남구 논현로 54&nbsp;&nbsp;&nbsp;</td></tr>
+				 <tr><td align="right">주식회사 트라이캐치&nbsp;&nbsp;&nbsp;</td></tr>
+				 <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+				 <tr><td>대표이사 강희복 <span style="position: relative;">(인) <span style="position: absolute; left:-15px; top: -20px;"><img src="<%=path.toString()%>/imgs/intest.png" style="width: 75px; height: 75px;"></span></span>&nbsp;&nbsp;&nbsp;</td>
 				 
 				 </tr>
 				 
