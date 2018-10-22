@@ -18,7 +18,11 @@ function tableParams(params) {
 	params.lname=$("#lname").val();
 	return params;
 }
-
+function ratingstart(){
+	alert("근무평정이 시작되었습니다.");
+	location.href='<%=request.getContextPath()%>/per/ratingstart';
+	
+}
 function accept(){
 	 $('#p_table').bootstrapTable('refresh', null); 
 }
@@ -76,6 +80,11 @@ if(emp_nochk>3){
 						<div class="form-group">
 							<button id="btn_emp" class="btn btn-primary" onclick="javascript:accept()">
 								<i class="glyphicon glyphicon-search"></i>
+							</button>
+						</div>
+								<div class="form-group">
+							<button id="btn_emp" class="btn btn-success" onclick="javascript:ratingstart()">
+								<i class="glyphicon glyphicon-user">근무평정 시작</i>
 							</button>
 						</div>
 					</div>

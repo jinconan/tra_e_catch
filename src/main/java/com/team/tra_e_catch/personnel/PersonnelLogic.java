@@ -376,4 +376,10 @@ public class PersonnelLogic {
 		logger.info("getRemainLeave : " + pMap);
 		return sqlPerDao.getRemainLeave(pMap);
 	}
+	//근무평정 시작 버튼
+	public void ratingstart(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		logger.info("ratingstart - 로직");
+		sqlPerDao.startrating(pMap);
+	}
 }

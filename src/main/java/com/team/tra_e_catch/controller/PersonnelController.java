@@ -115,6 +115,13 @@ public class PersonnelController {
 		int result = personnelLogic.insertCert(pMap);
 		return "per/cert/certform";
 	}
+	@RequestMapping(value = "/ratingstart")
+	public String ratingstart(@RequestParam Map<String, Object> pMap, Model mod, @SessionAttribute("emp_no") int emp_no) {
+		logger.info("ratingstart호출 :" + pMap);
+		personnelLogic.ratingstart(pMap);
+		return "home";
+		
+	}
 
 	/**
 	 * 경력증명서 양식 페이지

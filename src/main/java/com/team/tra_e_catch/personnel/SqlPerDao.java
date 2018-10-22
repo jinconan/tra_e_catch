@@ -426,4 +426,19 @@ public class SqlPerDao {
 		logger.info("getRemainLeave");
 		return sqlSessionTemplate.selectOne("getRemainLeave", pMap);
 	}
+
+	public void startrating(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+			logger.info("startrating 호출 - DAO");
+		System.out.println("다오에서 최종 처리 맵 : "+pMap);
+		try {
+			sqlSessionTemplate.selectOne("startrating", pMap);
+			logger.info("startrating-DAO 정상 처리 완료");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+		}
+		
+		
+	}
 }

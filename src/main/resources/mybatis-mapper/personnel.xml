@@ -101,6 +101,11 @@
  	]]>
 	</select>
 
+	
+	<select id="startrating" statementType="CALLABLE">
+	{CALL proc_serv_start}
+	</select>
+
 	<insert id="insertSerList" statementType="CALLABLE" parameterType="hashmap">
 	{CALL proc_serv_write(#{emp_no, mode=IN, javaType=java.lang.Integer, jdbcType=NUMERIC},#{e_list, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{w_content, mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{e_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{pm_content,mode=IN, javaType=java.lang.String, jdbcType=VARCHAR},#{cos_type1, mode=OUT, jdbcType=VARCHAR, javaType=java.sql.ResultSet, resultMap=cos_type1})}
 	</insert>
