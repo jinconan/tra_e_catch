@@ -136,34 +136,37 @@
 							<%if(isLeader == true) {%>
 							<span class="btn-group">
 								<a class="btn btn-warning" id="btn_mod_project" href="<%=request.getContextPath() %>/plan/view/projUpdate?projNo=<%=projNo %>">
-										변경
+										<span class="glyphicon glyphicon-pencil"></span>
 								</a>
-								<button type="button" id="btn_del_project" class="btn btn-danger">삭제</button>
+								<button type="button" id="btn_del_project" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
 							</span>
 							<%} %>
 						</h2>
 						
 					</div>
-					<p>
-						<strong>상태: </strong>
-						<%if("종료".equals(pstatus_name)) {%>
-						<%=pstatus_name %>(<%=start_date %> ~ <%=end_date %>)
+					
+				
+					<h1 style="display:inline;"><span class="glyphicon glyphicon-tasks"></span>
+					<%if("종료".equals(pstatus_name)) {%>
+					<%=pstatus_name %> </h1>(<%=start_date %> ~ <%=end_date %>)
+					<%} else {%>
+					<%=pstatus_name %> </h1>(<%=start_date %> ~ <%=end_sched_date %>)
+					
+					<%if(isLeader == true) {%>
+					<span class="btn-group">
+						<%if("진행중".equals(pstatus_name)) {%>
+						<a id="btn_stop" class="btn btn-info"><span class="glyphicon glyphicon-pause"></span></a>
 						<%} else {%>
-						<%=pstatus_name %>(<%=start_date %> ~ <%=end_sched_date %>)
-						
-						<%if(isLeader == true) {%>
-						<span class="btn-group">
-							<%if("진행중".equals(pstatus_name)) {%>
-							<a id="btn_stop" class="btn btn-info">중단</a>
-							<%} else {%>
-							<a id="btn_restart" class="btn btn-info">재개</a>
-							<%}%>
-							<a id="btn_end" class="btn btn-danger">종료</a>
-						</span>
-						<% 	} %>
+						<a id="btn_restart" class="btn btn-info"><span class="glyphicon glyphicon-play"></span></a>
 						<%}%>
-					</p>
+						<a id="btn_end" class="btn btn-danger"><span class="glyphicon glyphicon-stop"></span></a>
+					</span>
+					<% 	} %>
+					<%}%>
+					
 				</div> 
+					
+				 
 
 				<div class="row">
 					<p>
@@ -171,14 +174,14 @@
 					</p>
 					<div id="timeline" style="height: 180px;"></div>
 				</div>
-
+				<hr>
 				<%if(isMember == true) {%>
 				<div class="row">
 					<p>
 						<strong>게시판 목록</strong>
 					</p>
 					<%
-					if(projBoardList != null) {
+					if(projBoardList != null && projBoardList.size() > 0) {
 						for(int i=0; i<projBoardList.size();i++) {
 							String board_name = (String)projBoardList.get(i).get("board_name");
 							BigDecimal board_no = (BigDecimal)projBoardList.get(i).get("board_no");
@@ -192,8 +195,14 @@
 					</div>	
 					<%
 						}
-					}
+					} else {
 					%>
+					<table border='1' class='bg-danger' width='100%' height='180px' style='text-align: center;'>
+						<tr>
+							<td>게시판을 불러오는데 실패하였습니다.</td>
+						</tr>
+					</table>
+					<% }%>
 				</div>
 				<%} %>
 		</div>
