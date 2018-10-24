@@ -81,48 +81,47 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 		<!-- 본문 -->
 		<div class="col-sm-10">
 			<div class="well">
-				<h2><strong>직원 등록</strong></h2>
+				<h2>
+					<strong>직원 등록</strong>
+				</h2>
 				<form class="form-horizontal" method="post" id="f_empinsert">
 					<div class="form-group">
 						<label for="emp_name" class="col-sm-3 control-label">이름</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" id="emp_name" name="emp_name" required/>
+							<input type="text" class="form-control" id="emp_name" name="emp_name" required />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="emp_id" class="col-sm-3 control-label">아이디</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" id="emp_id" name="emp_id" required/>
+							<input type="text" class="form-control" id="emp_id" name="emp_id" required />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="emp_lev" class="col-sm-3 control-label">직급</label>
 						<div class="col-sm-3">
-					<select class="form-control" id="lev_list" name="lev_list">
-
-						</select>
+							<select class="form-control" id="lev_list" name="lev_list">
+							</select>
 						</div>
 					</div>
-				<div class="form-group">
+					<div class="form-group">
 						<label for="emp_loc" class="col-sm-3 control-label">근무지역</label>
 						<div class="col-sm-3">
-					<select class="form-control" id="loc_list" name="loc_list">
-
-						</select>
+							<select class="form-control" id="loc_list" name="loc_list">
+							</select>
 						</div>
 					</div>
-						<div class="form-group">
+					<div class="form-group">
 						<label for="dept_list" class="col-sm-3 control-label">근무부서</label>
 						<div class="col-sm-3">
-					<select class="form-control" id="dept_list" name="dept_list">
-
-						</select>
+							<select class="form-control" id="dept_list" name="dept_list">
+							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="emp_email" class="col-sm-3 control-label">이메일</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" id="emp_email" name="emp_email" placeholder="xxxx@xxxXX.xxx" required/>
+							<input type="text" class="form-control" id="emp_email" name="emp_email" placeholder="xxxx@xxxXX.xxx" required />
 						</div>
 					</div>
 					<div class="form-group">
@@ -134,11 +133,8 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 					<div class="form-group">
 						<label for="d_gender" class="col-sm-3 control-label">성별</label>
 						<div id="d_gender" class="col-sm-3">
-							<label class="radio-inline control-label">
-								<input type="radio" id="emp_male" name="emp_gender" value="남" checked>남
-							</label>
-							<label class="radio-inline control-label">
-								<input type="radio" id="emp_female" name="emp_gender" value="여">여
+							<label class="radio-inline control-label"> <input type="radio" id="emp_male" name="emp_gender" value="남" checked>남
+							</label> <label class="radio-inline control-label"> <input type="radio" id="emp_female" name="emp_gender" value="여">여
 							</label>
 						</div>
 					</div>
@@ -148,7 +144,7 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 						</div>
 					</div>
 				</form>
-			</div>			
+			</div>
 		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/_common/footer.jsp" />

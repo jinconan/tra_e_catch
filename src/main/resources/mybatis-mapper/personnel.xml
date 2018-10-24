@@ -165,7 +165,7 @@
 	<!-- 근로계약서 등록 -->
 	<insert id="insertLab" parameterType="map">
 	insert into docs
-	values(#{in_emp_no},910,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'근로계약서'||seq_doc_no.nextval)
+	values(#{in_emp_no},910,null,'계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'근로계약서'||seq_doc_no.nextval)
 	</insert>
 
 	<!-- 근로계약서 -->
@@ -184,7 +184,7 @@
 	<!--고용계약서 등록  -->
 	<insert id="insertSourcing" parameterType="map">
 		insert into docs
-		values(#{in_emp_no},920,null,'노예계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'고용계약서'||seq_doc_no.nextval)
+		values(#{in_emp_no},920,null,'계약완료',seq_doc_no.nextval,to_char(sysdate,'YYYY-MM-DD'),'고용계약서'||seq_doc_no.nextval)
 	</insert>
 	
 	<insert id="insertDept" parameterType="map">
