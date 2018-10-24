@@ -135,7 +135,7 @@ int addemp_no = Integer.parseInt(String.valueOf(session.getAttribute("emp_no")))
 						<label for="d_gender" class="col-sm-3 control-label">성별</label>
 						<div id="d_gender" class="col-sm-3">
 							<label class="radio-inline control-label">
-								<input type="radio" id="emp_male" name="emp_gen" value="남" checked>남
+								<input type="radio" id="emp_male" name="emp_gender" value="남" checked>남
 							</label>
 							<label class="radio-inline control-label">
 								<input type="radio" id="emp_female" name="emp_gender" value="여">여
