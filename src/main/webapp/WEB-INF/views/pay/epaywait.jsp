@@ -115,7 +115,7 @@ $(function(){
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					<div class="modal-header">
+					<div class="modal-header bg-primary">
 						<h5 class="modal-title" id="exampleModalLabel">결재 대기 문서</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
@@ -174,11 +174,11 @@ $(function(){
 					
 					<div class="modal-footer" >
 						<!-- <button type="button" class="btn btn-primary" id="printinp">Print</button> -->
-						<button type="button" class="btn btn-secondary" id="btn_con"
+						<button type="button" class="btn btn-success" id="btn_con"
 							data-dismiss="modal">승인</button>
-						<button type="button" class="btn btn-secondary" id="btn_deny"
+						<button type="button" class="btn btn-warning" id="btn_deny"
 							data-dismiss="modal">반려</button>
-						<button type="button" class="btn btn-secondary"
+						<button type="button" class="btn btn-danger"
 							data-dismiss="modal">닫기</button>
 
 					</div>

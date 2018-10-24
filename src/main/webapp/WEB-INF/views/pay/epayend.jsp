@@ -84,14 +84,14 @@ $(function() {
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
-					<div class="modal-header">
+					<div class="modal-header bg-primary">
 						<h5 class="modal-title" id="exampleModalLabel">결재 완료 문서</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body" style="">
+					<div class="modal-body">
 						<div id="d_viewwork">
 							<form id="f_update" method="post" action="<%=request.getContextPath()%>/payR/epay/epayend">
 								<input type="hidden" name="signVal" id="signVal">
@@ -140,9 +140,9 @@ $(function() {
 					</div>
 					
 					<div class="modal-footer" >
-						<button type="button" class="btn btn-secondary"
+					    <button type="button" class="btn btn-success" id="printinp">Print</button>
+						<button type="button" class="btn btn-danger"
 							data-dismiss="modal">닫기</button>
-					    <button type="button" class="btn btn-primary" id="printinp">Print</button>
 
 					</div>
 				</div>
